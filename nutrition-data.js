@@ -6,6 +6,7 @@ const DATA_TIMESTAMP = "2026-04-07T11:00:00 Europe/Paris";
 
 const NUTRITION_CONFIG = {
   targets: { kcal: 1770, prot: 190, carbs: 140, fat: 50 },
+  targetsAdri: { kcal: 1285, prot: 120, carbs: 100, fat: 45 },
   meals: ["desayuno", "almuerzo", "cena", "snack"],
   mealLabels: { desayuno: "Desayuno", almuerzo: "Almuerzo", cena: "Cena", snack: "Snack" },
   mealIcons: { desayuno: "\u{1F963}", almuerzo: "\u{1F372}", cena: "\u{1F319}", snack: "\u{1F34E}" },
@@ -1083,6 +1084,56 @@ const MEAL_LOG = [
       { foodId: "alpro-noisette-gourmande", name: "Leche Alpro Noisette", grams: 50, kcal: 14.5, prot: 0.2, carbs: 1.6, fat: 0.8 }
     ],
     timestamp: "2026-04-06T22:30:00"
+  },
+  // === 2026-04-06 (Domingo) - ADRIANA ===
+  {
+    id: "2026-04-06-A01",
+    date: "2026-04-06",
+    meal: "desayuno",
+    who: "adriana",
+    items: [
+      { foodId: "pancakes-de-proteina-adri-v2", name: "Pancakes de Proteina Adri V2", grams: 1, kcal: 547, prot: 64.2, carbs: 27.7, fat: 21.2 }
+    ],
+    timestamp: "2026-04-06T09:00:00"
+  },
+  {
+    id: "2026-04-06-A02",
+    date: "2026-04-06",
+    meal: "almuerzo",
+    who: "adriana",
+    items: [
+      { foodId: "salmorejo-alvalle", name: "Salmorejo", grams: 100, kcal: 54, prot: 1.2, carbs: 5.8, fat: 3 },
+      { foodId: "ricotta-casa-azzurra", name: "Ricotta", grams: 25, kcal: 43.5, prot: 2.8, carbs: 0.8, fat: 3.3 },
+      { foodId: "aceite-oliva", name: "Aceite de oliva (1/4 cdta)", grams: 1.1, kcal: 9.7, prot: 0, carbs: 0, fat: 1.1 },
+      { foodId: "pollo-pechuga-horneada", name: "Pollo horneado", grams: 48, kcal: 79.2, prot: 14.9, carbs: 0, fat: 1.7 },
+      { foodId: "pescado-salsa-limon-alcaparras", name: "Pescado salsa limon alcaparras", grams: 55, kcal: 56.5, prot: 8.3, carbs: 0.7, fat: 2.1 },
+      { foodId: "tortillarepupusa-ricotta", name: "Pupusarepatortilla", grams: 50, kcal: 153.9, prot: 6.1, carbs: 19.8, fat: 5.3 }
+    ],
+    timestamp: "2026-04-06T13:00:00"
+  },
+  {
+    id: "2026-04-06-A03",
+    date: "2026-04-06",
+    meal: "snack",
+    who: "adriana",
+    items: [
+      { foodId: "jeff-de-bruges-oeuf-paques", name: "Huevito Jeff de Bruges x1", grams: 13, kcal: 69.9, prot: 0.9, carbs: 6.8, fat: 4.3 }
+    ],
+    timestamp: "2026-04-06T16:00:00"
+  },
+  {
+    id: "2026-04-06-A04",
+    date: "2026-04-06",
+    meal: "cena",
+    who: "adriana",
+    items: [
+      { foodId: "pizza-regine-pizzou", name: "Pizza Régine Pizzou", grams: 220, kcal: 341, prot: 22.9, carbs: 42.2, fat: 10.1 },
+      { foodId: "aceite-oliva", name: "Aceite de oliva (1/4 cdta)", grams: 1.1, kcal: 9.7, prot: 0, carbs: 0, fat: 1.1 },
+      { foodId: "ricotta-casa-azzurra", name: "Ricotta (3 cdtas + 1/2 cda)", grams: 22.5, kcal: 39.2, prot: 2.5, carbs: 0.7, fat: 2.9 },
+      { foodId: "coca-cola-zero", name: "Coca-Cola Zero", grams: 200, kcal: 0.8, prot: 0, carbs: 0, fat: 0 },
+      { foodId: "alpro-noisette-gourmande", name: "Leche noisette", grams: 150, kcal: 43.5, prot: 0.6, carbs: 4.8, fat: 2.4 }
+    ],
+    timestamp: "2026-04-06T20:00:00"
   },
   // === 2026-04-07 (Lunes) - ADRIANA ===
   {
