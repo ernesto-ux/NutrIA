@@ -1,0 +1,40 @@
+{
+  "profile": {
+    "name": "Ernesto Otero",
+    "age": 34,
+    "height_cm": 175,
+    "goal_kg": 75,
+    "start_weight_kg": 89,
+    "start_date": "2026-04-03"
+  },
+  "weekly_snapshots": [
+    {
+      "week": "2026-W14",
+      "date": "2026-04-03",
+      "weight_kg": 89,
+      "avg_kcal": 1467,
+      "avg_prot": 132,
+      "avg_carbs": 123,
+      "avg_fat": 52,
+      "avg_deficit": -1046,
+      "exercise_total_kcal": 1650,
+      "exercise_days": 2,
+      "days_tracked": 5,
+      "estimated_fat_lost_g": 460,
+      "estimated_muscle_lost_g": 224,
+      "estimated_weight_lost_kg": 0.68,
+      "adherence_score": 0.40,
+      "risk_level": "aggressive",
+      "bmr": 1819,
+      "tdee_sedentary": 2182,
+      "notes": "Primera semana de tracking. Martes deficit extremo (-1860 kcal, neto 287). Proteina promedio 132g vs target 190g. 2 dias de ejercicio intenso (1075+575 kcal). Riesgo catabolismo alto.",
+      "daily_breakdown": [
+        {"date": "2026-03-29", "kcal": 1688, "prot": 71, "exercise": 0, "deficit": -494},
+        {"date": "2026-03-30", "kcal": 1398, "prot": 127, "exercise": 0, "deficit": -784},
+        {"date": "2026-03-31", "kcal": 1190, "prot": 135, "exercise": 0, "deficit": -992},
+        {"date": "2026-04-01", "kcal": 1362, "prot": 158, "exercise": 1075, "deficit": -1896},
+        {"date": "2026-04-02", "kcal": 1695, "prot": 170, "exercise": 575, "deficit": -1062}
+      ]
+    }
+  ]
+}

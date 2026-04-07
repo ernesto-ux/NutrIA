@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html><body>
+<h1>NutrIA - Reset localStorage</h1>
+<pre id="out"></pre>
+<button onclick="doReset()">RESET ALL NUTRIA DATA</button>
+<script>
+document.getElementById('out').textContent =
+  'Keys: ' + Object.keys(localStorage).filter(k=>k.startsWith('nutria')).join(', ') +
+  '\n\nOverrides: ' + localStorage.getItem('nutria_overrides_ernesto');
+function doReset() {
+  Object.keys(localStorage).filter(k=>k.startsWith('nutria')).forEach(k => localStorage.removeItem(k));
+  document.getElementById('out').textContent = 'DONE. Reload /';
+}
+</script>
+</body></html>

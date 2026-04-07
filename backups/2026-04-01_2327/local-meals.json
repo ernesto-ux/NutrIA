@@ -1,0 +1,41 @@
+{
+  "meals": [
+    {
+      "id": "2026-04-01-L1775065384650",
+      "date": "2026-04-01",
+      "meal": "cena",
+      "items": [
+        {
+          "foodId": "omelette-ligera-jamon",
+          "name": "Omelette Ligera con Jamon",
+          "grams": 110,
+          "kcal": 126.2,
+          "prot": 14.6,
+          "carbs": 1.4,
+          "fat": 6.6
+        }
+      ],
+      "timestamp": "2026-04-01T17:43:04.650Z",
+      "source": "local"
+    },
+    {
+      "id": "2026-04-01-L1775065395117",
+      "date": "2026-04-01",
+      "meal": "cena",
+      "items": [
+        {
+          "foodId": "danone-cottage-cheese",
+          "name": "Cottage Cheese Nature",
+          "grams": 50,
+          "kcal": 45,
+          "prot": 6,
+          "carbs": 0.8,
+          "fat": 2
+        }
+      ],
+      "timestamp": "2026-04-01T17:43:15.117Z",
+      "source": "local"
+    }
+  ],
+  "overrides": {}
+}
