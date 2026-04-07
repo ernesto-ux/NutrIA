@@ -1020,10 +1020,10 @@
   // ── MERGED DATA (nutrition-data.js + LocalStorage) ──────────────────
   function getAllMeals() {
     const overrides = getOverrides();
-    const fileMeals = currentUser === 'ernesto'
-      ? MEAL_LOG.filter(e => !overrides[e.id] || overrides[e.id] !== 'deleted')
-        .map(e => overrides[e.id] && overrides[e.id] !== 'deleted' ? { ...e, items: overrides[e.id], source: 'file' } : { ...e, source: 'file' })
-      : [];
+    const fileMeals = MEAL_LOG
+      .filter(e => (e.who || 'ernesto') === currentUser)
+      .filter(e => !overrides[e.id] || overrides[e.id] !== 'deleted')
+      .map(e => overrides[e.id] && overrides[e.id] !== 'deleted' ? { ...e, items: overrides[e.id], source: 'file' } : { ...e, source: 'file' });
     return [...fileMeals, ...getLocalMeals()];
   }
 
