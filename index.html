@@ -1426,6 +1426,44 @@
     navigator.clipboard.writeText(lines.join('\n')).then(() => showToast('Copiado para MFP'));
   };
 
+  // Copy JSON for Apple Health shortcut
+  function copyForHealth() {
+    const allMeals = getAllMeals();
+    const dayMeals = allMeals.filter(m => m.date === currentDate && m.user === currentUser);
+    if (dayMeals.length === 0) { showToast('Sin comidas hoy'); return; }
+
+    const records = [];
+    const MEAL_TIMES = { desayuno: '08:00', almuerzo: '13:00', cena: '20:00', snack: '16:00' };
+
+    MEAL_ORDER.forEach(m => {
+      const entries = dayMeals.filter(e => e.meal === m);
+      const items = entries.flatMap(e => e.items || []);
+      if (items.length === 0) return;
+
+      let kcal = 0, prot = 0, carbs = 0, fat = 0;
+      items.forEach(i => { kcal += i.kcal; prot += i.prot; carbs += i.carbs; fat += i.fat; });
+
+      // Use timestamp if available, otherwise default time
+      let time = MEAL_TIMES[m];
+      const ts = entries[0].timestamp;
+      if (ts && ts.includes('T')) {
+        const t = ts.split('T')[1];
+        time = t.substring(0, 5);
+      }
+
+      records.push({
+        date: currentDate + ' ' + time,
+        kcal: Math.round(kcal * 10) / 10,
+        prot: Math.round(prot * 10) / 10,
+        carbs: Math.round(carbs * 10) / 10,
+        fat: Math.round(fat * 10) / 10
+      });
+    });
+
+    navigator.clipboard.writeText(JSON.stringify(records))
+      .then(() => showToast(`Copiado ${records.length} comidas para Health`));
+  }
+
   function renderMFPList(mealItems, mealKcal, mealMacros) {
     let totalKcal = 0, totalP = 0, totalC = 0, totalF = 0;
     const groups = MEAL_ORDER.map(m => {
@@ -1829,6 +1867,7 @@
           <!-- Sync bar -->
           <div class="sync-bar">
             <button class="sync-btn" onclick="exportPending()" title="Copia los alimentos que no estan en la base de datos para buscarlos en Claude Code con /log-food">📋 Copiar pendientes para Claude</button>
+            <button class="sync-btn" onclick="copyForHealth()" title="Copia JSON al portapapeles para el atajo Apple Health">❤️ Copiar para Health</button>
             <button class="sync-btn" onclick="openUploadDish()" title="Sube un plato con nombre, porcion y macros manuales">🍽️ Subir plato</button>
           </div>
         </div>
