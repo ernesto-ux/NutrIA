@@ -1172,10 +1172,15 @@
     }
   }
 
-  // ── MERGED DATA (GitHub via local-meals.json) ──────────────────
+  // ── MERGED DATA (GitHub + MEAL_LOG fallback, deduplicated by id) ──
   function getAllMeals() {
     const overrides = getOverrides();
-    return getLocalMeals()
+    const ghMeals = getLocalMeals();
+    const ghIds = new Set(ghMeals.map(m => m.id));
+    const fallback = MEAL_LOG
+      .filter(e => !ghIds.has(e.id) && (e.who || 'ernesto') === currentUser)
+      .map(e => ({ ...e, source: 'file' }));
+    return [...ghMeals, ...fallback]
       .filter(e => !overrides[e.id] || overrides[e.id] !== 'deleted')
       .map(e => overrides[e.id] && overrides[e.id] !== 'deleted' ? { ...e, items: overrides[e.id] } : e);
   }

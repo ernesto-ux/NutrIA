@@ -748,8 +748,696 @@ const FOOD_DATABASE = [
   }
 ];
 
-// Meal log - migrated to local-meals.json (GitHub-only storage)
-const MEAL_LOG = [];
+// Meal log - read-only fallback. GitHub (local-meals.json) is source of truth.
+const MEAL_LOG = [
+  {
+    id: "2026-03-29-001",
+    date: "2026-03-29",
+    meal: "almuerzo",
+    items: [
+      { foodId: "menu-dia-29", name: "Menu dia 29", grams: 0, kcal: 1688, prot: 71, carbs: 212, fat: 64 }
+    ],
+    timestamp: "2026-03-29T13:00:00"
+  },
+  {
+    id: "2026-03-30-001",
+    date: "2026-03-30",
+    meal: "almuerzo",
+    items: [
+      { foodId: "menu-dia-30", name: "Menu dia 30", grams: 0, kcal: 1398, prot: 127, carbs: 112, fat: 49 }
+    ],
+    timestamp: "2026-03-30T13:00:00"
+  },
+  {
+    id: "2026-03-31-001",
+    date: "2026-03-31",
+    meal: "almuerzo",
+    items: [
+      { foodId: "menu-dia-31", name: "Menu dia 31", grams: 0, kcal: 1190, prot: 135, carbs: 74, fat: 44 }
+    ],
+    timestamp: "2026-03-31T13:00:00"
+  },
+  {
+    id: "2026-04-01-L1775065384650",
+    date: "2026-04-01",
+    meal: "cena",
+    items: [
+      { foodId: "omelette-ligera-jamon", name: "Omelette Ligera con Jamon", grams: 110, kcal: 126.2, prot: 14.6, carbs: 1.4, fat: 6.6 }
+    ],
+    timestamp: "2026-04-01T17:43:04.650Z"
+  },
+  {
+    id: "2026-04-01-L1775065395117",
+    date: "2026-04-01",
+    meal: "cena",
+    items: [
+      { foodId: "danone-cottage-cheese", name: "Cottage Cheese Nature", grams: 50, kcal: 45, prot: 6, carbs: 0.8, fat: 2 }
+    ],
+    timestamp: "2026-04-01T17:43:15.117Z"
+  },
+  {
+    id: "2026-04-01-004",
+    date: "2026-04-01",
+    meal: "snack",
+    items: [
+      { foodId: "siggis-skyr-nature", name: "Skyr Siggis Nature", grams: 80, kcal: 50.4, prot: 8.8, carbs: 3.2, fat: 0.2 },
+      { foodId: "fresas-frescas", name: "Fresas Frescas", grams: 20, kcal: 6.4, prot: 0.1, carbs: 1.5, fat: 0.1 },
+      { foodId: "melon-fresco", name: "Melon Fresco", grams: 30, kcal: 10.2, prot: 0.2, carbs: 2.5, fat: 0.1 }
+    ],
+    timestamp: "2026-04-01T19:00:00"
+  },
+  {
+    id: "2026-04-01-001",
+    date: "2026-04-01",
+    meal: "desayuno",
+    items: [
+      { foodId: "frittata-light", name: "Frittata Light", grams: 110, kcal: 150.3, prot: 13.1, carbs: 2.8, fat: 9.7 },
+      { foodId: "danone-cottage-cheese", name: "Cottage Cheese Danone", grams: 50, kcal: 45, prot: 6, carbs: 0.8, fat: 2 },
+      { foodId: "wasa-leger", name: "Wasa Leger (1 tartine)", grams: 9.6, kcal: 32.4, prot: 0.9, carbs: 6, fat: 0.1 },
+      { foodId: "eafit-pure-isolate-vanille", name: "Proteina EAFit Vanille", grams: 40, kcal: 146.4, prot: 34.4, carbs: 1.3, fat: 0.4 },
+      { foodId: "alpro-noisette-gourmande", name: "Leche Alpro Noisette", grams: 80, kcal: 23.2, prot: 0.3, carbs: 2.6, fat: 1.3 }
+    ],
+    timestamp: "2026-04-01T21:45:00"
+  },
+  {
+    id: "2026-04-01-005",
+    date: "2026-04-01",
+    meal: "snack",
+    items: [
+      { foodId: "ricotta-casa-azzurra", name: "Ricotta Casa Azzurra", grams: 25, kcal: 43.5, prot: 2.8, carbs: 0.8, fat: 3.3 },
+      { foodId: "aguacate-fresco", name: "Aguacate Fresco", grams: 25, kcal: 40, prot: 0.5, carbs: 2.1, fat: 3.7 },
+      { foodId: "fresas-frescas", name: "Fresas Frescas (4 ud.)", grams: 48, kcal: 15.4, prot: 0.3, carbs: 3.7, fat: 0.1 }
+    ],
+    timestamp: "2026-04-01T22:00:00"
+  },
+  {
+    id: "2026-04-01-L1775081087154",
+    date: "2026-04-01",
+    meal: "snack",
+    items: [
+      { foodId: "wasa-leger", name: "Tartine Croustillante Leger", grams: 9.6, kcal: 32.4, prot: 0.9, carbs: 6, fat: 0.1 }
+    ],
+    timestamp: "2026-04-01T22:04:47.154Z"
+  },
+  {
+    id: "2026-04-01-006",
+    date: "2026-04-01",
+    meal: "cena",
+    items: [
+      { foodId: "eafit-pure-isolate-vanille", name: "Proteina EAFit Vanille", grams: 40, kcal: 146.4, prot: 34.4, carbs: 1.3, fat: 0.4 },
+      { foodId: "alpro-noisette-gourmande", name: "Leche Alpro Noisette", grams: 50, kcal: 14.5, prot: 0.2, carbs: 1.6, fat: 0.8 }
+    ],
+    timestamp: "2026-04-01T22:30:00"
+  },
+  {
+    id: "2026-04-01-003",
+    date: "2026-04-01",
+    meal: "almuerzo",
+    items: [
+      { foodId: "fleury-michon-tendre-poulet-roti", name: "Tendre Poulet Roti Fleury Michon", grams: 16.25, kcal: 17.6, prot: 3.3, carbs: 0.1, fat: 0.5 },
+      { foodId: "lentejas-carne-vegetales", name: "Lentejas con Carne y Vegetales", grams: 416, kcal: 416.4, prot: 31.6, carbs: 50.3, fat: 10.8 }
+    ],
+    timestamp: "2026-04-01T23:30:00"
+  },
+  {
+    id: "2026-04-02-L1775132385557",
+    date: "2026-04-02",
+    meal: "almuerzo",
+    items: [
+      { foodId: "lentejas-carne-vegetales", name: "Lentejas con Carne y Vegetales", grams: 558, kcal: 558.6, prot: 42.4, carbs: 67.5, fat: 14.5 }
+    ],
+    timestamp: "2026-04-02T12:19:45.557Z"
+  },
+  {
+    id: "2026-04-02-L1775132480724",
+    date: "2026-04-02",
+    meal: "desayuno",
+    items: [
+      { foodId: "bowl-de-skir-con-fresas-avellanas-y-miel", name: "Bowl de skir con fresas, avellanas y miel", grams: 109, kcal: 86.4, prot: 6.6, carbs: 10.9, fat: 2.4 },
+      { foodId: "frittata-ranchera", name: "Frittata Ranchera", grams: 296, kcal: 309.9, prot: 24.9, carbs: 8.6, fat: 19.5 }
+    ],
+    timestamp: "2026-04-02T12:21:20.724Z"
+  },
+  {
+    id: "2026-04-02-L1775145572391",
+    date: "2026-04-02",
+    meal: "snack",
+    items: [
+      { foodId: "eafit-pure-isolate-vanille", name: "Pure Isolate Whey Vanille", grams: 40, kcal: 146.4, prot: 34.4, carbs: 1.3, fat: 0.4 }
+    ],
+    timestamp: "2026-04-02T15:59:32.391Z"
+  },
+  {
+    id: "2026-04-02-003",
+    date: "2026-04-02",
+    meal: "cena",
+    items: [
+      { foodId: "omelette-cottage-salmon", name: "Omelette Cottage Salmon (1/2 receta)", grams: 248, kcal: 245.5, prot: 25.5, carbs: 6, fat: 13.1 }
+    ],
+    timestamp: "2026-04-02T21:30:00"
+  },
+  {
+    id: "2026-04-02-L1775165521901",
+    date: "2026-04-02",
+    meal: "cena",
+    items: [
+      { foodId: "lentejas-carne-vegetales", name: "Lentejas con Carne y Vegetales", grams: 250, kcal: 250.3, prot: 19, carbs: 30.3, fat: 6.5 }
+    ],
+    timestamp: "2026-04-02T21:32:01.901Z"
+  },
+  {
+    id: "2026-04-02-L1775165597455",
+    date: "2026-04-02",
+    meal: "snack",
+    items: [
+      { foodId: "eafit-pure-isolate-vanille", name: "Pure Isolate Whey Vanille", grams: 10, kcal: 36.6, prot: 8.6, carbs: 0.3, fat: 0.1 }
+    ],
+    timestamp: "2026-04-02T21:33:17.455Z"
+  },
+  {
+    id: "2026-04-02-L1775166171502",
+    date: "2026-04-02",
+    meal: "snack",
+    items: [
+      { foodId: "hipro-vanille", name: "HiPro Vanille", grams: 80, kcal: 61.6, prot: 8.2, carbs: 4.7, fat: 0.6 }
+    ],
+    timestamp: "2026-04-02T21:42:51.502Z"
+  },
+  {
+    id: "2026-04-03-001",
+    date: "2026-04-03",
+    meal: "desayuno",
+    items: [
+      { foodId: "hipro-coco", name: "HiPro Coco", grams: 160, kcal: 89.6, prot: 15, carbs: 5.9, fat: 0.6 },
+      { foodId: "huevo-entero", name: "Huevo Entero", grams: 50, kcal: 77.5, prot: 6.5, carbs: 0.6, fat: 5.5 },
+      { foodId: "clara-huevo", name: "Clara de Huevo", grams: 33, kcal: 17.2, prot: 3.6, carbs: 0.2, fat: 0.1 },
+      { foodId: "danone-cottage-cheese", name: "Cottage Cheese Danone", grams: 50, kcal: 45, prot: 6, carbs: 0.8, fat: 2 }
+    ],
+    timestamp: "2026-04-03T09:15:00"
+  },
+  {
+    id: "2026-04-03-L1775222138905",
+    date: "2026-04-03",
+    meal: "almuerzo",
+    items: [
+      { foodId: "lentejas-carne-vegetales", name: "Lentejas con Carne y Vegetales", grams: 480, kcal: 480.5, prot: 36.5, carbs: 58.1, fat: 12.5 }
+    ],
+    timestamp: "2026-04-03T13:15:38.905Z"
+  },
+  {
+    id: "2026-04-03-L1775222149706",
+    date: "2026-04-03",
+    meal: "almuerzo",
+    items: [
+      { foodId: "melon-fresco", name: "Melon Fresco", grams: 30, kcal: 10.2, prot: 0.2, carbs: 2.5, fat: 0.1 }
+    ],
+    timestamp: "2026-04-03T13:15:49.706Z"
+  },
+  {
+    id: "2026-04-03-002",
+    date: "2026-04-03",
+    meal: "snack",
+    items: [
+      { foodId: "jeff-de-bruges-oeuf-paques", name: "Petit Oeuf Pâques Jeff de Bruges (violet)", grams: 13, kcal: 69.9, prot: 0.9, carbs: 6.8, fat: 4.3 },
+      { foodId: "mere-poulard-biscuit-beurre", name: "Biscuit Beurre Mère Poulard x2", grams: 31.2, kcal: 156, prot: 2, carbs: 22, fat: 7 },
+      { foodId: "fresas-frescas", name: "Fresas Frescas x2", grams: 24, kcal: 7.7, prot: 0.2, carbs: 1.8, fat: 0.1 },
+      { foodId: "wasa-leger", name: "Cracker Wasa Leger", grams: 9.6, kcal: 32.4, prot: 0.9, carbs: 6, fat: 0.1 },
+      { foodId: "ricotta-casa-azzurra", name: "Ricotta Casa Azzurra", grams: 50, kcal: 87, prot: 5.5, carbs: 1.5, fat: 6.5 }
+    ],
+    timestamp: "2026-04-03T16:30:00"
+  },
+  {
+    id: "2026-04-03-003",
+    date: "2026-04-03",
+    meal: "cena",
+    items: [
+      { foodId: "pollo-pechuga-horneada", name: "Pechuga de Pollo Horneada", grams: 162, kcal: 267.3, prot: 50.2, carbs: 0, fat: 5.8 },
+      { foodId: "tomate-cherry", name: "Tomate Cherry", grams: 50, kcal: 9, prot: 0.5, carbs: 2, fat: 0.1 },
+      { foodId: "quinoa-cocida", name: "Quinoa Cocida", grams: 27, kcal: 32.4, prot: 1.2, carbs: 5.8, fat: 0.5 },
+      { foodId: "endive", name: "Endive (1/2)", grams: 75, kcal: 12.8, prot: 1, carbs: 2.6, fat: 0.2 },
+      { foodId: "aderezo-fromage-blanc-aguacate-cilantro", name: "Aderezo Fromage Blanc Aguacate Cilantro", grams: 65, kcal: 57.9, prot: 1.7, carbs: 3.1, fat: 4.7 }
+    ],
+    timestamp: "2026-04-03T21:00:00"
+  },
+  {
+    id: "2026-04-03-004",
+    date: "2026-04-03",
+    meal: "snack",
+    items: [
+      { foodId: "oreo-protein-shake", name: "Oreo Protein Shake", grams: 250, kcal: 231.5, prot: 14.8, carbs: 26.5, fat: 8 }
+    ],
+    timestamp: "2026-04-03T22:00:00"
+  },
+  {
+    id: "2026-04-04-001",
+    date: "2026-04-04",
+    meal: "desayuno",
+    items: [
+      { foodId: "oreo-protein-shake", name: "Oreo Protein Shake", grams: 100, kcal: 92.6, prot: 5.9, carbs: 10.6, fat: 3.2 },
+      { foodId: "eafit-pure-isolate-vanille", name: "Proteina EAFit Vanille", grams: 40, kcal: 146.4, prot: 34.4, carbs: 1.3, fat: 0.4 }
+    ],
+    timestamp: "2026-04-04T09:00:00"
+  },
+  {
+    id: "2026-04-04-002",
+    date: "2026-04-04",
+    meal: "almuerzo",
+    items: [
+      { foodId: "charcuterie-variada", name: "Charcuterie Variada (jambon, coppa, saucisson)", grams: 120, kcal: 300, prot: 21.6, carbs: 1.2, fat: 24 },
+      { foodId: "tomate-cherry", name: "Tomates Cherry", grams: 100, kcal: 18, prot: 0.9, carbs: 3.9, fat: 0.2 },
+      { foodId: "mozzarella-mini-billes", name: "Mini Mozzarella", grams: 60, kcal: 168, prot: 10.2, carbs: 0.6, fat: 13.2 },
+      { foodId: "toast-feuillete-tomate-seche", name: "Toast Feuilleté Tomate Séché x3", grams: 45, kcal: 200.3, prot: 2.9, carbs: 18, fat: 13.1 },
+      { foodId: "chips-classiques", name: "Chips", grams: 20, kcal: 107.2, prot: 1.2, carbs: 10, fat: 7 },
+      { foodId: "vin-blanc-chablis", name: "Vin Chablis Blanc x2 copas", grams: 250, kcal: 175, prot: 0, carbs: 2, fat: 0 },
+      { foodId: "champagne-brut", name: "Champagne Mumm x1 copa", grams: 125, kcal: 100, prot: 0, carbs: 1.5, fat: 0 },
+      { foodId: "pain-baguette", name: "Pan Baguette x2 pedazos", grams: 80, kcal: 219.2, prot: 6.8, carbs: 44, fat: 1 }
+    ],
+    timestamp: "2026-04-04T13:00:00"
+  },
+  {
+    id: "2026-04-04-003",
+    date: "2026-04-04",
+    meal: "almuerzo",
+    items: [
+      { foodId: "cheesecake-oreo-beurre", name: "Cheesecake Oreo & Beurre (1/8)", grams: 194, kcal: 684.6, prot: 11.3, carbs: 54.7, fat: 47.3 },
+      { foodId: "coulis-fraises-maison", name: "Coulis de Fresas", grams: 30, kcal: 33, prot: 0.2, carbs: 8.3, fat: 0.1 }
+    ],
+    timestamp: "2026-04-04T14:00:00"
+  },
+  {
+    id: "2026-04-04-004",
+    date: "2026-04-04",
+    meal: "snack",
+    items: [
+      { foodId: "hipro-vanille", name: "HiPro Vanille (1/2)", grams: 80, kcal: 61.6, prot: 8.2, carbs: 4.7, fat: 0.6 }
+    ],
+    timestamp: "2026-04-04T17:00:00"
+  },
+  {
+    id: "2026-04-04-005",
+    date: "2026-04-04",
+    meal: "cena",
+    items: [
+      { foodId: "huevo-entero", name: "Huevo (1/2)", grams: 25, kcal: 38.8, prot: 3.3, carbs: 0.3, fat: 2.8 },
+      { foodId: "ricotta-casa-azzurra", name: "Ricotta", grams: 25, kcal: 43.5, prot: 2.8, carbs: 0.8, fat: 3.3 },
+      { foodId: "danone-cottage-cheese", name: "Cottage Cheese", grams: 50, kcal: 45, prot: 6, carbs: 0.8, fat: 2 },
+      { foodId: "pollo-pechuga-horneada", name: "Pechuga Pollo Asado", grams: 30, kcal: 49.5, prot: 9.3, carbs: 0, fat: 1.1 },
+      { foodId: "wasa-leger", name: "Cracker Wasa Leger", grams: 9.6, kcal: 32.4, prot: 0.9, carbs: 6, fat: 0.1 },
+      { foodId: "aguacate-fresco", name: "Salsa de Aguacate", grams: 30, kcal: 48, prot: 0.6, carbs: 2.6, fat: 4.4 },
+      { foodId: "coca-cola-zero", name: "Coca-Cola Zero", grams: 330, kcal: 1.3, prot: 0, carbs: 0, fat: 0 }
+    ],
+    timestamp: "2026-04-04T21:00:00"
+  },
+  {
+    id: "2026-04-04-L1775379336634",
+    date: "2026-04-04",
+    meal: "cena",
+    items: [
+      { foodId: "lentejas-carne-vegetales", name: "Lentejas con Carne y Vegetales", grams: 300, kcal: 300.3, prot: 22.8, carbs: 36.3, fat: 7.8 }
+    ],
+    timestamp: "2026-04-05T08:55:36.634Z"
+  },
+  {
+    id: "2026-04-05-001",
+    date: "2026-04-05",
+    meal: "desayuno",
+    items: [
+      { foodId: "wasa-leger", name: "Wasa Leger (x2)", grams: 19.2, kcal: 64.9, prot: 1.7, carbs: 11.9, fat: 0.3 },
+      { foodId: "kiwi-fresco", name: "Kiwi (1/2)", grams: 38, kcal: 23.2, prot: 0.4, carbs: 5.6, fat: 0.2 },
+      { foodId: "hipro-banane", name: "HiPro Banane", grams: 160, kcal: 112, prot: 19.8, carbs: 6.4, fat: 0.6 },
+      { foodId: "aguacate-fresco", name: "Aguacate", grams: 45, kcal: 72, prot: 0.9, carbs: 3.8, fat: 6.6 },
+      { foodId: "danone-cottage-cheese", name: "Cottage Cheese", grams: 100, kcal: 90, prot: 12, carbs: 1.6, fat: 3.9 }
+    ],
+    timestamp: "2026-04-05T12:15:00"
+  },
+  {
+    id: "2026-04-05-003",
+    date: "2026-04-05",
+    meal: "almuerzo",
+    items: [
+      { foodId: "pollo-pechuga-horneada", name: "Pollo al Horno", grams: 180, kcal: 297, prot: 55.8, carbs: 0, fat: 6.5 },
+      { foodId: "tortillarepupusa-ricotta", name: "Tortillarepupusa con Ricotta", grams: 53, kcal: 163.1, prot: 6.4, carbs: 21, fat: 5.6 },
+      { foodId: "tomate-cherry", name: "Tomate Cherry x4", grams: 60, kcal: 10.8, prot: 0.5, carbs: 2.3, fat: 0.1 },
+      { foodId: "coca-cola-zero", name: "Coca-Cola Zero", grams: 330, kcal: 1.3, prot: 0, carbs: 0, fat: 0 },
+      { foodId: "danone-cottage-cheese", name: "Cottage Cheese", grams: 50, kcal: 45, prot: 6, carbs: 0.8, fat: 2 },
+      { foodId: "mostaza-amarilla", name: "Mostaza (1 cda)", grams: 15, kcal: 9.9, prot: 0.6, carbs: 0.6, fat: 0.5 },
+      { foodId: "harissa-paste", name: "Harissa (1 cda)", grams: 15, kcal: 15, prot: 0.5, carbs: 0.9, fat: 1.1 }
+    ],
+    timestamp: "2026-04-05T14:00:00"
+  },
+  {
+    id: "2026-04-05-002",
+    date: "2026-04-05",
+    meal: "snack",
+    items: [
+      { foodId: "creme-halva-chocolate-cookie", name: "Creme London Halva Cookie (1/2)", grams: 46, kcal: 220.8, prot: 3.2, carbs: 23.9, fat: 11.5 }
+    ],
+    timestamp: "2026-04-05T16:00:00"
+  },
+  {
+    id: "2026-04-05-004",
+    date: "2026-04-05",
+    meal: "cena",
+    items: [
+      { foodId: "arroz-bomba-cocido", name: "Arroz Bomba Cocido", grams: 95, kcal: 123.5, prot: 2.6, carbs: 26.6, fat: 0.3 },
+      { foodId: "pescado-salsa-limon-alcaparras", name: "Pescado Salsa Limon y Alcaparras", grams: 205, kcal: 210.7, prot: 30.9, carbs: 2.5, fat: 7.8 }
+    ],
+    timestamp: "2026-04-05T21:00:00"
+  },
+  {
+    id: "2026-04-05-L1775431527857",
+    date: "2026-04-05",
+    meal: "cena",
+    items: [
+      { foodId: "coca-cola-zero", name: "Coca-Cola Zero", grams: 200, kcal: 0.8, prot: 0, carbs: 0, fat: 0 }
+    ],
+    timestamp: "2026-04-05T23:25:27.857Z"
+  },
+  {
+    id: "2026-04-05-L1775431583057",
+    date: "2026-04-05",
+    meal: "snack",
+    items: [
+      { foodId: "eafit-pure-isolate-vanille", name: "Pure Isolate Whey Vanille", grams: 20, kcal: 73.2, prot: 17.2, carbs: 0.7, fat: 0.2 }
+    ],
+    timestamp: "2026-04-05T23:26:23.057Z"
+  },
+  {
+    id: "2026-04-05-L1775433329439",
+    date: "2026-04-05",
+    meal: "snack",
+    items: [
+      { foodId: "jeff-de-bruges-oeuf-paques", name: "Petit Oeuf de Pâques Fourré", grams: 10, kcal: 53.8, prot: 0.7, carbs: 5.2, fat: 3.3 }
+    ],
+    timestamp: "2026-04-05T23:55:29.439Z"
+  },
+  {
+    id: "2026-04-06-001",
+    date: "2026-04-06",
+    meal: "desayuno",
+    items: [
+      { foodId: "protein-packed-banana-pb", name: "Protein Packed Banana Peanut Butter (60%)", grams: 209, kcal: 208.4, prot: 26.2, carbs: 18.6, fat: 3.5 },
+      { foodId: "mantequilla-de-mani", name: "Mantequilla de mani", grams: 15, kcal: 88.2, prot: 3.8, carbs: 3, fat: 7.5 }
+    ],
+    timestamp: "2026-04-06T09:00:00"
+  },
+  {
+    id: "2026-04-06-A01",
+    date: "2026-04-06",
+    meal: "desayuno", who: "adriana",
+    items: [
+      { foodId: "pancakes-de-proteina-adri-v2", name: "Pancakes de Proteina Adri V2", grams: 1, kcal: 547, prot: 64.2, carbs: 27.7, fat: 21.2 }
+    ],
+    timestamp: "2026-04-06T09:00:00"
+  },
+  {
+    id: "2026-04-06-002",
+    date: "2026-04-06",
+    meal: "almuerzo",
+    items: [
+      { foodId: "salmorejo-alvalle", name: "Salmorejo Alvalle", grams: 200, kcal: 108, prot: 2.4, carbs: 11.6, fat: 6 },
+      { foodId: "ricotta-casa-azzurra", name: "Ricotta Casa Azzurra", grams: 30, kcal: 52.2, prot: 3.3, carbs: 0.9, fat: 3.9 },
+      { foodId: "aceite-oliva", name: "Aceite de oliva (1/4 cdta)", grams: 1.1, kcal: 9.7, prot: 0, carbs: 0, fat: 1.1 },
+      { foodId: "pollo-pechuga-horneada", name: "Pollo horneado", grams: 50, kcal: 82.5, prot: 15.5, carbs: 0, fat: 1.8 },
+      { foodId: "pescado-salsa-limon-alcaparras", name: "Pescado salsa limon alcaparras", grams: 35, kcal: 36, prot: 5.3, carbs: 0.4, fat: 1.3 },
+      { foodId: "tortillarepupusa-ricotta", name: "Pupusarepatotilla", grams: 58, kcal: 178.5, prot: 7, carbs: 23, fat: 6.1 },
+      { foodId: "coca-cola-zero", name: "Coca-Cola Zero", grams: 200, kcal: 0.8, prot: 0, carbs: 0, fat: 0 },
+      { foodId: "tomate-cherry", name: "Tomate cherry", grams: 15, kcal: 2.7, prot: 0.1, carbs: 0.6, fat: 0 }
+    ],
+    timestamp: "2026-04-06T13:00:00"
+  },
+  {
+    id: "2026-04-06-A02",
+    date: "2026-04-06",
+    meal: "almuerzo", who: "adriana",
+    items: [
+      { foodId: "salmorejo-alvalle", name: "Salmorejo", grams: 100, kcal: 54, prot: 1.2, carbs: 5.8, fat: 3 },
+      { foodId: "ricotta-casa-azzurra", name: "Ricotta", grams: 25, kcal: 43.5, prot: 2.8, carbs: 0.8, fat: 3.3 },
+      { foodId: "aceite-oliva", name: "Aceite de oliva (1/4 cdta)", grams: 1.1, kcal: 9.7, prot: 0, carbs: 0, fat: 1.1 },
+      { foodId: "pollo-pechuga-horneada", name: "Pollo horneado", grams: 48, kcal: 79.2, prot: 14.9, carbs: 0, fat: 1.7 },
+      { foodId: "pescado-salsa-limon-alcaparras", name: "Pescado salsa limon alcaparras", grams: 55, kcal: 56.5, prot: 8.3, carbs: 0.7, fat: 2.1 },
+      { foodId: "tortillarepupusa-ricotta", name: "Pupusarepatortilla", grams: 50, kcal: 153.9, prot: 6.1, carbs: 19.8, fat: 5.3 }
+    ],
+    timestamp: "2026-04-06T13:00:00"
+  },
+  {
+    id: "2026-04-06-A-almuerzo",
+    date: "2026-04-06",
+    meal: "almuerzo", who: "adriana",
+    items: [
+      { foodId: "salmorejo-alvalle", name: "Salmorejo", grams: 100, kcal: 54, prot: 1.2, carbs: 5.8, fat: 3 },
+      { foodId: "ricotta-casa-azzurra", name: "Ricotta", grams: 25, kcal: 43.5, prot: 2.8, carbs: 0.8, fat: 3.3 },
+      { foodId: "aceite-oliva", name: "Aceite de oliva (1/4 cdta)", grams: 1.1, kcal: 9.7, prot: 0, carbs: 0, fat: 1.1 },
+      { foodId: "pollo-pechuga-horneada", name: "Pollo horneado", grams: 48, kcal: 79.2, prot: 14.9, carbs: 0, fat: 1.7 },
+      { foodId: "pescado-salsa-limon-alcaparras", name: "Pescado salsa limon alcaparras", grams: 55, kcal: 56.5, prot: 8.3, carbs: 0.7, fat: 2.1 },
+      { foodId: "tortillarepupusa-ricotta", name: "Pupusarepatortilla", grams: 50, kcal: 153.9, prot: 6.1, carbs: 19.8, fat: 5.3 }
+    ],
+    timestamp: "2026-04-06T13:00:00.000Z"
+  },
+  {
+    id: "2026-04-06-A03",
+    date: "2026-04-06",
+    meal: "snack", who: "adriana",
+    items: [
+      { foodId: "jeff-de-bruges-oeuf-paques", name: "Huevito Jeff de Bruges x1", grams: 13, kcal: 69.9, prot: 0.9, carbs: 6.8, fat: 4.3 }
+    ],
+    timestamp: "2026-04-06T16:00:00"
+  },
+  {
+    id: "2026-04-06-A-snack",
+    date: "2026-04-06",
+    meal: "snack", who: "adriana",
+    items: [
+      { foodId: "jeff-de-bruges-oeuf-paques", name: "Huevito Jeff de Bruges x1", grams: 13, kcal: 69.9, prot: 0.9, carbs: 6.8, fat: 4.3 }
+    ],
+    timestamp: "2026-04-06T16:00:00.000Z"
+  },
+  {
+    id: "2026-04-06-003",
+    date: "2026-04-06",
+    meal: "snack",
+    items: [
+      { foodId: "jeff-de-bruges-oeuf-paques", name: "Huevito Jeff de Bruges x2", grams: 26, kcal: 139.9, prot: 1.7, carbs: 13.5, fat: 8.6 },
+      { foodId: "oreo-protein-shake", name: "Oreo Protein Shake", grams: 400, kcal: 370.4, prot: 23.6, carbs: 42.4, fat: 12.8 },
+      { foodId: "alpro-noisette-gourmande", name: "Leche noisette extra", grams: 50, kcal: 14.5, prot: 0.2, carbs: 1.6, fat: 0.8 },
+      { foodId: "galleta-oreo-sin-crema", name: "8 tapitas oreo sin crema", grams: 30, kcal: 141.3, prot: 0.9, carbs: 22.1, fat: 6.2 }
+    ],
+    timestamp: "2026-04-06T17:00:00"
+  },
+  {
+    id: "2026-04-06-A04",
+    date: "2026-04-06",
+    meal: "cena", who: "adriana",
+    items: [
+      { foodId: "pizza-regine-pizzou", name: "Pizza Régine Pizzou", grams: 220, kcal: 341, prot: 22.9, carbs: 42.2, fat: 10.1 },
+      { foodId: "aceite-oliva", name: "Aceite de oliva (1/4 cdta)", grams: 1.1, kcal: 9.7, prot: 0, carbs: 0, fat: 1.1 },
+      { foodId: "ricotta-casa-azzurra", name: "Ricotta (3 cdtas + 1/2 cda)", grams: 22.5, kcal: 39.2, prot: 2.5, carbs: 0.7, fat: 2.9 },
+      { foodId: "coca-cola-zero", name: "Coca-Cola Zero", grams: 200, kcal: 0.8, prot: 0, carbs: 0, fat: 0 },
+      { foodId: "alpro-noisette-gourmande", name: "Leche noisette", grams: 150, kcal: 43.5, prot: 0.6, carbs: 4.8, fat: 2.4 }
+    ],
+    timestamp: "2026-04-06T20:00:00"
+  },
+  {
+    id: "2026-04-06-A-cena",
+    date: "2026-04-06",
+    meal: "cena", who: "adriana",
+    items: [
+      { foodId: "pizza-regine-pizzou", name: "Pizza Régine Pizzou", grams: 220, kcal: 341, prot: 22.9, carbs: 42.2, fat: 10.1 },
+      { foodId: "aceite-oliva", name: "Aceite de oliva (1/4 cdta)", grams: 1.1, kcal: 9.7, prot: 0, carbs: 0, fat: 1.1 },
+      { foodId: "ricotta-casa-azzurra", name: "Ricotta (3 cdtas + 1/2 cda)", grams: 22.5, kcal: 39.2, prot: 2.5, carbs: 0.7, fat: 2.9 },
+      { foodId: "coca-cola-zero", name: "Coca-Cola Zero", grams: 200, kcal: 0.8, prot: 0, carbs: 0, fat: 0 },
+      { foodId: "alpro-noisette-gourmande", name: "Leche noisette", grams: 150, kcal: 43.5, prot: 0.6, carbs: 4.8, fat: 2.4 }
+    ],
+    timestamp: "2026-04-06T20:00:00.000Z"
+  },
+  {
+    id: "2026-04-06-004",
+    date: "2026-04-06",
+    meal: "cena",
+    items: [
+      { foodId: "pizza-regine-pizzou", name: "Pizza Régine Pizzou", grams: 330, kcal: 512, prot: 34.3, carbs: 63.4, fat: 15.2 },
+      { foodId: "coca-cola-zero", name: "Coca-Cola Zero", grams: 200, kcal: 0.8, prot: 0, carbs: 0, fat: 0 }
+    ],
+    timestamp: "2026-04-06T21:00:00"
+  },
+  {
+    id: "2026-04-06-L1775512880333",
+    date: "2026-04-06",
+    meal: "desayuno", who: "adriana",
+    items: [
+      { foodId: "pancakes-de-proteina-adri-v2", name: "Pancakes de Proteina Adri V2", grams: 1, kcal: 547, prot: 64.2, carbs: 27.7, fat: 21.2 }
+    ],
+    timestamp: "2026-04-06T22:01:20.333Z"
+  },
+  {
+    id: "2026-04-06-L1775514376856",
+    date: "2026-04-06",
+    meal: "cena",
+    items: [
+      { foodId: "aceite-oliva", name: "Aceite de Oliva", grams: 3, kcal: 26.5, prot: 0, carbs: 0, fat: 3 }
+    ],
+    timestamp: "2026-04-06T22:26:16.856Z"
+  },
+  {
+    id: "2026-04-06-005",
+    date: "2026-04-06",
+    meal: "snack",
+    items: [
+      { foodId: "eafit-pure-isolate-vanille", name: "Pure Isolate Whey Vanille", grams: 40, kcal: 146.4, prot: 34.4, carbs: 1.3, fat: 0.4 },
+      { foodId: "galleta-oreo-sin-crema", name: "Galleta Oreo wafer x8", grams: 60, kcal: 282.6, prot: 1.7, carbs: 44.1, fat: 12.4 },
+      { foodId: "alpro-noisette-gourmande", name: "Leche Alpro Noisette", grams: 50, kcal: 14.5, prot: 0.2, carbs: 1.6, fat: 0.8 }
+    ],
+    timestamp: "2026-04-06T22:30:00"
+  },
+  {
+    id: "2026-04-07-A01",
+    date: "2026-04-07",
+    meal: "desayuno", who: "adriana",
+    items: [
+      { foodId: "hipro-coco", name: "HiPro Coco", grams: 152, kcal: 85.1, prot: 14.3, carbs: 5.6, fat: 0.6 },
+      { foodId: "siggis-skyr-nature", name: "Skyr Siggis Nature", grams: 104, kcal: 65.5, prot: 11.4, carbs: 4.2, fat: 0.2 },
+      { foodId: "fresas-frescas", name: "Fresas", grams: 25, kcal: 8, prot: 0.2, carbs: 1.9, fat: 0.1 },
+      { foodId: "blueberries-frescas", name: "Blueberries", grams: 22, kcal: 12.5, prot: 0.2, carbs: 3.2, fat: 0.1 }
+    ],
+    timestamp: "2026-04-07T08:30:00"
+  },
+  {
+    id: "2026-04-07-001",
+    date: "2026-04-07",
+    meal: "desayuno",
+    items: [
+      { foodId: "hipro-coco", name: "HiPro Coco", grams: 160, kcal: 89.6, prot: 15, carbs: 5.9, fat: 0.6 },
+      { foodId: "pancakes-de-proteina-adri-v2", name: "Pancake Proteina Adri", grams: 30, kcal: 46.9, prot: 5.5, carbs: 2.4, fat: 1.8 },
+      { foodId: "banana-fresca", name: "Banano", grams: 20, kcal: 17.8, prot: 0.2, carbs: 4.6, fat: 0.1 }
+    ],
+    timestamp: "2026-04-07T08:30:00"
+  },
+  {
+    id: "2026-04-07-A02",
+    date: "2026-04-07",
+    meal: "snack", who: "adriana",
+    items: [
+      { foodId: "baiocchi-pistachio", name: "Baiocchi Pistachio (x1 galleta)", grams: 9.3, kcal: 47, prot: 0.8, carbs: 5.5, fat: 2.3 },
+      { foodId: "pancakes-de-proteina-adri-v2", name: "Pancake Proteina Adri", grams: 62, kcal: 96.9, prot: 11.4, carbs: 4.9, fat: 3.8 },
+      { foodId: "danone-cottage-cheese", name: "Cottage Cheese", grams: 110, kcal: 99, prot: 13.2, carbs: 1.8, fat: 4.3 },
+      { foodId: "fresas-frescas", name: "Fresas", grams: 30, kcal: 9.6, prot: 0.2, carbs: 2.3, fat: 0.1 }
+    ],
+    timestamp: "2026-04-07T11:00:00"
+  },
+  {
+    id: "2026-04-07-002",
+    date: "2026-04-07",
+    meal: "snack",
+    items: [
+      { foodId: "mandarina-fresca", name: "Mandarina", grams: 80, kcal: 37.6, prot: 0.6, carbs: 9.6, fat: 0.2 },
+      { foodId: "mango-fresco", name: "Mango", grams: 55, kcal: 33, prot: 0.4, carbs: 8.3, fat: 0.2 },
+      { foodId: "fresas-frescas", name: "Fresas (x2)", grams: 24, kcal: 7.7, prot: 0.2, carbs: 1.8, fat: 0.1 },
+      { foodId: "eafit-pure-isolate-vanille", name: "EAFit Vanilla Shake", grams: 40, kcal: 146.4, prot: 34.4, carbs: 1.3, fat: 0.4 },
+      { foodId: "alpro-noisette-gourmande", name: "Leche Alpro Noisette", grams: 50, kcal: 14.5, prot: 0.2, carbs: 1.6, fat: 0.8 }
+    ],
+    timestamp: "2026-04-07T11:30:00"
+  },
+  {
+    id: "2026-04-07-A03",
+    date: "2026-04-07",
+    meal: "almuerzo", who: "adriana",
+    items: [
+      { foodId: "rigatoni-cocida", name: "Rigatoni Cocida", grams: 130, kcal: 204.1, prot: 7.2, carbs: 40.3, fat: 1.2 },
+      { foodId: "beef-green-beans-meat-bowl", name: "Carne con Ejote y Cebolla", grams: 130, kcal: 189.7, prot: 16.4, carbs: 6.5, fat: 11.1 },
+      { foodId: "danone-cottage-cheese", name: "Cottage Cheese", grams: 100, kcal: 90, prot: 12, carbs: 1.6, fat: 3.9 }
+    ],
+    timestamp: "2026-04-07T13:00:00"
+  },
+  {
+    id: "2026-04-07-003",
+    date: "2026-04-07",
+    meal: "almuerzo",
+    items: [
+      { foodId: "rigatoni-cocida", name: "Rigatoni Cocida", grams: 200, kcal: 314, prot: 11, carbs: 62, fat: 1.8 },
+      { foodId: "beef-green-beans-meat-bowl", name: "Carne y Ejote con Cebolla", grams: 128, kcal: 186.8, prot: 16.1, carbs: 6.4, fat: 10.9 }
+    ],
+    timestamp: "2026-04-07T13:30:00"
+  },
+  {
+    id: "2026-04-07-005",
+    date: "2026-04-07",
+    meal: "snack",
+    items: [
+      { foodId: "wasa-leger", name: "Wasa Léger (1 tartine)", grams: 9.6, kcal: 32.4, prot: 0.9, carbs: 6, fat: 0.1 },
+      { foodId: "ricotta-casa-azzurra", name: "Ricotta", grams: 35, kcal: 60.9, prot: 3.9, carbs: 1.1, fat: 4.6 }
+    ],
+    timestamp: "2026-04-07T16:00:00"
+  },
+  {
+    id: "2026-04-07-A04",
+    date: "2026-04-07",
+    meal: "cena", who: "adriana",
+    items: [
+      { foodId: "clara-huevo", name: "Clara de Huevo (x1)", grams: 33, kcal: 17.2, prot: 3.6, carbs: 0.2, fat: 0.1 },
+      { foodId: "huevo-entero", name: "Huevo Entero (x1)", grams: 50, kcal: 77.5, prot: 6.5, carbs: 0.6, fat: 5.5 },
+      { foodId: "pimiento-rojo-crudo", name: "Pimiento Rojo", grams: 11, kcal: 3.4, prot: 0.1, carbs: 0.7, fat: 0 },
+      { foodId: "jamon-fm-25-moins-sel", name: "Jamón FM -25% Sel", grams: 35, kcal: 40.3, prot: 7, carbs: 0.4, fat: 1.2 },
+      { foodId: "beaufort-rape", name: "Beaufort Rapé", grams: 20, kcal: 81, prot: 5.4, carbs: 0, fat: 6.6 },
+      { foodId: "aceite-oliva", name: "AOVE (1/2 tsp)", grams: 2.5, kcal: 22.1, prot: 0, carbs: 0, fat: 2.5 },
+      { foodId: "ricotta-casa-azzurra", name: "Ricotta", grams: 64, kcal: 111.4, prot: 7, carbs: 1.9, fat: 8.3 }
+    ],
+    timestamp: "2026-04-07T20:00:00"
+  },
+  {
+    id: "2026-04-07-004",
+    date: "2026-04-07",
+    meal: "cena",
+    items: [
+      { foodId: "danone-cottage-cheese", name: "Cottage Cheese", grams: 100, kcal: 90, prot: 12, carbs: 1.6, fat: 3.9 },
+      { foodId: "clara-huevo", name: "Clara de Huevo (x2)", grams: 66, kcal: 34.3, prot: 7.3, carbs: 0.5, fat: 0.1 },
+      { foodId: "huevo-entero", name: "Huevo Entero (x1)", grams: 50, kcal: 77.5, prot: 6.5, carbs: 0.6, fat: 5.5 },
+      { foodId: "beaufort-rape", name: "Beaufort Rapé", grams: 25, kcal: 101.3, prot: 6.8, carbs: 0, fat: 8.3 },
+      { foodId: "pimiento-rojo-crudo", name: "Pimiento Rojo", grams: 17, kcal: 5.3, prot: 0.2, carbs: 1, fat: 0.1 },
+      { foodId: "jamon-fm-25-moins-sel", name: "Jamón FM -25% Sel", grams: 44, kcal: 50.6, prot: 8.8, carbs: 0.4, fat: 1.5 },
+      { foodId: "maasdam-queso", name: "Maasdam", grams: 14, kcal: 48.7, prot: 3.5, carbs: 0, fat: 3.8 },
+      { foodId: "aceite-oliva", name: "AOVE (1/2 tsp)", grams: 2.5, kcal: 22.1, prot: 0, carbs: 0, fat: 2.5 }
+    ],
+    timestamp: "2026-04-07T20:30:00"
+  },
+  {
+    id: "2026-04-08-L1775637666710",
+    date: "2026-04-08",
+    meal: "desayuno",
+    items: [
+      { foodId: "cafe-negro", name: "Café Negro (sin azucar)", grams: 120, kcal: 2.4, prot: 0.1, carbs: 0, fat: 0 },
+      { foodId: "hipro-banane", name: "HiPro Banane", grams: 160, kcal: 112, prot: 19.8, carbs: 6.4, fat: 0.6 }
+    ],
+    timestamp: "2026-04-08T06:21:06.710Z"
+  },
+  {
+    id: "2026-04-08-L1775655446964",
+    date: "2026-04-08",
+    meal: "desayuno",
+    items: [
+      { foodId: "pancakes-de-proteina-adri-v2", name: "Pancakes de Proteina Adri V2", grams: 30, kcal: 46.9, prot: 5.5, carbs: 2.4, fat: 1.8 }
+    ],
+    timestamp: "2026-04-08T11:17:26.964Z"
+  },
+  {
+    id: "2026-04-08-L1775655454297",
+    date: "2026-04-08",
+    meal: "desayuno",
+    items: [
+      { foodId: "ricotta-casa-azzurra", name: "Ricotta Casa Azzurra", grams: 50, kcal: 87, prot: 5.5, carbs: 1.5, fat: 6.5 }
+    ],
+    timestamp: "2026-04-08T11:17:34.297Z"
+  },
+  {
+    id: "2026-04-08-L1775655726869",
+    date: "2026-04-08",
+    meal: "snack",
+    items: [
+      { foodId: "eafit-pure-isolate-vanille", name: "Pure Isolate Whey Vanille", grams: 40, kcal: 146.4, prot: 34.4, carbs: 1.3, fat: 0.4 }
+    ],
+    timestamp: "2026-04-08T11:22:06.869Z"
+  }
+
+];
 
 // Activity log - gym sessions and step data
 // Steps from Samsung Health, gym from Apple Watch/tracker
