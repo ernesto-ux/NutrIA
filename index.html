@@ -1180,6 +1180,7 @@
     const fallback = MEAL_LOG
       .filter(e => !ghIds.has(e.id) && (e.who || 'ernesto') === currentUser)
       .map(e => ({ ...e, source: 'file' }));
+    console.log('[getAllMeals] ghMeals:', ghMeals.length, 'fallback:', fallback.length, 'MEAL_LOG:', MEAL_LOG.length, 'user:', currentUser);
     return [...ghMeals, ...fallback]
       .filter(e => !overrides[e.id] || overrides[e.id] !== 'deleted')
       .map(e => overrides[e.id] && overrides[e.id] !== 'deleted' ? { ...e, items: overrides[e.id] } : e);
