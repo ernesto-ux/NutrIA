@@ -1435,6 +1435,15 @@ const MEAL_LOG = [
       { foodId: "eafit-pure-isolate-vanille", name: "Pure Isolate Whey Vanille", grams: 40, kcal: 146.4, prot: 34.4, carbs: 1.3, fat: 0.4 }
     ],
     timestamp: "2026-04-08T11:22:06.869Z"
+  },
+  {
+    id: "2026-04-08-L1775663325750",
+    date: "2026-04-08",
+    meal: "snack",
+    items: [
+      { foodId: "queso-maduro-espanol", name: "Queso Maduro Español", grams: 15, kcal: 60, prot: 3.8, carbs: 0.1, fat: 5.0 }
+    ],
+    timestamp: "2026-04-08T15:48:45.000Z"
   }
 
 ];

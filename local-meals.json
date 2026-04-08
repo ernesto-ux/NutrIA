@@ -2362,6 +2362,25 @@
       "timestamp": "2026-04-08T11:22:06.869Z",
       "source": "local",
       "user": "ernesto"
+    },
+    {
+      "id": "2026-04-08-L1775663325750",
+      "date": "2026-04-08",
+      "meal": "snack",
+      "items": [
+        {
+          "foodId": "queso-maduro-espanol",
+          "name": "Queso Maduro Español",
+          "grams": 15,
+          "kcal": 60,
+          "prot": 3.8,
+          "carbs": 0.1,
+          "fat": 5.0
+        }
+      ],
+      "timestamp": "2026-04-08T15:48:45.000Z",
+      "source": "local",
+      "user": "ernesto"
     }
   ],
   "overrides": {
