@@ -1250,7 +1250,190 @@ const MEAL_LOG = [
       { foodId: "ricotta-casa-azzurra", name: "Ricotta", grams: 35, kcal: 60.9, prot: 3.9, carbs: 1.1, fat: 4.6 }
     ],
     timestamp: "2026-04-07T16:00:00"
+  },
+  {
+    id: "2026-04-01-L1775065384650",
+    date: "2026-04-01",
+    meal: "cena",
+    items: [
+      { foodId: "omelette-ligera-jamon", name: "Omelette Ligera con Jamon", grams: 110, kcal: 126.2, prot: 14.6, carbs: 1.4, fat: 6.6 }
+    ],
+    timestamp: "2026-04-01T17:43:04.650Z"
+  },
+  {
+    id: "2026-04-01-L1775065395117",
+    date: "2026-04-01",
+    meal: "cena",
+    items: [
+      { foodId: "danone-cottage-cheese", name: "Cottage Cheese Nature", grams: 50, kcal: 45, prot: 6, carbs: 0.8, fat: 2 }
+    ],
+    timestamp: "2026-04-01T17:43:15.117Z"
+  },
+  {
+    id: "2026-04-01-L1775081087154",
+    date: "2026-04-01",
+    meal: "snack",
+    items: [
+      { foodId: "wasa-leger", name: "Tartine Croustillante Leger", grams: 9.6, kcal: 32.4, prot: 0.9, carbs: 6, fat: 0.1 }
+    ],
+    timestamp: "2026-04-01T22:04:47.154Z"
+  },
+  {
+    id: "2026-04-02-L1775132385557",
+    date: "2026-04-02",
+    meal: "almuerzo",
+    items: [
+      { foodId: "lentejas-carne-vegetales", name: "Lentejas con Carne y Vegetales", grams: 558, kcal: 558.6, prot: 42.4, carbs: 67.5, fat: 14.5 }
+    ],
+    timestamp: "2026-04-02T12:19:45.557Z"
+  },
+  {
+    id: "2026-04-02-L1775132480724",
+    date: "2026-04-02",
+    meal: "desayuno",
+    items: [
+      { foodId: "bowl-de-skir-con-fresas-avellanas-y-miel", name: "Bowl de skir con fresas, avellanas y miel", grams: 109, kcal: 86.4, prot: 6.6, carbs: 10.9, fat: 2.4 },
+      { foodId: "frittata-ranchera", name: "Frittata Ranchera", grams: 296, kcal: 309.9, prot: 24.9, carbs: 8.6, fat: 19.5 }
+    ],
+    timestamp: "2026-04-02T12:21:20.724Z"
+  },
+  {
+    id: "2026-04-02-L1775145572391",
+    date: "2026-04-02",
+    meal: "snack",
+    items: [
+      { foodId: "eafit-pure-isolate-vanille", name: "Pure Isolate Whey Vanille", grams: 40, kcal: 146.4, prot: 34.4, carbs: 1.3, fat: 0.4 }
+    ],
+    timestamp: "2026-04-02T15:59:32.391Z"
+  },
+  {
+    id: "2026-04-02-L1775165521901",
+    date: "2026-04-02",
+    meal: "cena",
+    items: [
+      { foodId: "lentejas-carne-vegetales", name: "Lentejas con Carne y Vegetales", grams: 250, kcal: 250.3, prot: 19, carbs: 30.3, fat: 6.5 }
+    ],
+    timestamp: "2026-04-02T21:32:01.901Z"
+  },
+  {
+    id: "2026-04-02-L1775165597455",
+    date: "2026-04-02",
+    meal: "snack",
+    items: [
+      { foodId: "eafit-pure-isolate-vanille", name: "Pure Isolate Whey Vanille", grams: 10, kcal: 36.6, prot: 8.6, carbs: 0.3, fat: 0.1 }
+    ],
+    timestamp: "2026-04-02T21:33:17.455Z"
+  },
+  {
+    id: "2026-04-02-L1775166171502",
+    date: "2026-04-02",
+    meal: "snack",
+    items: [
+      { foodId: "hipro-vanille", name: "HiPro Vanille", grams: 80, kcal: 61.6, prot: 8.2, carbs: 4.7, fat: 0.6 }
+    ],
+    timestamp: "2026-04-02T21:42:51.502Z"
+  },
+  {
+    id: "2026-04-03-L1775222138905",
+    date: "2026-04-03",
+    meal: "almuerzo",
+    items: [
+      { foodId: "lentejas-carne-vegetales", name: "Lentejas con Carne y Vegetales", grams: 480, kcal: 480.5, prot: 36.5, carbs: 58.1, fat: 12.5 }
+    ],
+    timestamp: "2026-04-03T13:15:38.905Z"
+  },
+  {
+    id: "2026-04-03-L1775222149706",
+    date: "2026-04-03",
+    meal: "almuerzo",
+    items: [
+      { foodId: "melon-fresco", name: "Melon Fresco", grams: 30, kcal: 10.2, prot: 0.2, carbs: 2.5, fat: 0.1 }
+    ],
+    timestamp: "2026-04-03T13:15:49.706Z"
+  },
+  {
+    id: "2026-04-04-L1775379336634",
+    date: "2026-04-04",
+    meal: "cena",
+    items: [
+      { foodId: "lentejas-carne-vegetales", name: "Lentejas con Carne y Vegetales", grams: 300, kcal: 300.3, prot: 22.8, carbs: 36.3, fat: 7.8 }
+    ],
+    timestamp: "2026-04-05T08:55:36.634Z"
+  },
+  {
+    id: "2026-04-05-L1775431527857",
+    date: "2026-04-05",
+    meal: "cena",
+    items: [
+      { foodId: "coca-cola-zero", name: "Coca-Cola Zero", grams: 200, kcal: 0.8, prot: 0, carbs: 0, fat: 0 }
+    ],
+    timestamp: "2026-04-05T23:25:27.857Z"
+  },
+  {
+    id: "2026-04-05-L1775431583057",
+    date: "2026-04-05",
+    meal: "snack",
+    items: [
+      { foodId: "eafit-pure-isolate-vanille", name: "Pure Isolate Whey Vanille", grams: 20, kcal: 73.2, prot: 17.2, carbs: 0.7, fat: 0.2 }
+    ],
+    timestamp: "2026-04-05T23:26:23.057Z"
+  },
+  {
+    id: "2026-04-05-L1775433329439",
+    date: "2026-04-05",
+    meal: "snack",
+    items: [
+      { foodId: "jeff-de-bruges-oeuf-paques", name: "Petit Oeuf de Pâques Fourré", grams: 10, kcal: 53.8, prot: 0.7, carbs: 5.2, fat: 3.3 }
+    ],
+    timestamp: "2026-04-05T23:55:29.439Z"
+  },
+  {
+    id: "2026-04-06-L1775514376856",
+    date: "2026-04-06",
+    meal: "cena",
+    items: [
+      { foodId: "aceite-oliva", name: "Aceite de Oliva", grams: 3, kcal: 26.5, prot: 0, carbs: 0, fat: 3 }
+    ],
+    timestamp: "2026-04-06T22:26:16.856Z"
+  },
+  {
+    id: "2026-04-08-L1775637666710",
+    date: "2026-04-08",
+    meal: "desayuno",
+    items: [
+      { foodId: "cafe-negro", name: "Café Negro (sin azucar)", grams: 120, kcal: 2.4, prot: 0.1, carbs: 0, fat: 0 },
+      { foodId: "hipro-banane", name: "HiPro Banane", grams: 160, kcal: 112, prot: 19.8, carbs: 6.4, fat: 0.6 }
+    ],
+    timestamp: "2026-04-08T06:21:06.710Z"
+  },
+  {
+    id: "2026-04-08-L1775655446964",
+    date: "2026-04-08",
+    meal: "desayuno",
+    items: [
+      { foodId: "pancakes-de-proteina-adri-v2", name: "Pancakes de Proteina Adri V2", grams: 30, kcal: 46.9, prot: 5.5, carbs: 2.4, fat: 1.8 }
+    ],
+    timestamp: "2026-04-08T11:17:26.964Z"
+  },
+  {
+    id: "2026-04-08-L1775655454297",
+    date: "2026-04-08",
+    meal: "desayuno",
+    items: [
+      { foodId: "ricotta-casa-azzurra", name: "Ricotta Casa Azzurra", grams: 50, kcal: 87, prot: 5.5, carbs: 1.5, fat: 6.5 }
+    ],
+    timestamp: "2026-04-08T11:17:34.297Z"
+  },
+  {
+    id: "2026-04-08-L1775655726869",
+    date: "2026-04-08",
+    meal: "snack",
+    items: [
+      { foodId: "eafit-pure-isolate-vanille", name: "Pure Isolate Whey Vanille", grams: 40, kcal: 146.4, prot: 34.4, carbs: 1.3, fat: 0.4 }
+    ],
+    timestamp: "2026-04-08T11:22:06.869Z"
   }
+
 ];
 
 // Activity log - gym sessions and step data
