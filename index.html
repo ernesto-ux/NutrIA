@@ -1427,7 +1427,7 @@
   };
 
   // Copy JSON for Apple Health shortcut
-  function copyForHealth() {
+  window.copyForHealth = function() {
     // Read directly from the DOM food-cards to avoid any data source issues
     const cards = document.querySelectorAll('.food-card[data-meal]');
     if (cards.length === 0) { alert('Sin comidas para copiar'); return; }
@@ -1458,7 +1458,7 @@
     const text = lines.join('\n');
     // Use prompt() - works on every browser including iOS Safari
     window.prompt('Select All + Copy this text, then run NutrIA shortcut:', text);
-  }
+  };
 
   function renderMFPList(mealItems, mealKcal, mealMacros) {
     let totalKcal = 0, totalP = 0, totalC = 0, totalF = 0;
