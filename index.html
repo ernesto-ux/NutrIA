@@ -1648,6 +1648,7 @@
           <div class="view-toggle">
             <button class="view-btn ${mealView==='kanban'?'active':''}" onclick="setMealView('kanban')">Kanban</button>
             <button class="view-btn ${mealView==='list'?'active':''}" onclick="setMealView('list')">Lista</button>
+            <button class="view-btn" onclick="copyForHealth()" title="Copia para Apple Health shortcut">❤️ Health</button>
           </div>
         </div>
         <div class="kanban-view" style="${mealView==='list'?'display:none':''}">${kanbanCols}</div>
@@ -1886,7 +1887,7 @@
 
           <!-- Sync bar -->
           <div class="sync-bar">
-            <button class="sync-btn" onclick="copyForHealth()" title="Copia datos al portapapeles para el atajo Apple Health">❤️ Copiar para Health</button>
+            <!-- Health copy moved to Lista button -->
             <button class="sync-btn" onclick="openUploadDish()" title="Sube un plato con nombre, porcion y macros manuales">🍽️ Subir plato</button>
           </div>
         </div>
