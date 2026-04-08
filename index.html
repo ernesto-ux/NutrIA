@@ -4372,6 +4372,9 @@
   loadServerData().then(() => render()).catch(() => render());
 })();
 </script>
-<!-- save-fab removed -->
+<script>
+// Suppress Chrome PWA install prompt (the floating diskette button)
+window.addEventListener('beforeinstallprompt', e => e.preventDefault());
+</script>
 </body>
 </html>
