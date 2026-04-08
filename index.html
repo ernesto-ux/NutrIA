@@ -1429,8 +1429,9 @@
   // Copy JSON for Apple Health shortcut
   function copyForHealth() {
     const allMeals = getAllMeals();
-    const dayMeals = allMeals.filter(m => m.date === currentDate && m.user === currentUser);
-    if (dayMeals.length === 0) { showToast('Sin comidas hoy'); return; }
+    // getAllMeals already filters by currentUser, don't double-filter
+    const dayMeals = allMeals.filter(m => m.date === currentDate);
+    if (dayMeals.length === 0) { alert('Sin comidas para ' + currentDate); return; }
 
     const records = [];
     const MEAL_TIMES = { desayuno: '08:00', almuerzo: '13:00', cena: '20:00', snack: '16:00' };
@@ -1464,8 +1465,13 @@
     const lines = records.map(r => `${r.date}|${r.kcal}|${r.prot}|${r.carbs}|${r.fat}`);
     const text = lines.join('\n');
 
-    // Always show modal — clipboard API is unreliable on iOS Safari
-    showCopyModal(text, records.length);
+    // Show modal with text to copy
+    try {
+      showCopyModal(text, records.length);
+    } catch(e) {
+      // Ultimate fallback
+      prompt('Copy this text:', text);
+    }
   }
 
   function showCopyModal(text, count) {
@@ -1530,7 +1536,7 @@
             <span class="mfp-kcal">${Math.round(totalKcal)} kcal · P${round1(totalP)}g · C${round1(totalC)}g · F${round1(totalF)}g</span>
           </div>
         </div>
-        <button class="mfp-copy-btn" onclick="copyForMFP()">📋 Copiar para MyFitnessPal</button>
+        <!-- MFP copy removed -->
       </div>`;
   }
 
@@ -4366,6 +4372,6 @@
   loadServerData().then(() => render()).catch(() => render());
 })();
 </script>
-<button id="save-fab" class="save-fab" onclick="saveAll()" title="Guardar todo a disco">&#128190;</button>
+<!-- save-fab removed -->
 </body>
 </html>
