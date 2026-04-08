@@ -1132,7 +1132,7 @@
     render();
   }
 
-  // Auto-clear pending items that have been logged in MEAL_LOG or FOOD_DATABASE
+  // Auto-clear pending items that have been logged
   function autoCleanPending() {
     const items = getPendingFoods();
     if (items.length === 0) return;
@@ -1172,14 +1172,12 @@
     }
   }
 
-  // ── MERGED DATA (nutrition-data.js + LocalStorage) ──────────────────
+  // ── MERGED DATA (GitHub via local-meals.json) ──────────────────
   function getAllMeals() {
     const overrides = getOverrides();
-    const fileMeals = MEAL_LOG
-      .filter(e => (e.who || 'ernesto') === currentUser)
+    return getLocalMeals()
       .filter(e => !overrides[e.id] || overrides[e.id] !== 'deleted')
-      .map(e => overrides[e.id] && overrides[e.id] !== 'deleted' ? { ...e, items: overrides[e.id], source: 'file' } : { ...e, source: 'file' });
-    return [...fileMeals, ...getLocalMeals()];
+      .map(e => overrides[e.id] && overrides[e.id] !== 'deleted' ? { ...e, items: overrides[e.id] } : e);
   }
 
   // TARGETS is now a function: TARGETS() returns current user's targets
@@ -1338,7 +1336,7 @@
       end = today;
     } else {
       // 'todo' - find first logged date
-      const allDates = MEAL_LOG.map(e => e.date).sort();
+      const allDates = getAllMeals().map(e => e.date).sort();
       if (allDates.length === 0) return [];
       start = allDates[0];
       end = today;
@@ -3966,25 +3964,11 @@
       }
     }
 
-    if (source === 'local') {
-      const meals = getLocalMeals();
-      const entry = meals.find(e => e.id === entryId);
-      if (entry && entry.items[itemIdx]) {
-        recalcItem(entry.items[itemIdx]);
-        saveLocalMeals(meals);
-      }
-    } else {
-      // File entry: save override in LocalStorage
-      const fileEntry = MEAL_LOG.find(e => e.id === entryId);
-      if (fileEntry) {
-        const overrides = getOverrides();
-        const items = overrides[entryId] && overrides[entryId] !== 'deleted' ? [...overrides[entryId]] : fileEntry.items.map(i => ({...i}));
-        if (items[itemIdx]) {
-          recalcItem(items[itemIdx]);
-          overrides[entryId] = items;
-          saveOverrides(overrides);
-        }
-      }
+    const meals = getLocalMeals();
+    const entry = meals.find(e => e.id === entryId);
+    if (entry && entry.items[itemIdx]) {
+      recalcItem(entry.items[itemIdx]);
+      saveLocalMeals(meals);
     }
     showToast('✏️ ' + foodName + ' actualizado a ' + g + 'g');
     render();
@@ -3993,29 +3977,14 @@
   window.deleteFoodItem = function (entryId, itemIdx, source) {
     if (!confirm('Eliminar este alimento?')) return;
 
-    if (source === 'local') {
-      const meals = getLocalMeals();
-      const entryIndex = meals.findIndex(e => e.id === entryId);
-      if (entryIndex >= 0) {
-        meals[entryIndex].items.splice(itemIdx, 1);
-        if (meals[entryIndex].items.length === 0) {
-          meals.splice(entryIndex, 1);
-          if (_hasServer) fetch('/api/delete-meal', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ id: entryId }) }).catch(() => {});
-        } else {
-          if (_hasServer) fetch('/api/meal', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(meals[entryIndex]) }).catch(() => {});
-        }
-        saveLocalMeals(meals);
+    const meals = getLocalMeals();
+    const entryIndex = meals.findIndex(e => e.id === entryId);
+    if (entryIndex >= 0) {
+      meals[entryIndex].items.splice(itemIdx, 1);
+      if (meals[entryIndex].items.length === 0) {
+        meals.splice(entryIndex, 1);
       }
-    } else {
-      // File entry: mark as deleted or remove item
-      const fileEntry = MEAL_LOG.find(e => e.id === entryId);
-      if (fileEntry) {
-        const overrides = getOverrides();
-        const items = overrides[entryId] && overrides[entryId] !== 'deleted' ? [...overrides[entryId]] : fileEntry.items.map(i => ({...i}));
-        items.splice(itemIdx, 1);
-        overrides[entryId] = items.length === 0 ? 'deleted' : items;
-        saveOverrides(overrides);
-      }
+      saveLocalMeals(meals);
     }
     showToast('🗑️ Eliminado');
     render();
@@ -4025,59 +3994,27 @@
   window.moveFoodItem = function (entryId, itemIdx, source, fromMeal, toMeal) {
     if (fromMeal === toMeal) return;
 
-    if (source === 'local') {
-      const meals = getLocalMeals();
-      const entry = meals.find(e => e.id === entryId);
-      if (!entry || !entry.items[itemIdx]) return;
-      const item = entry.items.splice(itemIdx, 1)[0];
+    const meals = getLocalMeals();
+    const entry = meals.find(e => e.id === entryId);
+    if (!entry || !entry.items[itemIdx]) return;
+    const item = entry.items.splice(itemIdx, 1)[0];
 
-      // Find or create a target entry for toMeal on same date
-      let target = meals.find(e => e.date === entry.date && e.meal === toMeal);
-      if (target) {
-        target.items.push(item);
-      } else {
-        const newId = entry.date + '-L' + Date.now();
-        target = { id: newId, date: entry.date, meal: toMeal, items: [item], timestamp: new Date().toISOString(), source: 'local', user: currentUser };
-        meals.push(target);
-      }
-
-      // Clean up empty source entry
-      if (entry.items.length === 0) {
-        const idx = meals.indexOf(entry);
-        if (idx >= 0) meals.splice(idx, 1);
-        fetch('/api/delete-meal', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ id: entryId }) }).catch(() => {});
-      } else {
-        fetch('/api/meal', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(entry) }).catch(() => {});
-      }
-      fetch('/api/meal', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(target) }).catch(() => {});
-      saveLocalMeals(meals);
+    // Find or create a target entry for toMeal on same date
+    let target = meals.find(e => e.date === entry.date && e.meal === toMeal);
+    if (target) {
+      target.items.push(item);
     } else {
-      // File entry: use overrides to move item
-      const fileEntry = MEAL_LOG.find(e => e.id === entryId);
-      if (!fileEntry) return;
-      const overrides = getOverrides();
-      const items = overrides[entryId] && overrides[entryId] !== 'deleted'
-        ? [...overrides[entryId].map(i => ({...i}))]
-        : fileEntry.items.map(i => ({...i}));
-      if (!items[itemIdx]) return;
-      const item = items.splice(itemIdx, 1)[0];
-
-      // Mark source entry override
-      overrides[entryId] = items.length === 0 ? 'deleted' : items;
-
-      // Add as a new local meal entry in the target meal
-      const meals = getLocalMeals();
-      let target = meals.find(e => e.date === fileEntry.date && e.meal === toMeal);
-      if (target) {
-        target.items.push(item);
-      } else {
-        target = { id: fileEntry.date + '-L' + Date.now(), date: fileEntry.date, meal: toMeal, items: [item], timestamp: new Date().toISOString(), source: 'local', user: currentUser };
-        meals.push(target);
-      }
-      fetch('/api/meal', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(target) }).catch(() => {});
-      saveOverrides(overrides);
-      saveLocalMeals(meals);
+      const newId = entry.date + '-L' + Date.now();
+      target = { id: newId, date: entry.date, meal: toMeal, items: [item], timestamp: new Date().toISOString(), source: 'local', user: currentUser };
+      meals.push(target);
     }
+
+    // Clean up empty source entry
+    if (entry.items.length === 0) {
+      const idx = meals.indexOf(entry);
+      if (idx >= 0) meals.splice(idx, 1);
+    }
+    saveLocalMeals(meals);
     showToast('↔️ Movido a ' + (MEAL_LABELS[toMeal] || toMeal));
     render();
   };
