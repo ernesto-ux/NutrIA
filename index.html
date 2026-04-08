@@ -1467,7 +1467,7 @@
     // Try clipboard API first, fallback to prompt for iOS Safari
     if (navigator.clipboard && navigator.clipboard.writeText) {
       navigator.clipboard.writeText(text)
-        .then(() => showToast(`Copiado ${records.length} comidas para Health`))
+        .then(() => showToast(`\u2764\uFE0F Copiado ${records.length} comidas`))
         .catch(() => showCopyModal(text, records.length));
     } else {
       showCopyModal(text, records.length);
