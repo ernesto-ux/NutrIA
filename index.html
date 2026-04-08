@@ -1428,66 +1428,36 @@
 
   // Copy JSON for Apple Health shortcut
   function copyForHealth() {
-    const allMeals = getAllMeals();
-    // getAllMeals already filters by currentUser, don't double-filter
-    const dayMeals = allMeals.filter(m => m.date === currentDate);
-    if (dayMeals.length === 0) { alert('Sin comidas para ' + currentDate); return; }
+    // Read directly from the DOM food-cards to avoid any data source issues
+    const cards = document.querySelectorAll('.food-card[data-meal]');
+    if (cards.length === 0) { alert('Sin comidas para copiar'); return; }
 
-    const records = [];
-    const MEAL_TIMES = { desayuno: '08:00', almuerzo: '13:00', cena: '20:00', snack: '16:00' };
-
-    MEAL_ORDER.forEach(m => {
-      const entries = dayMeals.filter(e => e.meal === m);
-      const items = entries.flatMap(e => e.items || []);
-      if (items.length === 0) return;
-
-      let kcal = 0, prot = 0, carbs = 0, fat = 0;
-      items.forEach(i => { kcal += i.kcal; prot += i.prot; carbs += i.carbs; fat += i.fat; });
-
-      // Use timestamp if available, otherwise default time
-      let time = MEAL_TIMES[m];
-      const ts = entries[0].timestamp;
-      if (ts && ts.includes('T')) {
-        const t = ts.split('T')[1];
-        time = t.substring(0, 5);
-      }
-
-      records.push({
-        date: currentDate + ' ' + time,
-        kcal: Math.round(kcal * 10) / 10,
-        prot: Math.round(prot * 10) / 10,
-        carbs: Math.round(carbs * 10) / 10,
-        fat: Math.round(fat * 10) / 10
-      });
+    // Aggregate by meal
+    const mealTotals = {};
+    cards.forEach(card => {
+      const meal = card.getAttribute('data-meal');
+      const kcal = parseFloat(card.getAttribute('data-kcal')) || 0;
+      const prot = parseFloat(card.getAttribute('data-prot')) || 0;
+      const carbs = parseFloat(card.getAttribute('data-carbs')) || 0;
+      const fat = parseFloat(card.getAttribute('data-fat')) || 0;
+      if (!mealTotals[meal]) mealTotals[meal] = { kcal: 0, prot: 0, carbs: 0, fat: 0 };
+      mealTotals[meal].kcal += kcal;
+      mealTotals[meal].prot += prot;
+      mealTotals[meal].carbs += carbs;
+      mealTotals[meal].fat += fat;
     });
 
-    // Format: one line per meal, pipe-separated: date|kcal|prot|carbs|fat
-    const lines = records.map(r => `${r.date}|${r.kcal}|${r.prot}|${r.carbs}|${r.fat}`);
-    const text = lines.join('\n');
-
-    // Show modal with text to copy
-    try {
-      showCopyModal(text, records.length);
-    } catch(e) {
-      // Ultimate fallback
-      prompt('Copy this text:', text);
+    const MEAL_TIMES = { desayuno: '08:00', almuerzo: '13:00', snack: '16:00', cena: '20:00' };
+    const lines = [];
+    for (const [meal, t] of Object.entries(mealTotals)) {
+      const time = MEAL_TIMES[meal] || '12:00';
+      const r = v => Math.round(v * 10) / 10;
+      lines.push(`${currentDate} ${time}|${r(t.kcal)}|${r(t.prot)}|${r(t.carbs)}|${r(t.fat)}`);
     }
-  }
 
-  function showCopyModal(text, count) {
-    const overlay = document.createElement('div');
-    overlay.style.cssText = 'position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,0.5);z-index:9999;display:flex;align-items:center;justify-content:center;';
-    const box = document.createElement('div');
-    box.style.cssText = 'background:#fff;border-radius:12px;padding:20px;margin:20px;max-width:400px;width:100%;';
-    box.innerHTML = `<div style="font-weight:600;margin-bottom:12px;">Copiar para Health (${count} comidas)</div>
-      <div style="margin-bottom:8px;font-size:13px;color:#666;">Tap the text below → Select All → Copy</div>
-      <textarea id="health-copy-area" readonly style="width:100%;height:80px;font-size:14px;padding:8px;border:1px solid #ddd;border-radius:8px;font-family:monospace;">${text}</textarea>
-      <button onclick="this.closest('div').closest('div').remove()" style="margin-top:12px;width:100%;padding:10px;background:#48bb78;color:#fff;border:none;border-radius:8px;font-size:16px;font-weight:600;">Done</button>`;
-    overlay.appendChild(box);
-    document.body.appendChild(overlay);
-    const ta = document.getElementById('health-copy-area');
-    ta.focus();
-    ta.select();
+    const text = lines.join('\n');
+    // Use prompt() - works on every browser including iOS Safari
+    window.prompt('Select All + Copy this text, then run NutrIA shortcut:', text);
   }
 
   function renderMFPList(mealItems, mealKcal, mealMacros) {
