@@ -1014,7 +1014,7 @@
       });
       if (!r.ok) return null;
       const json = await r.json();
-      const content = JSON.parse(atob(json.content));
+      const content = JSON.parse(new TextDecoder().decode(Uint8Array.from(atob(json.content), c => c.charCodeAt(0))));
       return { data: content, sha: json.sha };
     } catch { return null; }
   }
