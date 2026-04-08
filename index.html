@@ -1464,14 +1464,8 @@
     const lines = records.map(r => `${r.date}|${r.kcal}|${r.prot}|${r.carbs}|${r.fat}`);
     const text = lines.join('\n');
 
-    // Try clipboard API first, fallback to prompt for iOS Safari
-    if (navigator.clipboard && navigator.clipboard.writeText) {
-      navigator.clipboard.writeText(text)
-        .then(() => showToast(`\u2764\uFE0F Copiado ${records.length} comidas`))
-        .catch(() => showCopyModal(text, records.length));
-    } else {
-      showCopyModal(text, records.length);
-    }
+    // Always show modal — clipboard API is unreliable on iOS Safari
+    showCopyModal(text, records.length);
   }
 
   function showCopyModal(text, count) {
