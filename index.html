@@ -1462,8 +1462,19 @@
 
     // Format: one line per meal, pipe-separated: date|kcal|prot|carbs|fat
     const lines = records.map(r => `${r.date}|${r.kcal}|${r.prot}|${r.carbs}|${r.fat}`);
-    navigator.clipboard.writeText(lines.join('\n'))
-      .then(() => showToast(`Copiado ${records.length} comidas para Health`));
+    const text = lines.join('\n');
+
+    // iOS Safari doesn't support navigator.clipboard well, use textarea fallback
+    const ta = document.createElement('textarea');
+    ta.value = text;
+    ta.style.position = 'fixed';
+    ta.style.left = '-9999px';
+    document.body.appendChild(ta);
+    ta.select();
+    ta.setSelectionRange(0, text.length);
+    document.execCommand('copy');
+    document.body.removeChild(ta);
+    showToast(`Copiado ${records.length} comidas para Health`);
   }
 
   function renderMFPList(mealItems, mealKcal, mealMacros) {
