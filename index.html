@@ -928,6 +928,7 @@
         <div class="user-switcher" id="user-switcher">
           <div class="user-avatar" data-user="ernesto" onclick="switchUser('ernesto')" title="Ernesto">E</div>
           <div class="user-avatar" data-user="adriana" onclick="switchUser('adriana')" title="Adriana">A</div>
+          <div class="user-avatar" onclick="setupGHToken()" title="GitHub sync" style="font-size:14px;">⚙️</div>
         </div>
         <button class="targets-btn" onclick="openTargetsModal()" title="Ajustar objetivos de dieta" style="margin-left:4px;">&#9881;&#65039; Meta</button>
       </div>
@@ -978,11 +979,16 @@
 
   function TARGETS() { return USERS[currentUser].targets; }
 
-  // ── STORAGE LAYER (server with LocalStorage fallback) ───────────────
+  // ── STORAGE LAYER (server → GitHub API → LocalStorage) ──────────────
   let _serverData = { meals: [], overrides: {} };
   let _hasServer = false;
   const LS_MEALS_KEY = 'nutria_meals_v1';
   const LS_OVERRIDES_KEY = 'nutria_overrides_v1';
+  const GH_TOKEN_KEY = 'nutria_gh_token';
+  const GH_REPO = 'ernesto-ux/NutrIA';
+  const GH_FILE = 'local-meals.json';
+
+  function _ghToken() { return localStorage.getItem(GH_TOKEN_KEY) || ''; }
 
   function _lsLoad() {
     try {
@@ -998,7 +1004,69 @@
     } catch {}
   }
 
+  // GitHub API: read file
+  async function _ghRead() {
+    const token = _ghToken();
+    if (!token) return null;
+    try {
+      const r = await fetch(`https://api.github.com/repos/${GH_REPO}/contents/${GH_FILE}`, {
+        headers: { Authorization: `Bearer ${token}`, Accept: 'application/vnd.github.v3+json' }
+      });
+      if (!r.ok) return null;
+      const json = await r.json();
+      const content = JSON.parse(atob(json.content));
+      return { data: content, sha: json.sha };
+    } catch { return null; }
+  }
+
+  // GitHub API: write file (merge, never replace)
+  let _ghPushQueue = Promise.resolve();
+  function _ghPush() {
+    _ghPushQueue = _ghPushQueue.then(async () => {
+      const token = _ghToken();
+      if (!token) return;
+      try {
+        // Read current to get sha and merge
+        const current = await _ghRead();
+        const sha = current ? current.sha : undefined;
+        const remote = current ? current.data : { meals: [], overrides: {} };
+
+        // Merge: combine remote + local by id (local wins on conflict)
+        const localMeals = _serverData.meals || [];
+        const remoteMeals = remote.meals || [];
+        const mealMap = new Map();
+        remoteMeals.forEach(m => mealMap.set(m.id, m));
+        localMeals.forEach(m => mealMap.set(m.id, m));
+        const merged = { meals: [...mealMap.values()], overrides: { ...(remote.overrides || {}), ...(_serverData.overrides || {}) } };
+
+        const body = { message: 'NutrIA sync', content: btoa(unescape(encodeURIComponent(JSON.stringify(merged, null, 2)))), branch: 'main' };
+        if (sha) body.sha = sha;
+        const r = await fetch(`https://api.github.com/repos/${GH_REPO}/contents/${GH_FILE}`, {
+          method: 'PUT',
+          headers: { Authorization: `Bearer ${token}`, Accept: 'application/vnd.github.v3+json', 'Content-Type': 'application/json' },
+          body: JSON.stringify(body)
+        });
+        if (r.ok) {
+          _serverData = merged;
+          _lsSave();
+        }
+      } catch(e) { console.warn('GitHub sync failed:', e); }
+    });
+  }
+
+  // Token setup UI
+  window.setupGHToken = function() {
+    const current = _ghToken();
+    const token = prompt('GitHub Personal Access Token (fine-grained, repo NutrIA):', current || '');
+    if (token !== null) {
+      localStorage.setItem(GH_TOKEN_KEY, token.trim());
+      showToast(token.trim() ? 'Token guardado' : 'Token eliminado');
+      render();
+    }
+  };
+
   async function loadServerData() {
+    // 1) Try local server (home network)
     try {
       const r = await fetch('/api/data');
       if (r.ok) {
@@ -1006,9 +1074,18 @@
         _hasServer = true;
         return;
       }
-    } catch(e) { /* server unavailable */ }
-    // Fallback: load from LocalStorage
+    } catch(e) {}
+
+    // 2) Try GitHub API
     _hasServer = false;
+    const gh = await _ghRead();
+    if (gh) {
+      _serverData = gh.data;
+      _lsSave();
+      return;
+    }
+
+    // 3) Fallback: LocalStorage only
     _serverData = _lsLoad();
   }
 
@@ -1021,15 +1098,18 @@
   function saveLocalMeals(meals) {
     const otherUserMeals = (_serverData.meals || []).filter(m => (m.user || 'ernesto') !== currentUser);
     _serverData.meals = [...otherUserMeals, ...meals];
-    if (!_hasServer) _lsSave();
+    _lsSave();
+    if (_hasServer) return;
+    _ghPush();
   }
   function addLocalMeal(entry) {
     entry.user = currentUser;
     _serverData.meals.push(entry);
+    _lsSave();
     if (_hasServer) {
       fetch('/api/meal', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(entry) }).catch(() => {});
     } else {
-      _lsSave();
+      _ghPush();
     }
   }
 
@@ -1082,12 +1162,13 @@
   }
   function saveOverrides(o) {
     _serverData.overrides = o;
+    _lsSave();
     if (_hasServer) {
       for (const [id, action] of Object.entries(o)) {
         fetch('/api/override', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ id, action }) }).catch(() => {});
       }
     } else {
-      _lsSave();
+      _ghPush();
     }
   }
 
