@@ -978,15 +978,38 @@
 
   function TARGETS() { return USERS[currentUser].targets; }
 
-  // ── SERVER-BACKED STORAGE LAYER ─────────────────────────────────────
-  // Shared across all devices via local-meals.json on server
+  // ── STORAGE LAYER (server with LocalStorage fallback) ───────────────
   let _serverData = { meals: [], overrides: {} };
+  let _hasServer = false;
+  const LS_MEALS_KEY = 'nutria_meals_v1';
+  const LS_OVERRIDES_KEY = 'nutria_overrides_v1';
+
+  function _lsLoad() {
+    try {
+      const m = localStorage.getItem(LS_MEALS_KEY);
+      const o = localStorage.getItem(LS_OVERRIDES_KEY);
+      return { meals: m ? JSON.parse(m) : [], overrides: o ? JSON.parse(o) : {} };
+    } catch { return { meals: [], overrides: {} }; }
+  }
+  function _lsSave() {
+    try {
+      localStorage.setItem(LS_MEALS_KEY, JSON.stringify(_serverData.meals || []));
+      localStorage.setItem(LS_OVERRIDES_KEY, JSON.stringify(_serverData.overrides || {}));
+    } catch {}
+  }
 
   async function loadServerData() {
     try {
       const r = await fetch('/api/data');
-      if (r.ok) _serverData = await r.json();
-    } catch(e) { /* offline fallback */ }
+      if (r.ok) {
+        _serverData = await r.json();
+        _hasServer = true;
+        return;
+      }
+    } catch(e) { /* server unavailable */ }
+    // Fallback: load from LocalStorage
+    _hasServer = false;
+    _serverData = _lsLoad();
   }
 
   function getLocalMeals() {
@@ -996,14 +1019,18 @@
     return _serverData.meals || [];
   }
   function saveLocalMeals(meals) {
-    // Merge filtered meals back with other user's meals
     const otherUserMeals = (_serverData.meals || []).filter(m => (m.user || 'ernesto') !== currentUser);
     _serverData.meals = [...otherUserMeals, ...meals];
+    if (!_hasServer) _lsSave();
   }
   function addLocalMeal(entry) {
     entry.user = currentUser;
     _serverData.meals.push(entry);
-    fetch('/api/meal', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(entry) }).catch(() => {});
+    if (_hasServer) {
+      fetch('/api/meal', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(entry) }).catch(() => {});
+    } else {
+      _lsSave();
+    }
   }
 
   function lsPendingKey() { return 'nutria_pending_' + currentUser; }
@@ -1055,9 +1082,12 @@
   }
   function saveOverrides(o) {
     _serverData.overrides = o;
-    // Sync each override to server
-    for (const [id, action] of Object.entries(o)) {
-      fetch('/api/override', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ id, action }) }).catch(() => {});
+    if (_hasServer) {
+      for (const [id, action] of Object.entries(o)) {
+        fetch('/api/override', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ id, action }) }).catch(() => {});
+      }
+    } else {
+      _lsSave();
     }
   }
 
@@ -3854,9 +3884,9 @@
         meals[entryIndex].items.splice(itemIdx, 1);
         if (meals[entryIndex].items.length === 0) {
           meals.splice(entryIndex, 1);
-          fetch('/api/delete-meal', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ id: entryId }) }).catch(() => {});
+          if (_hasServer) fetch('/api/delete-meal', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ id: entryId }) }).catch(() => {});
         } else {
-          fetch('/api/meal', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(meals[entryIndex]) }).catch(() => {});
+          if (_hasServer) fetch('/api/meal', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(meals[entryIndex]) }).catch(() => {});
         }
         saveLocalMeals(meals);
       }
