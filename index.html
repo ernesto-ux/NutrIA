@@ -1460,7 +1460,9 @@
       });
     });
 
-    navigator.clipboard.writeText(JSON.stringify(records))
+    // Format: one line per meal, pipe-separated: date|kcal|prot|carbs|fat
+    const lines = records.map(r => `${r.date}|${r.kcal}|${r.prot}|${r.carbs}|${r.fat}`);
+    navigator.clipboard.writeText(lines.join('\n'))
       .then(() => showToast(`Copiado ${records.length} comidas para Health`));
   }
 
