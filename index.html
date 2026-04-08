@@ -2015,9 +2015,14 @@
         </div>
         <div style="display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;">
           ${filterHtml}
-          <button onclick="exportInformePDF()" style="display:inline-flex;align-items:center;gap:6px;padding:8px 18px;background:var(--teal);color:#fff;border:none;border-radius:8px;font-size:12px;font-weight:600;cursor:pointer;font-family:inherit;letter-spacing:0.5px;white-space:nowrap;">
-            📄 Exportar PDF
-          </button>
+          <div style="display:flex;gap:8px;">
+            <button onclick="exportInformePDF()" style="display:inline-flex;align-items:center;gap:6px;padding:8px 18px;background:var(--teal);color:#fff;border:none;border-radius:8px;font-size:12px;font-weight:600;cursor:pointer;font-family:inherit;letter-spacing:0.5px;white-space:nowrap;">
+              📄 Exportar PDF
+            </button>
+            <button onclick="exportInformeCSV()" style="display:inline-flex;align-items:center;gap:6px;padding:8px 18px;background:#6366F1;color:#fff;border:none;border-radius:8px;font-size:12px;font-weight:600;cursor:pointer;font-family:inherit;letter-spacing:0.5px;white-space:nowrap;">
+              📊 Descargar CSV
+            </button>
+          </div>
         </div>
         <span id="pdf-status" style="font-size:11px;color:var(--text-sec);margin-top:6px;display:block;"></span>
       </div>
@@ -2920,6 +2925,43 @@
   window.setPeriod = function (period) {
     currentPeriod = period;
     render();
+  };
+
+  window.exportInformeCSV = function() {
+    const dates = getInformeDates();
+    const allMeals = getAllMeals();
+    const userName = USERS[currentUser].name;
+    const rows = [['Fecha','Dia','Comida','Alimento','Gramos','Kcal','Proteina','Carbs','Grasa']];
+    const dayNames = ['Dom','Lun','Mar','Mie','Jue','Vie','Sab'];
+
+    dates.forEach(date => {
+      const dayMeals = allMeals.filter(m => m.date === date);
+      const d = parseDate(date);
+      const dayName = dayNames[d.getDay()];
+      dayMeals.forEach(m => {
+        (m.items || []).forEach(item => {
+          rows.push([
+            date, dayName, m.meal || '',
+            (item.name || item.foodId || '').replace(/,/g, ';'),
+            round1(item.grams || 0),
+            round1(item.kcal || 0),
+            round1(item.prot || 0),
+            round1(item.carbs || 0),
+            round1(item.fat || 0)
+          ]);
+        });
+      });
+    });
+
+    const csv = rows.map(r => r.join(',')).join('\n');
+    const blob = new Blob(['\uFEFF' + csv], { type: 'text/csv;charset=utf-8;' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `NutrIA_${userName}_${dates[0]}_${dates[dates.length-1]}.csv`;
+    a.click();
+    URL.revokeObjectURL(url);
+    showToast('CSV descargado');
   };
 
   window.exportInformePDF = function() {

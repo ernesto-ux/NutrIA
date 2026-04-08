@@ -1240,6 +1240,16 @@ const MEAL_LOG = [
       { foodId: "aceite-oliva", name: "AOVE (1/2 tsp)", grams: 2.5, kcal: 22.1, prot: 0.0, carbs: 0.0, fat: 2.5 }
     ],
     timestamp: "2026-04-07T20:30:00"
+  },
+  {
+    id: "2026-04-07-005",
+    date: "2026-04-07",
+    meal: "snack",
+    items: [
+      { foodId: "wasa-leger", name: "Wasa Léger (1 tartine)", grams: 9.6, kcal: 32.4, prot: 0.9, carbs: 6.0, fat: 0.1 },
+      { foodId: "ricotta-casa-azzurra", name: "Ricotta", grams: 35, kcal: 60.9, prot: 3.9, carbs: 1.1, fat: 4.6 }
+    ],
+    timestamp: "2026-04-07T16:00:00"
   }
 ];
 
@@ -1254,7 +1264,8 @@ const ACTIVITY_LOG = [
   { date: "2026-04-03", steps: 3500, stepsKcal: 75,  gym: null, gymKcal: 0,   notes: "" },
   { date: "2026-04-04", steps: 6000, stepsKcal: 200, gym: "gym", gymKcal: 370, notes: "apero + gym" },
   { date: "2026-04-05", steps: 12954, stepsKcal: 400, gym: "gym", gymKcal: 541, notes: "domingo" },
-  { date: "2026-04-06", steps: 11001, stepsKcal: 350, gym: "gym", gymKcal: 656, notes: "" }
+  { date: "2026-04-06", steps: 11001, stepsKcal: 350, gym: "gym", gymKcal: 656, notes: "" },
+  { date: "2026-04-07", steps: 6755, stepsKcal: 175, gym: null, gymKcal: 0, notes: "" }
 ];
 
 // Daily energy balance (sabado a sabado: 29 mar - 4 abr + dom 5)
