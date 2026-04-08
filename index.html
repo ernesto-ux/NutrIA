@@ -928,9 +928,8 @@
         <div class="user-switcher" id="user-switcher">
           <div class="user-avatar" data-user="ernesto" onclick="switchUser('ernesto')" title="Ernesto">E</div>
           <div class="user-avatar" data-user="adriana" onclick="switchUser('adriana')" title="Adriana">A</div>
-          <div class="user-avatar" onclick="setupGHToken()" title="GitHub sync" style="font-size:14px;">⚙️</div>
+          <div class="user-avatar" onclick="setupGHToken()" title="GitHub sync" style="font-size:14px;">🪙</div>
         </div>
-        <button class="targets-btn" onclick="openTargetsModal()" title="Ajustar objetivos de dieta" style="margin-left:4px;">&#9881;&#65039; Meta</button>
       </div>
     </div>
     <div class="period-pills">
@@ -1603,8 +1602,9 @@
       : `<span class="alerts-count">${alerts.length}</span>`;
 
     return `
-      <!-- LOG FORM -->
-      ${renderLogForm()}
+      <!-- LOG FORM hidden from UI, use /log-food -->
+      ${''}
+
 
       <!-- SUMMARY RINGS -->
       <div class="card">
@@ -3002,6 +3002,10 @@
 
     return `
     <div style="padding:0 4px;">
+      <!-- META TARGETS -->
+      <div class="card" style="margin-bottom:16px;text-align:center;">
+        <button class="targets-btn" onclick="openTargetsModal()" title="Ajustar objetivos de dieta" style="width:100%;padding:12px;font-size:14px;font-weight:600;">&#9881;&#65039; Ajustar Meta / Objetivos</button>
+      </div>
       <!-- OCR SCREENSHOT -->
       <div class="card" style="margin-bottom:16px;">
         <div class="card-title">📷 Importar Screenshot (OCR)</div>
