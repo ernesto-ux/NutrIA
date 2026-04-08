@@ -975,7 +975,7 @@
   let currentMetric = 'kcal';
   let alertsOpen = true;
   let dbOpen = false;
-  let mealView = window.innerWidth <= 420 ? 'list' : 'kanban';
+  let mealView = 'list';
 
   function TARGETS() { return USERS[currentUser].targets; }
 
@@ -1625,13 +1625,10 @@
         <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;">
           <div class="card-title" style="margin-bottom:0;">Comidas del dia</div>
           <div class="view-toggle">
-            <button class="view-btn ${mealView==='kanban'?'active':''}" onclick="setMealView('kanban')">Kanban</button>
-            <button class="view-btn ${mealView==='list'?'active':''}" onclick="setMealView('list')">Lista</button>
             <button class="view-btn" onclick="copyForHealth()" title="Copia para Apple Health shortcut">❤️ Health</button>
           </div>
         </div>
-        <div class="kanban-view" style="${mealView==='list'?'display:none':''}">${kanbanCols}</div>
-        <div class="list-view" style="${mealView==='kanban'?'display:none':''}">${renderMFPList(mealItems, mealKcal, mealMacros)}</div>
+        <div class="list-view">${renderMFPList(mealItems, mealKcal, mealMacros)}</div>
       </div>
 
       <!-- ALERTS -->

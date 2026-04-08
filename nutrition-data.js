@@ -2,7 +2,7 @@
 // Updated by Claude Code via /log-food skill
 // DO NOT EDIT MANUALLY - use /log-food to add meals
 
-const DATA_TIMESTAMP = "2026-04-07T11:00:00 Europe/Paris";
+const DATA_TIMESTAMP = "2026-04-08T16:30:00 Europe/Paris";
 
 const NUTRITION_CONFIG = {
   targets: { kcal: 1770, prot: 190, carbs: 140, fat: 50 },
@@ -745,6 +745,56 @@ const FOOD_DATABASE = [
     per100g: { kcal: 348, prot: 25, carbs: 0, fat: 27, fiber: 0 },
     source: "web",
     addedDate: "2026-04-07"
+  },
+  {
+    id: "queso-curado-hacendado",
+    name: "Queso Curado Mezcla",
+    brand: "Hacendado",
+    per100g: { kcal: 431, prot: 25, carbs: 1.8, fat: 36, fiber: 0 },
+    source: "web",
+    addedDate: "2026-04-08"
+  },
+  {
+    id: "rumsteck-boeuf-cuit",
+    name: "Rumsteck de Boeuf (cuit)",
+    brand: "Generic",
+    per100g: { kcal: 120, prot: 25, carbs: 0, fat: 2, fiber: 0 },
+    source: "web",
+    addedDate: "2026-04-08"
+  },
+  {
+    id: "brocoli-cuit",
+    name: "Brocoli (cuit)",
+    brand: "Generic",
+    per100g: { kcal: 35, prot: 3, carbs: 4, fat: 0.4, fiber: 2.6 },
+    source: "web",
+    addedDate: "2026-04-08"
+  },
+  {
+    id: "siggis-skyr-raspberry",
+    name: "Skyr Raspberry",
+    brand: "Siggis",
+    per100g: { kcal: 73, prot: 10, carbs: 8, fat: 0.2, fiber: 0 },
+    unitWeight: 140, unitLabel: "pot",
+    source: "web",
+    addedDate: "2026-04-08"
+  },
+  {
+    id: "gerble-cookie-cacao-pepites-ss",
+    name: "Cookie Cacao Pépites Sans Sucres",
+    brand: "Gerblé",
+    per100g: { kcal: 518, prot: 8, carbs: 61, fat: 18, fiber: 0 },
+    unitWeight: 10.8, unitLabel: "cookie",
+    source: "web",
+    addedDate: "2026-04-08"
+  },
+  {
+    id: "kefir-nature",
+    name: "Kéfir Nature",
+    brand: "Generic",
+    per100g: { kcal: 62, prot: 3.5, carbs: 4, fat: 3.5, fiber: 0 },
+    source: "web",
+    addedDate: "2026-04-08"
   }
 ];
 
@@ -1444,6 +1494,110 @@ const MEAL_LOG = [
       { foodId: "queso-maduro-espanol", name: "Queso Maduro Español", grams: 15, kcal: 60, prot: 3.8, carbs: 0.1, fat: 5.0 }
     ],
     timestamp: "2026-04-08T15:48:45.000Z"
+  },
+  {
+    id: "2026-04-08-002",
+    date: "2026-04-08",
+    meal: "snack",
+    items: [
+      { foodId: "queso-curado-hacendado", name: "Queso Curado Hacendado", grams: 15, kcal: 64.7, prot: 3.8, carbs: 0.3, fat: 5.4 },
+      { foodId: "wasa-leger", name: "Wasa Leger", grams: 9.6, units: 1, kcal: 32.4, prot: 0.9, carbs: 6.0, fat: 0.1 },
+      { foodId: "ricotta-casa-azzurra", name: "Ricotta Casa Azzurra", grams: 30, kcal: 52.2, prot: 3.3, carbs: 0.9, fat: 3.9 }
+    ],
+    timestamp: "2026-04-08T16:30:00"
+  },
+  {
+    id: "2026-04-08-003",
+    date: "2026-04-08",
+    meal: "almuerzo",
+    items: [
+      { foodId: "rumsteck-boeuf-cuit", name: "Rumsteck de Boeuf", grams: 95, kcal: 114.0, prot: 23.8, carbs: 0, fat: 1.9 },
+      { foodId: "aceite-oliva", name: "AOVE (3/4 cdita)", grams: 3.75, kcal: 33.2, prot: 0, carbs: 0, fat: 3.8 },
+      { foodId: "pimiento-rojo-crudo", name: "Pimiento Rojo", grams: 140, kcal: 43.4, prot: 1.4, carbs: 8.4, fat: 0.4 },
+      { foodId: "brocoli-cuit", name: "Brocoli", grams: 130, kcal: 45.5, prot: 3.9, carbs: 5.2, fat: 0.5 }
+    ],
+    timestamp: "2026-04-08T17:00:00"
+  },
+  // === ADRIANA 2026-04-08 ===
+  {
+    id: "2026-04-08-A01",
+    date: "2026-04-08",
+    meal: "desayuno", who: "adriana",
+    items: [
+      { foodId: "hipro-vanille", name: "HiPro Vanille", grams: 154, kcal: 118.6, prot: 15.7, carbs: 9.1, fat: 1.2 },
+      { foodId: "siggis-skyr-nature", name: "Skyr Siggis Nature", grams: 127, kcal: 80.0, prot: 14.0, carbs: 5.1, fat: 0.3 },
+      { foodId: "semillas-chia", name: "Chia (1 cdita)", grams: 5, kcal: 24.3, prot: 0.9, carbs: 2.1, fat: 1.6 },
+      { foodId: "fresas-frescas", name: "Fresas", grams: 50, kcal: 16.0, prot: 0.4, carbs: 3.9, fat: 0.2 }
+    ],
+    timestamp: "2026-04-08T08:30:00"
+  },
+  {
+    id: "2026-04-08-A02",
+    date: "2026-04-08",
+    meal: "almuerzo", who: "adriana",
+    items: [
+      { foodId: "rumsteck-boeuf-cuit", name: "Rumsteck de Boeuf", grams: 75, kcal: 90.0, prot: 18.8, carbs: 0, fat: 1.5 },
+      { foodId: "brocoli-cuit", name: "Brocoli", grams: 95, kcal: 33.3, prot: 2.9, carbs: 3.8, fat: 0.4 },
+      { foodId: "pimiento-rojo-crudo", name: "Pimiento", grams: 90, kcal: 27.9, prot: 0.9, carbs: 5.4, fat: 0.3 },
+      { foodId: "aceite-oliva", name: "AOVE (3/4 cdita)", grams: 3.75, kcal: 33.2, prot: 0, carbs: 0, fat: 3.8 },
+      { foodId: "quinoa-cocida", name: "Quinoa Cocida", grams: 70, kcal: 84.0, prot: 3.1, carbs: 14.9, fat: 1.3 }
+    ],
+    timestamp: "2026-04-08T13:00:00"
+  },
+  {
+    id: "2026-04-08-A03",
+    date: "2026-04-08",
+    meal: "snack", who: "adriana",
+    items: [
+      { foodId: "siggis-skyr-raspberry", name: "Siggi's Skyr Raspberry", grams: 140, units: 1, kcal: 102.2, prot: 14.0, carbs: 11.2, fat: 0.3 },
+      { foodId: "gerble-cookie-cacao-pepites-ss", name: "Gerblé Cookie Cacao Pépites x6", grams: 65, units: 6, kcal: 336.7, prot: 5.2, carbs: 39.7, fat: 11.7 },
+      { foodId: "salmorejo-alvalle", name: "Salmorejo", grams: 75, kcal: 40.5, prot: 0.9, carbs: 4.4, fat: 2.3 },
+      { foodId: "ricotta-casa-azzurra", name: "Ricotta", grams: 40, kcal: 69.6, prot: 4.4, carbs: 1.2, fat: 5.2 }
+    ],
+    timestamp: "2026-04-08T16:00:00"
+  },
+  {
+    id: "2026-04-08-A04",
+    date: "2026-04-08",
+    meal: "cena", who: "adriana",
+    items: [
+      { foodId: "huevo-entero", name: "Huevo Entero", grams: 50, units: 1, kcal: 77.5, prot: 6.5, carbs: 0.6, fat: 5.5 },
+      { foodId: "jamon-porc-fleury-michon", name: "Jambon Porc Rôti FM", grams: 26, kcal: 29.9, prot: 5.2, carbs: 0.3, fat: 0.9 },
+      { foodId: "kefir-nature", name: "Kéfir", grams: 100, kcal: 62.0, prot: 3.5, carbs: 4.0, fat: 3.5 },
+      { foodId: "eafit-pure-isolate-vanille", name: "EAFit Vanille", grams: 11, kcal: 40.3, prot: 9.5, carbs: 0.4, fat: 0.1 },
+      { foodId: "fresas-frescas", name: "Fresas", grams: 23, kcal: 7.4, prot: 0.2, carbs: 1.8, fat: 0.1 },
+      { foodId: "semillas-chia", name: "Chia (1 cdita)", grams: 5, kcal: 24.3, prot: 0.9, carbs: 2.1, fat: 1.6 },
+      { foodId: "ricotta-casa-azzurra", name: "Ricotta (1.5 cda)", grams: 22.5, kcal: 39.2, prot: 2.5, carbs: 0.7, fat: 2.9 },
+      { foodId: "queso-maduro-espanol", name: "Queso Maduro Español", grams: 15, kcal: 60.0, prot: 3.8, carbs: 0.1, fat: 5.0 }
+    ],
+    timestamp: "2026-04-08T20:30:00"
+  },
+  // === ERNESTO 2026-04-08 (cont.) ===
+  {
+    id: "2026-04-08-004",
+    date: "2026-04-08",
+    meal: "cena",
+    items: [
+      { foodId: "clara-huevo", name: "Clara de Huevo (x2)", grams: 66, kcal: 34.3, prot: 7.3, carbs: 0.5, fat: 0.1 },
+      { foodId: "huevo-entero", name: "Huevo Entero", grams: 50, units: 1, kcal: 77.5, prot: 6.5, carbs: 0.6, fat: 5.5 },
+      { foodId: "jamon-porc-fleury-michon", name: "Jambon Porc Rôti FM", grams: 28, kcal: 32.2, prot: 5.6, carbs: 0.3, fat: 1.0 },
+      { foodId: "kefir-nature", name: "Kéfir", grams: 150, kcal: 93.0, prot: 5.3, carbs: 6.0, fat: 5.3 },
+      { foodId: "eafit-pure-isolate-vanille", name: "EAFit Vanille", grams: 20, kcal: 73.2, prot: 17.2, carbs: 0.7, fat: 0.2 },
+      { foodId: "fresas-frescas", name: "Fresas", grams: 41, kcal: 13.1, prot: 0.3, carbs: 3.2, fat: 0.1 },
+      { foodId: "ricotta-casa-azzurra", name: "Ricotta (1.5 cda)", grams: 22.5, kcal: 39.2, prot: 2.5, carbs: 0.7, fat: 2.9 },
+      { foodId: "queso-maduro-espanol", name: "Queso Maduro Español", grams: 30, kcal: 120.0, prot: 7.5, carbs: 0.2, fat: 9.9 }
+    ],
+    timestamp: "2026-04-08T20:30:00"
+  },
+  {
+    id: "2026-04-08-005",
+    date: "2026-04-08",
+    meal: "snack",
+    items: [
+      { foodId: "wasa-leger", name: "Wasa Leger (x2)", grams: 19.2, units: 2, kcal: 64.9, prot: 1.7, carbs: 11.9, fat: 0.3 },
+      { foodId: "danone-cottage-cheese", name: "Cottage Cheese", grams: 30, kcal: 27.0, prot: 3.6, carbs: 0.5, fat: 1.2 }
+    ],
+    timestamp: "2026-04-08T21:00:00"
   }
 
 ];
