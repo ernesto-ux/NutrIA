@@ -1,5 +1,17 @@
 # Changelog - NutrIA
 
+## [1.7.0] - 08 abril 2026
+### Cambiado
+- **Vista de comidas**: eliminado modo Kanban, solo vista Lista
+- **Registrar comida**: formulario oculto de la UI (codigo preservado). Registro via /log-food
+- **Meta**: boton movido del header a la seccion Tools
+- **Token GitHub**: icono cambiado a 🪙, movido del header a Tools (junto a Meta)
+- **OCR Screenshot**: seccion oculta temporalmente de Tools
+- **Registro de Peso (Renpho)**: seccion oculta temporalmente de Tools
+
+### Agregado
+- 6 alimentos nuevos: queso curado Hacendado, rumsteck boeuf, brocoli, Siggi's raspberry, Gerble cookie cacao pepites, kefir nature
+
 ## [1.6.0] - 06 abril 2026
 ### Agregado
 - **Subir plato**: nuevo boton en Registrar comida (junto a "Copiar pendientes para Claude") para subir platos con nombre, porcion en gramos, calorias y macros manuales
