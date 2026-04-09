@@ -2,7 +2,7 @@
 // Updated by Claude Code via /log-food skill
 // DO NOT EDIT MANUALLY - use /log-food to add meals
 
-const DATA_TIMESTAMP = "2026-04-08T16:30:00 Europe/Paris";
+const DATA_TIMESTAMP = "2026-04-09T22:00:00 Europe/Paris";
 
 const NUTRITION_CONFIG = {
   targets: { kcal: 1770, prot: 190, carbs: 140, fat: 50 },
@@ -795,6 +795,122 @@ const FOOD_DATABASE = [
     per100g: { kcal: 62, prot: 3.5, carbs: 4, fat: 3.5, fiber: 0 },
     source: "web",
     addedDate: "2026-04-08"
+  },
+  // === PRODUCTOS (added 2026-04-09) ===
+  {
+    id: "wasa-fibre",
+    name: "Wasa Fibre",
+    brand: "Wasa",
+    per100g: { kcal: 333, prot: 13, carbs: 46, fat: 5, fiber: 26 },
+    unitWeight: 11.4, unitLabel: "tranche",
+    source: "web",
+    addedDate: "2026-04-09"
+  },
+  {
+    id: "hipro-blueberry",
+    name: "HiPro Myrtille (Blueberry)",
+    brand: "Danone",
+    per100g: { kcal: 53, prot: 9.4, carbs: 3.8, fat: 0, fiber: 0 },
+    unitWeight: 160, unitLabel: "pot",
+    source: "web",
+    addedDate: "2026-04-09"
+  },
+  {
+    id: "bavette-cocida",
+    name: "Bavette (Pasta Cocida)",
+    brand: "",
+    per100g: { kcal: 157, prot: 5.5, carbs: 31, fat: 0.9, fiber: 1.8 },
+    source: "web",
+    addedDate: "2026-04-09"
+  },
+  {
+    id: "ejote-haricot-vert",
+    name: "Ejote / Haricot Vert (cuit)",
+    brand: "",
+    per100g: { kcal: 31, prot: 1.8, carbs: 7, fat: 0.1, fiber: 3.4 },
+    source: "web",
+    addedDate: "2026-04-09"
+  },
+  {
+    id: "cebolla-cruda",
+    name: "Cebolla (cruda)",
+    brand: "",
+    per100g: { kcal: 40, prot: 1.1, carbs: 9.3, fat: 0.1, fiber: 1.7 },
+    source: "web",
+    addedDate: "2026-04-09"
+  },
+  {
+    id: "aceite-sesamo",
+    name: "Aceite de Sésamo",
+    brand: "",
+    per100g: { kcal: 884, prot: 0, carbs: 0, fat: 100, fiber: 0 },
+    source: "web",
+    addedDate: "2026-04-09"
+  },
+  {
+    id: "salsa-soya",
+    name: "Salsa de Soya",
+    brand: "",
+    per100g: { kcal: 53, prot: 8.1, carbs: 4.9, fat: 0.1, fiber: 0 },
+    source: "web",
+    addedDate: "2026-04-09"
+  },
+  {
+    id: "maizena",
+    name: "Maizena (Almidón de Maíz)",
+    brand: "",
+    per100g: { kcal: 381, prot: 0.3, carbs: 91, fat: 0.1, fiber: 0 },
+    source: "web",
+    addedDate: "2026-04-09"
+  },
+  {
+    id: "chocolate-negro-90",
+    name: "Chocolate Negro 90% Cacao",
+    brand: "",
+    per100g: { kcal: 592, prot: 10, carbs: 14, fat: 55, fiber: 11 },
+    source: "web",
+    addedDate: "2026-04-09"
+  },
+  {
+    id: "fruits-rouges-mix",
+    name: "Fruits Rouges Mix (fraises, framboises, myrtilles)",
+    brand: "",
+    per100g: { kcal: 40, prot: 0.8, carbs: 9, fat: 0.3, fiber: 2.5 },
+    source: "web",
+    addedDate: "2026-04-09"
+  },
+  {
+    id: "pp-vanilla-protein",
+    name: "PP Vanilla (Protein Powder)",
+    brand: "Generic",
+    per100g: { kcal: 375, prot: 80, carbs: 5, fat: 3, fiber: 0 },
+    source: "web",
+    addedDate: "2026-04-09",
+    notes: "Generic vanilla whey protein powder"
+  },
+  {
+    id: "leche-almendra",
+    name: "Leche de Almendra (sin azúcar)",
+    brand: "",
+    per100g: { kcal: 13, prot: 0.4, carbs: 0.2, fat: 1.1, fiber: 0.2 },
+    source: "web",
+    addedDate: "2026-04-09"
+  },
+  {
+    id: "tomate-triturado",
+    name: "Tomate Triturado / Passata",
+    brand: "",
+    per100g: { kcal: 24, prot: 1, carbs: 4, fat: 0.2, fiber: 1 },
+    source: "web",
+    addedDate: "2026-04-09"
+  },
+  {
+    id: "ciabatta-artesanal",
+    name: "Ciabatta Pan Artesanal",
+    brand: "",
+    per100g: { kcal: 271, prot: 9, carbs: 50, fat: 3.5, fiber: 2.5 },
+    source: "web",
+    addedDate: "2026-04-09"
   }
 ];
 
@@ -1598,6 +1714,79 @@ const MEAL_LOG = [
       { foodId: "danone-cottage-cheese", name: "Cottage Cheese", grams: 30, kcal: 27.0, prot: 3.6, carbs: 0.5, fat: 1.2 }
     ],
     timestamp: "2026-04-08T21:00:00"
+  },
+  // === 9 abril 2026 ===
+  {
+    id: "2026-04-09-001",
+    date: "2026-04-09",
+    meal: "desayuno",
+    items: [
+      { foodId: "cafe-negro", name: "Café", grams: 240, units: 1, kcal: 4.8, prot: 0.2, carbs: 0, fat: 0 },
+      { foodId: "huevo-entero", name: "Huevo Entero", grams: 50, units: 1, kcal: 77.5, prot: 6.5, carbs: 0.6, fat: 5.5 },
+      { foodId: "clara-huevo", name: "Clara de Huevo", grams: 33, units: 1, kcal: 17.2, prot: 3.6, carbs: 0.2, fat: 0.1 },
+      { foodId: "ricotta-casa-azzurra", name: "Ricotta", grams: 30, kcal: 52.2, prot: 3.3, carbs: 0.9, fat: 3.9 },
+      { foodId: "jamon-porc-fleury-michon", name: "Jambon Porc Rôti FM (1 rodaja)", grams: 28, units: 1, kcal: 32.2, prot: 5.6, carbs: 0.3, fat: 1.0 },
+      { foodId: "aceite-oliva", name: "AOVE (1/3 tsp)", grams: 1.7, kcal: 15.0, prot: 0, carbs: 0, fat: 1.7 },
+      { foodId: "wasa-fibre", name: "Wasa Fibre", grams: 11.4, units: 1, kcal: 38.0, prot: 1.5, carbs: 5.2, fat: 0.6 }
+    ],
+    timestamp: "2026-04-09T08:00:00"
+  },
+  {
+    id: "2026-04-09-002",
+    date: "2026-04-09",
+    meal: "snack",
+    items: [
+      { foodId: "siggis-skyr-nature", name: "Skyr Siggis", grams: 50, kcal: 31.5, prot: 5.5, carbs: 2.0, fat: 0.1 },
+      { foodId: "hipro-blueberry", name: "HiPro Blueberry", grams: 50, kcal: 26.5, prot: 4.7, carbs: 1.9, fat: 0 },
+      { foodId: "fresas-frescas", name: "Fresas (x2)", grams: 24, units: 2, kcal: 7.7, prot: 0.2, carbs: 1.8, fat: 0.1 },
+      { foodId: "semillas-chia", name: "Chia", grams: 1, kcal: 4.9, prot: 0.2, carbs: 0.4, fat: 0.3 },
+      { foodId: "eafit-pure-isolate-vanille", name: "EAFit Vanille", grams: 40, kcal: 146.4, prot: 34.4, carbs: 1.3, fat: 0.4 },
+      { foodId: "alpro-noisette-gourmande", name: "Lait Noisette", grams: 100, kcal: 29.0, prot: 0.4, carbs: 3.2, fat: 1.6 }
+    ],
+    timestamp: "2026-04-09T10:30:00"
+  },
+  {
+    id: "2026-04-09-003",
+    date: "2026-04-09",
+    meal: "almuerzo",
+    items: [
+      { foodId: "rigatoni-cocida", name: "Rigatoni", grams: 80, kcal: 125.6, prot: 4.4, carbs: 24.8, fat: 0.7 },
+      { foodId: "bavette-cocida", name: "Bavette", grams: 130, kcal: 204.1, prot: 7.2, carbs: 40.3, fat: 1.2 },
+      { foodId: "ejote-haricot-vert", name: "Ejote Salteado", grams: 150, kcal: 46.5, prot: 2.7, carbs: 10.5, fat: 0.2 },
+      { foodId: "aceite-sesamo", name: "Aceite de Sésamo (saltear)", grams: 5, kcal: 44.2, prot: 0, carbs: 0, fat: 5.0 },
+      { foodId: "salsa-soya", name: "Salsa de Soya", grams: 5, kcal: 2.7, prot: 0.4, carbs: 0.2, fat: 0 },
+      { foodId: "cebolla-cruda", name: "Cebolla", grams: 50, kcal: 20.0, prot: 0.6, carbs: 4.7, fat: 0.1 },
+      { foodId: "maizena", name: "Maizena (espesar)", grams: 3, kcal: 11.4, prot: 0, carbs: 2.7, fat: 0 }
+    ],
+    timestamp: "2026-04-09T13:00:00"
+  },
+  {
+    id: "2026-04-09-004",
+    date: "2026-04-09",
+    meal: "snack",
+    items: [
+      { foodId: "chocolate-negro-90", name: "Chocolate Negro 90%", grams: 7, kcal: 41.4, prot: 0.7, carbs: 1.0, fat: 3.9 },
+      { foodId: "kefir-nature", name: "Kéfir", grams: 125, kcal: 77.5, prot: 4.4, carbs: 5.0, fat: 4.4 },
+      { foodId: "fruits-rouges-mix", name: "Fruits Rouges", grams: 60, kcal: 24.0, prot: 0.5, carbs: 5.4, fat: 0.2 },
+      { foodId: "pp-vanilla-protein", name: "PP Vanilla", grams: 17, kcal: 63.8, prot: 13.6, carbs: 0.9, fat: 0.5 },
+      { foodId: "leche-almendra", name: "Leche de Almendra", grams: 30, kcal: 3.9, prot: 0.1, carbs: 0.1, fat: 0.3 }
+    ],
+    timestamp: "2026-04-09T16:30:00"
+  },
+  {
+    id: "2026-04-09-005",
+    date: "2026-04-09",
+    meal: "cena",
+    items: [
+      { foodId: "huevo-entero", name: "Huevo Entero (x2)", grams: 100, units: 2, kcal: 155.0, prot: 13.0, carbs: 1.1, fat: 11.0 },
+      { foodId: "clara-huevo", name: "Clara de Huevo", grams: 33, units: 1, kcal: 17.2, prot: 3.6, carbs: 0.2, fat: 0.1 },
+      { foodId: "tomate-triturado", name: "Tomate (6 cdas)", grams: 90, kcal: 21.6, prot: 0.9, carbs: 3.6, fat: 0.2 },
+      { foodId: "cebolla-cruda", name: "Cebolla (2 tbsp)", grams: 30, kcal: 12.0, prot: 0.3, carbs: 2.8, fat: 0 },
+      { foodId: "ciabatta-artesanal", name: "Ciabatta Artesanal", grams: 115, kcal: 311.7, prot: 10.4, carbs: 57.5, fat: 4.0 },
+      { foodId: "danone-cottage-cheese", name: "Cottage", grams: 50, kcal: 45.0, prot: 6.0, carbs: 0.8, fat: 2.0 },
+      { foodId: "ricotta-casa-azzurra", name: "Ricotta", grams: 30, kcal: 52.2, prot: 3.3, carbs: 0.9, fat: 3.9 }
+    ],
+    timestamp: "2026-04-09T20:30:00"
   }
 
 ];
