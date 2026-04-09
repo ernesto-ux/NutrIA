@@ -1797,6 +1797,16 @@ const MEAL_LOG = [
     ],
     timestamp: "2026-04-09T22:30:00"
   },
+  {
+    id: "2026-04-09-007",
+    date: "2026-04-09",
+    meal: "snack",
+    items: [
+      { foodId: "eafit-pure-isolate-vanille", name: "EAFit Vanille", grams: 20, kcal: 73.2, prot: 17.2, carbs: 0.7, fat: 0.2 },
+      { foodId: "siggis-skyr-nature", name: "Skyr Siggis", grams: 70, kcal: 44.1, prot: 7.7, carbs: 2.8, fat: 0.1 }
+    ],
+    timestamp: "2026-04-09T23:00:00"
+  },
   // === 9 abril 2026 - Adriana ===
   {
     id: "2026-04-09-A01",
