@@ -880,9 +880,18 @@
     .mfp-meal-header {
       background: var(--teal); color: #fff; padding: 8px 12px;
       display: flex; justify-content: space-between; align-items: center;
-      font-size: 13px; font-weight: 700;
+      font-size: 13px; font-weight: 700; cursor: pointer; user-select: none;
     }
     .mfp-meal-header .mfp-kcal { font-weight: 400; font-size: 12px; opacity: .85; }
+    .mfp-meal-header .mfp-chevron { transition: transform .2s; font-size: 10px; margin-left: 6px; }
+    .mfp-meal-header.collapsed .mfp-chevron { transform: rotate(-90deg); }
+    .mfp-meal-body { overflow: hidden; transition: max-height .25s ease; }
+    .mfp-meal-body.collapsed { max-height: 0 !important; }
+    .mfp-meal-summary {
+      display: none; padding: 6px 12px; background: #F0FDFA;
+      font-size: 12px; font-weight: 600; color: var(--teal);
+    }
+    .mfp-meal-summary.visible { display: flex; gap: 10px; justify-content: center; }
     .mfp-item {
       display: flex; justify-content: space-between; align-items: center;
       padding: 10px 12px; border-bottom: 1px solid var(--border); background: #fff;
@@ -988,6 +997,13 @@
   let alertsOpen = true;
   let dbOpen = false;
   let mealView = 'list';
+  const collapsedMeals = new Set();
+
+  window.toggleMealAccordion = function(meal) {
+    if (collapsedMeals.has(meal)) collapsedMeals.delete(meal);
+    else collapsedMeals.add(meal);
+    render();
+  };
 
   function TARGETS() { return USERS[currentUser].targets; }
 
@@ -1504,16 +1520,25 @@
             <div class="mfp-macro"><div class="mfp-macro-val" style="color:#D97706;">${round1(item.fat||0)}</div><div class="mfp-macro-lbl">F</div></div>
           </div>
         </div>`).join('');
+      const isCollapsed = collapsedMeals.has(m);
       return `
         <div class="mfp-meal-group">
-          <div class="mfp-meal-header">
-            <span>${MEAL_ICONS[m]} ${MEAL_LABELS[m]}</span>
+          <div class="mfp-meal-header ${isCollapsed ? 'collapsed' : ''}" onclick="toggleMealAccordion('${m}')">
+            <span>${MEAL_ICONS[m]} ${MEAL_LABELS[m]} <span class="mfp-chevron">▼</span></span>
             <span class="mfp-kcal">${Math.round(kcal)} kcal</span>
           </div>
-          ${rows}
-          <div class="mfp-total-row">
-            <span>Subtotal</span>
-            <span>${Math.round(kcal)} kcal · P${mealMacros[m].prot}g · C${mealMacros[m].carbs}g · F${mealMacros[m].fat}g</span>
+          <div class="mfp-meal-summary ${isCollapsed ? 'visible' : ''}">
+            <span>${Math.round(kcal)} kcal</span>
+            <span style="color:#3B82F6;">P ${mealMacros[m].prot}g</span>
+            <span style="color:#16A34A;">C ${mealMacros[m].carbs}g</span>
+            <span style="color:#D97706;">F ${mealMacros[m].fat}g</span>
+          </div>
+          <div class="mfp-meal-body ${isCollapsed ? 'collapsed' : ''}">
+            ${rows}
+            <div class="mfp-total-row">
+              <span>Subtotal</span>
+              <span>${Math.round(kcal)} kcal · P${mealMacros[m].prot}g · C${mealMacros[m].carbs}g · F${mealMacros[m].fat}g</span>
+            </div>
           </div>
         </div>`;
     }).join('');
