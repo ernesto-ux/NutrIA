@@ -1787,6 +1787,68 @@ const MEAL_LOG = [
       { foodId: "ricotta-casa-azzurra", name: "Ricotta", grams: 30, kcal: 52.2, prot: 3.3, carbs: 0.9, fat: 3.9 }
     ],
     timestamp: "2026-04-09T20:30:00"
+  },
+  // === 9 abril 2026 - Adriana ===
+  {
+    id: "2026-04-09-A01",
+    date: "2026-04-09",
+    meal: "desayuno", who: "adriana",
+    items: [
+      { foodId: "hipro-vanille", name: "HiPro Vanille", grams: 154, kcal: 118.6, prot: 15.7, carbs: 9.1, fat: 1.2 },
+      { foodId: "siggis-skyr-nature", name: "Skyr Siggis", grams: 100, kcal: 63.0, prot: 11.0, carbs: 4.0, fat: 0.2 },
+      { foodId: "fruits-rouges-mix", name: "Fruits Rouges", grams: 32, kcal: 12.8, prot: 0.3, carbs: 2.9, fat: 0.1 },
+      { foodId: "semillas-chia", name: "Chia", grams: 5, kcal: 24.3, prot: 0.9, carbs: 2.1, fat: 1.6 },
+      { foodId: "blueberries-frescas", name: "Blueberries", grams: 19, kcal: 10.8, prot: 0.1, carbs: 2.8, fat: 0.1 },
+      { foodId: "chocolate-negro-90", name: "Chocolate Negro 90%", grams: 10, kcal: 59.2, prot: 1.0, carbs: 1.4, fat: 5.5 }
+    ],
+    timestamp: "2026-04-09T08:00:00"
+  },
+  {
+    id: "2026-04-09-A02",
+    date: "2026-04-09",
+    meal: "snack", who: "adriana",
+    items: [
+      { foodId: "sojasun-nature", name: "Sojasun Nature (1 pot)", grams: 100, units: 1, kcal: 41.0, prot: 4.6, carbs: 0, fat: 2.4 },
+      { foodId: "blueberries-frescas", name: "Blueberries", grams: 50, kcal: 28.5, prot: 0.4, carbs: 7.3, fat: 0.2 }
+    ],
+    timestamp: "2026-04-09T10:30:00"
+  },
+  {
+    id: "2026-04-09-A03",
+    date: "2026-04-09",
+    meal: "almuerzo", who: "adriana",
+    items: [
+      { foodId: "bavette-cocida", name: "Pasta", grams: 130, kcal: 204.1, prot: 7.2, carbs: 40.3, fat: 1.2 },
+      { foodId: "rumsteck-boeuf-cuit", name: "Carne", grams: 80, kcal: 96.0, prot: 20.0, carbs: 0, fat: 1.6 },
+      { foodId: "ejote-haricot-vert", name: "Ejotes", grams: 120, kcal: 37.2, prot: 2.2, carbs: 8.4, fat: 0.1 }
+    ],
+    timestamp: "2026-04-09T13:00:00"
+  },
+  {
+    id: "2026-04-09-A04",
+    date: "2026-04-09",
+    meal: "snack", who: "adriana",
+    items: [
+      { foodId: "kefir-nature", name: "Kéfir", grams: 125, kcal: 77.5, prot: 4.4, carbs: 5.0, fat: 4.4 },
+      { foodId: "fruits-rouges-mix", name: "Fruits Rouges", grams: 60, kcal: 24.0, prot: 0.5, carbs: 5.4, fat: 0.2 },
+      { foodId: "pp-vanilla-protein", name: "Proteina Vanilla", grams: 17, kcal: 63.8, prot: 13.6, carbs: 0.9, fat: 0.5 },
+      { foodId: "leche-almendra", name: "Leche de Almendra", grams: 30, kcal: 3.9, prot: 0.1, carbs: 0.1, fat: 0.3 }
+    ],
+    timestamp: "2026-04-09T16:30:00"
+  },
+  {
+    id: "2026-04-09-A05",
+    date: "2026-04-09",
+    meal: "cena", who: "adriana",
+    items: [
+      { foodId: "huevo-entero", name: "Huevo Entero (x2)", grams: 100, units: 2, kcal: 155.0, prot: 13.0, carbs: 1.1, fat: 11.0 },
+      { foodId: "tomate-triturado", name: "Tomate (4 cdas)", grams: 60, kcal: 14.4, prot: 0.6, carbs: 2.4, fat: 0.1 },
+      { foodId: "cebolla-cruda", name: "Cebolla (1.5 tbsp)", grams: 22.5, kcal: 9.0, prot: 0.2, carbs: 2.1, fat: 0 },
+      { foodId: "ciabatta-artesanal", name: "Ciabatta", grams: 67, kcal: 181.6, prot: 6.0, carbs: 33.5, fat: 2.3 },
+      { foodId: "danone-cottage-cheese", name: "Cottage (1.5 tbsp)", grams: 22.5, kcal: 20.3, prot: 2.7, carbs: 0.4, fat: 0.9 },
+      { foodId: "ricotta-casa-azzurra", name: "Ricotta (5 tsp)", grams: 25, kcal: 43.5, prot: 2.8, carbs: 0.8, fat: 3.3 }
+    ],
+    timestamp: "2026-04-09T20:30:00"
   }
 
 ];
