@@ -1788,6 +1788,15 @@ const MEAL_LOG = [
     ],
     timestamp: "2026-04-09T20:30:00"
   },
+  {
+    id: "2026-04-09-006",
+    date: "2026-04-09",
+    meal: "snack",
+    items: [
+      { foodId: "eafit-pure-isolate-vanille", name: "EAFit Vanille", grams: 20, kcal: 73.2, prot: 17.2, carbs: 0.7, fat: 0.2 }
+    ],
+    timestamp: "2026-04-09T22:30:00"
+  },
   // === 9 abril 2026 - Adriana ===
   {
     id: "2026-04-09-A01",

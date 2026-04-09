@@ -178,6 +178,20 @@
       align-items: center;
       gap: 8px;
       min-width: 80px;
+      position: relative;
+    }
+    .ring-excess {
+      position: absolute;
+      top: 2px;
+      right: -6px;
+      font-size: 0.55rem;
+      font-weight: 700;
+      color: var(--red, #e74c3c);
+      background: rgba(231,76,60,0.1);
+      padding: 1px 4px;
+      border-radius: 6px;
+      line-height: 1.2;
+      white-space: nowrap;
     }
     .ring-svg-container {
       position: relative;
@@ -1378,8 +1392,14 @@
     const displayVal = value > 0 ? (unit === 'kcal' ? Math.round(value) : round1(value)) : '–';
     const targetDisplay = unit === 'kcal' ? Math.round(target) : target;
 
+    const excess = value > target && target > 0 ? value - target : 0;
+    const excessDisplay = excess > 0
+      ? `<span class="ring-excess">+${unit === 'kcal' ? Math.round(excess) : round1(excess)}</span>`
+      : '';
+
     return `
       <div class="ring-wrap">
+        ${excessDisplay}
         <div class="ring-svg-container">
           <svg class="ring-svg" width="80" height="80" viewBox="0 0 80 80">
             <circle class="ring-bg" cx="40" cy="40" r="${r}" />
