@@ -2,7 +2,7 @@
 // Updated by Claude Code via /log-food skill
 // DO NOT EDIT MANUALLY - use /log-food to add meals
 
-const DATA_TIMESTAMP = "2026-04-09T22:00:00 Europe/Paris";
+const DATA_TIMESTAMP = "2026-04-10T13:30:00 Europe/Paris";
 
 const NUTRITION_CONFIG = {
   targets: { kcal: 1770, prot: 190, carbs: 140, fat: 50 },
@@ -911,6 +911,22 @@ const FOOD_DATABASE = [
     per100g: { kcal: 271, prot: 9, carbs: 50, fat: 3.5, fiber: 2.5 },
     source: "web",
     addedDate: "2026-04-09"
+  },
+  {
+    id: "arroz-salteado",
+    name: "Arroz Salteado (Stir-Fried Rice)",
+    brand: "",
+    per100g: { kcal: 150, prot: 3.2, carbs: 30, fat: 1.5, fiber: 0.4 },
+    source: "web",
+    addedDate: "2026-04-10"
+  },
+  {
+    id: "mani-salado",
+    name: "Maní Salado (Cacahuetes Tostados)",
+    brand: "",
+    per100g: { kcal: 585, prot: 24.5, carbs: 16.1, fat: 49.2, fiber: 8 },
+    source: "web",
+    addedDate: "2026-04-10"
   }
 ];
 
@@ -1868,6 +1884,43 @@ const MEAL_LOG = [
       { foodId: "ricotta-casa-azzurra", name: "Ricotta (5 tsp)", grams: 25, kcal: 43.5, prot: 2.8, carbs: 0.8, fat: 3.3 }
     ],
     timestamp: "2026-04-09T20:30:00"
+  },
+  // === ERNESTO 2026-04-10 ===
+  {
+    id: "2026-04-10-001",
+    date: "2026-04-10",
+    meal: "desayuno",
+    items: [
+      { foodId: "hipro-blueberry", name: "HiPro Blueberry (1/2)", grams: 80, kcal: 42.4, prot: 7.5, carbs: 3.0, fat: 0 },
+      { foodId: "eafit-pure-isolate-vanille", name: "EAFit Vanille", grams: 40, kcal: 146.4, prot: 34.4, carbs: 1.3, fat: 0.4 },
+      { foodId: "siggis-skyr-nature", name: "Skyr Siggis", grams: 100, kcal: 63.0, prot: 11.0, carbs: 4.0, fat: 0.2 },
+      { foodId: "leche-almendra", name: "Lait Amande Alpro Sans Sucres", grams: 50, kcal: 6.5, prot: 0.2, carbs: 0.1, fat: 0.6 }
+    ],
+    timestamp: "2026-04-10T08:00:00"
+  },
+  {
+    id: "2026-04-10-002",
+    date: "2026-04-10",
+    meal: "almuerzo",
+    items: [
+      { foodId: "salmorejo-alvalle", name: "Salmorejo", grams: 150, kcal: 81.0, prot: 1.8, carbs: 8.7, fat: 4.5 },
+      { foodId: "ricotta-casa-azzurra", name: "Ricotta (1 tbsp)", grams: 15, kcal: 26.1, prot: 1.7, carbs: 0.5, fat: 2.0 },
+      { foodId: "aceite-oliva", name: "AOVE (1/2 tsp)", grams: 2.5, kcal: 22.1, prot: 0, carbs: 0, fat: 2.5 },
+      { foodId: "arroz-salteado", name: "Arroz Salteado", grams: 100, kcal: 150.0, prot: 3.2, carbs: 30.0, fat: 1.5 },
+      { foodId: "mani-salado", name: "Maní Salado", grams: 13, kcal: 76.1, prot: 3.2, carbs: 2.1, fat: 6.4 },
+      { foodId: "salsa-soya", name: "Salsa de Soya (1 cda)", grams: 15, kcal: 8.0, prot: 1.2, carbs: 0.7, fat: 0 },
+      { foodId: "maizena", name: "Maizena", grams: 3, kcal: 11.4, prot: 0, carbs: 2.7, fat: 0 }
+    ],
+    timestamp: "2026-04-10T13:00:00"
+  },
+  {
+    id: "2026-04-10-003",
+    date: "2026-04-10",
+    meal: "snack",
+    items: [
+      { foodId: "fresas-frescas", name: "Fresas (x2)", grams: 24, units: 2, kcal: 7.7, prot: 0.2, carbs: 1.8, fat: 0.1 }
+    ],
+    timestamp: "2026-04-10T16:00:00"
   }
 
 ];
