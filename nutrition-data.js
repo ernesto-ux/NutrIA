@@ -947,6 +947,15 @@ const FOOD_DATABASE = [
     source: "recetario",
     addedDate: "2026-04-11",
     notes: "300g banano maduro, 50g azucar blanca (4 cdas), 3 huevos, 1 cdita vainilla, 160g harina blanca, 1/4 cdita bicarbonato, 1/2 cdita canela, 30g proteina EAFit vanille, 45g chispas chocolate oscuro bio (1/4 taza). Yield ~743g"
+  },
+  {
+    id: "almendras-enteras",
+    name: "Almendras Enteras (Natural)",
+    brand: "",
+    per100g: { kcal: 576, prot: 21, carbs: 22, fat: 49, fiber: 12 },
+    unitWeight: 1.2, unitLabel: "almendra",
+    source: "web",
+    addedDate: "2026-04-11"
   }
 ];
 
@@ -1952,7 +1961,72 @@ const MEAL_LOG = [
     meal: "cena",
     items: [
       { foodId: "spanakopita-light", name: "Spanakopita Light", grams: 440, kcal: 979.4, prot: 58.5, carbs: 35.6, fat: 67.3 },
-      { foodId: "pan-banano-hp-chocolate", name: "Pan de Banano HP + Choc", grams: 125, kcal: 279.4, prot: 11.6, carbs: 42.1, fat: 7.4 }
+      { foodId: "pan-banano-hp-chocolate", name: "Pan de Banano HP + Choc", grams: 125, kcal: 279.4, prot: 11.6, carbs: 42.1, fat: 7.4 },
+      { foodId: "mantequilla-de-mani-menguys", name: "Peanut Butter Menguys", grams: 12, kcal: 70.6, prot: 3.0, carbs: 2.4, fat: 6.0 }
+    ],
+    timestamp: "2026-04-10T20:00:00"
+  },
+  // === ADRIANA 2026-04-10 ===
+  {
+    id: "2026-04-10-A01",
+    date: "2026-04-10",
+    meal: "desayuno", who: "adriana",
+    items: [
+      { foodId: "hipro-blueberry", name: "HiPro Blueberry", grams: 155, kcal: 82.2, prot: 14.6, carbs: 5.9, fat: 0 },
+      { foodId: "siggis-skyr-nature", name: "Skyr", grams: 100, kcal: 63.0, prot: 11.0, carbs: 4.0, fat: 0.2 },
+      { foodId: "semillas-chia", name: "Chia", grams: 5, kcal: 24.3, prot: 0.9, carbs: 2.1, fat: 1.6 },
+      { foodId: "chocolate-negro-90", name: "Chocolate Negro 90%", grams: 10, kcal: 59.2, prot: 1.0, carbs: 1.4, fat: 5.5 },
+      { foodId: "blueberries-frescas", name: "Blueberries", grams: 50, kcal: 28.5, prot: 0.4, carbs: 7.3, fat: 0.2 }
+    ],
+    timestamp: "2026-04-10T08:30:00"
+  },
+  {
+    id: "2026-04-10-A02",
+    date: "2026-04-10",
+    meal: "snack", who: "adriana",
+    items: [
+      { foodId: "kefir-nature", name: "Kéfir", grams: 125, kcal: 77.5, prot: 4.4, carbs: 5.0, fat: 4.4 },
+      { foodId: "pp-vanilla-protein", name: "Proteina", grams: 13, kcal: 48.8, prot: 10.4, carbs: 0.7, fat: 0.4 },
+      { foodId: "fresas-frescas", name: "Fresas", grams: 29, kcal: 9.3, prot: 0.2, carbs: 2.2, fat: 0.1 },
+      { foodId: "wasa-leger", name: "Wasa Leger x2", grams: 19.2, units: 2, kcal: 64.9, prot: 1.7, carbs: 11.9, fat: 0.3 },
+      { foodId: "ricotta-casa-azzurra", name: "Ricotta (2 tbsp)", grams: 30, kcal: 52.2, prot: 3.3, carbs: 0.9, fat: 3.9 }
+    ],
+    timestamp: "2026-04-10T11:00:00"
+  },
+  {
+    id: "2026-04-10-A03",
+    date: "2026-04-10",
+    meal: "snack", who: "adriana",
+    items: [
+      { foodId: "wasa-leger", name: "Wasa Leger x1", grams: 9.6, units: 1, kcal: 32.4, prot: 0.9, carbs: 6.0, fat: 0.1 },
+      { foodId: "ricotta-casa-azzurra", name: "Ricotta (1 tbsp)", grams: 15, kcal: 26.1, prot: 1.7, carbs: 0.5, fat: 2.0 },
+      { foodId: "almendras-enteras", name: "Almendras x5", grams: 6, units: 5, kcal: 34.6, prot: 1.3, carbs: 1.3, fat: 2.9 }
+    ],
+    timestamp: "2026-04-10T15:00:00"
+  },
+  {
+    id: "2026-04-10-A04",
+    date: "2026-04-10",
+    meal: "almuerzo", who: "adriana",
+    items: [
+      { foodId: "salmorejo-alvalle", name: "Salmorejo", grams: 100, kcal: 54.0, prot: 1.2, carbs: 5.8, fat: 3.0 },
+      { foodId: "ricotta-casa-azzurra", name: "Ricotta (1 tbsp)", grams: 15, kcal: 26.1, prot: 1.7, carbs: 0.5, fat: 2.0 },
+      { foodId: "aceite-oliva", name: "AOVE (1/2 tsp)", grams: 2.5, kcal: 22.1, prot: 0, carbs: 0, fat: 2.5 },
+      { foodId: "arroz-salteado", name: "Arroz Salteado", grams: 50, kcal: 75.0, prot: 1.6, carbs: 15.0, fat: 0.8 },
+      { foodId: "rumsteck-boeuf-cuit", name: "Carne", grams: 47, kcal: 56.4, prot: 11.8, carbs: 0, fat: 0.9 },
+      { foodId: "pimiento-rojo-crudo", name: "Chiles", grams: 31, kcal: 9.6, prot: 0.3, carbs: 1.9, fat: 0.1 },
+      { foodId: "brocoli-cuit", name: "Brocoli al vapor", grams: 57, kcal: 20.0, prot: 1.7, carbs: 2.3, fat: 0.2 }
+    ],
+    timestamp: "2026-04-10T13:00:00"
+  },
+  {
+    id: "2026-04-10-A05",
+    date: "2026-04-10",
+    meal: "cena", who: "adriana",
+    items: [
+      { foodId: "spanakopita-light", name: "Spanakopita Light", grams: 309, kcal: 687.8, prot: 41.1, carbs: 25.0, fat: 47.3 },
+      { foodId: "pan-banano-hp-chocolate", name: "Pan de Banano HP + Choc", grams: 102, kcal: 228.0, prot: 9.5, carbs: 34.4, fat: 6.0 },
+      { foodId: "mantequilla-de-mani-menguys", name: "Peanut Butter Menguys", grams: 7, kcal: 41.2, prot: 1.8, carbs: 1.4, fat: 3.5 }
     ],
     timestamp: "2026-04-10T20:00:00"
   }
