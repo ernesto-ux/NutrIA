@@ -2,7 +2,7 @@
 // Updated by Claude Code via /log-food skill
 // DO NOT EDIT MANUALLY - use /log-food to add meals
 
-const DATA_TIMESTAMP = "2026-04-10T13:30:00 Europe/Paris";
+const DATA_TIMESTAMP = "2026-04-11T09:00:00 Europe/Paris";
 
 const NUTRITION_CONFIG = {
   targets: { kcal: 1770, prot: 190, carbs: 140, fat: 50 },
@@ -927,6 +927,26 @@ const FOOD_DATABASE = [
     per100g: { kcal: 585, prot: 24.5, carbs: 16.1, fat: 49.2, fiber: 8 },
     source: "web",
     addedDate: "2026-04-10"
+  },
+  {
+    id: "spanakopita-light",
+    name: "Spanakopita Light",
+    brand: "Recetario",
+    per100g: { kcal: 222.6, prot: 13.3, carbs: 8.1, fat: 15.3, fiber: 2.3 },
+    totalG: 1100,
+    source: "recetario",
+    addedDate: "2026-04-11",
+    notes: "150g feta Islos AOP brebis, 1kg espinaca congelada Picard, 2 tbsp aceite oliva, 30g mantequilla, 4 huevos, 4 claras, 375g ricotta Casa Azzurra (1.5 tarros), 6 hojas brick grande. Yield 1100g"
+  },
+  {
+    id: "pan-banano-hp-chocolate",
+    name: "Pan de Banano High Protein + Chocolate Oscuro",
+    brand: "Recetario",
+    per100g: { kcal: 223.5, prot: 9.3, carbs: 33.7, fat: 5.9, fiber: 1.5 },
+    totalG: 743,
+    source: "recetario",
+    addedDate: "2026-04-11",
+    notes: "300g banano maduro, 50g azucar blanca (4 cdas), 3 huevos, 1 cdita vainilla, 160g harina blanca, 1/4 cdita bicarbonato, 1/2 cdita canela, 30g proteina EAFit vanille, 45g chispas chocolate oscuro bio (1/4 taza). Yield ~743g"
   }
 ];
 
@@ -1921,6 +1941,16 @@ const MEAL_LOG = [
       { foodId: "fresas-frescas", name: "Fresas (x2)", grams: 24, units: 2, kcal: 7.7, prot: 0.2, carbs: 1.8, fat: 0.1 }
     ],
     timestamp: "2026-04-10T16:00:00"
+  },
+  {
+    id: "2026-04-10-004",
+    date: "2026-04-10",
+    meal: "cena",
+    items: [
+      { foodId: "spanakopita-light", name: "Spanakopita Light", grams: 440, kcal: 979.4, prot: 58.5, carbs: 35.6, fat: 67.3 },
+      { foodId: "pan-banano-hp-chocolate", name: "Pan de Banano HP + Choc", grams: 125, kcal: 279.4, prot: 11.6, carbs: 42.1, fat: 7.4 }
+    ],
+    timestamp: "2026-04-10T20:00:00"
   }
 
 ];
