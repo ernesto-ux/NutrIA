@@ -1940,7 +1940,6 @@ const MEAL_LOG = [
       { foodId: "salsa-soya", name: "Salsa de Soya (1 cda)", grams: 15, kcal: 8.0, prot: 1.2, carbs: 0.7, fat: 0 },
       { foodId: "maizena", name: "Maizena", grams: 3, kcal: 11.4, prot: 0, carbs: 2.7, fat: 0 },
       { foodId: "rumsteck-boeuf-cuit", name: "Rumsteck de Boeuf", grams: 95, kcal: 114.0, prot: 23.8, carbs: 0, fat: 1.9 },
-      { foodId: "aceite-oliva", name: "AOVE (3/4 cdita)", grams: 3.75, kcal: 33.2, prot: 0, carbs: 0, fat: 3.8 },
       { foodId: "pimiento-rojo-crudo", name: "Pimiento Rojo", grams: 140, kcal: 43.4, prot: 1.4, carbs: 8.4, fat: 0.4 },
       { foodId: "brocoli-cuit", name: "Brocoli", grams: 130, kcal: 45.5, prot: 3.9, carbs: 5.2, fat: 0.5 }
     ],
