@@ -932,8 +932,8 @@ const FOOD_DATABASE = [
     id: "spanakopita-light",
     name: "Spanakopita Light",
     brand: "Recetario",
-    per100g: { kcal: 204.5, prot: 12.3, carbs: 7.5, fat: 13.8, fiber: 2.3 },
-    totalG: 1100,
+    per100g: { kcal: 179.9, prot: 10.8, carbs: 6.6, fat: 12.1, fiber: 2.3 },
+    totalG: 1250,
     source: "recetario",
     addedDate: "2026-04-11",
     notes: "150g feta Islos AOP brebis, 1kg espinaca congelada Picard, 18g aceite oliva, 27g mantequilla, 4 huevos, 4 claras, 375g ricotta Casa Azzurra (1.5 tarros), 6 hojas brick grande. Yield 1100g"
@@ -1959,7 +1959,7 @@ const MEAL_LOG = [
     date: "2026-04-10",
     meal: "cena",
     items: [
-      { foodId: "spanakopita-light", name: "Spanakopita Light", grams: 440, kcal: 899.8, prot: 54.1, carbs: 33.0, fat: 60.7 },
+      { foodId: "spanakopita-light", name: "Spanakopita Light", grams: 440, kcal: 791.6, prot: 47.5, carbs: 29.0, fat: 53.2 },
       { foodId: "pan-banano-hp-chocolate", name: "Pan de Banano HP + Choc", grams: 125, kcal: 279.4, prot: 11.6, carbs: 42.1, fat: 7.4 },
       { foodId: "mantequilla-de-mani-menguys", name: "Peanut Butter Menguys", grams: 12, kcal: 70.6, prot: 3.0, carbs: 2.4, fat: 6.0 }
     ],
@@ -2023,7 +2023,7 @@ const MEAL_LOG = [
     date: "2026-04-10",
     meal: "cena", who: "adriana",
     items: [
-      { foodId: "spanakopita-light", name: "Spanakopita Light", grams: 309, kcal: 631.9, prot: 38.0, carbs: 23.2, fat: 42.6 },
+      { foodId: "spanakopita-light", name: "Spanakopita Light", grams: 309, kcal: 555.9, prot: 33.4, carbs: 20.4, fat: 37.4 },
       { foodId: "pan-banano-hp-chocolate", name: "Pan de Banano HP + Choc", grams: 102, kcal: 228.0, prot: 9.5, carbs: 34.4, fat: 6.0 },
       { foodId: "mantequilla-de-mani-menguys", name: "Peanut Butter Menguys", grams: 7, kcal: 41.2, prot: 1.8, carbs: 1.4, fat: 3.5 }
     ],
