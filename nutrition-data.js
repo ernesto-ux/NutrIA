@@ -2114,7 +2114,8 @@ const MEAL_LOG = [
     date: "2026-04-11",
     meal: "snack",
     items: [
-      { foodId: "spanakopita-light", name: "Spanakopita Light", grams: 125, kcal: 224.9, prot: 13.5, carbs: 8.3, fat: 15.1 }
+      { foodId: "spanakopita-light", name: "Spanakopita Light", grams: 125, kcal: 224.9, prot: 13.5, carbs: 8.3, fat: 15.1 },
+      { foodId: "eafit-pure-isolate-chocolat", name: "EAFit Chocolat", grams: 20, kcal: 70.8, prot: 16.2, carbs: 0.7, fat: 0.3 }
     ],
     timestamp: "2026-04-11T16:00:00"
   },
@@ -2169,8 +2170,7 @@ const MEAL_LOG = [
     date: "2026-04-12",
     meal: "snack",
     items: [
-      { foodId: "kebab-veau-maison", name: "Kebab Veau Maison", grams: 150, kcal: 270.0, prot: 37.5, carbs: 1.5, fat: 12.8 },
-      { foodId: "eafit-pure-isolate-chocolat", name: "EAFit Chocolat", grams: 20, kcal: 70.8, prot: 16.2, carbs: 0.7, fat: 0.3 }
+      { foodId: "kebab-veau-maison", name: "Kebab Veau Maison", grams: 150, kcal: 270.0, prot: 37.5, carbs: 1.5, fat: 12.8 }
     ],
     timestamp: "2026-04-12T01:00:00"
   }
