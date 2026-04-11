@@ -975,12 +975,12 @@ const FOOD_DATABASE = [
   },
   {
     id: "cuisse-poulet-cuite",
-    name: "Cuisse de Poulet (cuite, sans os)",
+    name: "Cuisse de Poulet (cuite, sans peau, sans os)",
     brand: "",
-    per100g: { kcal: 184, prot: 26, carbs: 0, fat: 8.5, fiber: 0 },
+    per100g: { kcal: 172, prot: 26, carbs: 0, fat: 7, fiber: 0 },
     source: "web",
     addedDate: "2026-04-11",
-    notes: "300g con hueso ≈ 150g carne comestible (50%)"
+    notes: "300g con hueso ≈ 150g carne comestible (50%). Sin piel"
   },
   {
     id: "saumon-benny-kozy",
@@ -2085,12 +2085,21 @@ const MEAL_LOG = [
       { foodId: "eafit-pure-isolate-chocolat", name: "EAFit Chocolat", grams: 40, kcal: 141.6, prot: 32.4, carbs: 1.5, fat: 0.6 },
       { foodId: "siggis-skyr-nature", name: "Skyr Siggis", grams: 50, kcal: 31.5, prot: 5.5, carbs: 2.0, fat: 0.1 },
       { foodId: "patate-cuite", name: "Pomme de Terre", grams: 160, kcal: 139.2, prot: 3.0, carbs: 32.0, fat: 0.2 },
-      { foodId: "cuisse-poulet-cuite", name: "Cuisses de Poulet (300g con hueso)", grams: 150, kcal: 276.0, prot: 39.0, carbs: 0, fat: 12.8 },
+      { foodId: "cuisse-poulet-cuite", name: "Cuisses de Poulet sin piel (300g con hueso)", grams: 150, kcal: 258.0, prot: 39.0, carbs: 0, fat: 10.5 },
       { foodId: "aceite-oliva", name: "AOVE (1/2 cdita)", grams: 2.5, kcal: 22.1, prot: 0, carbs: 0, fat: 2.5 },
       { foodId: "tomate-cherry", name: "Tomate Cherry", grams: 50, kcal: 9.0, prot: 0.5, carbs: 2.0, fat: 0.1 },
       { foodId: "pan-banano-hp-chocolate", name: "Banana Bread HP", grams: 75, kcal: 167.6, prot: 7.0, carbs: 25.3, fat: 4.4 }
     ],
     timestamp: "2026-04-11T13:00:00"
+  },
+  {
+    id: "2026-04-11-003",
+    date: "2026-04-11",
+    meal: "snack",
+    items: [
+      { foodId: "spanakopita-light", name: "Spanakopita Light", grams: 125, kcal: 224.9, prot: 13.5, carbs: 8.3, fat: 15.1 }
+    ],
+    timestamp: "2026-04-11T16:00:00"
   },
   // === ADRIANA 2026-04-11 ===
   {
