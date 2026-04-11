@@ -1004,10 +1004,10 @@ const FOOD_DATABASE = [
     id: "kebab-veau-maison",
     name: "Kebab Veau Fait Maison (carne sola)",
     brand: "",
-    per100g: { kcal: 230, prot: 19, carbs: 1, fat: 17, fiber: 0 },
+    per100g: { kcal: 180, prot: 25, carbs: 1, fat: 8.5, fiber: 0 },
     source: "web",
     addedDate: "2026-04-12",
-    notes: "Viande de veau émincée grillée maison, sin pan ni salsa"
+    notes: "Veau magro marinado (yogurt, poco aceite, especias), grillé maison. Sin pan ni salsa"
   }
 ];
 
@@ -2116,7 +2116,7 @@ const MEAL_LOG = [
     items: [
       { foodId: "spanakopita-light", name: "Spanakopita Light", grams: 125, kcal: 224.9, prot: 13.5, carbs: 8.3, fat: 15.1 },
       { foodId: "eafit-pure-isolate-chocolat", name: "EAFit Chocolat", grams: 20, kcal: 70.8, prot: 16.2, carbs: 0.7, fat: 0.3 },
-      { foodId: "kebab-veau-maison", name: "Kebab Veau Maison", grams: 150, kcal: 345.0, prot: 28.5, carbs: 1.5, fat: 25.5 }
+      { foodId: "kebab-veau-maison", name: "Kebab Veau Maison", grams: 150, kcal: 270.0, prot: 37.5, carbs: 1.5, fat: 12.8 }
     ],
     timestamp: "2026-04-11T16:00:00"
   },
