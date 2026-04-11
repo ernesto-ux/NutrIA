@@ -2164,6 +2164,16 @@ const MEAL_LOG = [
     ],
     timestamp: "2026-04-11T15:00:00"
   },
+  {
+    id: "2026-04-11-A04",
+    date: "2026-04-11",
+    meal: "cena", who: "adriana",
+    items: [
+      { foodId: "girasoli-burrata-basilic-picard", name: "Girasoli Burrata Picard", grams: 226, kcal: 409.1, prot: 19.0, carbs: 56.5, fat: 10.8 },
+      { foodId: "pan-banano-hp-chocolate", name: "Banana Bread HP", grams: 120, kcal: 268.2, prot: 11.2, carbs: 40.4, fat: 7.1 }
+    ],
+    timestamp: "2026-04-11T20:30:00"
+  },
   // === ERNESTO 2026-04-12 ===
   {
     id: "2026-04-12-001",
