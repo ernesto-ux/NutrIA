@@ -956,6 +956,16 @@ const FOOD_DATABASE = [
     unitWeight: 1.2, unitLabel: "almendra",
     source: "web",
     addedDate: "2026-04-11"
+  },
+  {
+    id: "saumon-benny-kozy",
+    name: "Saumon Benny (Kozy Paris)",
+    brand: "Kozy Paris",
+    per100g: { kcal: 160.3, prot: 8.2, carbs: 12.2, fat: 8.5, fiber: 0.5 },
+    totalG: 340,
+    source: "user",
+    addedDate: "2026-04-11",
+    notes: "Brioche 80g, saumon fumé 60g, huevo pochado 50g, espinacas 60g, salsa holandesa 30g. Total ~340g, 545 kcal"
   }
 ];
 
@@ -2028,6 +2038,38 @@ const MEAL_LOG = [
       { foodId: "mantequilla-de-mani-menguys", name: "Peanut Butter Menguys", grams: 7, kcal: 41.2, prot: 1.8, carbs: 1.4, fat: 3.5 }
     ],
     timestamp: "2026-04-10T20:00:00"
+  },
+  // === ADRIANA 2026-04-11 ===
+  {
+    id: "2026-04-11-A01",
+    date: "2026-04-11",
+    meal: "desayuno", who: "adriana",
+    items: [
+      { foodId: "kefir-nature", name: "Kéfir", grams: 125, kcal: 77.5, prot: 4.4, carbs: 5.0, fat: 4.4 },
+      { foodId: "pp-vanilla-protein", name: "Proteina", grams: 15, kcal: 56.3, prot: 12.0, carbs: 0.8, fat: 0.5 },
+      { foodId: "fresas-frescas", name: "Fresas", grams: 36, kcal: 11.5, prot: 0.3, carbs: 2.8, fat: 0.1 }
+    ],
+    timestamp: "2026-04-11T08:30:00"
+  },
+  {
+    id: "2026-04-11-A02",
+    date: "2026-04-11",
+    meal: "almuerzo", who: "adriana",
+    items: [
+      { foodId: "saumon-benny-kozy", name: "Saumon Benny (Kozy Paris)", grams: 340, kcal: 545.0, prot: 28.0, carbs: 41.5, fat: 29.0 }
+    ],
+    timestamp: "2026-04-11T12:00:00"
+  },
+  {
+    id: "2026-04-11-A03",
+    date: "2026-04-11",
+    meal: "snack", who: "adriana",
+    items: [
+      { foodId: "pan-banano-hp-chocolate", name: "Pan de Banano HP", grams: 16, kcal: 35.8, prot: 1.5, carbs: 5.4, fat: 0.9 },
+      { foodId: "siggis-skyr-raspberry", name: "Siggis Framboise (3 tsp)", grams: 15, kcal: 11.0, prot: 1.5, carbs: 1.2, fat: 0 },
+      { foodId: "pan-banano-hp-chocolate", name: "Pan de Banano HP", grams: 36, kcal: 80.5, prot: 3.3, carbs: 12.1, fat: 2.1 }
+    ],
+    timestamp: "2026-04-11T15:00:00"
   }
 
 ];
