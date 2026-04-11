@@ -991,6 +991,23 @@ const FOOD_DATABASE = [
     source: "user",
     addedDate: "2026-04-11",
     notes: "Brioche 80g, saumon fumé 60g, huevo pochado 50g, espinacas 60g, salsa holandesa 30g. Total ~340g, 545 kcal"
+  },
+  {
+    id: "girasoli-burrata-basilic-picard",
+    name: "Girasoli Burrata Basilic",
+    brand: "Picard",
+    per100g: { kcal: 181, prot: 8.4, carbs: 25, fat: 4.8, fiber: 1.8 },
+    source: "web",
+    addedDate: "2026-04-12"
+  },
+  {
+    id: "kebab-veau-maison",
+    name: "Kebab Veau Fait Maison (carne sola)",
+    brand: "",
+    per100g: { kcal: 230, prot: 19, carbs: 1, fat: 17, fiber: 0 },
+    source: "web",
+    addedDate: "2026-04-12",
+    notes: "Viande de veau émincée grillée maison, sin pan ni salsa"
   }
 ];
 
@@ -2097,9 +2114,24 @@ const MEAL_LOG = [
     date: "2026-04-11",
     meal: "snack",
     items: [
-      { foodId: "spanakopita-light", name: "Spanakopita Light", grams: 125, kcal: 224.9, prot: 13.5, carbs: 8.3, fat: 15.1 }
+      { foodId: "spanakopita-light", name: "Spanakopita Light", grams: 125, kcal: 224.9, prot: 13.5, carbs: 8.3, fat: 15.1 },
+      { foodId: "eafit-pure-isolate-chocolat", name: "EAFit Chocolat", grams: 20, kcal: 70.8, prot: 16.2, carbs: 0.7, fat: 0.3 },
+      { foodId: "kebab-veau-maison", name: "Kebab Veau Maison", grams: 150, kcal: 345.0, prot: 28.5, carbs: 1.5, fat: 25.5 }
     ],
     timestamp: "2026-04-11T16:00:00"
+  },
+  {
+    id: "2026-04-11-004",
+    date: "2026-04-11",
+    meal: "cena",
+    items: [
+      { foodId: "girasoli-burrata-basilic-picard", name: "Girasoli Burrata Picard", grams: 113, kcal: 204.5, prot: 9.5, carbs: 28.3, fat: 5.4 },
+      { foodId: "tomate-triturado", name: "Salsa Tomate Natural", grams: 50, kcal: 12.0, prot: 0.5, carbs: 2.0, fat: 0.1 },
+      { foodId: "queso-maduro-espanol", name: "Queso Maduro Español", grams: 15, kcal: 60.0, prot: 3.8, carbs: 0.1, fat: 5.0 },
+      { foodId: "aceite-oliva", name: "AOVE (1/3 tsp)", grams: 1.7, kcal: 15.0, prot: 0, carbs: 0, fat: 1.7 },
+      { foodId: "pan-banano-hp-chocolate", name: "Banana Bread HP", grams: 50, kcal: 111.8, prot: 4.7, carbs: 16.9, fat: 3.0 }
+    ],
+    timestamp: "2026-04-11T20:30:00"
   },
   // === ADRIANA 2026-04-11 ===
   {
