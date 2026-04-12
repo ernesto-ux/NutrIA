@@ -1076,6 +1076,16 @@ const FOOD_DATABASE = [
     per100g: { kcal: 35, prot: 1.9, carbs: 7.9, fat: 0.3, fiber: 3.4 },
     source: "web",
     addedDate: "2026-04-12"
+  },
+  {
+    id: "holy-cookie-pistachio",
+    name: "Holy Cookie Hot Chocolate Pistachio",
+    brand: "Holy Cookie Paris",
+    per100g: { kcal: 493, prot: 11.3, carbs: 35.4, fat: 33.0, fiber: 2.5 },
+    totalG: 180,
+    source: "user",
+    addedDate: "2026-04-12",
+    notes: "Cookie choc noir Valrhona + pate pistache 100% + eclats pistache + fleur de sel. Estimado visual"
   }
 ];
 
@@ -2283,6 +2293,15 @@ const MEAL_LOG = [
       { foodId: "ejotes-cocidos", name: "Ejotes", grams: 103, kcal: 36.1, prot: 2.0, carbs: 8.1, fat: 0.3 }
     ],
     timestamp: "2026-04-12T13:00:00"
+  },
+  {
+    id: "2026-04-12-005",
+    date: "2026-04-12",
+    meal: "snack",
+    items: [
+      { foodId: "holy-cookie-pistachio", name: "Holy Cookie Pistachio (1/2)", grams: 90, kcal: 443.7, prot: 10.2, carbs: 31.9, fat: 29.7 }
+    ],
+    timestamp: "2026-04-12T16:00:00"
   }
 
 ];
