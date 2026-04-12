@@ -2,7 +2,7 @@
 // Updated by Claude Code via /log-food skill
 // DO NOT EDIT MANUALLY - use /log-food to add meals
 
-const DATA_TIMESTAMP = "2026-04-11T09:00:00 Europe/Paris";
+const DATA_TIMESTAMP = "2026-04-12T14:00:00 Europe/Paris";
 
 const NUTRITION_CONFIG = {
   targets: { kcal: 1770, prot: 190, carbs: 140, fat: 50 },
@@ -1008,6 +1008,74 @@ const FOOD_DATABASE = [
     source: "web",
     addedDate: "2026-04-12",
     notes: "Veau magro marinado (yogurt, poco aceite, especias), grillé maison. Sin pan ni salsa"
+  },
+  {
+    id: "avena-cruda",
+    name: "Avena en Hojuelas (cruda)",
+    brand: "",
+    per100g: { kcal: 389, prot: 16.9, carbs: 66.3, fat: 6.9, fiber: 10.6 },
+    source: "web",
+    addedDate: "2026-04-12"
+  },
+  {
+    id: "cocoa-en-polvo",
+    name: "Cocoa en Polvo (sin azucar)",
+    brand: "",
+    per100g: { kcal: 228, prot: 19.6, carbs: 57.9, fat: 13.7, fiber: 33.2 },
+    source: "web",
+    addedDate: "2026-04-12"
+  },
+  {
+    id: "pancake-avena-chocolate-hp",
+    name: "Pancake Avena de Chocolate High Protein",
+    brand: "Recetario",
+    per100g: { kcal: 115.8, prot: 13.3, carbs: 14.9, fat: 1.9, fiber: 2.8 },
+    totalG: 245,
+    source: "recetario",
+    addedDate: "2026-04-12",
+    notes: "30g avena cruda, 30g banano, 15g cocoa, 140ml agua, 30g eafit choc. TotalG = raw batter weight"
+  },
+  {
+    id: "kefir-nature",
+    name: "Kefir Nature",
+    brand: "",
+    per100g: { kcal: 61, prot: 3.3, carbs: 4.7, fat: 3.5, fiber: 0 },
+    source: "web",
+    addedDate: "2026-04-12"
+  },
+  {
+    id: "blueberries-frescas",
+    name: "Blueberries (Arandanos) Frescos",
+    brand: "",
+    per100g: { kcal: 57, prot: 0.7, carbs: 14.5, fat: 0.3, fiber: 2.4 },
+    source: "web",
+    addedDate: "2026-04-12"
+  },
+  {
+    id: "shake-strawberry-blueberry-protein",
+    name: "Strawberry & Blueberry Protein Shake",
+    brand: "Recetario",
+    per100g: { kcal: 77.4, prot: 10.8, carbs: 6.1, fat: 1.3, fiber: 0.5 },
+    totalG: 255,
+    source: "recetario",
+    addedDate: "2026-04-12",
+    notes: "75ml kefir, 75ml skyr, 20g proteina eafit choc, 60g fresas, 25g blueberries"
+  },
+  {
+    id: "quinoa-cocida",
+    name: "Quinoa Cocida",
+    brand: "",
+    per100g: { kcal: 120, prot: 4.4, carbs: 21.3, fat: 1.9, fiber: 2.8 },
+    source: "web",
+    addedDate: "2026-04-12"
+  },
+  {
+    id: "ejotes-cocidos",
+    name: "Ejotes / Judias Verdes (cocidos)",
+    brand: "",
+    per100g: { kcal: 35, prot: 1.9, carbs: 7.9, fat: 0.3, fiber: 3.4 },
+    source: "web",
+    addedDate: "2026-04-12"
   }
 ];
 
@@ -2183,6 +2251,38 @@ const MEAL_LOG = [
       { foodId: "eafit-pure-isolate-chocolat", name: "EAFit Chocolat", grams: 20, kcal: 70.8, prot: 16.2, carbs: 0.7, fat: 0.3 }
     ],
     timestamp: "2026-04-12T01:00:00"
+  },
+  {
+    id: "2026-04-12-002",
+    date: "2026-04-12",
+    meal: "desayuno",
+    items: [
+      { foodId: "pancake-avena-chocolate-hp", name: "Pancake Avena Choc HP", grams: 105, kcal: 121.6, prot: 14.0, carbs: 15.6, fat: 2.0 },
+      { foodId: "banana-fresca", name: "Banano", grams: 36, kcal: 32.0, prot: 0.4, carbs: 8.2, fat: 0.1 },
+      { foodId: "mantequilla-de-mani-menguys", name: "Peanut Butter", grams: 5, kcal: 29.4, prot: 1.3, carbs: 1.0, fat: 2.5 }
+    ],
+    timestamp: "2026-04-12T09:00:00"
+  },
+  {
+    id: "2026-04-12-003",
+    date: "2026-04-12",
+    meal: "snack",
+    items: [
+      { foodId: "shake-strawberry-blueberry-protein", name: "Strawberry Blueberry Protein Shake", grams: 120, kcal: 92.9, prot: 13.0, carbs: 7.3, fat: 1.6 }
+    ],
+    timestamp: "2026-04-12T11:00:00"
+  },
+  {
+    id: "2026-04-12-004",
+    date: "2026-04-12",
+    meal: "almuerzo",
+    items: [
+      { foodId: "kebab-veau-maison", name: "Kebab Veau (sobras)", grams: 60, kcal: 108.0, prot: 15.0, carbs: 0.6, fat: 5.1 },
+      { foodId: "quinoa-cocida", name: "Quinoa Cocida", grams: 63, kcal: 75.6, prot: 2.8, carbs: 13.4, fat: 1.2 },
+      { foodId: "spanakopita", name: "Spanakopita", grams: 122, kcal: 170.6, prot: 7.4, carbs: 8.2, fat: 12.3 },
+      { foodId: "ejotes-cocidos", name: "Ejotes", grams: 103, kcal: 36.1, prot: 2.0, carbs: 8.1, fat: 0.3 }
+    ],
+    timestamp: "2026-04-12T13:00:00"
   }
 
 ];
