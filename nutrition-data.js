@@ -2337,6 +2337,74 @@ const MEAL_LOG = [
       { foodId: "fresas-frescas", name: "Fresas", grams: 63, kcal: 20.2, prot: 0.4, carbs: 4.9, fat: 0.2 }
     ],
     timestamp: "2026-04-12T20:30:00"
+  },
+  // === ADRIANA 2026-04-12 ===
+  {
+    id: "2026-04-12-A01",
+    date: "2026-04-12",
+    meal: "desayuno", who: "adriana",
+    items: [
+      { foodId: "pancake-avena-chocolate-hp", name: "Pancake Avena Choc HP", grams: 83, kcal: 96.1, prot: 11.0, carbs: 12.4, fat: 1.6 },
+      { foodId: "mantequilla-de-mani-menguys", name: "Peanut Butter", grams: 5, kcal: 29.4, prot: 1.3, carbs: 1.0, fat: 2.5 }
+    ],
+    timestamp: "2026-04-12T09:00:00"
+  },
+  {
+    id: "2026-04-12-A02",
+    date: "2026-04-12",
+    meal: "snack", who: "adriana",
+    items: [
+      { foodId: "shake-strawberry-blueberry-protein", name: "Strawberry Blueberry Protein Shake", grams: 120, kcal: 92.9, prot: 13.0, carbs: 7.3, fat: 1.6 }
+    ],
+    timestamp: "2026-04-12T11:00:00"
+  },
+  {
+    id: "2026-04-12-A03",
+    date: "2026-04-12",
+    meal: "almuerzo", who: "adriana",
+    items: [
+      { foodId: "kebab-veau-maison", name: "Kebab Veau (sobras)", grams: 57, kcal: 102.6, prot: 14.3, carbs: 0.6, fat: 4.8 },
+      { foodId: "quinoa-cocida", name: "Quinoa Cocida", grams: 40, kcal: 48.0, prot: 1.8, carbs: 8.5, fat: 0.8 },
+      { foodId: "spanakopita", name: "Spanakopita", grams: 102, kcal: 142.6, prot: 6.2, carbs: 6.8, fat: 10.3 },
+      { foodId: "ejotes-cocidos", name: "Ejotes", grams: 53, kcal: 18.6, prot: 1.0, carbs: 4.2, fat: 0.2 }
+    ],
+    timestamp: "2026-04-12T13:00:00"
+  },
+  {
+    id: "2026-04-12-A04",
+    date: "2026-04-12",
+    meal: "snack", who: "adriana",
+    items: [
+      { foodId: "holy-cookie-pistachio", name: "Holy Cookie Pistachio (1/2)", grams: 90, kcal: 443.7, prot: 10.2, carbs: 31.9, fat: 29.7 },
+      { foodId: "chocolate-negro-90", name: "Chocolate Negro 90%", grams: 6, kcal: 35.5, prot: 0.6, carbs: 0.8, fat: 3.3 }
+    ],
+    timestamp: "2026-04-12T16:00:00"
+  },
+  {
+    id: "2026-04-12-A05",
+    date: "2026-04-12",
+    meal: "cena", who: "adriana",
+    items: [
+      { foodId: "huevo-entero", name: "Huevo Entero", grams: 50, units: 1, kcal: 77.5, prot: 6.5, carbs: 0.6, fat: 5.5 },
+      { foodId: "jamon-porc-fleury-michon", name: "Jamon", grams: 25, kcal: 28.8, prot: 5.0, carbs: 0.3, fat: 0.9 },
+      { foodId: "aceite-oliva", name: "Aceite de Oliva", grams: 2.5, kcal: 22.1, prot: 0.0, carbs: 0.0, fat: 2.5 },
+      { foodId: "danone-cottage-cheese", name: "Cottage Cheese", grams: 50, kcal: 45.0, prot: 6.0, carbs: 0.8, fat: 2.0 },
+      { foodId: "ricotta-casa-azzurra", name: "Ricotta", grams: 7.5, kcal: 11.3, prot: 0.6, carbs: 0.1, fat: 0.9 },
+      { foodId: "wasa-fibre", name: "Wasa Fibre", grams: 14, units: 1, kcal: 47.6, prot: 1.4, carbs: 8.1, fat: 0.4 }
+    ],
+    timestamp: "2026-04-12T20:00:00"
+  },
+  {
+    id: "2026-04-12-A06",
+    date: "2026-04-12",
+    meal: "cena", who: "adriana",
+    items: [
+      { foodId: "kefir-nature", name: "Kefir", grams: 125, kcal: 76.3, prot: 4.1, carbs: 5.9, fat: 4.4 },
+      { foodId: "siggis-skyr-nature", name: "Skyr", grams: 47, kcal: 29.6, prot: 5.2, carbs: 1.9, fat: 0.1 },
+      { foodId: "eafit-pure-isolate-vanille", name: "EAFit Vainilla", grams: 20, kcal: 73.2, prot: 17.2, carbs: 0.7, fat: 0.2 },
+      { foodId: "fresas-frescas", name: "Fresas", grams: 66, kcal: 21.1, prot: 0.5, carbs: 5.1, fat: 0.2 }
+    ],
+    timestamp: "2026-04-12T20:30:00"
   }
 
 ];
