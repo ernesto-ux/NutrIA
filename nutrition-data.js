@@ -2425,7 +2425,8 @@ const ACTIVITY_LOG = [
   { date: "2026-04-08", steps: 6368, stepsKcal: 175, gym: "gym", gymKcal: 601, notes: "" },
   { date: "2026-04-09", steps: 10000, stepsKcal: 300, gym: "caminar rapido", gymKcal: 265, notes: "" },
   { date: "2026-04-10", steps: 10017, stepsKcal: 300, gym: null, gymKcal: 0, notes: "" },
-  { date: "2026-04-11", steps: 10624, stepsKcal: 300, gym: "gym", gymKcal: 551, notes: "" }
+  { date: "2026-04-11", steps: 10624, stepsKcal: 300, gym: "gym", gymKcal: 551, notes: "" },
+  { date: "2026-04-12", steps: 11100, stepsKcal: 325, gym: "gym", gymKcal: 478, notes: "" }
 ];
 
 // Daily energy balance (sabado a sabado: 29 mar - 4 abr + dom 5)
