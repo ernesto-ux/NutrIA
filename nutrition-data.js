@@ -1086,6 +1086,15 @@ const FOOD_DATABASE = [
     source: "user",
     addedDate: "2026-04-12",
     notes: "Cookie choc noir Valrhona + pate pistache 100% + eclats pistache + fleur de sel. Estimado visual"
+  },
+  {
+    id: "wasa-fibre",
+    name: "Tartine Croustillante Fibre",
+    brand: "Wasa",
+    per100g: { kcal: 340, prot: 10, carbs: 58, fat: 2.5, fiber: 25 },
+    unitWeight: 14, unitLabel: "tranche",
+    source: "web",
+    addedDate: "2026-04-12"
   }
 ];
 
@@ -2302,6 +2311,32 @@ const MEAL_LOG = [
       { foodId: "holy-cookie-pistachio", name: "Holy Cookie Pistachio (1/2)", grams: 90, kcal: 443.7, prot: 10.2, carbs: 31.9, fat: 29.7 }
     ],
     timestamp: "2026-04-12T16:00:00"
+  },
+  {
+    id: "2026-04-12-006",
+    date: "2026-04-12",
+    meal: "cena",
+    items: [
+      { foodId: "huevo-entero", name: "Huevo Entero", grams: 50, units: 1, kcal: 77.5, prot: 6.5, carbs: 0.6, fat: 5.5 },
+      { foodId: "jamon-porc-fleury-michon", name: "Jamon", grams: 25, kcal: 28.8, prot: 5.0, carbs: 0.3, fat: 0.9 },
+      { foodId: "aceite-oliva", name: "Aceite de Oliva", grams: 2.5, kcal: 22.1, prot: 0.0, carbs: 0.0, fat: 2.5 },
+      { foodId: "danone-cottage-cheese", name: "Cottage Cheese", grams: 50, kcal: 45.0, prot: 6.0, carbs: 0.8, fat: 2.0 },
+      { foodId: "ricotta-casa-azzurra", name: "Ricotta", grams: 7.5, kcal: 11.3, prot: 0.6, carbs: 0.1, fat: 0.9 },
+      { foodId: "wasa-fibre", name: "Wasa Fibre", grams: 14, units: 1, kcal: 47.6, prot: 1.4, carbs: 8.1, fat: 0.4 }
+    ],
+    timestamp: "2026-04-12T20:00:00"
+  },
+  {
+    id: "2026-04-12-007",
+    date: "2026-04-12",
+    meal: "cena",
+    items: [
+      { foodId: "kefir-nature", name: "Kefir", grams: 100, kcal: 61.0, prot: 3.3, carbs: 4.7, fat: 3.5 },
+      { foodId: "siggis-skyr-nature", name: "Skyr", grams: 50, kcal: 31.5, prot: 5.5, carbs: 2.0, fat: 0.1 },
+      { foodId: "eafit-pure-isolate-vanille", name: "EAFit Vainilla", grams: 50, kcal: 183.0, prot: 43.0, carbs: 1.7, fat: 0.5 },
+      { foodId: "fresas-frescas", name: "Fresas", grams: 63, kcal: 20.2, prot: 0.4, carbs: 4.9, fat: 0.2 }
+    ],
+    timestamp: "2026-04-12T20:30:00"
   }
 
 ];
