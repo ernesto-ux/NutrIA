@@ -1108,6 +1108,41 @@ const FOOD_DATABASE = [
     addedDate: "2026-04-12"
   },
   {
+    id: "pasta-cocida",
+    name: "Pasta Tornillos (cocida)",
+    brand: "Generic",
+    per100g: { kcal: 131, prot: 5, carbs: 25, fat: 1.1, fiber: 1.8 },
+    source: "web",
+    addedDate: "2026-04-13"
+  },
+  {
+    id: "espinaca-congelada",
+    name: "Espinaca Congelada",
+    brand: "Generic",
+    per100g: { kcal: 23, prot: 2.5, carbs: 1.5, fat: 0.4, fiber: 2.1 },
+    source: "web",
+    addedDate: "2026-04-13"
+  },
+  {
+    id: "maicena",
+    name: "Maicena (Fecula de Maiz)",
+    brand: "Generic",
+    per100g: { kcal: 381, prot: 0.3, carbs: 91, fat: 0.1, fiber: 0.9 },
+    source: "web",
+    addedDate: "2026-04-13"
+  },
+  // Pasta con Pollo, Espinaca y Tomate a la Adri — 70g pasta cocida, 150g espinaca congelada, 153g tomate cherry, 75g skyr, 300g pollo horneado, 75ml agua, 5g maicena. Total ~828g
+  {
+    id: "pasta-pollo-espinaca-tomate-adri",
+    name: "Pasta con Pollo, Espinaca y Tomate a la Adri",
+    brand: "Recetario",
+    per100g: { kcal: 86.4, prot: 13.3, carbs: 4.0, fat: 1.5, fiber: 0.8 },
+    totalG: 828,
+    source: "recetario",
+    addedDate: "2026-04-13",
+    notes: "70g pasta cocida, 150g espinaca congelada, 153g tomate cherry, 75g skyr siggis, 300g pollo horneado, 75ml agua, 5g maicena"
+  },
+  {
     id: "mermelada-lucien-fraises-sans-sucres",
     name: "Confiture Fraises Sans Sucres Ajoutés",
     brand: "Lucien Georgelin",
@@ -2442,7 +2477,8 @@ const MEAL_LOG = [
     date: "2026-04-13",
     meal: "almuerzo",
     items: [
-      { foodId: "spanakopita", name: "Spanakopita", grams: 80, kcal: 111.8, prot: 4.9, carbs: 5.4, fat: 8.1 }
+      { foodId: "spanakopita", name: "Spanakopita", grams: 80, kcal: 111.8, prot: 4.9, carbs: 5.4, fat: 8.1 },
+      { foodId: "pasta-pollo-espinaca-tomate-adri", name: "Pasta Pollo Espinaca Tomate", grams: 260, kcal: 224.6, prot: 34.6, carbs: 10.4, fat: 3.9 }
     ],
     timestamp: "2026-04-13T13:00:00"
   },
