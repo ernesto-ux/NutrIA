@@ -2571,6 +2571,15 @@ const MEAL_LOG = [
   {
     id: "2026-04-13-A04",
     date: "2026-04-13",
+    meal: "snack", who: "adriana",
+    items: [
+      { foodId: "pan-banano-hp-chocolate", name: "Banana Bread HP", grams: 50, kcal: 111.8, prot: 4.7, carbs: 16.9, fat: 3.0 }
+    ],
+    timestamp: "2026-04-13T17:00:00"
+  },
+  {
+    id: "2026-04-13-A05",
+    date: "2026-04-13",
     meal: "cena", who: "adriana",
     items: [
       { foodId: "quiche-brocoli-salmon-ricotta", name: "Quiche Brocoli Salmon", grams: 245, kcal: 290.6, prot: 23.8, carbs: 8.8, fat: 17.6 },
