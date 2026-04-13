@@ -1143,6 +1143,14 @@ const FOOD_DATABASE = [
     notes: "70g pasta cocida, 150g espinaca congelada, 153g tomate cherry, 75g skyr siggis, 300g pollo horneado, 75ml agua, 5g maicena"
   },
   {
+    id: "kefir-lactel-0-bio",
+    name: "Kéfir 0% Bio",
+    brand: "Lactel",
+    per100g: { kcal: 44, prot: 3.4, carbs: 4.1, fat: 1.5, fiber: 0 },
+    source: "web",
+    addedDate: "2026-04-13"
+  },
+  {
     id: "weider-peanut-butter-powder",
     name: "Peanut Butter Powder",
     brand: "Weider",
@@ -2476,7 +2484,8 @@ const MEAL_LOG = [
     items: [
       { foodId: "hipro-coco", name: "HiPro Coco", grams: 160, kcal: 89.6, prot: 15.0, carbs: 5.9, fat: 0.6 },
       { foodId: "siggis-skyr-nature", name: "Skyr", grams: 40, kcal: 25.2, prot: 4.4, carbs: 1.6, fat: 0.1 },
-      { foodId: "eafit-pure-isolate-chocolat", name: "EAFit Chocolat", grams: 40, kcal: 141.6, prot: 32.4, carbs: 1.5, fat: 0.6 }
+      { foodId: "eafit-pure-isolate-chocolat", name: "EAFit Chocolat", grams: 40, kcal: 141.6, prot: 32.4, carbs: 1.5, fat: 0.6 },
+      { foodId: "banana-fresca", name: "Banano", grams: 45, kcal: 40.1, prot: 0.5, carbs: 10.3, fat: 0.1 }
     ],
     timestamp: "2026-04-13T09:00:00"
   },
@@ -2510,6 +2519,19 @@ const MEAL_LOG = [
       { foodId: "ricotta-casa-azzurra", name: "Ricotta", grams: 63, kcal: 94.5, prot: 5.0, carbs: 0.8, fat: 7.6 }
     ],
     timestamp: "2026-04-13T20:00:00"
+  },
+  {
+    id: "2026-04-13-005",
+    date: "2026-04-13",
+    meal: "snack",
+    items: [
+      { foodId: "kefir-lactel-0-bio", name: "Kefir Lactel 0 Bio", grams: 126, kcal: 55.4, prot: 4.3, carbs: 5.2, fat: 1.9 },
+      { foodId: "siggis-skyr-nature", name: "Skyr Siggis", grams: 53, kcal: 33.4, prot: 5.8, carbs: 2.1, fat: 0.1 },
+      { foodId: "eafit-pure-isolate-chocolat", name: "EAFit Chocolat", grams: 40, kcal: 141.6, prot: 32.4, carbs: 1.5, fat: 0.6 },
+      { foodId: "banana-fresca", name: "Banano", grams: 52, kcal: 46.3, prot: 0.6, carbs: 11.9, fat: 0.2 },
+      { foodId: "weider-peanut-butter-powder", name: "Weider PB Powder", grams: 5, kcal: 22.0, prot: 2.5, carbs: 1.0, fat: 0.7 }
+    ],
+    timestamp: "2026-04-13T21:00:00"
   },
   // === ADRIANA 2026-04-13 ===
   {
