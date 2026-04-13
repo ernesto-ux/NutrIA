@@ -1143,6 +1143,14 @@ const FOOD_DATABASE = [
     notes: "70g pasta cocida, 150g espinaca congelada, 153g tomate cherry, 75g skyr siggis, 300g pollo horneado, 75ml agua, 5g maicena"
   },
   {
+    id: "weider-peanut-butter-powder",
+    name: "Peanut Butter Powder",
+    brand: "Weider",
+    per100g: { kcal: 440, prot: 49, carbs: 19, fat: 13, fiber: 0 },
+    source: "web",
+    addedDate: "2026-04-13"
+  },
+  {
     id: "mermelada-lucien-fraises-sans-sucres",
     name: "Confiture Fraises Sans Sucres Ajoutés",
     brand: "Lucien Georgelin",
@@ -2500,6 +2508,51 @@ const MEAL_LOG = [
     items: [
       { foodId: "quiche-brocoli-salmon-ricotta", name: "Quiche Brocoli Salmon", grams: 385, kcal: 456.6, prot: 37.3, carbs: 13.9, fat: 27.7 },
       { foodId: "ricotta-casa-azzurra", name: "Ricotta", grams: 63, kcal: 94.5, prot: 5.0, carbs: 0.8, fat: 7.6 }
+    ],
+    timestamp: "2026-04-13T20:00:00"
+  },
+  // === ADRIANA 2026-04-13 ===
+  {
+    id: "2026-04-13-A01",
+    date: "2026-04-13",
+    meal: "desayuno", who: "adriana",
+    items: [
+      { foodId: "chocolate-negro-90", name: "Chocolate Negro 90%", grams: 10, kcal: 59.2, prot: 1.0, carbs: 1.4, fat: 5.5 },
+      { foodId: "hipro-blueberry", name: "HiPro Blueberry", grams: 155, kcal: 82.2, prot: 14.6, carbs: 5.9, fat: 0 },
+      { foodId: "siggis-skyr-nature", name: "Skyr Siggis", grams: 33, kcal: 20.8, prot: 3.6, carbs: 1.3, fat: 0.1 },
+      { foodId: "blueberries-frescas", name: "Blueberries", grams: 50, kcal: 28.5, prot: 0.4, carbs: 7.3, fat: 0.2 }
+    ],
+    timestamp: "2026-04-13T09:00:00"
+  },
+  {
+    id: "2026-04-13-A02",
+    date: "2026-04-13",
+    meal: "almuerzo", who: "adriana",
+    items: [
+      { foodId: "pasta-pollo-espinaca-tomate-adri", name: "Pasta Pollo Espinaca Tomate", grams: 135, kcal: 116.6, prot: 18.0, carbs: 5.4, fat: 2.0 }
+    ],
+    timestamp: "2026-04-13T13:00:00"
+  },
+  {
+    id: "2026-04-13-A03",
+    date: "2026-04-13",
+    meal: "snack", who: "adriana",
+    items: [
+      { foodId: "kefir-nature", name: "Kefir", grams: 125, kcal: 77.5, prot: 4.4, carbs: 5.0, fat: 4.4 },
+      { foodId: "siggis-skyr-nature", name: "Skyr Siggis", grams: 42, kcal: 26.5, prot: 4.6, carbs: 1.7, fat: 0.1 },
+      { foodId: "eafit-pure-isolate-chocolat", name: "EAFit Chocolat", grams: 22, kcal: 77.9, prot: 17.8, carbs: 0.8, fat: 0.4 },
+      { foodId: "banana-fresca", name: "Banano", grams: 33, kcal: 29.4, prot: 0.4, carbs: 7.5, fat: 0.1 },
+      { foodId: "weider-peanut-butter-powder", name: "Weider PB Powder", grams: 5, kcal: 22.0, prot: 2.5, carbs: 1.0, fat: 0.7 }
+    ],
+    timestamp: "2026-04-13T16:00:00"
+  },
+  {
+    id: "2026-04-13-A04",
+    date: "2026-04-13",
+    meal: "cena", who: "adriana",
+    items: [
+      { foodId: "quiche-brocoli-salmon-ricotta", name: "Quiche Brocoli Salmon", grams: 245, kcal: 290.6, prot: 23.8, carbs: 8.8, fat: 17.6 },
+      { foodId: "ricotta-casa-azzurra", name: "Ricotta", grams: 53, kcal: 79.5, prot: 4.2, carbs: 0.6, fat: 6.4 }
     ],
     timestamp: "2026-04-13T20:00:00"
   }
