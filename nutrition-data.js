@@ -28,6 +28,17 @@ const NUTRITION_CONFIG = {
 // per100g values: kcal, prot, carbs, fat, fiber (all per 100g or 100ml)
 const FOOD_DATABASE = [
   // === RECETARIO ===
+  // Quiche de Brocoli con Salmon y Ricotta — 4 claras, 2 huevos, 90g ricotta, 1 brocoli pequeño, 1 cebolla mediana, 2 filetes salmon, 3 cdtas aceite. Total ~986g, 4 porciones.
+  {
+    id: "quiche-brocoli-salmon-ricotta",
+    name: "Quiche de Brocoli con Salmon y Ricotta",
+    brand: "Recetario",
+    per100g: { kcal: 118.6, prot: 9.7, carbs: 3.6, fat: 7.2, fiber: 0.7 },
+    totalG: 986,
+    portions: 4,
+    source: "recetario",
+    addedDate: "2026-04-13"
+  },
   {
     id: "mantequilla-de-mani-menguys",
     name: "Mantequilla de Mani (sin azucar)",
