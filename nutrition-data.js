@@ -2,7 +2,7 @@
 // Updated by Claude Code via /log-food skill
 // DO NOT EDIT MANUALLY - use /log-food to add meals
 
-const DATA_TIMESTAMP = "2026-04-12T14:00:00 Europe/Paris";
+const DATA_TIMESTAMP = "2026-04-13T21:00:00 Europe/Paris";
 
 const NUTRITION_CONFIG = {
   targets: { kcal: 1770, prot: 190, carbs: 140, fat: 50 },
@@ -1106,6 +1106,14 @@ const FOOD_DATABASE = [
     unitWeight: 14, unitLabel: "tranche",
     source: "web",
     addedDate: "2026-04-12"
+  },
+  {
+    id: "mermelada-lucien-fraises-sans-sucres",
+    name: "Confiture Fraises Sans Sucres Ajoutés",
+    brand: "Lucien Georgelin",
+    per100g: { kcal: 89, prot: 0.6, carbs: 21.7, fat: 0.5, fiber: 8.9 },
+    source: "web",
+    addedDate: "2026-04-13"
   }
 ];
 
@@ -2416,6 +2424,48 @@ const MEAL_LOG = [
       { foodId: "fresas-frescas", name: "Fresas", grams: 66, kcal: 21.1, prot: 0.5, carbs: 5.1, fat: 0.2 }
     ],
     timestamp: "2026-04-12T20:30:00"
+  },
+  // === ERNESTO 2026-04-13 ===
+  {
+    id: "2026-04-13-001",
+    date: "2026-04-13",
+    meal: "desayuno",
+    items: [
+      { foodId: "hipro-coco", name: "HiPro Coco", grams: 160, kcal: 89.6, prot: 15.0, carbs: 5.9, fat: 0.6 },
+      { foodId: "siggis-skyr-nature", name: "Skyr", grams: 40, kcal: 25.2, prot: 4.4, carbs: 1.6, fat: 0.1 },
+      { foodId: "eafit-pure-isolate-chocolat", name: "EAFit Chocolat", grams: 40, kcal: 141.6, prot: 32.4, carbs: 1.5, fat: 0.6 }
+    ],
+    timestamp: "2026-04-13T09:00:00"
+  },
+  {
+    id: "2026-04-13-002",
+    date: "2026-04-13",
+    meal: "almuerzo",
+    items: [
+      { foodId: "spanakopita", name: "Spanakopita", grams: 80, kcal: 111.8, prot: 4.9, carbs: 5.4, fat: 8.1 }
+    ],
+    timestamp: "2026-04-13T13:00:00"
+  },
+  {
+    id: "2026-04-13-003",
+    date: "2026-04-13",
+    meal: "snack",
+    items: [
+      { foodId: "wasa-leger", name: "Wasa Leger", grams: 19.2, units: 2, kcal: 64.9, prot: 1.7, carbs: 11.9, fat: 0.3 },
+      { foodId: "ricotta-casa-azzurra", name: "Ricotta", grams: 40, kcal: 60.0, prot: 3.2, carbs: 0.5, fat: 4.8 },
+      { foodId: "mermelada-lucien-fraises-sans-sucres", name: "Mermelada Fraises Lucien", grams: 20, kcal: 17.8, prot: 0.1, carbs: 4.3, fat: 0.1 }
+    ],
+    timestamp: "2026-04-13T16:00:00"
+  },
+  {
+    id: "2026-04-13-004",
+    date: "2026-04-13",
+    meal: "cena",
+    items: [
+      { foodId: "quiche-brocoli-salmon-ricotta", name: "Quiche Brocoli Salmon", grams: 385, kcal: 456.6, prot: 37.3, carbs: 13.9, fat: 27.7 },
+      { foodId: "ricotta-casa-azzurra", name: "Ricotta", grams: 63, kcal: 94.5, prot: 5.0, carbs: 0.8, fat: 7.6 }
+    ],
+    timestamp: "2026-04-13T20:00:00"
   }
 
 ];
