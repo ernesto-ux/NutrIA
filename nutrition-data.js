@@ -2794,6 +2794,15 @@ const MEAL_LOG = [
       { foodId: "platano-maduro-frito", name: "Plátano Maduro Frito (2 rodajitas)", grams: 16, kcal: 38.4, prot: 0.2, carbs: 6.4, fat: 1.4 }
     ],
     timestamp: "2026-04-14T21:30:00"
+  },
+  {
+    id: "2026-04-14-006",
+    date: "2026-04-14",
+    meal: "snack",
+    items: [
+      { foodId: "eafit-pure-isolate-vanille", name: "EAFit Vanille", grams: 40, kcal: 146.4, prot: 34.4, carbs: 1.3, fat: 0.4 }
+    ],
+    timestamp: "2026-04-14T22:00:00"
   }
 
 ];
@@ -2815,7 +2824,9 @@ const ACTIVITY_LOG = [
   { date: "2026-04-09", steps: 10000, stepsKcal: 300, gym: "caminar rapido", gymKcal: 265, notes: "" },
   { date: "2026-04-10", steps: 10017, stepsKcal: 300, gym: null, gymKcal: 0, notes: "" },
   { date: "2026-04-11", steps: 10624, stepsKcal: 300, gym: "gym", gymKcal: 551, notes: "" },
-  { date: "2026-04-12", steps: 12870, stepsKcal: 375, gym: "gym", gymKcal: 478, notes: "" }
+  { date: "2026-04-12", steps: 12870, stepsKcal: 375, gym: "gym", gymKcal: 478, notes: "" },
+  { date: "2026-04-13", steps: 5484, stepsKcal: 150, gym: null, gymKcal: 0, notes: "" },
+  { date: "2026-04-14", steps: 4737, stepsKcal: 125, gym: "gym", gymKcal: 480, notes: "" }
 ];
 
 // Daily energy balance (sabado a sabado: 29 mar - 4 abr + dom 5)
