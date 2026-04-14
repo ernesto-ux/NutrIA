@@ -799,14 +799,6 @@ const FOOD_DATABASE = [
     source: "web",
     addedDate: "2026-04-08"
   },
-  {
-    id: "kefir-nature",
-    name: "Kéfir Nature",
-    brand: "Generic",
-    per100g: { kcal: 62, prot: 3.5, carbs: 4, fat: 3.5, fiber: 0 },
-    source: "web",
-    addedDate: "2026-04-08"
-  },
   // === PRODUCTOS (added 2026-04-09) ===
   {
     id: "wasa-fibre",
@@ -1045,14 +1037,6 @@ const FOOD_DATABASE = [
     source: "recetario",
     addedDate: "2026-04-12",
     notes: "30g avena cruda, 30g banano, 15g cocoa, 140ml agua, 30g eafit choc. TotalG = raw batter weight"
-  },
-  {
-    id: "kefir-nature",
-    name: "Kefir Nature",
-    brand: "",
-    per100g: { kcal: 61, prot: 3.3, carbs: 4.7, fat: 3.5, fiber: 0 },
-    source: "web",
-    addedDate: "2026-04-12"
   },
   {
     id: "blueberries-frescas",
@@ -1957,7 +1941,7 @@ const MEAL_LOG = [
     items: [
       { foodId: "huevo-entero", name: "Huevo Entero", grams: 50, units: 1, kcal: 77.5, prot: 6.5, carbs: 0.6, fat: 5.5 },
       { foodId: "jamon-porc-fleury-michon", name: "Jambon Porc Rôti FM", grams: 26, kcal: 29.9, prot: 5.2, carbs: 0.3, fat: 0.9 },
-      { foodId: "kefir-nature", name: "Kéfir", grams: 100, kcal: 62.0, prot: 3.5, carbs: 4.0, fat: 3.5 },
+      { foodId: "kefir-lactel-0-bio", name: "Kéfir Lactel 0%", grams: 100, kcal: 44.0, prot: 3.4, carbs: 4.1, fat: 1.5 },
       { foodId: "eafit-pure-isolate-vanille", name: "EAFit Vanille", grams: 11, kcal: 40.3, prot: 9.5, carbs: 0.4, fat: 0.1 },
       { foodId: "fresas-frescas", name: "Fresas", grams: 23, kcal: 7.4, prot: 0.2, carbs: 1.8, fat: 0.1 },
       { foodId: "semillas-chia", name: "Chia (1 cdita)", grams: 5, kcal: 24.3, prot: 0.9, carbs: 2.1, fat: 1.6 },
@@ -1975,7 +1959,7 @@ const MEAL_LOG = [
       { foodId: "clara-huevo", name: "Clara de Huevo (x2)", grams: 66, kcal: 34.3, prot: 7.3, carbs: 0.5, fat: 0.1 },
       { foodId: "huevo-entero", name: "Huevo Entero", grams: 50, units: 1, kcal: 77.5, prot: 6.5, carbs: 0.6, fat: 5.5 },
       { foodId: "jamon-porc-fleury-michon", name: "Jambon Porc Rôti FM", grams: 28, kcal: 32.2, prot: 5.6, carbs: 0.3, fat: 1.0 },
-      { foodId: "kefir-nature", name: "Kéfir", grams: 150, kcal: 93.0, prot: 5.3, carbs: 6.0, fat: 5.3 },
+      { foodId: "kefir-lactel-0-bio", name: "Kéfir Lactel 0%", grams: 150, kcal: 66.0, prot: 5.1, carbs: 6.2, fat: 2.3 },
       { foodId: "eafit-pure-isolate-vanille", name: "EAFit Vanille", grams: 20, kcal: 73.2, prot: 17.2, carbs: 0.7, fat: 0.2 },
       { foodId: "fresas-frescas", name: "Fresas", grams: 41, kcal: 13.1, prot: 0.3, carbs: 3.2, fat: 0.1 },
       { foodId: "ricotta-casa-azzurra", name: "Ricotta (1.5 cda)", grams: 22.5, kcal: 39.2, prot: 2.5, carbs: 0.7, fat: 2.9 },
@@ -2044,7 +2028,7 @@ const MEAL_LOG = [
     meal: "snack",
     items: [
       { foodId: "chocolate-negro-90", name: "Chocolate Negro 90%", grams: 7, kcal: 41.4, prot: 0.7, carbs: 1.0, fat: 3.9 },
-      { foodId: "kefir-nature", name: "Kéfir", grams: 125, kcal: 77.5, prot: 4.4, carbs: 5.0, fat: 4.4 },
+      { foodId: "kefir-lactel-0-bio", name: "Kéfir Lactel 0%", grams: 125, kcal: 55.0, prot: 4.3, carbs: 5.1, fat: 1.9 },
       { foodId: "fruits-rouges-mix", name: "Fruits Rouges", grams: 60, kcal: 24.0, prot: 0.5, carbs: 5.4, fat: 0.2 },
       { foodId: "pp-vanilla-protein", name: "PP Vanilla", grams: 17, kcal: 63.8, prot: 13.6, carbs: 0.9, fat: 0.5 },
       { foodId: "leche-almendra", name: "Leche de Almendra", grams: 30, kcal: 3.9, prot: 0.1, carbs: 0.1, fat: 0.3 }
@@ -2126,7 +2110,7 @@ const MEAL_LOG = [
     date: "2026-04-09",
     meal: "snack", who: "adriana",
     items: [
-      { foodId: "kefir-nature", name: "Kéfir", grams: 125, kcal: 77.5, prot: 4.4, carbs: 5.0, fat: 4.4 },
+      { foodId: "kefir-lactel-0-bio", name: "Kéfir Lactel 0%", grams: 125, kcal: 55.0, prot: 4.3, carbs: 5.1, fat: 1.9 },
       { foodId: "fruits-rouges-mix", name: "Fruits Rouges", grams: 60, kcal: 24.0, prot: 0.5, carbs: 5.4, fat: 0.2 },
       { foodId: "pp-vanilla-protein", name: "Proteina Vanilla", grams: 17, kcal: 63.8, prot: 13.6, carbs: 0.9, fat: 0.5 },
       { foodId: "leche-almendra", name: "Leche de Almendra", grams: 30, kcal: 3.9, prot: 0.1, carbs: 0.1, fat: 0.3 }
@@ -2217,7 +2201,7 @@ const MEAL_LOG = [
     date: "2026-04-10",
     meal: "snack", who: "adriana",
     items: [
-      { foodId: "kefir-nature", name: "Kéfir", grams: 125, kcal: 77.5, prot: 4.4, carbs: 5.0, fat: 4.4 },
+      { foodId: "kefir-lactel-0-bio", name: "Kéfir Lactel 0%", grams: 125, kcal: 55.0, prot: 4.3, carbs: 5.1, fat: 1.9 },
       { foodId: "pp-vanilla-protein", name: "Proteina", grams: 13, kcal: 48.8, prot: 10.4, carbs: 0.7, fat: 0.4 },
       { foodId: "fresas-frescas", name: "Fresas", grams: 29, kcal: 9.3, prot: 0.2, carbs: 2.2, fat: 0.1 },
       { foodId: "wasa-leger", name: "Wasa Leger x2", grams: 19.2, units: 2, kcal: 64.9, prot: 1.7, carbs: 11.9, fat: 0.3 },
@@ -2268,7 +2252,7 @@ const MEAL_LOG = [
     date: "2026-04-11",
     meal: "desayuno",
     items: [
-      { foodId: "kefir-nature", name: "Kéfir", grams: 150, kcal: 93.0, prot: 5.3, carbs: 6.0, fat: 5.3 },
+      { foodId: "kefir-lactel-0-bio", name: "Kéfir Lactel 0%", grams: 150, kcal: 66.0, prot: 5.1, carbs: 6.2, fat: 2.3 },
       { foodId: "eafit-pure-isolate-vanille", name: "EAFit Vanille", grams: 20, kcal: 73.2, prot: 17.2, carbs: 0.7, fat: 0.2 },
       { foodId: "fresas-frescas", name: "Fresas", grams: 55, kcal: 17.6, prot: 0.4, carbs: 4.2, fat: 0.2 },
       { foodId: "eafit-pure-isolate-chocolat", name: "EAFit Chocolat", grams: 25, kcal: 88.5, prot: 20.3, carbs: 0.9, fat: 0.4 }
@@ -2319,7 +2303,7 @@ const MEAL_LOG = [
     date: "2026-04-11",
     meal: "desayuno", who: "adriana",
     items: [
-      { foodId: "kefir-nature", name: "Kéfir", grams: 125, kcal: 77.5, prot: 4.4, carbs: 5.0, fat: 4.4 },
+      { foodId: "kefir-lactel-0-bio", name: "Kéfir Lactel 0%", grams: 125, kcal: 55.0, prot: 4.3, carbs: 5.1, fat: 1.9 },
       { foodId: "pp-vanilla-protein", name: "Proteina", grams: 15, kcal: 56.3, prot: 12.0, carbs: 0.8, fat: 0.5 },
       { foodId: "fresas-frescas", name: "Fresas", grams: 36, kcal: 11.5, prot: 0.3, carbs: 2.8, fat: 0.1 }
     ],
@@ -2425,7 +2409,7 @@ const MEAL_LOG = [
     date: "2026-04-12",
     meal: "cena",
     items: [
-      { foodId: "kefir-nature", name: "Kefir", grams: 100, kcal: 61.0, prot: 3.3, carbs: 4.7, fat: 3.5 },
+      { foodId: "kefir-lactel-0-bio", name: "Kéfir Lactel 0%", grams: 100, kcal: 44.0, prot: 3.4, carbs: 4.1, fat: 1.5 },
       { foodId: "siggis-skyr-nature", name: "Skyr", grams: 50, kcal: 31.5, prot: 5.5, carbs: 2.0, fat: 0.1 },
       { foodId: "eafit-pure-isolate-vanille", name: "EAFit Vainilla", grams: 50, kcal: 183.0, prot: 43.0, carbs: 1.7, fat: 0.5 },
       { foodId: "fresas-frescas", name: "Fresas", grams: 63, kcal: 20.2, prot: 0.4, carbs: 4.9, fat: 0.2 }
@@ -2493,7 +2477,7 @@ const MEAL_LOG = [
     date: "2026-04-12",
     meal: "cena", who: "adriana",
     items: [
-      { foodId: "kefir-nature", name: "Kefir", grams: 125, kcal: 76.3, prot: 4.1, carbs: 5.9, fat: 4.4 },
+      { foodId: "kefir-lactel-0-bio", name: "Kéfir Lactel 0%", grams: 125, kcal: 55.0, prot: 4.3, carbs: 5.1, fat: 1.9 },
       { foodId: "siggis-skyr-nature", name: "Skyr", grams: 47, kcal: 29.6, prot: 5.2, carbs: 1.9, fat: 0.1 },
       { foodId: "eafit-pure-isolate-vanille", name: "EAFit Vainilla", grams: 20, kcal: 73.2, prot: 17.2, carbs: 0.7, fat: 0.2 },
       { foodId: "fresas-frescas", name: "Fresas", grams: 66, kcal: 21.1, prot: 0.5, carbs: 5.1, fat: 0.2 }
@@ -2595,7 +2579,7 @@ const MEAL_LOG = [
     date: "2026-04-13",
     meal: "snack", who: "adriana",
     items: [
-      { foodId: "kefir-nature", name: "Kefir", grams: 125, kcal: 77.5, prot: 4.4, carbs: 5.0, fat: 4.4 },
+      { foodId: "kefir-lactel-0-bio", name: "Kéfir Lactel 0%", grams: 125, kcal: 55.0, prot: 4.3, carbs: 5.1, fat: 1.9 },
       { foodId: "siggis-skyr-nature", name: "Skyr Siggis", grams: 42, kcal: 26.5, prot: 4.6, carbs: 1.7, fat: 0.1 },
       { foodId: "eafit-pure-isolate-chocolat", name: "EAFit Chocolat", grams: 22, kcal: 77.9, prot: 17.8, carbs: 0.8, fat: 0.4 },
       { foodId: "banana-fresca", name: "Banano", grams: 33, kcal: 29.4, prot: 0.4, carbs: 7.5, fat: 0.1 },
@@ -2628,7 +2612,7 @@ const MEAL_LOG = [
     date: "2026-04-14",
     meal: "desayuno", who: "adriana",
     items: [
-      { foodId: "kefir-nature", name: "Kéfir Nature", grams: 200, kcal: 124.0, prot: 7.0, carbs: 8.0, fat: 7.0 },
+      { foodId: "kefir-lactel-0-bio", name: "Kéfir Lactel 0%", grams: 200, kcal: 88.0, prot: 6.8, carbs: 8.2, fat: 3.0 },
       { foodId: "siggis-skyr-nature", name: "Skyr Siggis", grams: 40, kcal: 25.2, prot: 4.4, carbs: 1.6, fat: 0.1 },
       { foodId: "fresas-frescas", name: "Fresas", grams: 30, kcal: 9.6, prot: 0.2, carbs: 2.3, fat: 0.1 },
       { foodId: "fruits-rouges-mix", name: "Frutos Rojos", grams: 20, kcal: 8.0, prot: 0.2, carbs: 1.8, fat: 0.1 },
