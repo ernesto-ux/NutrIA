@@ -2,7 +2,7 @@
 // Updated by Claude Code via /log-food skill
 // DO NOT EDIT MANUALLY - use /log-food to add meals
 
-const DATA_TIMESTAMP = "2026-04-14T13:30:00 Europe/Paris";
+const DATA_TIMESTAMP = "2026-04-15T10:00:00 Europe/Paris";
 
 const NUTRITION_CONFIG = {
   targets: { kcal: 1770, prot: 190, carbs: 140, fat: 50 },
@@ -1173,6 +1173,50 @@ const FOOD_DATABASE = [
     per100g: { kcal: 93, prot: 2.5, carbs: 21, fat: 0.1, fiber: 2.2 },
     source: "web",
     addedDate: "2026-04-14"
+  },
+  {
+    id: "tomate-fresco",
+    name: "Tomate Fresco",
+    brand: "",
+    per100g: { kcal: 18, prot: 0.9, carbs: 3.9, fat: 0.2, fiber: 1.2 },
+    source: "web",
+    addedDate: "2026-04-15"
+  },
+  {
+    id: "pan-caja-integral",
+    name: "Pan de Caja Integral (rebanada pequeña)",
+    brand: "Generic",
+    per100g: { kcal: 247, prot: 9, carbs: 41, fat: 3.4, fiber: 6 },
+    unitWeight: 25, unitLabel: "rebanada",
+    source: "web",
+    addedDate: "2026-04-15"
+  },
+  {
+    id: "tostones-platano-macho",
+    name: "Tostones de Plátano Macho (fritos, secados con toalla)",
+    brand: "Homemade",
+    per100g: { kcal: 280, prot: 1.3, carbs: 44, fat: 11, fiber: 2 },
+    source: "web",
+    addedDate: "2026-04-15"
+  },
+  {
+    id: "platano-maduro-frito",
+    name: "Plátano Maduro Frito (rodajitas)",
+    brand: "Homemade",
+    per100g: { kcal: 240, prot: 1, carbs: 40, fat: 9, fiber: 1.5 },
+    source: "web",
+    addedDate: "2026-04-15"
+  },
+  // Huevo Picado con Tomate y Cebolla — 1/2 tbsp aceite (7g), 182g cebolla, 6 tomates (~600g), 250g huevo. Total ~1039g
+  {
+    id: "huevo-picado-tomate-cebolla",
+    name: "Huevo Picado con Tomate y Cebolla",
+    brand: "Recetario",
+    per100g: { kcal: 60.7, prot: 3.8, carbs: 4.1, fat: 3.5, fiber: 0.8 },
+    totalG: 1039,
+    source: "recetario",
+    addedDate: "2026-04-15",
+    notes: "1/2 tbsp aceite (7g), 182g cebolla, 6 tomates frescos (~600g), 250g huevo entero"
   }
 ];
 
@@ -2675,6 +2719,81 @@ const MEAL_LOG = [
       { foodId: "pasta-pollo-espinaca-tomate-adri", name: "Pasta Pollo Espinaca", grams: 180, kcal: 155.5, prot: 23.9, carbs: 7.2, fat: 2.7 }
     ],
     timestamp: "2026-04-14T13:00:00"
+  },
+  {
+    id: "2026-04-14-003",
+    date: "2026-04-14",
+    meal: "snack",
+    items: [
+      { foodId: "eafit-pure-isolate-chocolat", name: "EAFit Chocolat", grams: 45, kcal: 159.3, prot: 36.5, carbs: 1.7, fat: 0.7 },
+      { foodId: "remolacha-cocida", name: "Remolacha x2 pequeñas", grams: 120, kcal: 52.8, prot: 2.0, carbs: 12.0, fat: 0.1 },
+      { foodId: "eafit-pure-isolate-chocolat", name: "EAFit Chocolat", grams: 30, kcal: 106.2, prot: 24.3, carbs: 1.1, fat: 0.5 }
+    ],
+    timestamp: "2026-04-14T16:00:00"
+  },
+  {
+    id: "2026-04-14-004",
+    date: "2026-04-14",
+    meal: "cena",
+    items: [
+      { foodId: "huevo-picado-tomate-cebolla", name: "Huevo Picado con Tomate y Cebolla", grams: 250, kcal: 151.8, prot: 9.5, carbs: 10.3, fat: 8.8 },
+      { foodId: "danone-cottage-cheese", name: "Cottage Cheese", grams: 50, kcal: 45.0, prot: 6.0, carbs: 0.8, fat: 2.0 },
+      { foodId: "pan-caja-integral", name: "Pan Integral (1 rodaja pequeña)", grams: 25, units: 1, kcal: 61.8, prot: 2.3, carbs: 10.3, fat: 0.9 },
+      { foodId: "wasa-fibre", name: "Wasa Fibre x2", grams: 22.8, units: 2, kcal: 75.9, prot: 3.0, carbs: 10.5, fat: 1.1 }
+    ],
+    timestamp: "2026-04-14T20:30:00"
+  },
+  {
+    id: "2026-04-14-005",
+    date: "2026-04-14",
+    meal: "snack",
+    items: [
+      { foodId: "tostones-platano-macho", name: "Tostones Plátano Macho", grams: 30, kcal: 84.0, prot: 0.4, carbs: 13.2, fat: 3.3 },
+      { foodId: "platano-maduro-frito", name: "Plátano Maduro Frito (2 rodajitas)", grams: 16, kcal: 38.4, prot: 0.2, carbs: 6.4, fat: 1.4 }
+    ],
+    timestamp: "2026-04-14T21:30:00"
+  },
+  // === 2026-04-14 - Adriana (cont.) ===
+  {
+    id: "2026-04-14-A05",
+    date: "2026-04-14",
+    meal: "snack", who: "adriana",
+    items: [
+      { foodId: "gerble-cookie-cacao-pepites-ss", name: "Gerblé Cookie Cacao x3", grams: 32.4, units: 3, kcal: 167.8, prot: 2.6, carbs: 19.8, fat: 5.8 }
+    ],
+    timestamp: "2026-04-14T16:00:00"
+  },
+  {
+    id: "2026-04-14-A06",
+    date: "2026-04-14",
+    meal: "snack", who: "adriana",
+    items: [
+      { foodId: "siggis-skyr-nature", name: "Skyr Siggis", grams: 90, kcal: 56.7, prot: 9.9, carbs: 3.6, fat: 0.2 },
+      { foodId: "blueberries-frescas", name: "Blueberries", grams: 25, kcal: 14.3, prot: 0.2, carbs: 3.6, fat: 0.1 },
+      { foodId: "almendras-enteras", name: "Almendras", grams: 15, kcal: 86.4, prot: 3.2, carbs: 3.3, fat: 7.4 }
+    ],
+    timestamp: "2026-04-14T17:00:00"
+  },
+  {
+    id: "2026-04-14-A07",
+    date: "2026-04-14",
+    meal: "cena", who: "adriana",
+    items: [
+      { foodId: "huevo-picado-tomate-cebolla", name: "Huevo Picado con Tomate y Cebolla", grams: 164, kcal: 99.5, prot: 6.3, carbs: 6.8, fat: 5.7 },
+      { foodId: "danone-cottage-cheese", name: "Cottage Cheese", grams: 19, kcal: 17.1, prot: 2.3, carbs: 0.3, fat: 0.7 },
+      { foodId: "ricotta-casa-azzurra", name: "Ricotta", grams: 51, kcal: 76.5, prot: 4.1, carbs: 0.6, fat: 6.1 }
+    ],
+    timestamp: "2026-04-14T20:30:00"
+  },
+  {
+    id: "2026-04-14-A08",
+    date: "2026-04-14",
+    meal: "snack", who: "adriana",
+    items: [
+      { foodId: "tostones-platano-macho", name: "Tostones Plátano Macho", grams: 30, kcal: 84.0, prot: 0.4, carbs: 13.2, fat: 3.3 },
+      { foodId: "platano-maduro-frito", name: "Plátano Maduro Frito (2 rodajitas)", grams: 16, kcal: 38.4, prot: 0.2, carbs: 6.4, fat: 1.4 }
+    ],
+    timestamp: "2026-04-14T21:30:00"
   }
 
 ];
