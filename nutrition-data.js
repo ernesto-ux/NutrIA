@@ -2642,6 +2642,15 @@ const MEAL_LOG = [
     ],
     timestamp: "2026-04-14T13:00:00"
   },
+  {
+    id: "2026-04-14-A04",
+    date: "2026-04-14",
+    meal: "snack", who: "adriana",
+    items: [
+      { foodId: "kefir-lactel-0-bio", name: "Kéfir Lactel 0%", grams: 300, kcal: 132.0, prot: 10.2, carbs: 12.3, fat: 4.5 }
+    ],
+    timestamp: "2026-04-14T10:00:00"
+  },
   // === 2026-04-14 - Ernesto ===
   {
     id: "2026-04-14-001",
