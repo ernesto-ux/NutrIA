@@ -2,7 +2,7 @@
 // Updated by Claude Code via /log-food skill
 // DO NOT EDIT MANUALLY - use /log-food to add meals
 
-const DATA_TIMESTAMP = "2026-04-13T21:00:00 Europe/Paris";
+const DATA_TIMESTAMP = "2026-04-14T13:30:00 Europe/Paris";
 
 const NUTRITION_CONFIG = {
   targets: { kcal: 1770, prot: 190, carbs: 140, fat: 50 },
@@ -1173,6 +1173,22 @@ const FOOD_DATABASE = [
     per100g: { kcal: 89, prot: 0.6, carbs: 21.7, fat: 0.5, fiber: 8.9 },
     source: "web",
     addedDate: "2026-04-13"
+  },
+  {
+    id: "semillas-maranon",
+    name: "Semillas de Marañon (Cashews)",
+    brand: "Generic",
+    per100g: { kcal: 553, prot: 18, carbs: 30, fat: 44, fiber: 3 },
+    source: "web",
+    addedDate: "2026-04-14"
+  },
+  {
+    id: "patatas-horneadas",
+    name: "Patatas Horneadas (sin aceite)",
+    brand: "Generic",
+    per100g: { kcal: 93, prot: 2.5, carbs: 21, fat: 0.1, fiber: 2.2 },
+    source: "web",
+    addedDate: "2026-04-14"
   }
 ];
 
@@ -2605,6 +2621,67 @@ const MEAL_LOG = [
       { foodId: "ricotta-casa-azzurra", name: "Ricotta", grams: 53, kcal: 79.5, prot: 4.2, carbs: 0.6, fat: 6.4 }
     ],
     timestamp: "2026-04-13T20:00:00"
+  },
+  // === 2026-04-14 - Adriana ===
+  {
+    id: "2026-04-14-A01",
+    date: "2026-04-14",
+    meal: "desayuno", who: "adriana",
+    items: [
+      { foodId: "kefir-nature", name: "Kéfir Nature", grams: 300, kcal: 186.0, prot: 10.5, carbs: 12.0, fat: 10.5 },
+      { foodId: "siggis-skyr-nature", name: "Skyr Siggis", grams: 40, kcal: 25.2, prot: 4.4, carbs: 1.6, fat: 0.1 },
+      { foodId: "fresas-frescas", name: "Fresas", grams: 30, kcal: 9.6, prot: 0.2, carbs: 2.3, fat: 0.1 },
+      { foodId: "fruits-rouges-mix", name: "Frutos Rojos", grams: 20, kcal: 8.0, prot: 0.2, carbs: 1.8, fat: 0.1 },
+      { foodId: "eafit-pure-isolate-vanille", name: "EAFIT Vanilla", grams: 40, kcal: 146.4, prot: 34.4, carbs: 1.3, fat: 0.4 },
+      { foodId: "semillas-chia", name: "Chia", grams: 5, kcal: 24.3, prot: 0.9, carbs: 2.1, fat: 1.6 }
+    ],
+    timestamp: "2026-04-14T08:30:00"
+  },
+  {
+    id: "2026-04-14-A02",
+    date: "2026-04-14",
+    meal: "snack", who: "adriana",
+    items: [
+      { foodId: "semillas-maranon", name: "Semillas de Marañon", grams: 10, kcal: 55.3, prot: 1.8, carbs: 3.0, fat: 4.4 }
+    ],
+    timestamp: "2026-04-14T11:00:00"
+  },
+  {
+    id: "2026-04-14-A03",
+    date: "2026-04-14",
+    meal: "almuerzo", who: "adriana",
+    items: [
+      { foodId: "rigatoni-cocida", name: "Pasta Cocida", grams: 50, kcal: 78.5, prot: 2.8, carbs: 15.5, fat: 0.5 },
+      { foodId: "espinaca-congelada", name: "Salsa Espinaca", grams: 75, kcal: 17.3, prot: 1.9, carbs: 1.1, fat: 0.3 },
+      { foodId: "pollo-pechuga-horneada", name: "Pollo", grams: 75, kcal: 123.8, prot: 23.3, carbs: 0.0, fat: 2.7 },
+      { foodId: "danone-cottage-cheese", name: "Cottage Cheese", grams: 150, kcal: 135.0, prot: 18.0, carbs: 2.4, fat: 5.9 }
+    ],
+    timestamp: "2026-04-14T13:00:00"
+  },
+  // === 2026-04-14 - Ernesto ===
+  {
+    id: "2026-04-14-001",
+    date: "2026-04-14",
+    meal: "desayuno",
+    items: [
+      { foodId: "kefir-lactel-0-bio", name: "Kéfir Lactel 0%", grams: 200, kcal: 88.0, prot: 6.8, carbs: 8.2, fat: 3.0 },
+      { foodId: "siggis-skyr-nature", name: "Skyr Siggis", grams: 50, kcal: 31.5, prot: 5.5, carbs: 2.0, fat: 0.1 },
+      { foodId: "fresas-frescas", name: "Fresas", grams: 30, kcal: 9.6, prot: 0.2, carbs: 2.3, fat: 0.1 },
+      { foodId: "fruits-rouges-mix", name: "Frutos Rojos", grams: 30, kcal: 12.0, prot: 0.2, carbs: 2.7, fat: 0.1 },
+      { foodId: "eafit-pure-isolate-vanille", name: "EAFIT Vanilla", grams: 40, kcal: 146.4, prot: 34.4, carbs: 1.3, fat: 0.4 }
+    ],
+    timestamp: "2026-04-14T08:30:00"
+  },
+  {
+    id: "2026-04-14-002",
+    date: "2026-04-14",
+    meal: "almuerzo",
+    items: [
+      { foodId: "quiche-brocoli-salmon-ricotta", name: "Quiche Saumon Brocoli", grams: 30, kcal: 35.6, prot: 2.9, carbs: 1.1, fat: 2.2 },
+      { foodId: "patatas-horneadas", name: "Patatas Horneadas", grams: 100, kcal: 93.0, prot: 2.5, carbs: 21.0, fat: 0.1 },
+      { foodId: "pasta-pollo-espinaca-tomate-adri", name: "Pasta Pollo Espinaca", grams: 180, kcal: 155.5, prot: 23.9, carbs: 7.2, fat: 2.7 }
+    ],
+    timestamp: "2026-04-14T13:00:00"
   }
 
 ];
