@@ -2628,7 +2628,7 @@ const MEAL_LOG = [
     date: "2026-04-14",
     meal: "desayuno", who: "adriana",
     items: [
-      { foodId: "kefir-nature", name: "Kéfir Nature", grams: 300, kcal: 186.0, prot: 10.5, carbs: 12.0, fat: 10.5 },
+      { foodId: "kefir-nature", name: "Kéfir Nature", grams: 200, kcal: 124.0, prot: 7.0, carbs: 8.0, fat: 7.0 },
       { foodId: "siggis-skyr-nature", name: "Skyr Siggis", grams: 40, kcal: 25.2, prot: 4.4, carbs: 1.6, fat: 0.1 },
       { foodId: "fresas-frescas", name: "Fresas", grams: 30, kcal: 9.6, prot: 0.2, carbs: 2.3, fat: 0.1 },
       { foodId: "fruits-rouges-mix", name: "Frutos Rojos", grams: 20, kcal: 8.0, prot: 0.2, carbs: 1.8, fat: 0.1 },
