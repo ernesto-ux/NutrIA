@@ -1143,6 +1143,14 @@ const FOOD_DATABASE = [
     notes: "70g pasta cocida, 150g espinaca congelada, 153g tomate cherry, 75g skyr siggis, 300g pollo horneado, 75ml agua, 5g maicena"
   },
   {
+    id: "remolacha-cocida",
+    name: "Remolacha (Betterave) Cocida",
+    brand: "Generic",
+    per100g: { kcal: 44, prot: 1.7, carbs: 10, fat: 0.1, fiber: 2 },
+    source: "web",
+    addedDate: "2026-04-13"
+  },
+  {
     id: "kefir-lactel-0-bio",
     name: "Kéfir 0% Bio",
     brand: "Lactel",
@@ -2532,6 +2540,17 @@ const MEAL_LOG = [
       { foodId: "weider-peanut-butter-powder", name: "Weider PB Powder", grams: 5, kcal: 22.0, prot: 2.5, carbs: 1.0, fat: 0.7 }
     ],
     timestamp: "2026-04-13T21:00:00"
+  },
+  {
+    id: "2026-04-13-006",
+    date: "2026-04-13",
+    meal: "snack",
+    items: [
+      { foodId: "wasa-fibre", name: "Wasa Fibre", grams: 14, units: 1, kcal: 47.6, prot: 1.4, carbs: 8.1, fat: 0.4 },
+      { foodId: "danone-cottage-cheese", name: "Cottage Cheese", grams: 30, kcal: 27.0, prot: 3.6, carbs: 0.5, fat: 1.2 },
+      { foodId: "remolacha-cocida", name: "Remolacha", grams: 150, kcal: 66.0, prot: 2.6, carbs: 15.0, fat: 0.2 }
+    ],
+    timestamp: "2026-04-13T22:00:00"
   },
   // === ADRIANA 2026-04-13 ===
   {
