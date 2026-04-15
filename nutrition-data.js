@@ -2893,6 +2893,25 @@ const MEAL_LOG = [
       { foodId: "weider-peanut-butter-powder", name: "PB Powder (1/2tbsp prop.)", grams: 2.0, kcal: 8.8, prot: 1.0, carbs: 0.4, fat: 0.3 }
     ],
     timestamp: "2026-04-15T21:30:00"
+  },
+  {
+    id: "2026-04-15-008",
+    date: "2026-04-15",
+    meal: "cena",
+    items: [
+      { foodId: "eafit-pure-isolate-vanille", name: "EAFit Vanille", grams: 30, kcal: 109.8, prot: 25.8, carbs: 1.0, fat: 0.3 },
+      { foodId: "siggis-skyr-nature", name: "Skyr Siggis", grams: 60, kcal: 37.8, prot: 6.6, carbs: 2.4, fat: 0.1 }
+    ],
+    timestamp: "2026-04-15T21:45:00"
+  },
+  {
+    id: "2026-04-15-009",
+    date: "2026-04-15",
+    meal: "cena",
+    items: [
+      { foodId: "eafit-pure-isolate-chocolat", name: "EAFit Chocolat", grams: 25, kcal: 88.5, prot: 20.3, carbs: 0.9, fat: 0.4 }
+    ],
+    timestamp: "2026-04-15T22:00:00"
   }
 
 ];
