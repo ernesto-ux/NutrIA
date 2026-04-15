@@ -2,7 +2,7 @@
 // Updated by Claude Code via /log-food skill
 // DO NOT EDIT MANUALLY - use /log-food to add meals
 
-const DATA_TIMESTAMP = "2026-04-15T10:00:00 Europe/Paris";
+const DATA_TIMESTAMP = "2026-04-15T14:15:00 Europe/Paris";
 
 const NUTRITION_CONFIG = {
   targets: { kcal: 1770, prot: 190, carbs: 140, fat: 50 },
@@ -2803,6 +2803,31 @@ const MEAL_LOG = [
       { foodId: "eafit-pure-isolate-vanille", name: "EAFit Vanille", grams: 40, kcal: 146.4, prot: 34.4, carbs: 1.3, fat: 0.4 }
     ],
     timestamp: "2026-04-14T22:00:00"
+  },
+  {
+    id: "2026-04-15-001",
+    date: "2026-04-15",
+    meal: "desayuno",
+    items: [
+      { foodId: "hipro-blueberry", name: "HiPro Blueberry", grams: 160, units: 1, kcal: 84.8, prot: 15.0, carbs: 6.1, fat: 0 }
+    ],
+    timestamp: "2026-04-15T09:00:00"
+  },
+  {
+    id: "2026-04-15-002",
+    date: "2026-04-15",
+    meal: "almuerzo",
+    items: [
+      { foodId: "pollo-pechuga-horneada", name: "Pollo Horneado", grams: 90, kcal: 148.5, prot: 27.9, carbs: 0, fat: 3.2 },
+      { foodId: "aceite-oliva", name: "AOVE (1 cdita marinado)", grams: 5, kcal: 44.2, prot: 0, carbs: 0, fat: 5.0 },
+      { foodId: "pimiento-rojo-crudo", name: "Pimiento Horneado", grams: 25, kcal: 7.8, prot: 0.3, carbs: 1.5, fat: 0.1 },
+      { foodId: "cebolla-cruda", name: "Cebolla Horneada", grams: 25, kcal: 10.0, prot: 0.3, carbs: 2.3, fat: 0 },
+      { foodId: "tomate-cherry", name: "Tomates Cherry Frescos", grams: 25, kcal: 4.5, prot: 0.2, carbs: 1.0, fat: 0.1 },
+      { foodId: "arroz-bomba-cocido", name: "Arroz Cocido (agua espinacas)", grams: 60, kcal: 78.0, prot: 1.6, carbs: 16.8, fat: 0.2 },
+      { foodId: "tostones-platano-macho", name: "Tostones", grams: 28, kcal: 78.4, prot: 0.4, carbs: 12.3, fat: 3.1 },
+      { foodId: "queso-curado-hacendado", name: "Queso Curado Mercadona", grams: 15, kcal: 64.7, prot: 3.8, carbs: 0.3, fat: 5.4 }
+    ],
+    timestamp: "2026-04-15T13:30:00"
   }
 
 ];
