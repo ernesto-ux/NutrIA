@@ -2828,6 +2828,16 @@ const MEAL_LOG = [
       { foodId: "queso-curado-hacendado", name: "Queso Curado Mercadona", grams: 15, kcal: 64.7, prot: 3.8, carbs: 0.3, fat: 5.4 }
     ],
     timestamp: "2026-04-15T13:30:00"
+  },
+  {
+    id: "2026-04-15-003",
+    date: "2026-04-15",
+    meal: "snack",
+    items: [
+      { foodId: "eafit-pure-isolate-vanille", name: "Proteina EAFit Vanille", grams: 50, kcal: 183.0, prot: 43.0, carbs: 1.7, fat: 0.5 },
+      { foodId: "siggis-skyr-nature", name: "Skyr Nature", grams: 30, kcal: 18.9, prot: 3.3, carbs: 1.2, fat: 0.1 }
+    ],
+    timestamp: "2026-04-15T16:00:00"
   }
 
 ];
