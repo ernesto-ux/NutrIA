@@ -2991,6 +2991,19 @@ const MEAL_LOG = [
       { foodId: "wasa-fibre", name: "Wasa Fibre (x1.5)", grams: 17.1, units: 1.5, kcal: 56.9, prot: 2.2, carbs: 7.9, fat: 0.9 }
     ],
     timestamp: "2026-04-15T20:30:00"
+  },
+  {
+    id: "2026-04-15-015",
+    date: "2026-04-15",
+    meal: "almuerzo", who: "adriana",
+    items: [
+      { foodId: "arroz-bomba-cocido", name: "Arroz Cocido", grams: 70, kcal: 91.0, prot: 1.9, carbs: 19.6, fat: 0.2 },
+      { foodId: "pollo-pechuga-horneada", name: "Pollo Horneado", grams: 80, kcal: 132.0, prot: 24.8, carbs: 0, fat: 2.9 },
+      { foodId: "cebolla-cruda", name: "Cebolla Horneada", grams: 25, kcal: 10.0, prot: 0.3, carbs: 2.3, fat: 0.0 },
+      { foodId: "pimiento-rojo-crudo", name: "Pimiento (chile)", grams: 25, kcal: 7.8, prot: 0.3, carbs: 1.5, fat: 0.1 },
+      { foodId: "tostones-platano-macho", name: "Tostón (x1)", grams: 12, kcal: 33.6, prot: 0.2, carbs: 5.3, fat: 1.3 }
+    ],
+    timestamp: "2026-04-15T13:30:00"
   }
 
 ];
