@@ -2,7 +2,7 @@
 // Updated by Claude Code via /log-food skill
 // DO NOT EDIT MANUALLY - use /log-food to add meals
 
-const DATA_TIMESTAMP = "2026-04-15T14:15:00 Europe/Paris";
+const DATA_TIMESTAMP = "2026-04-15T18:30:00 Europe/Paris";
 
 const NUTRITION_CONFIG = {
   targets: { kcal: 1770, prot: 190, carbs: 140, fat: 50 },
@@ -2838,6 +2838,16 @@ const MEAL_LOG = [
       { foodId: "siggis-skyr-nature", name: "Skyr Nature", grams: 30, kcal: 18.9, prot: 3.3, carbs: 1.2, fat: 0.1 }
     ],
     timestamp: "2026-04-15T16:00:00"
+  },
+  {
+    id: "2026-04-15-004",
+    date: "2026-04-15",
+    meal: "snack",
+    items: [
+      { foodId: "remolacha-cocida", name: "Remolacha", grams: 80, units: 1, kcal: 35.2, prot: 1.4, carbs: 8.0, fat: 0.1 },
+      { foodId: "galleta-oreo-sin-crema", name: "Oreo Cookie (no cream)", grams: 30, kcal: 141.3, prot: 0.9, carbs: 22.1, fat: 6.2 }
+    ],
+    timestamp: "2026-04-15T18:30:00"
   }
 
 ];
