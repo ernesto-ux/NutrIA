@@ -1219,6 +1219,22 @@ const FOOD_DATABASE = [
     notes: "1/2 tbsp aceite (7g), 182g cebolla, 6 tomates frescos (~600g), 250g huevo entero"
   },
   {
+    id: "chispas-chocolate-oscuro",
+    name: "Chispas de Chocolate Oscuro (Dark Chips)",
+    brand: "",
+    per100g: { kcal: 480, prot: 5, carbs: 55, fat: 28, fiber: 7 },
+    source: "web",
+    addedDate: "2026-04-15"
+  },
+  {
+    id: "cote-dor-noir-70",
+    name: "Chocolat Noir Intense 70%",
+    brand: "Côte d'Or",
+    per100g: { kcal: 545, prot: 8, carbs: 35, fat: 40, fiber: 11 },
+    source: "web",
+    addedDate: "2026-04-15"
+  },
+  {
     id: "champinones-frescos",
     name: "Champiñones (Hongos Frescos)",
     brand: "",
@@ -2912,6 +2928,69 @@ const MEAL_LOG = [
       { foodId: "eafit-pure-isolate-chocolat", name: "EAFit Chocolat", grams: 25, kcal: 88.5, prot: 20.3, carbs: 0.9, fat: 0.4 }
     ],
     timestamp: "2026-04-15T22:00:00"
+  },
+  // === ADRIANA 2026-04-15 ===
+  {
+    id: "2026-04-15-010",
+    date: "2026-04-15",
+    meal: "desayuno", who: "adriana",
+    items: [
+      { foodId: "hipro-coco", name: "HiPro Coco", grams: 233, kcal: 130.5, prot: 21.9, carbs: 8.6, fat: 0.9 },
+      { foodId: "siggis-skyr-nature", name: "Skyr Siggis", grams: 50, kcal: 31.5, prot: 5.5, carbs: 2.0, fat: 0.1 },
+      { foodId: "blueberries-frescas", name: "Blueberries", grams: 25, kcal: 14.3, prot: 0.2, carbs: 3.6, fat: 0.1 },
+      { foodId: "fruits-rouges-mix", name: "Fruits Rouges", grams: 25, kcal: 10.0, prot: 0.2, carbs: 2.3, fat: 0.1 },
+      { foodId: "semillas-chia", name: "Chia", grams: 5, kcal: 24.3, prot: 0.9, carbs: 2.1, fat: 1.6 },
+      { foodId: "chispas-chocolate-oscuro", name: "Chocolate Chips", grams: 6, kcal: 28.8, prot: 0.3, carbs: 3.3, fat: 1.7 }
+    ],
+    timestamp: "2026-04-15T09:00:00"
+  },
+  {
+    id: "2026-04-15-011",
+    date: "2026-04-15",
+    meal: "snack", who: "adriana",
+    items: [
+      { foodId: "gerble-cookie-cacao-pepites-ss", name: "Gerblé Cookie Cacao x3", grams: 32.4, units: 3, kcal: 167.8, prot: 2.6, carbs: 19.8, fat: 5.8 },
+      { foodId: "cote-dor-noir-70", name: "Côte d'Or 70%", grams: 40, kcal: 218.0, prot: 3.2, carbs: 14.0, fat: 16.0 }
+    ],
+    timestamp: "2026-04-15T11:00:00"
+  },
+  {
+    id: "2026-04-15-012",
+    date: "2026-04-15",
+    meal: "snack", who: "adriana",
+    items: [
+      { foodId: "leche-almendra", name: "Leche Almendra (prop. 130/254)", grams: 51.2, kcal: 6.7, prot: 0.2, carbs: 0.1, fat: 0.6 },
+      { foodId: "eafit-pure-isolate-vanille", name: "EAFit Vanille (prop.)", grams: 10.2, kcal: 37.3, prot: 8.8, carbs: 0.3, fat: 0.1 },
+      { foodId: "hipro-vanille", name: "HiPro Vanille (2tbsp prop.)", grams: 15.4, kcal: 11.9, prot: 1.6, carbs: 0.9, fat: 0.1 },
+      { foodId: "weider-peanut-butter-powder", name: "PB Powder (1/2tbsp prop.)", grams: 2.0, kcal: 8.8, prot: 1.0, carbs: 0.4, fat: 0.3 }
+    ],
+    timestamp: "2026-04-15T15:00:00"
+  },
+  {
+    id: "2026-04-15-013",
+    date: "2026-04-15",
+    meal: "snack", who: "adriana",
+    items: [
+      { foodId: "ricotta-casa-azzurra", name: "Ricotta", grams: 50, kcal: 75.0, prot: 4.0, carbs: 0.6, fat: 6.0 },
+      { foodId: "wasa-fibre", name: "Wasa Fibre (x2)", grams: 22.8, units: 2, kcal: 75.9, prot: 3.0, carbs: 10.5, fat: 1.1 }
+    ],
+    timestamp: "2026-04-15T17:00:00"
+  },
+  {
+    id: "2026-04-15-014",
+    date: "2026-04-15",
+    meal: "cena", who: "adriana",
+    items: [
+      { foodId: "huevo-entero", name: "Huevo Entero (x1)", grams: 50, units: 1, kcal: 77.5, prot: 6.5, carbs: 0.6, fat: 5.5 },
+      { foodId: "clara-huevo", name: "Clara de Huevo (x1)", grams: 33, units: 1, kcal: 17.2, prot: 3.6, carbs: 0.2, fat: 0.1 },
+      { foodId: "cebolla-cruda", name: "Cebolla Cocida", grams: 33, kcal: 13.2, prot: 0.4, carbs: 3.1, fat: 0.0 },
+      { foodId: "jamon-porc-fleury-michon", name: "Jamón Cocinado", grams: 15, kcal: 17.3, prot: 3.0, carbs: 0.2, fat: 0.5 },
+      { foodId: "champinones-frescos", name: "Hongos Salteados", grams: 38, kcal: 8.4, prot: 1.2, carbs: 1.3, fat: 0.1 },
+      { foodId: "queso-curado-hacendado", name: "Queso Maduro", grams: 9, kcal: 38.8, prot: 2.3, carbs: 0.2, fat: 3.2 },
+      { foodId: "ricotta-casa-azzurra", name: "Ricotta (2 tbsp)", grams: 30, kcal: 45.0, prot: 2.4, carbs: 0.4, fat: 3.6 },
+      { foodId: "wasa-fibre", name: "Wasa Fibre (x1.5)", grams: 17.1, units: 1.5, kcal: 56.9, prot: 2.2, carbs: 7.9, fat: 0.9 }
+    ],
+    timestamp: "2026-04-15T20:30:00"
   }
 
 ];
