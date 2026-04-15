@@ -2854,13 +2854,6 @@ const ACTIVITY_LOG = [
   { date: "2026-04-14", steps: 4737, stepsKcal: 125, gym: "gym", gymKcal: 480, notes: "" }
 ];
 
-// Weight log - weekly weigh-ins
-// Goal: 75kg
-const WEIGHT_LOG = [
-  { date: "2026-03-29", kg: 89.0, notes: "inicio tracking" },
-  { date: "2026-04-12", kg: 87.15, notes: "" }
-];
-
 // Daily energy balance (sabado a sabado: 29 mar - 4 abr + dom 5)
 // intake: from MEAL_LOG or corrected from NutrIA dashboard
 // tdee: BMR 1819 x 1.2 = 2182 (sedentary base)
