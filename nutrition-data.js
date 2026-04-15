@@ -2,7 +2,7 @@
 // Updated by Claude Code via /log-food skill
 // DO NOT EDIT MANUALLY - use /log-food to add meals
 
-const DATA_TIMESTAMP = "2026-04-15T18:30:00 Europe/Paris";
+const DATA_TIMESTAMP = "2026-04-15T21:45:00 Europe/Paris";
 
 const NUTRITION_CONFIG = {
   targets: { kcal: 1770, prot: 190, carbs: 140, fat: 50 },
@@ -1217,6 +1217,14 @@ const FOOD_DATABASE = [
     source: "recetario",
     addedDate: "2026-04-15",
     notes: "1/2 tbsp aceite (7g), 182g cebolla, 6 tomates frescos (~600g), 250g huevo entero"
+  },
+  {
+    id: "champinones-frescos",
+    name: "Champiñones (Hongos Frescos)",
+    brand: "",
+    per100g: { kcal: 22, prot: 3.1, carbs: 3.3, fat: 0.3, fiber: 1.0 },
+    source: "web",
+    addedDate: "2026-04-15"
   }
 ];
 
@@ -2848,6 +2856,43 @@ const MEAL_LOG = [
       { foodId: "galleta-oreo-sin-crema", name: "Oreo Cookie (no cream)", grams: 30, kcal: 141.3, prot: 0.9, carbs: 22.1, fat: 6.2 }
     ],
     timestamp: "2026-04-15T18:30:00"
+  },
+  {
+    id: "2026-04-15-005",
+    date: "2026-04-15",
+    meal: "snack",
+    items: [
+      { foodId: "gerble-cookie-cacao-pepites-ss", name: "Gerblé Cookie Cacao x1", grams: 10.8, units: 1, kcal: 55.9, prot: 0.9, carbs: 6.6, fat: 1.9 }
+    ],
+    timestamp: "2026-04-15T19:30:00"
+  },
+  {
+    id: "2026-04-15-006",
+    date: "2026-04-15",
+    meal: "cena",
+    items: [
+      { foodId: "huevo-entero", name: "Huevo Entero (x1)", grams: 50, units: 1, kcal: 77.5, prot: 6.5, carbs: 0.6, fat: 5.5 },
+      { foodId: "clara-huevo", name: "Clara de Huevo (x2)", grams: 66, units: 2, kcal: 34.3, prot: 7.3, carbs: 0.5, fat: 0.1 },
+      { foodId: "cebolla-cruda", name: "Cebolla Cocida", grams: 32, kcal: 12.8, prot: 0.4, carbs: 3.0, fat: 0.0 },
+      { foodId: "jamon-porc-fleury-michon", name: "Jamón Cocinado", grams: 26, kcal: 29.9, prot: 5.2, carbs: 0.3, fat: 0.9 },
+      { foodId: "champinones-frescos", name: "Hongos Salteados", grams: 51, kcal: 11.2, prot: 1.6, carbs: 1.7, fat: 0.2 },
+      { foodId: "queso-curado-hacendado", name: "Queso Maduro Mercadona", grams: 10, kcal: 43.1, prot: 2.5, carbs: 0.2, fat: 3.6 },
+      { foodId: "ricotta-casa-azzurra", name: "Ricotta (2 tbsp)", grams: 30, kcal: 45.0, prot: 2.4, carbs: 0.4, fat: 3.6 },
+      { foodId: "wasa-fibre", name: "Wasa Fibre (x2.5)", grams: 28.5, units: 2.5, kcal: 94.9, prot: 3.7, carbs: 13.1, fat: 1.4 }
+    ],
+    timestamp: "2026-04-15T20:30:00"
+  },
+  {
+    id: "2026-04-15-007",
+    date: "2026-04-15",
+    meal: "snack",
+    items: [
+      { foodId: "leche-almendra", name: "Leche Almendra (prop. 130/254)", grams: 51.2, kcal: 6.7, prot: 0.2, carbs: 0.1, fat: 0.6 },
+      { foodId: "eafit-pure-isolate-vanille", name: "EAFit Vanille (prop.)", grams: 10.2, kcal: 37.3, prot: 8.8, carbs: 0.3, fat: 0.1 },
+      { foodId: "hipro-vanille", name: "HiPro Vanille (2tbsp prop.)", grams: 15.4, kcal: 11.9, prot: 1.6, carbs: 0.9, fat: 0.1 },
+      { foodId: "weider-peanut-butter-powder", name: "PB Powder (1/2tbsp prop.)", grams: 2.0, kcal: 8.8, prot: 1.0, carbs: 0.4, fat: 0.3 }
+    ],
+    timestamp: "2026-04-15T21:30:00"
   }
 
 ];
