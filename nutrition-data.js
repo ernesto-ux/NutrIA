@@ -2,7 +2,7 @@
 // Updated by Claude Code via /log-food skill
 // DO NOT EDIT MANUALLY - use /log-food to add meals
 
-const DATA_TIMESTAMP = "2026-04-16T17:00:00 Europe/Paris";
+const DATA_TIMESTAMP = "2026-04-17T09:00:00 Europe/Paris";
 
 const NUTRITION_CONFIG = {
   targets: { kcal: 1770, prot: 190, carbs: 140, fat: 50 },
@@ -1267,6 +1267,14 @@ const FOOD_DATABASE = [
     per100g: { kcal: 174, prot: 11.3, carbs: 3.0, fat: 13.0, fiber: 0 },
     source: "web",
     addedDate: "2026-04-16"
+  },
+  {
+    id: "hipro-creme-dessert-choco-noisette",
+    name: "Crème Dessert Chocolat Noisette",
+    brand: "HiPro",
+    per100g: { kcal: 76, prot: 10.2, carbs: 6.3, fat: 0.9, fiber: 0 },
+    source: "web",
+    addedDate: "2026-04-17"
   }
 ];
 
@@ -3111,6 +3119,64 @@ const MEAL_LOG = [
       { foodId: "tostones-platano-macho", name: "Tostón (x1)", grams: 12, kcal: 33.6, prot: 0.2, carbs: 5.3, fat: 1.3 }
     ],
     timestamp: "2026-04-16T13:30:00"
+  },
+  // Adriana - Snack 2 16/04
+  {
+    id: "2026-04-16-A04",
+    date: "2026-04-16",
+    meal: "snack", who: "adriana",
+    items: [
+      { foodId: "kefir-lactel-0-bio", name: "Kéfir Lactel 0%", grams: 123, kcal: 54.1, prot: 4.2, carbs: 5.0, fat: 1.8 },
+      { foodId: "eafit-pure-isolate-vanille", name: "EAFit Vanille", grams: 10, kcal: 36.6, prot: 8.6, carbs: 0.3, fat: 0.1 },
+      { foodId: "fresas-frescas", name: "Fresas", grams: 62, kcal: 19.8, prot: 0.4, carbs: 4.8, fat: 0.2 }
+    ],
+    timestamp: "2026-04-16T16:30:00"
+  },
+  // Adriana - Cena 16/04
+  {
+    id: "2026-04-16-A05",
+    date: "2026-04-16",
+    meal: "cena", who: "adriana",
+    items: [
+      { foodId: "huevo-entero", name: "Huevo Entero", grams: 50, units: 1, kcal: 77.5, prot: 6.5, carbs: 0.6, fat: 5.5 },
+      { foodId: "clara-huevo", name: "Clara de Huevo", grams: 33, units: 1, kcal: 17.2, prot: 3.6, carbs: 0.2, fat: 0.1 },
+      { foodId: "jamon-porc-fleury-michon", name: "Jamón", grams: 26, kcal: 29.9, prot: 5.2, carbs: 0.3, fat: 0.9 },
+      { foodId: "aceite-oliva", name: "AOVE (1/2 tsp)", grams: 2.5, kcal: 22.1, prot: 0, carbs: 0, fat: 2.5 },
+      { foodId: "quiche-brocoli-salmon-ricotta", name: "Quiche Saumon Brocoli", grams: 61, kcal: 72.3, prot: 5.9, carbs: 2.2, fat: 4.4 },
+      { foodId: "ricotta-casa-azzurra", name: "Ricotta (3 tbsp)", grams: 45, kcal: 67.5, prot: 3.6, carbs: 0.5, fat: 5.4 },
+      { foodId: "tostones-platano-macho", name: "Tostón (x1)", grams: 12, kcal: 33.6, prot: 0.2, carbs: 5.3, fat: 1.3 },
+      { foodId: "hipro-creme-dessert-choco-noisette", name: "HiPro Crème Dessert Choco Noisette", grams: 84, kcal: 63.8, prot: 8.6, carbs: 5.3, fat: 0.8 }
+    ],
+    timestamp: "2026-04-16T20:00:00"
+  },
+  // === ERNESTO 2026-04-16 (cont.) ===
+  // Ernesto - Snack 2 16/04
+  {
+    id: "2026-04-16-004",
+    date: "2026-04-16",
+    meal: "snack",
+    items: [
+      { foodId: "kefir-lactel-0-bio", name: "Kéfir Lactel 0%", grams: 125, kcal: 55.0, prot: 4.3, carbs: 5.1, fat: 1.9 },
+      { foodId: "eafit-pure-isolate-chocolat", name: "EAFit Chocolat", grams: 20, kcal: 70.8, prot: 16.2, carbs: 0.7, fat: 0.3 },
+      { foodId: "banana-fresca", name: "Banano", grams: 60, kcal: 53.4, prot: 0.7, carbs: 13.7, fat: 0.2 }
+    ],
+    timestamp: "2026-04-16T17:30:00"
+  },
+  // Ernesto - Cena 16/04
+  {
+    id: "2026-04-16-005",
+    date: "2026-04-16",
+    meal: "cena",
+    items: [
+      { foodId: "huevo-entero", name: "Huevo Entero", grams: 50, units: 1, kcal: 77.5, prot: 6.5, carbs: 0.6, fat: 5.5 },
+      { foodId: "clara-huevo", name: "Clara de Huevo (x2)", grams: 66, units: 2, kcal: 34.3, prot: 7.3, carbs: 0.5, fat: 0.1 },
+      { foodId: "jamon-porc-fleury-michon", name: "Jamón", grams: 30, kcal: 34.5, prot: 6.0, carbs: 0.3, fat: 1.1 },
+      { foodId: "aceite-oliva", name: "AOVE (1/2 tsp)", grams: 2.5, kcal: 22.1, prot: 0, carbs: 0, fat: 2.5 },
+      { foodId: "quiche-brocoli-salmon-ricotta", name: "Quiche Saumon Brocoli", grams: 68, kcal: 80.6, prot: 6.6, carbs: 2.4, fat: 4.9 },
+      { foodId: "ricotta-casa-azzurra", name: "Ricotta (2 tbsp)", grams: 30, kcal: 45.0, prot: 2.4, carbs: 0.4, fat: 3.6 },
+      { foodId: "hipro-creme-dessert-choco-noisette", name: "HiPro Crème Dessert Choco Noisette", grams: 80, kcal: 60.8, prot: 8.2, carbs: 5.0, fat: 0.7 }
+    ],
+    timestamp: "2026-04-16T20:30:00"
   }
 
 ];
