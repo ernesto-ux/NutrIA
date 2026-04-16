@@ -2857,10 +2857,14 @@
             </g>`;
           }).join('')}
         </svg>
-        <div style="display:flex;justify-content:space-between;font-size:10px;color:var(--text-sec);margin-top:2px;">
-          <span>${first.date}</span>
-          ${fats.length >= 2 ? '<span style="color:#ef4444;">- - grasa %</span>' : ''}
-          <span>${last.date}</span>
+        <div style="display:flex;font-size:9px;color:var(--text-sec);margin-top:2px;padding-left:30px;">
+          ${sorted.map((w, i) => {
+            const weekNum = i + 1;
+            return `<span style="flex:1;text-align:center;">S${weekNum}</span>`;
+          }).join('')}
+        </div>
+        <div style="text-align:center;font-size:9px;color:var(--text-sec);margin-top:1px;">
+          ${fats.length >= 2 ? '<span style="color:#ef4444;">- - grasa %</span> · ' : ''}${first.date} → ${last.date}
         </div>
 
         ${compBars}
