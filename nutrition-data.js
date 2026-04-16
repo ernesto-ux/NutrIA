@@ -3178,15 +3178,15 @@ const MEAL_LOG = [
     ],
     timestamp: "2026-04-16T20:30:00"
   },
-  // === ERNESTO 2026-04-17 ===
+  // Ernesto - Snack 3 16/04
   {
-    id: "2026-04-17-001",
-    date: "2026-04-17",
+    id: "2026-04-16-006",
+    date: "2026-04-16",
     meal: "snack",
     items: [
       { foodId: "eafit-pure-isolate-vanille", name: "EAFit Vanille", grams: 35, kcal: 128.1, prot: 30.1, carbs: 1.2, fat: 0.3 }
     ],
-    timestamp: "2026-04-17T09:00:00"
+    timestamp: "2026-04-16T22:00:00"
   }
 
 ];
