@@ -3177,6 +3177,16 @@ const MEAL_LOG = [
       { foodId: "hipro-creme-dessert-choco-noisette", name: "HiPro Crème Dessert Choco Noisette", grams: 80, kcal: 60.8, prot: 8.2, carbs: 5.0, fat: 0.7 }
     ],
     timestamp: "2026-04-16T20:30:00"
+  },
+  // === ERNESTO 2026-04-17 ===
+  {
+    id: "2026-04-17-001",
+    date: "2026-04-17",
+    meal: "snack",
+    items: [
+      { foodId: "eafit-pure-isolate-vanille", name: "EAFit Vanille", grams: 35, kcal: 128.1, prot: 30.1, carbs: 1.2, fat: 0.3 }
+    ],
+    timestamp: "2026-04-17T09:00:00"
   }
 
 ];
