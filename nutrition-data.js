@@ -3217,7 +3217,7 @@ const ACTIVITY_LOG = [
 
 // Daily energy balance (sabado a sabado: 29 mar - 4 abr + dom 5)
 // intake: from MEAL_LOG or corrected from NutrIA dashboard
-// tdee: BMR 1819 x 1.2 = 2182 (sedentary base)
+// tdee: BMR 1788 x 1.2 = 2145 (sedentary base) — updated 2026-04-17 at 86.9kg
 // stepsKcal: extra calories from steps above sedentary baseline (~2000 steps/day)
 // gymKcal: active calories from gym sessions
 // balance: intake - tdee - stepsKcal - gymKcal (negative = deficit)

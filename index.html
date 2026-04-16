@@ -2230,7 +2230,7 @@
     });
 
     // Energy balance
-    const totalTDEE = numDays * 2182;
+    const totalTDEE = numDays * 2145;
     const totalBurn = totalTDEE + totalGym + totalStepsKcal;
     const totalDeficit = totalIntake - totalBurn;
     const fatLost = Math.abs(totalDeficit) / 7700;
@@ -2298,7 +2298,7 @@
       const intake = d.hasData ? Math.round(d.totals.kcal) : '—';
       const gym = d.activity && d.activity.gymKcal > 0 ? d.activity.gymKcal : '';
       const steps = d.activity ? d.activity.stepsKcal : '';
-      const bal = d.hasData ? Math.round(d.totals.kcal - 2182 - (d.activity ? d.activity.gymKcal||0 : 0) - (d.activity ? d.activity.stepsKcal||0 : 0)) : '';
+      const bal = d.hasData ? Math.round(d.totals.kcal - 2145 - (d.activity ? d.activity.gymKcal||0 : 0) - (d.activity ? d.activity.stepsKcal||0 : 0)) : '';
       const balNum = typeof bal === 'number' ? bal : 0;
       const balColor = balNum < -1000 ? 'var(--green)' : balNum < 0 ? 'var(--teal)' : balNum > 0 ? 'var(--red)' : 'var(--text-sec)';
       const balStr = typeof bal === 'number' ? (bal > 0 ? '+' + bal : bal) : '—';
@@ -2306,7 +2306,7 @@
 
       if (d.hasData) {
         weekTotal.intake += d.totals.kcal;
-        weekTotal.tdee += 2182;
+        weekTotal.tdee += 2145;
         weekTotal.steps += (d.activity ? d.activity.stepsKcal||0 : 0);
         weekTotal.gym += (d.activity ? d.activity.gymKcal||0 : 0);
         weekTotal.balance += balNum;
@@ -2364,7 +2364,7 @@
     const maxKcal = Math.max(...days.map(d => d.totals.kcal), tgt.kcal * 1.3);
 
     // Deficit mode data
-    const TDEE = 2182;
+    const TDEE = 2145;
     const deficitData = days.map(d => {
       if (!d.hasData) return { ...d, totalDeficit: 0, stepsKcal: 0, gymKcal: 0, baseDeficit: 0 };
       const stepsK = d.activity ? d.activity.stepsKcal || 0 : 0;
@@ -3660,7 +3660,7 @@
       }
     });
 
-    const totalTDEE = days.length * 2182;
+    const totalTDEE = days.length * 2145;
     const totalBurn = totalTDEE + totalGym + totalStepsKcal;
     const totalDeficit = totalIntake - totalBurn;
     const fatLost = Math.abs(totalDeficit) / 7700;
@@ -3696,11 +3696,11 @@
       const intake = d.hasData ? Math.round(d.totals.kcal) : '-';
       const gym = d.activity && d.activity.gymKcal > 0 ? d.activity.gymKcal : '-';
       const steps = d.activity ? d.activity.stepsKcal : '-';
-      const bal = d.balance ? d.balance.balance : (d.hasData ? Math.round(d.totals.kcal - 2182 - (d.activity?d.activity.gymKcal||0:0) - (d.activity?d.activity.stepsKcal||0:0)) : '-');
+      const bal = d.balance ? d.balance.balance : (d.hasData ? Math.round(d.totals.kcal - 2145 - (d.activity?d.activity.gymKcal||0:0) - (d.activity?d.activity.stepsKcal||0:0)) : '-');
       const balNum = typeof bal === 'number' ? bal : 0;
       const balColor = balNum < -1000 ? '#059669' : balNum < 0 ? '#0D9488' : balNum > 0 ? '#EF4444' : '#64748B';
       const bgColor = (d.dayName==='Sab'||d.dayName==='Dom') ? '#F0FDFA' : (balNum < -1500 ? '#ECFDF5' : '#fff');
-      if (d.hasData) { wkIntake += d.totals.kcal; wkTDEE += 2182; wkSteps += (d.activity?d.activity.stepsKcal||0:0); wkGym += (d.activity?d.activity.gymKcal||0:0); wkBal += balNum; }
+      if (d.hasData) { wkIntake += d.totals.kcal; wkTDEE += 2145; wkSteps += (d.activity?d.activity.stepsKcal||0:0); wkGym += (d.activity?d.activity.gymKcal||0:0); wkBal += balNum; }
       balanceRows += `<tr style="background:${bgColor}">
         <td style="font-weight:700;text-align:left;">${d.dayName}</td>
         <td style="text-align:left;color:#64748B;">${d.dayLabel}</td>
