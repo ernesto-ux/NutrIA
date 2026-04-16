@@ -976,6 +976,7 @@
       <button class="pill" data-period="mes" onclick="setPeriod('mes')">Mes</button>
       <button class="pill" data-period="todo" onclick="setPeriod('todo')">Todo</button>
       <button class="pill" data-period="informes" onclick="setPeriod('informes')">📊 Informes</button>
+      <button class="pill" data-period="nutricion" onclick="setPeriod('nutricion')">🥗 Nutricion</button>
       <button class="pill" data-period="tools" onclick="setPeriod('tools')">🛠️ Tools</button>
     </div>
   </div>
@@ -2869,6 +2870,271 @@
       </div>`;
   }
 
+  // ── NUTRICION: Food Intelligence ────────────────────────────────────
+
+  function renderNutricion() {
+    const tgt = TARGETS();
+    const userMeals = MEAL_LOG.filter(m => !m.who || m.who === currentUser);
+
+    // === 1. SCORE EACH FOOD IN DATABASE ===
+    // Score = how "macro fit" a food is. High protein ratio + low fat/carb overshoot = better.
+    // protRatio = prot_kcal / total_kcal (higher = better)
+    // penalty for fat and carb density relative to targets
+    const scoredFoods = FOOD_DATABASE.filter(f => f.per100g && f.per100g.kcal > 0).map(f => {
+      const p = f.per100g;
+      const protKcal = p.prot * 4;
+      const carbsKcal = p.carbs * 4;
+      const fatKcal = p.fat * 9;
+      const protRatio = protKcal / p.kcal; // 0..1
+      // Target macro ratios: prot=43%, carbs=32%, fat=25% of kcal for Ernesto
+      const tgtProtR = (tgt.prot * 4) / tgt.kcal;
+      const tgtCarbR = (tgt.carbs * 4) / tgt.kcal;
+      const tgtFatR = (tgt.fat * 9) / tgt.kcal;
+      // Penalty: how far each macro ratio is from target
+      const carbPenalty = Math.max(0, (carbsKcal / p.kcal) - tgtCarbR);
+      const fatPenalty = Math.max(0, (fatKcal / p.kcal) - tgtFatR);
+      // Score: protein ratio bonus minus penalties
+      const score = protRatio - carbPenalty * 0.5 - fatPenalty * 0.8;
+      return { ...f, score: Math.round(score * 100), kcalPer100: p.kcal, protRatio: Math.round(protRatio * 100) };
+    }).sort((a, b) => b.score - a.score);
+
+    // === 2. XY QUADRANT CHART (SVG) ===
+    const chartW = 600, chartH = 400, pad = 50;
+    const maxKcal = Math.min(Math.max(...scoredFoods.map(f => f.kcalPer100)), 900);
+    const minScore = Math.min(...scoredFoods.map(f => f.score));
+    const maxScore = Math.max(...scoredFoods.map(f => f.score));
+    const scoreRange = maxScore - minScore || 1;
+
+    let dots = '';
+    scoredFoods.forEach(f => {
+      const x = pad + Math.min(f.kcalPer100 / maxKcal, 1) * (chartW - pad * 2);
+      const y = pad + ((maxScore - f.score) / scoreRange) * (chartH - pad * 2);
+      const isRecipe = f.source === 'recetario';
+      const color = f.score >= 60 ? '#059669' : f.score >= 30 ? '#0D9488' : f.score >= 0 ? '#F59E0B' : '#EF4444';
+      const r = isRecipe ? 5 : 4;
+      const label = f.name.length > 20 ? f.name.slice(0, 18) + '..' : f.name;
+      dots += `<circle cx="${x}" cy="${y}" r="${r}" fill="${color}" opacity="0.75" style="cursor:pointer;">
+        <title>${f.name}\n${f.kcalPer100} kcal/100g | Score: ${f.score}\nProt: ${f.per100g.prot}g | Carbs: ${f.per100g.carbs}g | Fat: ${f.per100g.fat}g</title>
+      </circle>`;
+      // Label top 10 and bottom 5
+      const rank = scoredFoods.indexOf(f);
+      if (rank < 8 || rank >= scoredFoods.length - 4) {
+        const anchor = x > chartW / 2 ? 'end' : 'start';
+        const dx = x > chartW / 2 ? -7 : 7;
+        dots += `<text x="${x + dx}" y="${y + 3}" text-anchor="${anchor}" font-size="8" fill="${color}" font-weight="500" font-family="Inter,sans-serif">${label}</text>`;
+      }
+    });
+
+    // Quadrant lines (median)
+    const medKcal = scoredFoods.length > 0 ? scoredFoods[Math.floor(scoredFoods.length / 2)].kcalPer100 : 200;
+    const medX = pad + (medKcal / maxKcal) * (chartW - pad * 2);
+    const medY = chartH / 2;
+
+    // Quadrant labels
+    const quadLabels = `
+      <text x="${pad + 10}" y="${pad + 15}" font-size="10" fill="#059669" font-weight="600" opacity="0.6">IDEAL</text>
+      <text x="${pad + 10}" y="${pad + 25}" font-size="8" fill="#059669" opacity="0.5">Bajo cal + Alto score</text>
+      <text x="${chartW - pad - 10}" y="${pad + 15}" text-anchor="end" font-size="10" fill="#F59E0B" font-weight="600" opacity="0.6">DENSO</text>
+      <text x="${chartW - pad - 10}" y="${pad + 25}" text-anchor="end" font-size="8" fill="#F59E0B" opacity="0.5">Alto cal + Alto score</text>
+      <text x="${pad + 10}" y="${chartH - pad - 10}" font-size="10" fill="#94A3B8" font-weight="600" opacity="0.6">BAJO VALOR</text>
+      <text x="${chartW - pad - 10}" y="${chartH - pad - 10}" text-anchor="end" font-size="10" fill="#EF4444" font-weight="600" opacity="0.6">EVITAR</text>
+    `;
+
+    const quadrantSvg = `<svg viewBox="0 0 ${chartW} ${chartH}" style="width:100%;max-width:${chartW}px;height:auto;">
+      <rect x="${pad}" y="${pad}" width="${chartW - pad*2}" height="${chartH - pad*2}" fill="var(--bg)" rx="4"/>
+      <line x1="${medX}" y1="${pad}" x2="${medX}" y2="${chartH - pad}" stroke="var(--border)" stroke-width="1" stroke-dasharray="4,3"/>
+      <line x1="${pad}" y1="${medY}" x2="${chartW - pad}" y2="${medY}" stroke="var(--border)" stroke-width="1" stroke-dasharray="4,3"/>
+      ${quadLabels}
+      ${/* Y-axis labels */''}
+      <text x="${pad - 6}" y="${pad + 8}" text-anchor="end" font-size="8" fill="var(--text-sec)">+fit</text>
+      <text x="${pad - 6}" y="${chartH - pad}" text-anchor="end" font-size="8" fill="var(--text-sec)">-fit</text>
+      <text x="${12}" y="${chartH / 2 + 3}" text-anchor="middle" font-size="9" fill="var(--text-sec)" transform="rotate(-90, 12, ${chartH/2})">Macro Score</text>
+      ${/* X-axis labels */''}
+      <text x="${pad}" y="${chartH - pad + 16}" text-anchor="start" font-size="8" fill="var(--text-sec)">0 kcal</text>
+      <text x="${chartW - pad}" y="${chartH - pad + 16}" text-anchor="end" font-size="8" fill="var(--text-sec)">${maxKcal} kcal</text>
+      <text x="${chartW / 2}" y="${chartH - 8}" text-anchor="middle" font-size="9" fill="var(--text-sec)">Calorias por 100g</text>
+      ${dots}
+    </svg>`;
+
+    // === 3. TOP / BOTTOM FOOD TABLES ===
+    const top15 = scoredFoods.slice(0, 15);
+    const bottom10 = scoredFoods.slice(-10).reverse();
+
+    function foodRow(f, rank) {
+      const color = f.score >= 60 ? '#059669' : f.score >= 30 ? '#0D9488' : f.score >= 0 ? '#F59E0B' : '#EF4444';
+      return `<tr>
+        <td style="text-align:center;font-size:10px;color:var(--text-sec);">${rank}</td>
+        <td style="text-align:left;font-size:11px;font-weight:500;">${f.name}</td>
+        <td style="font-size:11px;">${f.kcalPer100}</td>
+        <td style="font-size:11px;color:#0D9488;font-weight:600;">${f.per100g.prot}g</td>
+        <td style="font-size:11px;">${f.per100g.carbs}g</td>
+        <td style="font-size:11px;">${f.per100g.fat}g</td>
+        <td style="font-weight:700;color:${color};font-size:12px;">${f.score}</td>
+      </tr>`;
+    }
+
+    // === 4. MEAL SCORING ===
+    // Score each meal: how well does it match macro targets on a per-kcal basis?
+    const mealScores = userMeals.filter(m => m.items && m.items.length > 0).map(m => {
+      const totalKcal = m.items.reduce((s, i) => s + (i.kcal || 0), 0);
+      const totalProt = m.items.reduce((s, i) => s + (i.prot || 0), 0);
+      const totalCarbs = m.items.reduce((s, i) => s + (i.carbs || 0), 0);
+      const totalFat = m.items.reduce((s, i) => s + (i.fat || 0), 0);
+      if (totalKcal === 0) return null;
+      const protR = (totalProt * 4) / totalKcal;
+      const carbR = (totalCarbs * 4) / totalKcal;
+      const fatR = (totalFat * 9) / totalKcal;
+      const tgtProtR = (tgt.prot * 4) / tgt.kcal;
+      const tgtCarbR = (tgt.carbs * 4) / tgt.kcal;
+      const tgtFatR = (tgt.fat * 9) / tgt.kcal;
+      const score = Math.round((protR - Math.max(0, carbR - tgtCarbR) * 0.5 - Math.max(0, fatR - tgtFatR) * 0.8) * 100);
+      const itemNames = m.items.map(i => i.name).join(', ');
+      const shortItems = itemNames.length > 60 ? itemNames.slice(0, 58) + '..' : itemNames;
+      return { ...m, totalKcal, totalProt, totalCarbs, totalFat, score, shortItems };
+    }).filter(Boolean).sort((a, b) => b.score - a.score);
+
+    const bestMeals = mealScores.slice(0, 12);
+    const worstMeals = mealScores.slice(-8).reverse();
+
+    function mealRow(m) {
+      const color = m.score >= 50 ? '#059669' : m.score >= 25 ? '#0D9488' : m.score >= 0 ? '#F59E0B' : '#EF4444';
+      const protCheck = (m.totalProt * 4 / m.totalKcal * 100) >= 10 ? '✅' : '⚠️';
+      return `<tr>
+        <td style="text-align:left;font-size:10px;text-transform:capitalize;font-weight:500;">${m.meal}</td>
+        <td style="text-align:left;font-size:10px;color:var(--text-sec);">${m.date.slice(5)}</td>
+        <td style="text-align:left;font-size:10px;">${m.shortItems}</td>
+        <td style="font-size:10px;">${Math.round(m.totalKcal)}</td>
+        <td style="font-size:10px;color:#0D9488;">${round1(m.totalProt)}g</td>
+        <td style="font-size:10px;">${protCheck}</td>
+        <td style="font-weight:700;color:${color};font-size:11px;">${m.score}</td>
+      </tr>`;
+    }
+
+    // === 5. FOOD-DAY CORRELATIONS ===
+    // For frequently used foods, check: days with this food vs days without — avg fat, avg prot, avg kcal
+    const foodUsage = {};
+    userMeals.forEach(m => {
+      if (!m.items) return;
+      m.items.forEach(item => {
+        if (!foodUsage[item.foodId]) foodUsage[item.foodId] = { name: item.name, dates: new Set() };
+        foodUsage[item.foodId].dates.add(m.date);
+      });
+    });
+
+    const allDates = [...new Set(userMeals.map(m => m.date))];
+    const dayTotals = {};
+    allDates.forEach(date => {
+      const dMeals = userMeals.filter(m => m.date === date);
+      const t = { kcal: 0, prot: 0, carbs: 0, fat: 0 };
+      dMeals.forEach(m => m.items && m.items.forEach(i => {
+        t.kcal += i.kcal || 0; t.prot += i.prot || 0; t.carbs += i.carbs || 0; t.fat += i.fat || 0;
+      }));
+      dayTotals[date] = t;
+    });
+
+    const insights = [];
+    Object.entries(foodUsage).forEach(([foodId, info]) => {
+      if (info.dates.size < 3) return; // need at least 3 occurrences
+      const withDates = [...info.dates];
+      const withoutDates = allDates.filter(d => !info.dates.has(d));
+      if (withoutDates.length < 2) return;
+      const avgWith = { kcal: 0, prot: 0, fat: 0 };
+      const avgWithout = { kcal: 0, prot: 0, fat: 0 };
+      withDates.forEach(d => { if (dayTotals[d]) { avgWith.kcal += dayTotals[d].kcal; avgWith.prot += dayTotals[d].prot; avgWith.fat += dayTotals[d].fat; }});
+      withoutDates.forEach(d => { if (dayTotals[d]) { avgWithout.kcal += dayTotals[d].kcal; avgWithout.prot += dayTotals[d].prot; avgWithout.fat += dayTotals[d].fat; }});
+      avgWith.kcal /= withDates.length; avgWith.prot /= withDates.length; avgWith.fat /= withDates.length;
+      avgWithout.kcal /= withoutDates.length; avgWithout.prot /= withoutDates.length; avgWithout.fat /= withoutDates.length;
+      const kcalDiff = Math.round(avgWith.kcal - avgWithout.kcal);
+      const protDiff = round1(avgWith.prot - avgWithout.prot);
+      const fatDiff = round1(avgWith.fat - avgWithout.fat);
+      // Only report interesting correlations
+      if (Math.abs(kcalDiff) > 80 || Math.abs(protDiff) > 8 || Math.abs(fatDiff) > 5) {
+        insights.push({ name: info.name, count: info.dates.size, kcalDiff, protDiff, fatDiff });
+      }
+    });
+    insights.sort((a, b) => b.count - a.count);
+
+    let insightRows = insights.slice(0, 15).map(ins => {
+      const kcalColor = ins.kcalDiff < -50 ? '#059669' : ins.kcalDiff > 50 ? '#EF4444' : 'var(--text-sec)';
+      const protColor = ins.protDiff > 5 ? '#059669' : ins.protDiff < -5 ? '#EF4444' : 'var(--text-sec)';
+      const fatColor = ins.fatDiff < -3 ? '#059669' : ins.fatDiff > 3 ? '#EF4444' : 'var(--text-sec)';
+      return `<tr>
+        <td style="text-align:left;font-size:11px;font-weight:500;">${ins.name}</td>
+        <td style="font-size:10px;">${ins.count} dias</td>
+        <td style="color:${kcalColor};font-weight:600;font-size:11px;">${ins.kcalDiff > 0 ? '+' : ''}${ins.kcalDiff}</td>
+        <td style="color:${protColor};font-weight:600;font-size:11px;">${ins.protDiff > 0 ? '+' : ''}${ins.protDiff}g</td>
+        <td style="color:${fatColor};font-weight:600;font-size:11px;">${ins.fatDiff > 0 ? '+' : ''}${ins.fatDiff}g</td>
+      </tr>`;
+    }).join('');
+
+    return `
+      <div class="card" style="margin-bottom:16px;">
+        <div style="display:flex;align-items:center;gap:10px;margin-bottom:14px;">
+          <span style="font-size:28px;">🥗</span>
+          <div>
+            <div class="card-title" style="margin-bottom:0;">Inteligencia Nutricional</div>
+            <div style="font-size:12px;color:var(--text-sec);">${scoredFoods.length} alimentos | ${mealScores.length} comidas analizadas</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card" style="margin-bottom:16px;">
+        <div class="card-title" style="margin-bottom:8px;">📍 Mapa de Alimentos</div>
+        <div style="font-size:10px;color:var(--text-sec);margin-bottom:8px;">Cada punto = un alimento. Hover para ver detalle. Arriba = mejor macro fit. Izquierda = menos calorico.</div>
+        ${quadrantSvg}
+        <div style="display:flex;gap:12px;justify-content:center;margin-top:8px;font-size:10px;">
+          <span><span style="color:#059669;">●</span> Score 60+</span>
+          <span><span style="color:#0D9488;">●</span> 30-59</span>
+          <span><span style="color:#F59E0B;">●</span> 0-29</span>
+          <span><span style="color:#EF4444;">●</span> Negativo</span>
+        </div>
+      </div>
+
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:16px;">
+        <div class="card">
+          <div class="card-title" style="margin-bottom:8px;color:#059669;">🏆 Top 15 Alimentos</div>
+          <table style="width:100%;">
+            <thead><tr><th>#</th><th style="text-align:left;">Alimento</th><th>kcal</th><th>P</th><th>C</th><th>F</th><th>Score</th></tr></thead>
+            <tbody>${top15.map((f, i) => foodRow(f, i + 1)).join('')}</tbody>
+          </table>
+        </div>
+        <div class="card">
+          <div class="card-title" style="margin-bottom:8px;color:#EF4444;">⚠️ 10 Menos Nutritivos</div>
+          <table style="width:100%;">
+            <thead><tr><th>#</th><th style="text-align:left;">Alimento</th><th>kcal</th><th>P</th><th>C</th><th>F</th><th>Score</th></tr></thead>
+            <tbody>${bottom10.map((f, i) => foodRow(f, scoredFoods.length - 9 + i)).join('')}</tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="card" style="margin-bottom:16px;">
+        <div class="card-title" style="margin-bottom:8px;">🍽️ Mejores Comidas Registradas</div>
+        <div style="font-size:10px;color:var(--text-sec);margin-bottom:8px;">Score basado en ratio proteina/kcal y penalizacion por exceso de grasa/carbs vs targets.</div>
+        <table style="width:100%;">
+          <thead><tr><th style="text-align:left;">Tipo</th><th style="text-align:left;">Fecha</th><th style="text-align:left;">Items</th><th>kcal</th><th>Prot</th><th>P/kcal</th><th>Score</th></tr></thead>
+          <tbody>${bestMeals.map(m => mealRow(m)).join('')}</tbody>
+        </table>
+      </div>
+
+      <div class="card" style="margin-bottom:16px;">
+        <div class="card-title" style="margin-bottom:8px;color:#EF4444;">👎 Comidas Menos Eficientes</div>
+        <table style="width:100%;">
+          <thead><tr><th style="text-align:left;">Tipo</th><th style="text-align:left;">Fecha</th><th style="text-align:left;">Items</th><th>kcal</th><th>Prot</th><th>P/kcal</th><th>Score</th></tr></thead>
+          <tbody>${worstMeals.map(m => mealRow(m)).join('')}</tbody>
+        </table>
+      </div>
+
+      <div class="card" style="margin-bottom:16px;">
+        <div class="card-title" style="margin-bottom:8px;">🔍 Correlaciones: Que pasa cuando comes X?</div>
+        <div style="font-size:10px;color:var(--text-sec);margin-bottom:8px;">Diferencia promedio en dias con vs sin ese alimento. Solo alimentos con 3+ apariciones.</div>
+        <table style="width:100%;">
+          <thead><tr><th style="text-align:left;">Alimento</th><th>Frecuencia</th><th>kcal/dia</th><th>Prot/dia</th><th>Fat/dia</th></tr></thead>
+          <tbody>${insightRows}</tbody>
+        </table>
+      </div>
+    `;
+  }
+
   // ── TOOLS: OCR + METABOLIC CALC ─────────────────────────────────────
 
   let ocrResult = null;
@@ -3563,6 +3829,8 @@
       html = renderDay();
     } else if (currentPeriod === 'informes') {
       html = renderInformes();
+    } else if (currentPeriod === 'nutricion') {
+      html = renderNutricion();
     } else if (currentPeriod === 'tools') {
       html = renderTools();
     } else {
