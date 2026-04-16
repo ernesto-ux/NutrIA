@@ -2048,6 +2048,7 @@
 
   let informeRange = 'semana'; // dia | semana | mes | custom
   let informeChartMode = 'intake'; // 'intake' | 'deficit'
+  let informeShowCombined = false;
   let informeCustomStart = '';
   let informeCustomEnd = '';
 
@@ -2057,6 +2058,10 @@
   };
   window.toggleInformeChartMode = function() {
     informeChartMode = informeChartMode === 'intake' ? 'deficit' : 'intake';
+    render();
+  };
+  window.toggleInformeCombined = function() {
+    informeShowCombined = !informeShowCombined;
     render();
   };
 
@@ -2225,7 +2230,7 @@
       const intake = d.hasData ? Math.round(d.totals.kcal) : '—';
       const gym = d.activity && d.activity.gymKcal > 0 ? d.activity.gymKcal : '';
       const steps = d.activity ? d.activity.stepsKcal : '';
-      const bal = d.balance ? d.balance.balance : (d.hasData ? Math.round(d.totals.kcal - 2182 - (d.activity ? d.activity.gymKcal||0 : 0) - (d.activity ? d.activity.stepsKcal||0 : 0)) : '');
+      const bal = d.hasData ? Math.round(d.totals.kcal - 2182 - (d.activity ? d.activity.gymKcal||0 : 0) - (d.activity ? d.activity.stepsKcal||0 : 0)) : '';
       const balNum = typeof bal === 'number' ? bal : 0;
       const balColor = balNum < -1000 ? 'var(--green)' : balNum < 0 ? 'var(--teal)' : balNum > 0 ? 'var(--red)' : 'var(--text-sec)';
       const balStr = typeof bal === 'number' ? (bal > 0 ? '+' + bal : bal) : '—';
@@ -2302,17 +2307,24 @@
     });
     const maxDeficit = Math.max(...deficitData.map(d => Math.abs(d.totalDeficit || 0)), 500);
 
-    const chartBars = days.map((d, idx) => {
+    // Helper: day label with emojis below
+    function dayLabel(d) {
       const gym = d.activity && d.activity.gymKcal > 0;
       const highSteps = d.activity && d.activity.steps >= 10000;
-      const emojis = (gym ? ' 🏋️' : '') + (highSteps ? ' 🚶' : '');
+      const emojiLine = (gym || highSteps) ? `<div style="font-size:10px;line-height:1;">${gym ? '🏋️' : ''}${highSteps ? '🚶' : ''}</div>` : '';
+      return `<div style="text-align:center;">
+        <div style="font-size:9px;color:var(--text-sec);">${d.dayName}</div>
+        ${emojiLine}
+      </div>`;
+    }
 
+    const chartBars = days.map((d, idx) => {
       if (!d.hasData) {
-        return `<div style="display:flex;flex-direction:column;align-items:center;gap:4px;flex:1;min-width:40px;">
+        return `<div style="display:flex;flex-direction:column;align-items:center;gap:2px;flex:1;min-width:36px;">
           <div style="height:120px;display:flex;align-items:flex-end;width:100%;justify-content:center;">
             <div style="width:20px;height:2px;background:var(--border);border-radius:2px;"></div>
           </div>
-          <span style="font-size:9px;color:var(--text-sec);">${d.dayName}</span>
+          ${dayLabel(d)}
         </div>`;
       }
 
@@ -2336,12 +2348,12 @@
         }
         const sign = isDeficit ? '-' : '+';
         const numColor = isDeficit ? 'var(--green)' : 'var(--red)';
-        return `<div style="display:flex;flex-direction:column;align-items:center;gap:4px;flex:1;min-width:40px;">
+        return `<div style="display:flex;flex-direction:column;align-items:center;gap:2px;flex:1;min-width:36px;">
           <div style="font-size:10px;color:${numColor};font-weight:600;">${sign}${Math.round(absVal)}</div>
           <div style="height:120px;display:flex;flex-direction:column;justify-content:flex-end;align-items:center;width:100%;">
             ${segments}
           </div>
-          <span style="font-size:9px;color:var(--text-sec);font-weight:${gym||highSteps?'700':'400'};">${d.dayName}${emojis}</span>
+          ${dayLabel(d)}
         </div>`;
       }
 
@@ -2349,12 +2361,44 @@
       const h = Math.max((d.totals.kcal / maxKcal) * 120, 4);
       const ratio = d.totals.kcal / tgt.kcal;
       const color = ratio <= 1.1 ? 'var(--teal)' : ratio <= 1.2 ? 'var(--yellow)' : 'var(--red)';
-      return `<div style="display:flex;flex-direction:column;align-items:center;gap:4px;flex:1;min-width:40px;">
+      return `<div style="display:flex;flex-direction:column;align-items:center;gap:2px;flex:1;min-width:36px;">
         <div style="font-size:10px;color:var(--text-sec);font-weight:500;">${Math.round(d.totals.kcal)}</div>
         <div style="height:120px;display:flex;align-items:flex-end;width:100%;justify-content:center;">
           <div style="width:24px;height:${h}px;background:${color};border-radius:4px 4px 2px 2px;opacity:0.85;"></div>
         </div>
-        <span style="font-size:9px;color:var(--text-sec);font-weight:${gym||highSteps?'700':'400'};">${d.dayName}${emojis}</span>
+        ${dayLabel(d)}
+      </div>`;
+    }).join('');
+
+    // Combined view: intake bar (teal) + ghost deficit bar (outline) side by side
+    const maxCombined = Math.max(maxKcal, ...deficitData.map(d => Math.abs(d.totalDeficit || 0)));
+    const combinedBars = days.map((d, idx) => {
+      if (!d.hasData) {
+        return `<div style="display:flex;flex-direction:column;align-items:center;gap:2px;flex:1;min-width:44px;">
+          <div style="height:120px;display:flex;align-items:flex-end;width:100%;justify-content:center;">
+            <div style="width:30px;height:2px;background:var(--border);border-radius:2px;"></div>
+          </div>
+          ${dayLabel(d)}
+        </div>`;
+      }
+      const dd = deficitData[idx];
+      const intakeH = Math.max((d.totals.kcal / maxCombined) * 120, 4);
+      const ratio = d.totals.kcal / tgt.kcal;
+      const intakeColor = ratio <= 1.1 ? 'var(--teal)' : ratio <= 1.2 ? 'var(--yellow)' : 'var(--red)';
+      const isDeficit = dd.totalDeficit > 0;
+      const absDeficit = Math.abs(dd.totalDeficit);
+      const deficitH = Math.max((absDeficit / maxCombined) * 120, 4);
+      const deficitColor = isDeficit ? 'var(--green)' : 'var(--red)';
+      return `<div style="display:flex;flex-direction:column;align-items:center;gap:2px;flex:1;min-width:44px;">
+        <div style="display:flex;gap:1px;font-size:9px;">
+          <span style="color:var(--text-sec);">${Math.round(d.totals.kcal)}</span>
+          <span style="color:${deficitColor};font-weight:600;">${isDeficit?'-':'+'}${Math.round(absDeficit)}</span>
+        </div>
+        <div style="height:120px;display:flex;align-items:flex-end;justify-content:center;gap:2px;width:100%;">
+          <div style="width:14px;height:${intakeH}px;background:${intakeColor};border-radius:3px 3px 1px 1px;opacity:0.85;" title="Ingesta ${Math.round(d.totals.kcal)} kcal"></div>
+          <div style="width:14px;height:${deficitH}px;background:${deficitColor};border-radius:3px 3px 1px 1px;opacity:0.4;" title="${isDeficit?'Deficit':'Superavit'} ${Math.round(absDeficit)} kcal"></div>
+        </div>
+        ${dayLabel(d)}
       </div>`;
     }).join('');
 
@@ -2404,27 +2448,39 @@
       </div>
 
       <div class="card" style="margin-bottom:16px;">
-        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;">
-          <div class="card-title" style="margin-bottom:0;">📈 ${informeChartMode === 'intake' ? 'Calorias Diarias' : 'Deficit Calorico'}</div>
-          <button class="metric-btn ${informeChartMode==='deficit'?'active':''}" onclick="toggleInformeChartMode()" style="font-size:11px;padding:4px 12px;">
-            ${informeChartMode === 'intake' ? '🔄 Ver Deficit' : '🔄 Ver Ingesta'}
-          </button>
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;flex-wrap:wrap;gap:6px;">
+          <div class="card-title" style="margin-bottom:0;">📈 ${informeShowCombined ? 'Ingesta + Deficit' : informeChartMode === 'intake' ? 'Calorias Diarias' : 'Deficit Calorico'}</div>
+          <div style="display:flex;gap:6px;">
+            <button class="metric-btn ${informeChartMode==='deficit'&&!informeShowCombined?'active':''}" onclick="toggleInformeChartMode()" style="font-size:11px;padding:4px 10px;" ${informeShowCombined?'disabled':''}>
+              ${informeChartMode === 'intake' ? '🔄 Deficit' : '🔄 Ingesta'}
+            </button>
+            <button class="metric-btn ${informeShowCombined?'active':''}" onclick="toggleInformeCombined()" style="font-size:11px;padding:4px 10px;">
+              📊 Dual
+            </button>
+          </div>
         </div>
         <div style="position:relative;padding:0 4px;">
           <div style="display:flex;gap:2px;align-items:flex-end;">
-            ${chartBars}
+            ${informeShowCombined ? combinedBars : chartBars}
           </div>
-          ${informeChartMode === 'intake' ? `
+          ${informeChartMode === 'intake' && !informeShowCombined ? `
             <div style="position:absolute;left:0;right:0;top:${targetY + 20}px;border-top:2px dashed var(--teal);opacity:0.5;"></div>
             <div style="position:absolute;right:4px;top:${targetY + 12}px;font-size:9px;color:var(--teal);font-weight:600;">obj ${tgt.kcal}</div>
           ` : ''}
         </div>
-        ${informeChartMode === 'deficit' ? `
+        ${informeChartMode === 'deficit' && !informeShowCombined ? `
           <div style="display:flex;gap:16px;justify-content:center;margin-top:10px;font-size:10px;color:var(--text-sec);">
-            <span><span style="display:inline-block;width:10px;height:10px;background:var(--teal);border-radius:2px;vertical-align:middle;margin-right:3px;"></span>Base (TDEE-ingesta)</span>
+            <span><span style="display:inline-block;width:10px;height:10px;background:var(--teal);border-radius:2px;vertical-align:middle;margin-right:3px;"></span>Base</span>
             <span><span style="display:inline-block;width:10px;height:10px;background:#F59E0B;border-radius:2px;vertical-align:middle;margin-right:3px;"></span>Pasos</span>
             <span><span style="display:inline-block;width:10px;height:10px;background:#10b981;border-radius:2px;vertical-align:middle;margin-right:3px;"></span>Gym</span>
             <span><span style="display:inline-block;width:10px;height:10px;background:var(--red);border-radius:2px;vertical-align:middle;margin-right:3px;"></span>Superavit</span>
+          </div>
+        ` : ''}
+        ${informeShowCombined ? `
+          <div style="display:flex;gap:16px;justify-content:center;margin-top:10px;font-size:10px;color:var(--text-sec);">
+            <span><span style="display:inline-block;width:10px;height:10px;background:var(--teal);border-radius:2px;vertical-align:middle;margin-right:3px;"></span>Ingesta</span>
+            <span><span style="display:inline-block;width:10px;height:10px;background:var(--green);border-radius:2px;vertical-align:middle;margin-right:3px;opacity:0.4;"></span>Deficit</span>
+            <span><span style="display:inline-block;width:10px;height:10px;background:var(--red);border-radius:2px;vertical-align:middle;margin-right:3px;opacity:0.4;"></span>Superavit</span>
           </div>
         ` : ''}
       </div>
@@ -2517,11 +2573,18 @@
       fatLine = `<polyline points="${fatPoints}" fill="none" stroke="#ef4444" stroke-width="1.5" stroke-dasharray="4,3" stroke-linejoin="round" opacity="0.6" />`;
     }
 
-    // Y-axis labels
-    const yLabels = [maxW, (maxW + minW) / 2, minW].map(v => {
+    // Y-axis labels every 2kg
+    const yLabels = [];
+    const yStart = Math.floor(minW / 2) * 2;
+    const yEnd = Math.ceil(maxW / 2) * 2;
+    for (let v = yStart; v <= yEnd; v += 2) {
       const y = 10 + ((maxW - v) / rangeW) * (chartH - 20);
-      return `<text x="26" y="${y + 3}" text-anchor="end" font-size="9" fill="var(--text-sec)">${Math.round(v)}</text>`;
-    }).join('');
+      if (y >= 2 && y <= chartH - 2) {
+        yLabels.push(`<text x="26" y="${y + 3}" text-anchor="end" font-size="9" fill="var(--text-sec)">${v}</text>`);
+        yLabels.push(`<line x1="30" y1="${y}" x2="${chartW}" y2="${y}" stroke="var(--border)" stroke-width="0.5" opacity="0.4" />`);
+      }
+    }
+    const yLabelsStr = yLabels.join('');
 
     // Body composition evolution with sparklines
     const bodyCompMetrics = [
@@ -2622,7 +2685,7 @@
         </div>
 
         <svg viewBox="0 0 ${chartW} ${chartH}" style="width:100%;height:${chartH}px;">
-          ${yLabels}
+          ${yLabelsStr}
           <line x1="30" y1="${goalY}" x2="${chartW}" y2="${goalY}" stroke="var(--green)" stroke-width="1" stroke-dasharray="6,3" opacity="0.5" />
           <text x="${chartW - 2}" y="${goalY - 4}" text-anchor="end" font-size="9" fill="var(--green)">${goalW} kg meta</text>
           <polyline points="${weightLine}" fill="none" stroke="var(--teal)" stroke-width="2.5" stroke-linejoin="round" />
@@ -2630,7 +2693,12 @@
           ${sorted.map((w, i) => {
             const x = 30 + (i / Math.max(sorted.length - 1, 1)) * (chartW - 40);
             const y = 10 + ((maxW - w.weight) / rangeW) * (chartH - 20);
-            return `<circle cx="${x}" cy="${y}" r="3.5" fill="var(--teal)" stroke="#fff" stroke-width="1" />`;
+            const dateLabel = new Date(w.date + 'T00:00:00').toLocaleDateString('es-ES', { day:'numeric', month:'short' });
+            return `<g style="cursor:pointer;">
+              <circle cx="${x}" cy="${y}" r="3.5" fill="var(--teal)" stroke="#fff" stroke-width="1" />
+              <circle cx="${x}" cy="${y}" r="12" fill="transparent" />
+              <title>${dateLabel}: ${w.weight} kg</title>
+            </g>`;
           }).join('')}
         </svg>
         <div style="display:flex;justify-content:space-between;font-size:10px;color:var(--text-sec);margin-top:2px;">
