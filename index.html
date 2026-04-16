@@ -340,6 +340,16 @@
       border-radius: 6px;
       border: 1px solid var(--border);
     }
+    .triple-check {
+      display: inline-flex; gap: 3px; margin-left: 5px; vertical-align: middle;
+    }
+    .tc-dot {
+      display: inline-block; width: 8px; height: 8px; border-radius: 50%;
+    }
+    .tc-dot.pass-prot { background: #4A9EF5; }
+    .tc-dot.pass-carbs { background: #F5A623; }
+    .tc-dot.pass-fat { background: #F5D423; }
+    .tc-dot.fail { background: #d1d5db; }
     .meal-macros-bar {
       display: flex; justify-content: center; gap: 4px;
       padding: 2px 0 6px;
@@ -1243,6 +1253,18 @@
 
   function round1(n) { return Math.round(n * 10) / 10; }
 
+  function tripleCheck(kcal, prot, carbs, fat) {
+    if (kcal <= 0) return '';
+    const pP = prot / kcal >= 0.10;
+    const pC = carbs / kcal <= 0.07;
+    const pF = fat / kcal <= 0.05;
+    return `<span class="triple-check">`
+      + `<span class="tc-dot ${pP ? 'pass-prot' : 'fail'}" title="Prot ${round1(prot/kcal*100)}%"></span>`
+      + `<span class="tc-dot ${pC ? 'pass-carbs' : 'fail'}" title="Carbs ${round1(carbs/kcal*100)}%"></span>`
+      + `<span class="tc-dot ${pF ? 'pass-fat' : 'fail'}" title="Fat ${round1(fat/kcal*100)}%"></span>`
+      + `</span>`;
+  }
+
   // ── DATA HELPERS ──────────────────────────────────────────────────────
   function getDay(date) {
     return getAllMeals().filter(e => e.date === date);
@@ -1625,7 +1647,7 @@
               <span class="meal-icon">${MEAL_ICONS[m]}</span>
               ${MEAL_LABELS[m]}
             </div>
-            <span class="meal-kcal">${kcal > 0 ? Math.round(kcal) + ' kcal' : '—'}</span>
+            <span class="meal-kcal">${kcal > 0 ? Math.round(kcal) + ' kcal' + tripleCheck(kcal, mealMacros[m].prot, mealMacros[m].carbs, mealMacros[m].fat) : '—'}</span>
           </div>
           ${kcal > 0 ? `<div class="meal-macros-bar"><span class="meal-macro-tag prot">${mealMacros[m].prot}P</span><span class="meal-macro-tag carbs">${mealMacros[m].carbs}C</span><span class="meal-macro-tag fat">${mealMacros[m].fat}F</span></div>` : ''}
           ${itemCards}
