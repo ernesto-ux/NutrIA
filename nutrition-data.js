@@ -2,7 +2,7 @@
 // Updated by Claude Code via /log-food skill
 // DO NOT EDIT MANUALLY - use /log-food to add meals
 
-const DATA_TIMESTAMP = "2026-04-15T21:45:00 Europe/Paris";
+const DATA_TIMESTAMP = "2026-04-16T09:00:00 Europe/Paris";
 
 const NUTRITION_CONFIG = {
   targets: { kcal: 1770, prot: 190, carbs: 140, fat: 50 },
@@ -1241,6 +1241,14 @@ const FOOD_DATABASE = [
     per100g: { kcal: 22, prot: 3.1, carbs: 3.3, fat: 0.3, fiber: 1.0 },
     source: "web",
     addedDate: "2026-04-15"
+  },
+  {
+    id: "ricotta-casero",
+    name: "Ricotta Casero (Homemade)",
+    brand: "Homemade",
+    per100g: { kcal: 174, prot: 11.3, carbs: 3.0, fat: 13.0, fiber: 0 },
+    source: "web",
+    addedDate: "2026-04-16"
   }
 ];
 
@@ -3004,6 +3012,21 @@ const MEAL_LOG = [
       { foodId: "tostones-platano-macho", name: "Tostón (x1)", grams: 12, kcal: 33.6, prot: 0.2, carbs: 5.3, fat: 1.3 }
     ],
     timestamp: "2026-04-15T13:30:00"
+  },
+  // === ERNESTO 2026-04-16 ===
+  {
+    id: "2026-04-16-001",
+    date: "2026-04-16",
+    meal: "desayuno",
+    items: [
+      { foodId: "huevo-picado-tomate-cebolla", name: "Huevo Picado con Tomate y Cebolla", grams: 110, kcal: 66.8, prot: 4.2, carbs: 4.5, fat: 3.9 },
+      { foodId: "ricotta-casero", name: "Ricotta Casero", grams: 50, kcal: 87.0, prot: 5.7, carbs: 1.5, fat: 6.5 },
+      { foodId: "hipro-coco", name: "HiPro Coco", grams: 160, kcal: 89.6, prot: 15.0, carbs: 5.9, fat: 0.6 },
+      { foodId: "wasa-fibre", name: "Wasa Fibre x2", grams: 22.8, units: 2, kcal: 75.9, prot: 3.0, carbs: 10.5, fat: 1.1 },
+      { foodId: "siggis-skyr-nature", name: "Skyr Siggis", grams: 60, kcal: 37.8, prot: 6.6, carbs: 2.4, fat: 0.1 },
+      { foodId: "eafit-pure-isolate-chocolat", name: "EAFit Chocolat", grams: 40, kcal: 141.6, prot: 32.4, carbs: 1.5, fat: 0.6 }
+    ],
+    timestamp: "2026-04-16T09:00:00"
   }
 
 ];
