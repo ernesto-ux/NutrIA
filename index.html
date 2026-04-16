@@ -2047,11 +2047,16 @@
   // ── INFORMES ─────────────────────────────────────────────────────────
 
   let informeRange = 'semana'; // dia | semana | mes | custom
+  let informeChartMode = 'intake'; // 'intake' | 'deficit'
   let informeCustomStart = '';
   let informeCustomEnd = '';
 
   window.setInformeRange = function(range) {
     informeRange = range;
+    render();
+  };
+  window.toggleInformeChartMode = function() {
+    informeChartMode = informeChartMode === 'intake' ? 'deficit' : 'intake';
     render();
   };
 
@@ -2284,25 +2289,72 @@
 
     // Stacked bar chart for daily intake
     const maxKcal = Math.max(...days.map(d => d.totals.kcal), tgt.kcal * 1.3);
-    const chartBars = days.map(d => {
+
+    // Deficit mode data
+    const TDEE = 2182;
+    const deficitData = days.map(d => {
+      if (!d.hasData) return { ...d, totalDeficit: 0, stepsKcal: 0, gymKcal: 0, baseDeficit: 0 };
+      const stepsK = d.activity ? d.activity.stepsKcal || 0 : 0;
+      const gymK = d.activity ? d.activity.gymKcal || 0 : 0;
+      const baseDeficit = TDEE - d.totals.kcal;
+      const totalDeficit = baseDeficit + stepsK + gymK;
+      return { ...d, totalDeficit, stepsKcal: stepsK, gymKcal: gymK, baseDeficit };
+    });
+    const maxDeficit = Math.max(...deficitData.map(d => Math.abs(d.totalDeficit || 0)), 500);
+
+    const chartBars = days.map((d, idx) => {
+      const gym = d.activity && d.activity.gymKcal > 0;
+      const highSteps = d.activity && d.activity.steps >= 10000;
+      const emojis = (gym ? ' 🏋️' : '') + (highSteps ? ' 🚶' : '');
+
       if (!d.hasData) {
-        return `<div style="display:flex;flex-direction:column;align-items:center;gap:4px;flex:1;min-width:36px;">
+        return `<div style="display:flex;flex-direction:column;align-items:center;gap:4px;flex:1;min-width:40px;">
           <div style="height:120px;display:flex;align-items:flex-end;width:100%;justify-content:center;">
             <div style="width:20px;height:2px;background:var(--border);border-radius:2px;"></div>
           </div>
           <span style="font-size:9px;color:var(--text-sec);">${d.dayName}</span>
         </div>`;
       }
+
+      if (informeChartMode === 'deficit') {
+        const dd = deficitData[idx];
+        const isDeficit = dd.totalDeficit > 0;
+        const absVal = Math.abs(dd.totalDeficit);
+        const totalH = Math.max((absVal / maxDeficit) * 120, 4);
+
+        let segments = '';
+        if (isDeficit) {
+          const baseH = Math.max((Math.max(dd.baseDeficit, 0) / maxDeficit) * 120, 0);
+          const stepsH = (dd.stepsKcal / maxDeficit) * 120;
+          const gymH = (dd.gymKcal / maxDeficit) * 120;
+          segments = `
+            ${gymH > 0 ? `<div style="width:24px;height:${gymH}px;background:#10b981;border-radius:4px 4px 0 0;opacity:0.85;" title="Gym ${dd.gymKcal} kcal"></div>` : ''}
+            ${stepsH > 0 ? `<div style="width:24px;height:${stepsH}px;background:#F59E0B;opacity:0.85;" title="Pasos ${dd.stepsKcal} kcal"></div>` : ''}
+            ${baseH > 0 ? `<div style="width:24px;height:${baseH}px;background:var(--teal);border-radius:0 0 2px 2px;opacity:0.85;" title="Base ${Math.round(dd.baseDeficit)} kcal"></div>` : ''}`;
+        } else {
+          segments = `<div style="width:24px;height:${totalH}px;background:var(--red);border-radius:4px 4px 2px 2px;opacity:0.85;" title="Superavit ${Math.round(absVal)} kcal"></div>`;
+        }
+        const sign = isDeficit ? '-' : '+';
+        const numColor = isDeficit ? 'var(--green)' : 'var(--red)';
+        return `<div style="display:flex;flex-direction:column;align-items:center;gap:4px;flex:1;min-width:40px;">
+          <div style="font-size:10px;color:${numColor};font-weight:600;">${sign}${Math.round(absVal)}</div>
+          <div style="height:120px;display:flex;flex-direction:column;justify-content:flex-end;align-items:center;width:100%;">
+            ${segments}
+          </div>
+          <span style="font-size:9px;color:var(--text-sec);font-weight:${gym||highSteps?'700':'400'};">${d.dayName}${emojis}</span>
+        </div>`;
+      }
+
+      // Intake mode (default)
       const h = Math.max((d.totals.kcal / maxKcal) * 120, 4);
       const ratio = d.totals.kcal / tgt.kcal;
       const color = ratio <= 1.1 ? 'var(--teal)' : ratio <= 1.2 ? 'var(--yellow)' : 'var(--red)';
-      const gym = d.activity && d.activity.gymKcal > 0;
-      return `<div style="display:flex;flex-direction:column;align-items:center;gap:4px;flex:1;min-width:36px;">
+      return `<div style="display:flex;flex-direction:column;align-items:center;gap:4px;flex:1;min-width:40px;">
         <div style="font-size:10px;color:var(--text-sec);font-weight:500;">${Math.round(d.totals.kcal)}</div>
         <div style="height:120px;display:flex;align-items:flex-end;width:100%;justify-content:center;">
           <div style="width:24px;height:${h}px;background:${color};border-radius:4px 4px 2px 2px;opacity:0.85;"></div>
         </div>
-        <span style="font-size:9px;color:var(--text-sec);font-weight:${gym?'700':'400'};">${d.dayName}${gym?' 🏋️':''}</span>
+        <span style="font-size:9px;color:var(--text-sec);font-weight:${gym||highSteps?'700':'400'};">${d.dayName}${emojis}</span>
       </div>`;
     }).join('');
 
@@ -2312,7 +2364,8 @@
     // Projection
     const weeklyDeficit = Math.abs(totalDeficit) / numDays * 7;
     const weeklyFatLoss = weeklyDeficit / 7700;
-    const currentWeight = 89 - fatLost;
+    const startWeight = (typeof WEIGHT_LOG !== 'undefined' && WEIGHT_LOG.length > 0) ? WEIGHT_LOG[0].weight : 89;
+    const currentWeight = startWeight - fatLost;
     const targetWeight = 75;
     const kgToLose = currentWeight - targetWeight;
     const weeksToGoal = weeklyFatLoss > 0 ? Math.ceil(kgToLose / weeklyFatLoss) : 999;
@@ -2351,14 +2404,29 @@
       </div>
 
       <div class="card" style="margin-bottom:16px;">
-        <div class="card-title" style="margin-bottom:14px;">📈 Calorias Diarias</div>
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;">
+          <div class="card-title" style="margin-bottom:0;">📈 ${informeChartMode === 'intake' ? 'Calorias Diarias' : 'Deficit Calorico'}</div>
+          <button class="metric-btn ${informeChartMode==='deficit'?'active':''}" onclick="toggleInformeChartMode()" style="font-size:11px;padding:4px 12px;">
+            ${informeChartMode === 'intake' ? '🔄 Ver Deficit' : '🔄 Ver Ingesta'}
+          </button>
+        </div>
         <div style="position:relative;padding:0 4px;">
           <div style="display:flex;gap:2px;align-items:flex-end;">
             ${chartBars}
           </div>
-          <div style="position:absolute;left:0;right:0;top:${targetY + 20}px;border-top:2px dashed var(--teal);opacity:0.5;"></div>
-          <div style="position:absolute;right:4px;top:${targetY + 12}px;font-size:9px;color:var(--teal);font-weight:600;">obj ${tgt.kcal}</div>
+          ${informeChartMode === 'intake' ? `
+            <div style="position:absolute;left:0;right:0;top:${targetY + 20}px;border-top:2px dashed var(--teal);opacity:0.5;"></div>
+            <div style="position:absolute;right:4px;top:${targetY + 12}px;font-size:9px;color:var(--teal);font-weight:600;">obj ${tgt.kcal}</div>
+          ` : ''}
         </div>
+        ${informeChartMode === 'deficit' ? `
+          <div style="display:flex;gap:16px;justify-content:center;margin-top:10px;font-size:10px;color:var(--text-sec);">
+            <span><span style="display:inline-block;width:10px;height:10px;background:var(--teal);border-radius:2px;vertical-align:middle;margin-right:3px;"></span>Base (TDEE-ingesta)</span>
+            <span><span style="display:inline-block;width:10px;height:10px;background:#F59E0B;border-radius:2px;vertical-align:middle;margin-right:3px;"></span>Pasos</span>
+            <span><span style="display:inline-block;width:10px;height:10px;background:#10b981;border-radius:2px;vertical-align:middle;margin-right:3px;"></span>Gym</span>
+            <span><span style="display:inline-block;width:10px;height:10px;background:var(--red);border-radius:2px;vertical-align:middle;margin-right:3px;"></span>Superavit</span>
+          </div>
+        ` : ''}
       </div>
 
       <div class="card" style="margin-bottom:16px;">
@@ -2455,28 +2523,76 @@
       return `<text x="26" y="${y + 3}" text-anchor="end" font-size="9" fill="var(--text-sec)">${Math.round(v)}</text>`;
     }).join('');
 
-    // Composition bars for latest entry
+    // Body composition evolution with sparklines
+    const bodyCompMetrics = [
+      { key: 'bodyFat', label: 'Grasa Corporal', unit: '%', color: '#ef4444', icon: '🔴', goodDir: 'down' },
+      { key: 'muscleMass', label: 'Masa Muscular', unit: 'kg', color: 'var(--teal)', icon: '💪', goodDir: 'up' },
+      { key: 'skeletalMuscle', label: 'Musculo Esquel.', unit: '%', color: '#10b981', icon: '🦴', goodDir: 'up' },
+      { key: 'bodyWater', label: 'Agua Corporal', unit: '%', color: '#3b82f6', icon: '💧', goodDir: 'up' },
+      { key: 'subcutFat', label: 'Grasa Subcut.', unit: '%', color: '#f97316', icon: '📉', goodDir: 'down' },
+      { key: 'visceralFat', label: 'Grasa Visceral', unit: '', color: '#f59e0b', icon: '⚠️', goodDir: 'down' },
+      { key: 'boneMass', label: 'Masa Osea', unit: 'kg', color: '#8b5cf6', icon: '🦴', goodDir: 'up' },
+      { key: 'bmr', label: 'BMR', unit: ' kcal', color: '#6366f1', icon: '🔥', goodDir: 'up' },
+      { key: 'metabolicAge', label: 'Edad Metabolica', unit: '', color: '#ec4899', icon: '🧬', goodDir: 'down' },
+    ];
+
+    function miniSparkline(values, color, w=80, h=24) {
+      if (values.length < 2) return '';
+      const min = Math.min(...values) * 0.98;
+      const max = Math.max(...values) * 1.02;
+      const range = max - min || 1;
+      const pts = values.map((v, i) => {
+        const x = (i / (values.length - 1)) * w;
+        const y = h - ((v - min) / range) * h;
+        return `${x},${y}`;
+      }).join(' ');
+      return `<svg viewBox="0 0 ${w} ${h}" style="width:${w}px;height:${h}px;">
+        <polyline points="${pts}" fill="none" stroke="${color}" stroke-width="1.5" stroke-linejoin="round"/>
+      </svg>`;
+    }
+
+    const renphoEntries = sorted.filter(w => w.bodyFat != null);
     let compBars = '';
-    if (last.bodyFat != null || last.muscleMass != null) {
-      const items = [];
-      if (last.bodyFat != null) items.push({ label: 'Grasa', value: last.bodyFat, unit: '%', color: '#ef4444' });
-      if (last.muscleMass != null) items.push({ label: 'Musculo', value: last.muscleMass, unit: 'kg', color: 'var(--teal)' });
-      if (last.bodyWater != null) items.push({ label: 'Agua', value: last.bodyWater, unit: '%', color: '#3b82f6' });
-      if (last.visceralFat != null) items.push({ label: 'Visceral', value: last.visceralFat, unit: '', color: '#f59e0b' });
-      if (last.boneMass != null) items.push({ label: 'Hueso', value: last.boneMass, unit: 'kg', color: '#8b5cf6' });
-      if (last.skeletalMuscle != null) items.push({ label: 'Esquel.', value: last.skeletalMuscle, unit: '%', color: '#10b981' });
+    if (renphoEntries.length >= 1) {
+      const latest = renphoEntries[renphoEntries.length - 1];
+      const earliest = renphoEntries[0];
+      const tiles = bodyCompMetrics.map(m => {
+        const vals = renphoEntries.map(e => e[m.key]).filter(v => v != null);
+        if (vals.length === 0) return '';
+        const current = vals[vals.length - 1];
+        const delta = vals.length >= 2 ? current - vals[0] : null;
+        const deltaStr = delta !== null ? (delta > 0 ? '+' : '') + delta.toFixed(1) : '';
+        const deltaColor = delta === null ? '' : ((m.goodDir === 'down' && delta < 0) || (m.goodDir === 'up' && delta > 0)) ? 'var(--green)' : ((m.goodDir === 'down' && delta > 0) || (m.goodDir === 'up' && delta < 0)) ? 'var(--red)' : 'var(--text-sec)';
+        const spark = miniSparkline(vals, m.color);
+        return `
+          <div style="padding:10px;background:var(--bg);border-radius:10px;">
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:4px;">
+              <span style="font-size:9px;color:var(--text-sec);text-transform:uppercase;letter-spacing:0.5px;">${m.icon} ${m.label}</span>
+            </div>
+            <div style="display:flex;align-items:baseline;gap:6px;">
+              <span style="font-size:18px;font-weight:700;color:${m.color};">${current}${m.unit}</span>
+              ${deltaStr ? `<span style="font-size:11px;font-weight:600;color:${deltaColor};">${deltaStr}</span>` : ''}
+            </div>
+            ${spark ? `<div style="margin-top:4px;">${spark}</div>` : ''}
+          </div>`;
+      }).filter(Boolean).join('');
 
       compBars = `
-        <div style="margin-top:12px;">
-          <div style="font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:1px;color:var(--text-sec);margin-bottom:6px;">Composicion corporal (${last.date})</div>
-          <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px;">
-            ${items.map(i => `
-              <div style="text-align:center;padding:8px;background:var(--bg);border-radius:8px;">
-                <div style="font-size:16px;font-weight:700;color:${i.color};">${i.value}${i.unit}</div>
-                <div style="font-size:9px;color:var(--text-sec);text-transform:uppercase;letter-spacing:0.5px;">${i.label}</div>
-              </div>
-            `).join('')}
+        <div style="margin-top:16px;">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
+            <div style="font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:1px;color:var(--text-sec);">Composicion Corporal — Evolucion Renpho</div>
+            <div style="font-size:10px;color:var(--text-sec);">${earliest.date} → ${latest.date}</div>
           </div>
+          <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px;">
+            ${tiles}
+          </div>
+        </div>`;
+    } else {
+      compBars = `
+        <div style="margin-top:16px;text-align:center;padding:20px;background:var(--bg);border-radius:10px;">
+          <div style="font-size:24px;margin-bottom:6px;">📱</div>
+          <div style="font-size:12px;font-weight:600;color:var(--text);">Composicion Corporal</div>
+          <div style="font-size:11px;color:var(--text-sec);margin-top:4px;">Envia un screenshot de Renpho para trackear grasa, musculo, BMR y mas.</div>
         </div>`;
     }
 

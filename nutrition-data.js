@@ -3053,21 +3053,14 @@ const DAILY_BALANCE = [
 // Fields match Renpho app output
 const WEIGHT_LOG = [
   {
-    date: "2026-04-01",
+    date: "2026-03-29",
     weight: 89.0,
     bmi: 29.1,
-    bodyFat: null,
-    fatFreeWeight: null,
-    subcutFat: null,
-    visceralFat: null,
-    bodyWater: null,
-    skeletalMuscle: null,
-    muscleMass: null,
-    boneMass: null,
-    bmr: null,
-    metabolicAge: null,
-    source: "manual",
-    notes: "peso inicial estimado"
+    bodyFat: 24.7, fatFreeWeight: 67.0, subcutFat: 21.3, visceralFat: 11,
+    bodyWater: 54.4, skeletalMuscle: 48.7, muscleMass: 63.50, boneMass: 3.34,
+    bmr: 1812, metabolicAge: 38,
+    source: "renpho",
+    notes: "Renpho 29/03 10:22. Peso corregido a 89kg (bascula marcó 88.7)"
   },
   {
     date: "2026-04-06",
@@ -3093,10 +3086,10 @@ const WEIGHT_LOG = [
     date: "2026-04-16",
     weight: 86.9,
     bmi: 28.4,
-    bodyFat: null, fatFreeWeight: null, subcutFat: null, visceralFat: null,
-    bodyWater: null, skeletalMuscle: null, muscleMass: null, boneMass: null,
-    bmr: null, metabolicAge: null,
-    source: "manual",
-    notes: ""
+    bodyFat: 23.8, fatFreeWeight: 66.20, subcutFat: 20.5, visceralFat: 11,
+    bodyWater: 55.0, skeletalMuscle: 49.2, muscleMass: 62.90, boneMass: 3.31,
+    bmr: 1800, metabolicAge: 37,
+    source: "renpho",
+    notes: "Renpho 16/04 09:31"
   }
 ];
