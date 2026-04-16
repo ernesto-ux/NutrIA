@@ -346,10 +346,14 @@
     .tc-chk {
       font-size: 0.6rem; font-weight: 900; line-height: 1;
     }
-    .tc-chk.pass-prot { color: #4A9EF5; }
-    .tc-chk.pass-carbs { color: #22C55E; }
-    .tc-chk.pass-fat { color: #F5D423; }
-    .tc-chk.fail { color: #d1d5db; }
+    .tc-chk.pass-prot { color: #93C5FD; }
+    .tc-chk.pass-carbs { color: #86EFAC; }
+    .tc-chk.pass-fat { color: #FDE68A; }
+    .tc-chk.fail { color: rgba(255,255,255,0.3); }
+    .meal-col-header .tc-chk.pass-prot { color: #4A9EF5; }
+    .meal-col-header .tc-chk.pass-carbs { color: #22C55E; }
+    .meal-col-header .tc-chk.pass-fat { color: #F5D423; }
+    .meal-col-header .tc-chk.fail { color: #d1d5db; }
     .meal-macros-bar {
       display: flex; justify-content: center; gap: 4px;
       padding: 2px 0 6px;
@@ -1548,7 +1552,7 @@
         <div class="mfp-meal-group">
           <div class="mfp-meal-header ${isCollapsed ? 'collapsed' : ''}" onclick="toggleMealAccordion('${m}')">
             <span>${MEAL_ICONS[m]} ${MEAL_LABELS[m]} <span class="mfp-chevron">▼</span></span>
-            <span class="mfp-kcal">${Math.round(kcal)} kcal</span>
+            <span class="mfp-kcal">${Math.round(kcal)} kcal ${tripleCheck(kcal, mealMacros[m].prot, mealMacros[m].carbs, mealMacros[m].fat)}</span>
           </div>
           <div class="mfp-meal-summary ${isCollapsed ? 'visible' : ''}">
             <span>${Math.round(kcal)} kcal</span>
@@ -1692,7 +1696,7 @@
         <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;">
           <div class="card-title" style="margin-bottom:0;">Comidas del dia</div>
           <div class="view-toggle">
-            <button class="view-btn" onclick="copyForHealth()" title="Copia para Apple Health shortcut">❤️ Health</button>
+            <!-- Health button hidden: <button class="view-btn" onclick="copyForHealth()" title="Copia para Apple Health shortcut">❤️ Health</button> -->
           </div>
         </div>
         <div class="list-view">${renderMFPList(mealItems, mealKcal, mealMacros)}</div>
