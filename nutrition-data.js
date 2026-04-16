@@ -3033,7 +3033,7 @@ const MEAL_LOG = [
     date: "2026-04-16",
     meal: "almuerzo",
     items: [
-      { foodId: "pollo-pechuga-horneada", name: "Pollo Horneado", grams: 90, kcal: 148.5, prot: 27.9, carbs: 0, fat: 3.2 },
+      { foodId: "pollo-pechuga-horneada", name: "Pollo Horneado", grams: 105, kcal: 173.3, prot: 32.6, carbs: 0, fat: 3.7 },
       { foodId: "aceite-oliva", name: "AOVE (1 cdita marinado)", grams: 5, kcal: 44.2, prot: 0, carbs: 0, fat: 5.0 },
       { foodId: "pimiento-rojo-crudo", name: "Pimiento Horneado", grams: 25, kcal: 7.8, prot: 0.3, carbs: 1.5, fat: 0.1 },
       { foodId: "cebolla-cruda", name: "Cebolla Horneada", grams: 25, kcal: 10.0, prot: 0.3, carbs: 2.3, fat: 0 },
