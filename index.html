@@ -2378,6 +2378,14 @@
     }), 500);
     const maxDeficit = maxBurn;
 
+    // Zero line for diverging deficit chart
+    const maxDeficitUp = Math.max(...deficitData.filter(d => d.hasData && d.totalDeficit > 0).map(d => d.totalDeficit), 1);
+    const maxSurplusDown = Math.max(...deficitData.filter(d => d.hasData && d.totalDeficit < 0).map(d => Math.abs(d.totalDeficit)), 0);
+    const hasSurplus = maxSurplusDown > 0;
+    const zeroFromTop = hasSurplus
+      ? Math.min(Math.max(Math.round((maxDeficitUp / (maxDeficitUp + maxSurplusDown)) * 120), 24), 96)
+      : 120;
+
     // Helper: day label with emojis BELOW in fixed container
     const isMonthView = informeRange === 'mes' || days.length > 14;
     function dayLabel(d, idx) {
@@ -2425,25 +2433,41 @@
         const dd = deficitData[idx];
         const isDeficit = dd.totalDeficit > 0;
         const absVal = Math.abs(dd.totalDeficit);
-        // Always show activity segments, even on surplus days
-        const stepsH = (dd.stepsKcal / maxDeficit) * 120;
-        const gymH = (dd.gymKcal / maxDeficit) * 120;
-        const absBase = Math.abs(dd.baseDeficit);
-        const baseH = (absBase / maxDeficit) * 120;
-        const baseColor = dd.baseDeficit >= 0 ? 'var(--teal)' : 'var(--red)';
-        const baseLabel = dd.baseDeficit >= 0 ? `Dieta ${Math.round(dd.baseDeficit)}` : `Exceso ${Math.round(absBase)}`;
-
-        const segments = `
-          ${gymH > 0 ? `<div style="width:${isMonthView?'14':'24'}px;height:${gymH}px;background:#10b981;border-radius:4px 4px 0 0;opacity:0.85;" title="Gym ${dd.gymKcal} kcal"></div>` : ''}
-          ${stepsH > 0 ? `<div style="width:${isMonthView?'14':'24'}px;height:${stepsH}px;background:#F59E0B;opacity:0.85;" title="Pasos ${dd.stepsKcal} kcal"></div>` : ''}
-          <div style="width:${isMonthView?'14':'24'}px;height:${Math.max(baseH, 2)}px;background:${baseColor};border-radius:0 0 2px 2px;opacity:0.85;" title="${baseLabel} kcal"></div>`;
-
         const sign = isDeficit ? '-' : '+';
         const numColor = isDeficit ? 'var(--green)' : 'var(--red)';
+        const bw = isMonthView ? '14' : '24';
+
+        let barContent;
+        if (isDeficit) {
+          // Deficit = good = bars grow UP from zero line
+          const totalH = maxDeficitUp > 0 ? (dd.totalDeficit / maxDeficitUp) * zeroFromTop : 0;
+          const stepsH = dd.stepsKcal > 0 && dd.totalDeficit > 0 ? (dd.stepsKcal / dd.totalDeficit) * totalH : 0;
+          const gymH = dd.gymKcal > 0 && dd.totalDeficit > 0 ? (dd.gymKcal / dd.totalDeficit) * totalH : 0;
+          const baseH = Math.max(totalH - stepsH - gymH, 2);
+          barContent = `
+            <div style="height:${zeroFromTop}px;display:flex;flex-direction:column;justify-content:flex-end;align-items:center;">
+              ${gymH > 0 ? `<div style="width:${bw}px;height:${gymH}px;background:#10b981;border-radius:4px 4px 0 0;opacity:0.85;" title="Gym ${dd.gymKcal} kcal"></div>` : ''}
+              ${stepsH > 0 ? `<div style="width:${bw}px;height:${stepsH}px;background:#F59E0B;opacity:0.85;" title="Pasos ${dd.stepsKcal} kcal"></div>` : ''}
+              <div style="width:${bw}px;height:${Math.max(baseH, 2)}px;background:var(--teal);border-radius:0 0 2px 2px;opacity:0.85;" title="Dieta ${Math.round(dd.baseDeficit)} kcal"></div>
+            </div>
+            <div style="height:${120 - zeroFromTop}px;"></div>`;
+        } else {
+          // Surplus = bad = bar grows DOWN from zero line
+          const surplusH = maxSurplusDown > 0 ? (absVal / maxSurplusDown) * (120 - zeroFromTop) : 0;
+          barContent = `
+            <div style="height:${zeroFromTop}px;"></div>
+            <div style="height:${120 - zeroFromTop}px;display:flex;flex-direction:column;justify-content:flex-start;align-items:center;">
+              <div style="width:${bw}px;height:${Math.max(surplusH, 2)}px;background:var(--red);border-radius:0 0 4px 4px;opacity:0.85;" title="Superávit ${Math.round(absVal)} kcal"></div>
+            </div>`;
+        }
+
         return `<div style="display:flex;flex-direction:column;align-items:center;gap:2px;flex:1;min-width:${isMonthView?'20':'36'}px;">
           <div style="font-size:${isMonthView?'8':'10'}px;color:${numColor};font-weight:600;">${sign}${Math.round(absVal)}</div>
-          <div style="height:120px;display:flex;flex-direction:column;justify-content:flex-end;align-items:center;width:100%;">
-            ${segments}
+          <div style="height:120px;position:relative;width:100%;">
+            <div style="position:absolute;top:${zeroFromTop}px;left:0;right:0;height:1px;background:var(--text-sec);opacity:0.3;"></div>
+            <div style="height:120px;display:flex;flex-direction:column;align-items:center;">
+              ${barContent}
+            </div>
           </div>
           ${dayLabel(d, idx)}
         </div>`;
