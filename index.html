@@ -2331,16 +2331,17 @@
     }), 500);
     const maxDeficit = maxBurn;
 
-    // Helper: day label with fixed-height emoji row
+    // Helper: day label with emojis BELOW in fixed container
     const isMonthView = informeRange === 'mes' || days.length > 14;
     function dayLabel(d, idx) {
       const gym = d.activity && d.activity.gymKcal > 0;
       const highSteps = d.activity && d.activity.steps >= 10000;
       const dayNum = d.date.slice(8, 10);
       const nameStr = isMonthView ? dayNum : d.dayName;
-      return `<div style="text-align:center;">
-        <div style="font-size:${isMonthView ? '8' : '9'}px;color:var(--text-sec);">${nameStr}</div>
-        <div style="height:14px;font-size:10px;line-height:14px;">${gym ? '🏋️' : ''}${highSteps ? '🚶' : ''}</div>
+      const emojis = (gym ? '🏋️' : '') + (highSteps ? '🚶' : '');
+      return `<div style="text-align:center;height:28px;">
+        <div style="font-size:${isMonthView ? '8' : '9'}px;color:var(--text-sec);height:12px;line-height:12px;">${nameStr}</div>
+        <div style="height:16px;font-size:9px;line-height:16px;overflow:hidden;">${emojis || '&nbsp;'}</div>
       </div>`;
     }
 
