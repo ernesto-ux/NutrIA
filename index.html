@@ -2084,21 +2084,21 @@
   };
 
   window.setInformeCustomDates = function() {
-    const s = document.getElementById('informe-start');
-    const e = document.getElementById('informe-end');
+    const sd = document.getElementById('inf-s-d'), sm = document.getElementById('inf-s-m'), sy = document.getElementById('inf-s-y');
+    const ed = document.getElementById('inf-e-d'), em = document.getElementById('inf-e-m'), ey = document.getElementById('inf-e-y');
+    if (!sd || !sm || !sy) return;
+    const startVal = `${sy.value}-${sm.value}-${sd.value}`;
     if (informeRange === 'dia') {
-      if (s && s.value) {
-        informeCustomStart = s.value;
-        informeCustomEnd = s.value;
-        render();
-      }
+      informeCustomStart = startVal;
+      informeCustomEnd = startVal;
+      render();
     } else {
-      if (s && e && s.value && e.value) {
-        informeCustomStart = s.value;
-        informeCustomEnd = e.value;
-        informeRange = 'custom';
-        render();
-      }
+      if (!ed || !em || !ey) return;
+      const endVal = `${ey.value}-${em.value}-${ed.value}`;
+      informeCustomStart = startVal;
+      informeCustomEnd = endVal;
+      informeRange = 'custom';
+      render();
     }
   };
 
@@ -2215,11 +2215,28 @@
         <button class="metric-btn ${informeRange==='dia'?'active':''}" onclick="setInformeRange('dia')">Dia</button>
         <button class="metric-btn ${informeRange==='semana'?'active':''}" onclick="setInformeRange('semana')">Semana</button>
         <button class="metric-btn ${informeRange==='mes'?'active':''}" onclick="setInformeRange('mes')">Mes</button>
-        <div style="display:flex;gap:6px;align-items:center;margin-left:8px;">
-          <input type="date" id="informe-start" value="${informeCustomStart}" style="padding:6px 10px;border:1px solid var(--border);border-radius:8px;font-size:12px;font-family:inherit;color:var(--text);" />
-          <span id="informe-sep" style="color:var(--text-sec);font-size:12px;${informeRange==='dia'?'display:none':''}">a</span>
-          <input type="date" id="informe-end" value="${informeCustomEnd}" style="padding:6px 10px;border:1px solid var(--border);border-radius:8px;font-size:12px;font-family:inherit;color:var(--text);${informeRange==='dia'?'display:none':''}" />
-          <button class="metric-btn" onclick="setInformeCustomDates()" style="padding:6px 14px;">Aplicar</button>
+        <div style="display:flex;gap:6px;align-items:center;margin-left:8px;flex-wrap:wrap;">
+          ${(() => {
+            const selStyle = 'padding:5px 2px;border:1px solid var(--border);border-radius:8px;font-size:12px;font-family:inherit;color:var(--text);background:var(--card);cursor:pointer;-webkit-appearance:none;appearance:none;';
+            const sY = informeCustomStart.slice(0,4), sM = informeCustomStart.slice(5,7), sD = informeCustomStart.slice(8,10);
+            const eY = informeCustomEnd.slice(0,4), eM = informeCustomEnd.slice(5,7), eD = informeCustomEnd.slice(8,10);
+            const dayOpts = Array.from({length:31},(_,i)=>{const v=String(i+1).padStart(2,'0');return v;});
+            const monthNames = ['Ene','Feb','Mar','Abr','May','Jun','Jul','Ago','Sep','Oct','Nov','Dic'];
+            const monthOpts = monthNames.map((n,i)=>({v:String(i+1).padStart(2,'0'),n}));
+            const yearOpts = ['2026','2025'];
+            const mkSel = (id, opts, cur, isName) => `<select id="${id}" style="${selStyle}">${opts.map(o => {
+              const val = isName ? o.v : o;
+              const label = isName ? o.n : o;
+              return `<option value="${val}" ${val===cur?'selected':''}>${label}</option>`;
+            }).join('')}</select>`;
+            const startSels = `${mkSel('inf-s-d', dayOpts, sD, false)}${mkSel('inf-s-m', monthOpts, sM, true)}${mkSel('inf-s-y', yearOpts, sY, false)}`;
+            const endSels = `${mkSel('inf-e-d', dayOpts, eD, false)}${mkSel('inf-e-m', monthOpts, eM, true)}${mkSel('inf-e-y', yearOpts, eY, false)}`;
+            const hideEnd = informeRange === 'dia' ? 'display:none;' : '';
+            return `<div style="display:flex;gap:2px;align-items:center;">${startSels}</div>
+              <span style="color:var(--text-sec);font-size:12px;${hideEnd}">a</span>
+              <div style="display:flex;gap:2px;align-items:center;${hideEnd}">${endSels}</div>
+              <button class="metric-btn" onclick="setInformeCustomDates()" style="padding:6px 14px;">Aplicar</button>`;
+          })()}
         </div>
       </div>`;
 
