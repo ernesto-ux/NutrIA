@@ -2422,6 +2422,17 @@
       </div>`;
     }
 
+    // Cumulative deficit for kg milestones
+    let cumDeficit = 0;
+    const kgMilestones = deficitData.map(dd => {
+      if (!dd.hasData) return null;
+      const prevCum = cumDeficit;
+      cumDeficit += dd.totalDeficit; // positive = deficit, negative = surplus
+      const prevKg = Math.floor(prevCum / 7700);
+      const nowKg = Math.floor(cumDeficit / 7700);
+      return nowKg > prevKg ? nowKg : null; // returns kg number if milestone crossed
+    });
+
     const chartBars = days.map((d, idx) => {
       if (!d.hasData) {
         return `<div style="display:flex;flex-direction:column;align-items:center;gap:2px;flex:1;min-width:${isMonthView?'20':'36'}px;">
@@ -2464,14 +2475,19 @@
             </div>`;
         }
 
+        const milestone = kgMilestones[idx];
+        const milestoneHtml = milestone ? `<div style="font-size:8px;font-weight:700;color:#8B5CF6;line-height:1;margin-top:-1px;">-${milestone}kg</div>` : '';
+
         return `<div style="display:flex;flex-direction:column;align-items:center;gap:2px;flex:1;min-width:${isMonthView?'20':'36'}px;">
           <div style="font-size:${isMonthView?'8':'10'}px;color:${numColor};font-weight:600;">${sign}${Math.round(absVal)}</div>
           <div style="height:120px;position:relative;width:100%;">
             <div style="position:absolute;top:${zeroFromTop}px;left:0;right:0;height:1px;background:var(--text-sec);opacity:0.3;"></div>
+            ${milestone ? `<div style="position:absolute;top:${zeroFromTop - 3}px;left:50%;transform:translateX(-50%);width:${isMonthView?'16':'26'}px;height:3px;background:#8B5CF6;border-radius:2px;z-index:2;" title="-${milestone}kg alcanzado"></div>` : ''}
             <div style="height:120px;display:flex;flex-direction:column;align-items:center;">
               ${barContent}
             </div>
           </div>
+          ${milestoneHtml}
           ${dayLabel(d, idx)}
         </div>`;
       }
