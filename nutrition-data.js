@@ -2,7 +2,7 @@
 // Updated by Claude Code via /log-food skill
 // DO NOT EDIT MANUALLY - use /log-food to add meals
 
-const DATA_TIMESTAMP = "2026-04-16T09:00:00 Europe/Paris";
+const DATA_TIMESTAMP = "2026-04-16T13:30:00 Europe/Paris";
 
 const NUTRITION_CONFIG = {
   targets: { kcal: 1770, prot: 190, carbs: 140, fat: 50 },
@@ -3027,6 +3027,21 @@ const MEAL_LOG = [
       { foodId: "eafit-pure-isolate-chocolat", name: "EAFit Chocolat", grams: 40, kcal: 141.6, prot: 32.4, carbs: 1.5, fat: 0.6 }
     ],
     timestamp: "2026-04-16T09:00:00"
+  },
+  {
+    id: "2026-04-16-002",
+    date: "2026-04-16",
+    meal: "almuerzo",
+    items: [
+      { foodId: "pollo-pechuga-horneada", name: "Pollo Horneado", grams: 90, kcal: 148.5, prot: 27.9, carbs: 0, fat: 3.2 },
+      { foodId: "aceite-oliva", name: "AOVE (1 cdita marinado)", grams: 5, kcal: 44.2, prot: 0, carbs: 0, fat: 5.0 },
+      { foodId: "pimiento-rojo-crudo", name: "Pimiento Horneado", grams: 25, kcal: 7.8, prot: 0.3, carbs: 1.5, fat: 0.1 },
+      { foodId: "cebolla-cruda", name: "Cebolla Horneada", grams: 25, kcal: 10.0, prot: 0.3, carbs: 2.3, fat: 0 },
+      { foodId: "tomate-cherry", name: "Tomates Cherry Frescos", grams: 25, kcal: 4.5, prot: 0.2, carbs: 1.0, fat: 0.1 },
+      { foodId: "arroz-bomba-cocido", name: "Arroz Cocido (agua espinacas)", grams: 60, kcal: 78.0, prot: 1.6, carbs: 16.8, fat: 0.2 },
+      { foodId: "cote-dor-noir-70", name: "Côte d'Or 70%", grams: 4, kcal: 21.8, prot: 0.3, carbs: 1.4, fat: 1.6 }
+    ],
+    timestamp: "2026-04-16T13:30:00"
   }
 
 ];
