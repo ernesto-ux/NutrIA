@@ -2477,7 +2477,7 @@
 
         const milestone = kgMilestones[idx];
 
-        return `<div style="display:flex;flex-direction:column;align-items:center;gap:2px;flex:1;min-width:${isMonthView?'20':'36'}px;">
+        return `<div style="display:flex;flex-direction:column;align-items:center;gap:2px;flex:1;min-width:${isMonthView?'20':'36'}px;position:relative;">
           <div style="font-size:${isMonthView?'8':'10'}px;color:${numColor};font-weight:600;">${sign}${Math.round(absVal)}</div>
           <div style="height:120px;position:relative;width:100%;">
             <div style="position:absolute;top:${zeroFromTop}px;left:0;right:0;height:1px;background:var(--text-sec);opacity:0.3;"></div>
@@ -2486,7 +2486,7 @@
             </div>
           </div>
           ${dayLabel(d, idx)}
-          ${milestone ? `<div style="font-size:8px;font-weight:700;color:#8B5CF6;line-height:1;">-${milestone}kg</div>` : ''}
+          ${milestone ? `<div style="position:absolute;bottom:-14px;left:50%;transform:translateX(-50%);font-size:8px;font-weight:700;color:#8B5CF6;white-space:nowrap;">-${milestone}kg</div>` : ''}
         </div>`;
       }
 
