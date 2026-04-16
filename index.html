@@ -2317,7 +2317,7 @@
           <td style="padding:8px 10px;font-weight:600;color:var(--text);font-size:12px;">${d.dayName}</td>
           <td style="padding:8px 10px;font-size:12px;color:var(--text-sec);">${d.dayLabel}</td>
           <td style="padding:8px 10px;text-align:center;font-size:13px;font-weight:500;">${intake}</td>
-          <td style="padding:8px 10px;text-align:center;font-size:12px;color:var(--text-sec);">2,182</td>
+          <td style="padding:8px 10px;text-align:center;font-size:12px;color:var(--text-sec);">2,145</td>
           <td style="padding:8px 10px;text-align:center;font-size:12px;color:#F59E0B;font-weight:500;">${steps || '—'}</td>
           <td style="padding:8px 10px;text-align:center;font-size:12px;color:var(--teal);font-weight:600;">${gym || '—'}</td>
           <td style="padding:8px 10px;text-align:center;font-size:13px;font-weight:700;color:${balColor};">${balStr}</td>
@@ -2859,13 +2859,11 @@
         </svg>
         <div style="display:flex;font-size:9px;color:var(--text-sec);margin-top:2px;padding-left:30px;">
           ${sorted.map((w, i) => {
-            const weekNum = i + 1;
-            return `<span style="flex:1;text-align:center;">S${weekNum}</span>`;
+            const d = new Date(w.date + 'T00:00:00');
+            return `<span style="flex:1;text-align:center;">${d.getDate()}/${d.getMonth()+1}</span>`;
           }).join('')}
         </div>
-        <div style="text-align:center;font-size:9px;color:var(--text-sec);margin-top:1px;">
-          ${fats.length >= 2 ? '<span style="color:#ef4444;">- - grasa %</span> · ' : ''}${first.date} → ${last.date}
-        </div>
+        ${fats.length >= 2 ? '<div style="text-align:center;font-size:9px;color:#ef4444;margin-top:1px;">- - grasa %</div>' : ''}
 
         ${compBars}
       </div>`;
@@ -3709,7 +3707,7 @@
         <td style="font-weight:700;text-align:left;">${d.dayName}</td>
         <td style="text-align:left;color:#64748B;">${d.dayLabel}</td>
         <td style="font-weight:500;">${intake}</td>
-        <td style="color:#64748B;">2,182</td>
+        <td style="color:#64748B;">2,145</td>
         <td style="color:#F59E0B;font-weight:500;">${steps}</td>
         <td style="color:#0D9488;font-weight:${gym!=='-'?'700':'400'};">${gym}</td>
         <td style="color:${balColor};font-weight:700;">${typeof bal==='number'?(bal>0?'+':'')+bal:'-'}</td>
@@ -3758,6 +3756,150 @@
 
     const rangeLabel = informeRange === 'dia' ? `Dia ${dates[0]}` : informeRange === 'semana' ? `Semana ${dates[0].slice(8)}-${dates[dates.length-1].slice(8)} ${dates[0].slice(5,7)}` : informeRange === 'mes' ? 'Este mes' : `${dates[0]} a ${dates[dates.length-1]}`;
 
+    // Deficit chart SVG for PDF
+    const TDEE_PDF = 2145;
+    const deficitDataPdf = days.map(d => {
+      if (!d.hasData) return { ...d, totalDeficit: 0, stepsKcal: 0, gymKcal: 0, baseDeficit: 0 };
+      const stepsK = d.activity ? d.activity.stepsKcal || 0 : 0;
+      const gymK = d.activity ? d.activity.gymKcal || 0 : 0;
+      const baseDeficit = TDEE_PDF - d.totals.kcal;
+      const totalDef = baseDeficit + stepsK + gymK;
+      return { ...d, totalDeficit: totalDef, stepsKcal: stepsK, gymKcal: gymK, baseDeficit };
+    });
+    const maxDefUp = Math.max(...deficitDataPdf.filter(d => d.hasData && d.totalDeficit > 0).map(d => d.totalDeficit), 1);
+    const maxSurDown = Math.max(...deficitDataPdf.filter(d => d.hasData && d.totalDeficit < 0).map(d => Math.abs(d.totalDeficit)), 0);
+    const totRange = maxDefUp + maxSurDown || 1;
+    const zeroY = Math.round((maxDefUp / totRange) * 120);
+
+    const defBarW = Math.min(50, Math.max(20, Math.floor(500 / days.length) - 6));
+    const defGap = 4;
+    const defSvgW = 40 + days.length * (defBarW + defGap);
+    let defBars = '';
+    let cumDef = 0;
+    days.forEach((dd, i) => {
+      const d = deficitDataPdf[i];
+      const x = 40 + i * (defBarW + defGap);
+      const cx = x + defBarW / 2;
+      if (!d.hasData) {
+        defBars += `<rect x="${x}" y="${zeroY - 1}" width="${defBarW}" height="2" fill="#E2E8F0" rx="1"/>`;
+      } else if (d.totalDeficit > 0) {
+        const h = (d.totalDeficit / totRange) * 120;
+        const gymH = d.gymKcal > 0 ? (d.gymKcal / d.totalDeficit) * h : 0;
+        const stepsH = d.stepsKcal > 0 ? (d.stepsKcal / d.totalDeficit) * h : 0;
+        const baseH = Math.max(h - gymH - stepsH, 1);
+        let cy = zeroY;
+        if (gymH > 0) { defBars += `<rect x="${x}" y="${cy - gymH}" width="${defBarW}" height="${gymH}" fill="#10b981" rx="2" opacity="0.85"/>`; cy -= gymH; }
+        if (stepsH > 0) { defBars += `<rect x="${x}" y="${cy - stepsH}" width="${defBarW}" height="${stepsH}" fill="#F59E0B" rx="0" opacity="0.85"/>`; cy -= stepsH; }
+        defBars += `<rect x="${x}" y="${cy - baseH}" width="${defBarW}" height="${baseH}" fill="#0D9488" rx="0" opacity="0.85"/>`;
+        defBars += `<text x="${cx}" y="${cy - baseH - 3}" text-anchor="middle" font-size="8" font-weight="600" fill="#059669">-${Math.round(d.totalDeficit)}</text>`;
+      } else {
+        const h = (Math.abs(d.totalDeficit) / totRange) * 120;
+        defBars += `<rect x="${x}" y="${zeroY}" width="${defBarW}" height="${Math.max(h, 2)}" fill="#EF4444" rx="2" opacity="0.85"/>`;
+        defBars += `<text x="${cx}" y="${zeroY + Math.max(h, 2) + 10}" text-anchor="middle" font-size="8" font-weight="600" fill="#EF4444">+${Math.round(Math.abs(d.totalDeficit))}</text>`;
+      }
+      // kg milestones
+      const prevCum = cumDef;
+      if (d.hasData) cumDef += d.totalDeficit;
+      if (Math.floor(cumDef / 7700) > Math.floor(prevCum / 7700)) {
+        const kgN = Math.floor(cumDef / 7700);
+        defBars += `<rect x="${x - 2}" y="${zeroY - 2}" width="${defBarW + 4}" height="3" fill="#8B5CF6" rx="1"/>`;
+        defBars += `<text x="${cx}" y="${zeroY + 22}" text-anchor="middle" font-size="7" font-weight="700" fill="#8B5CF6">-${kgN}kg</text>`;
+      }
+      // day label
+      defBars += `<text x="${cx}" y="${140}" text-anchor="middle" font-size="8" fill="#64748B">${dd.dayName}</text>`;
+    });
+    // zero line
+    defBars += `<line x1="36" y1="${zeroY}" x2="${defSvgW}" y2="${zeroY}" stroke="#94A3B8" stroke-width="0.5"/>`;
+    const defChartSvg = `<svg width="${defSvgW}" height="150" viewBox="0 0 ${defSvgW} 150" xmlns="http://www.w3.org/2000/svg">${defBars}</svg>`;
+
+    // Daily detail table (each meal per day)
+    let dailyDetailHtml = '';
+    daysWithData.forEach(d => {
+      const mealsForDay = MEAL_LOG.filter(m => m.date === d.date && (!m.who || m.who === currentUser));
+      if (mealsForDay.length === 0) return;
+      let dayRows = '';
+      mealsForDay.forEach(meal => {
+        meal.items.forEach((item, idx) => {
+          dayRows += `<tr>
+            ${idx === 0 ? `<td rowspan="${meal.items.length}" style="font-weight:600;text-transform:capitalize;vertical-align:top;text-align:left;font-size:10px;">${meal.meal}</td>` : ''}
+            <td style="text-align:left;font-size:10px;">${item.name}</td>
+            <td style="font-size:10px;">${item.grams}g</td>
+            <td style="font-size:10px;">${Math.round(item.kcal)}</td>
+            <td style="font-size:10px;">${round1(item.prot)}</td>
+            <td style="font-size:10px;">${round1(item.carbs)}</td>
+            <td style="font-size:10px;">${round1(item.fat)}</td>
+          </tr>`;
+        });
+      });
+      const stepsK = d.activity ? d.activity.stepsKcal || 0 : 0;
+      const gymK = d.activity ? d.activity.gymKcal || 0 : 0;
+      const bal = Math.round(d.totals.kcal - TDEE_PDF - stepsK - gymK);
+      const balColor = bal < 0 ? '#059669' : '#EF4444';
+      dailyDetailHtml += `
+        <div style="margin-bottom:10px;">
+          <div style="display:flex;justify-content:space-between;align-items:center;background:#F1F5F9;padding:6px 10px;border-radius:6px 6px 0 0;">
+            <span style="font-weight:700;font-size:11px;">${d.dayName} ${d.dayLabel}</span>
+            <span style="font-size:10px;">${Math.round(d.totals.kcal)} kcal | ${round1(d.totals.prot)}P | <span style="color:${balColor};font-weight:700;">${bal > 0 ? '+' : ''}${bal}</span></span>
+          </div>
+          <table style="font-size:10px;">
+            <thead><tr><th style="text-align:left;width:60px;">Comida</th><th style="text-align:left;">Item</th><th>g</th><th>kcal</th><th>P</th><th>C</th><th>F</th></tr></thead>
+            <tbody>${dayRows}</tbody>
+          </table>
+        </div>`;
+    });
+
+    // Weight storyline for PDF
+    let weightSection = '';
+    if (typeof WEIGHT_LOG !== 'undefined' && WEIGHT_LOG.length >= 2) {
+      const wSorted = [...WEIGHT_LOG].sort((a, b) => a.date.localeCompare(b.date));
+      const wFirst = wSorted[0], wLast = wSorted[wSorted.length - 1];
+      const ws = wSorted.map(w => w.weight);
+      const wMin = Math.min(...ws, 75) - 2, wMax = Math.max(...ws) + 2, wRange = wMax - wMin || 1;
+      const wChartW = 400, wChartH = 100;
+      const wLine = wSorted.map((w, i) => {
+        const x = 30 + (i / Math.max(wSorted.length - 1, 1)) * (wChartW - 40);
+        const y = 8 + ((wMax - w.weight) / wRange) * (wChartH - 16);
+        return `${x},${y}`;
+      }).join(' ');
+      const goalYw = 8 + ((wMax - 75) / wRange) * (wChartH - 16);
+      let wYLabels = '';
+      for (let v = Math.floor(wMin / 2) * 2; v <= Math.ceil(wMax / 2) * 2; v += 2) {
+        const y = 8 + ((wMax - v) / wRange) * (wChartH - 16);
+        if (y >= 2 && y <= wChartH - 2) {
+          wYLabels += `<text x="26" y="${y + 3}" text-anchor="end" font-size="8" fill="#94A3B8">${v}</text>`;
+          wYLabels += `<line x1="30" y1="${y}" x2="${wChartW}" y2="${y}" stroke="#E2E8F0" stroke-width="0.5"/>`;
+        }
+      }
+      const wDots = wSorted.map((w, i) => {
+        const x = 30 + (i / Math.max(wSorted.length - 1, 1)) * (wChartW - 40);
+        const y = 8 + ((wMax - w.weight) / wRange) * (wChartH - 16);
+        return `<circle cx="${x}" cy="${y}" r="3" fill="#0D9488" stroke="#fff" stroke-width="1"/>
+          <text x="${x}" y="${y - 6}" text-anchor="middle" font-size="7" fill="#1E293B" font-weight="600">${w.weight}</text>`;
+      }).join('');
+      const wXLabels = wSorted.map((w, i) => {
+        const x = 30 + (i / Math.max(wSorted.length - 1, 1)) * (wChartW - 40);
+        return `<text x="${x}" y="${wChartH + 10}" text-anchor="middle" font-size="7" fill="#94A3B8">S${i + 1}</text>`;
+      }).join('');
+      weightSection = `
+        <div class="section">
+          <div class="section-title">\u2696\uFE0F Evolucion de Peso</div>
+          <div style="display:flex;gap:16px;margin-bottom:10px;">
+            <div style="text-align:center;flex:1;background:#F0FDFA;border-radius:8px;padding:8px;">
+              <div style="font-size:18px;font-weight:700;color:#0D9488;">${wFirst.weight} \u2192 ${wLast.weight} kg</div>
+              <div style="font-size:9px;color:#64748B;">${(wLast.weight - wFirst.weight).toFixed(1)} kg en ${wSorted.length} semanas</div>
+            </div>
+          </div>
+          <svg width="${wChartW}" height="${wChartH + 16}" viewBox="0 0 ${wChartW} ${wChartH + 16}" style="width:100%;max-width:${wChartW}px;">
+            ${wYLabels}
+            <line x1="30" y1="${goalYw}" x2="${wChartW}" y2="${goalYw}" stroke="#059669" stroke-width="1" stroke-dasharray="5,3" opacity="0.5"/>
+            <text x="${wChartW - 2}" y="${goalYw - 3}" text-anchor="end" font-size="8" fill="#059669">75 kg meta</text>
+            <polyline points="${wLine}" fill="none" stroke="#0D9488" stroke-width="2" stroke-linejoin="round"/>
+            ${wDots}
+            ${wXLabels}
+          </svg>
+        </div>`;
+    }
+
     const printWin = window.open('', '_blank');
     printWin.document.write(`<!DOCTYPE html>
 <html><head>
@@ -3766,49 +3908,60 @@
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <style>
   * { box-sizing: border-box; margin: 0; padding: 0; }
-  body { font-family: 'Inter', -apple-system, sans-serif; color: #1E293B; background: #fff; padding: 20px 28px; font-size: 12px; }
-  .header { text-align: center; margin-bottom: 18px; padding-bottom: 14px; border-bottom: 3px solid #0D9488; }
-  .header h1 { font-size: 26px; color: #0D9488; font-weight: 700; }
-  .header .tag { font-size: 9px; letter-spacing: 3px; text-transform: uppercase; color: #0F766E; font-weight: 700; margin-bottom: 2px; }
-  .header .sub { font-size: 11px; color: #64748B; margin-top: 3px; }
-  .section { background: #fff; border: 1px solid #E2E8F0; border-radius: 10px; padding: 18px; margin-bottom: 14px; }
-  .section-title { font-size: 14px; font-weight: 700; margin-bottom: 12px; }
-  .kpi-grid { display: grid; grid-template-columns: repeat(6, 1fr); gap: 8px; }
-  .kpi { background: #F8FAFC; border: 1px solid #E2E8F0; border-radius: 8px; padding: 10px 4px; text-align: center; }
-  .kpi-emoji { font-size: 16px; }
-  .kpi-value { font-size: 14px; font-weight: 700; line-height: 1.2; margin: 2px 0; }
-  .kpi-label { font-size: 8px; color: #64748B; text-transform: uppercase; letter-spacing: 0.5px; font-weight: 600; }
+  body { font-family: 'Inter', -apple-system, sans-serif; color: #1E293B; background: #fff; padding: 16px 20px; font-size: 11px; }
+  .header { text-align: center; margin-bottom: 14px; padding-bottom: 10px; border-bottom: 3px solid #0D9488; }
+  .header .tag { font-size: 8px; letter-spacing: 3px; text-transform: uppercase; color: #0F766E; font-weight: 700; margin-bottom: 2px; }
+  .header .sub { font-size: 10px; color: #64748B; margin-top: 2px; }
+  .section { background: #fff; border: 1px solid #E2E8F0; border-radius: 8px; padding: 12px 14px; margin-bottom: 10px; }
+  .section-title { font-size: 12px; font-weight: 700; margin-bottom: 8px; color: #1E293B; }
+  .kpi-grid { display: grid; grid-template-columns: repeat(6, 1fr); gap: 6px; }
+  .kpi { background: #F8FAFC; border: 1px solid #E2E8F0; border-radius: 6px; padding: 6px 3px; text-align: center; }
+  .kpi-emoji { font-size: 14px; }
+  .kpi-value { font-size: 12px; font-weight: 700; line-height: 1.2; margin: 1px 0; }
+  .kpi-label { font-size: 7px; color: #64748B; text-transform: uppercase; letter-spacing: 0.5px; font-weight: 600; }
   table { width: 100%; border-collapse: collapse; }
-  th { background: #F1F5F9; color: #64748B; font-size: 8px; text-transform: uppercase; letter-spacing: 0.8px; font-weight: 700; padding: 7px 6px; text-align: center; }
-  td { padding: 6px; border-bottom: 1px solid #E2E8F0; text-align: center; font-size: 11px; }
+  th { background: #F1F5F9; color: #64748B; font-size: 7px; text-transform: uppercase; letter-spacing: 0.6px; font-weight: 700; padding: 4px 4px; text-align: center; }
+  td { padding: 3px 4px; border-bottom: 1px solid #F1F5F9; text-align: center; font-size: 10px; }
   .chart-container { text-align: center; overflow-x: auto; }
   .chart-container svg { max-width: 100%; height: auto; }
-  .proj-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
-  .proj-box { border-radius: 10px; padding: 18px; text-align: center; }
-  .footer { text-align: center; font-size: 8px; color: #94A3B8; margin-top: 20px; padding-top: 10px; border-top: 1px solid #E2E8F0; }
+  .proj-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  .proj-box { border-radius: 8px; padding: 12px; text-align: center; }
+  .footer { text-align: center; font-size: 7px; color: #94A3B8; margin-top: 14px; padding-top: 6px; border-top: 1px solid #E2E8F0; }
   @media print {
-    body { padding: 10px 14px; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
-    .section { break-inside: avoid; page-break-inside: avoid; border: 1px solid #E2E8F0; }
+    body { padding: 8px 12px; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    .section { break-inside: avoid; page-break-inside: avoid; }
+    .page-break { page-break-before: always; }
   }
 </style>
 </head><body>
 
 <div class="header">
-  <img src="${NUTRIA_LOGO_B64}" style="height:52px;margin-bottom:4px;">
-  <div class="tag">INFORME SEMANAL</div>
-  <div class="sub">${rangeLabel} | Ernesto Otero</div>
+  <img src="${NUTRIA_LOGO_B64}" style="height:40px;margin-bottom:2px;">
+  <div class="tag">INFORME NUTRICIONAL</div>
+  <div class="sub">${rangeLabel} | ${USERS[currentUser].name} | ${daysWithData.length} dias con datos</div>
 </div>
 
 <div class="section">
   <div class="section-title">\u{1F3AF} Resumen</div>
   <div class="kpi-grid">
-    <div class="kpi"><div class="kpi-emoji">\u{1F525}</div><div class="kpi-value" style="color:#059669;">${Math.abs(Math.round(totalDeficit)).toLocaleString()} kcal</div><div class="kpi-label">Deficit Total</div></div>
+    <div class="kpi"><div class="kpi-emoji">\u{1F525}</div><div class="kpi-value" style="color:#059669;">${Math.abs(Math.round(totalDeficit)).toLocaleString()}</div><div class="kpi-label">Deficit (kcal)</div></div>
     <div class="kpi"><div class="kpi-emoji">\u2696\uFE0F</div><div class="kpi-value" style="color:#0D9488;">${fatLost.toFixed(2)} kg</div><div class="kpi-label">Grasa Perdida</div></div>
-    <div class="kpi"><div class="kpi-emoji">\u{1F4CA}</div><div class="kpi-value">${Math.round(avgIntake)} kcal</div><div class="kpi-label">Promedio/dia</div></div>
-    <div class="kpi"><div class="kpi-emoji">\u{1F4AA}</div><div class="kpi-value" style="color:#0D9488;">${gymSessions}x \u2014 ${totalGym.toLocaleString()} kcal</div><div class="kpi-label">Gym</div></div>
-    <div class="kpi"><div class="kpi-emoji">\u{1F6B6}</div><div class="kpi-value">${totalSteps.toLocaleString()}</div><div class="kpi-label">Pasos</div></div>
-    <div class="kpi"><div class="kpi-emoji">\u{1F4C5}</div><div class="kpi-value">${daysWithData.length}/${days.length}</div><div class="kpi-label">Dias Registrados</div></div>
+    <div class="kpi"><div class="kpi-emoji">\u{1F4CA}</div><div class="kpi-value">${Math.round(avgIntake)}</div><div class="kpi-label">Prom kcal/dia</div></div>
+    <div class="kpi"><div class="kpi-emoji">\u{1F3CB}\uFE0F</div><div class="kpi-value" style="color:#10b981;">${gymSessions}x</div><div class="kpi-label">Gym (${totalGym} kcal)</div></div>
+    <div class="kpi"><div class="kpi-emoji">\u{1F6B6}</div><div class="kpi-value">${Math.round(totalSteps/1000)}k</div><div class="kpi-label">Pasos (${totalStepsKcal} kcal)</div></div>
+    <div class="kpi"><div class="kpi-emoji">\u{1F4C5}</div><div class="kpi-value">${daysWithData.length}/${days.length}</div><div class="kpi-label">Dias Reg.</div></div>
   </div>
+</div>
+
+<div class="section">
+  <div class="section-title">\u{1F4C9} Deficit Diario</div>
+  <div style="display:flex;gap:8px;margin-bottom:6px;font-size:8px;">
+    <span style="color:#0D9488;">\u25A0 Dieta</span>
+    <span style="color:#F59E0B;">\u25A0 Pasos</span>
+    <span style="color:#10b981;">\u25A0 Gym</span>
+    <span style="color:#EF4444;">\u25A0 Superavit</span>
+  </div>
+  <div class="chart-container">${defChartSvg}</div>
 </div>
 
 <div class="section">
@@ -3817,35 +3970,44 @@
 </div>
 
 <div class="section">
-  <div class="section-title">\u26A1 Balance Energetico Diario</div>
+  <div class="section-title">\u26A1 Balance Energetico</div>
   <table>
-    <thead><tr><th style="text-align:left;">Dia</th><th style="text-align:left;">Fecha</th><th>Ingesta</th><th>TDEE</th><th>\u{1F6B6} Pasos</th><th>\u{1F3CB}\uFE0F Gym</th><th>Balance</th></tr></thead>
+    <thead><tr><th style="text-align:left;">Dia</th><th style="text-align:left;">Fecha</th><th>Ingesta</th><th>TDEE</th><th>Pasos</th><th>Gym</th><th>Balance</th></tr></thead>
     <tbody>${balanceRows}</tbody>
   </table>
 </div>
 
 <div class="section">
-  <div class="section-title">\u{1F957} Macros Promedio Diario</div>
+  <div class="section-title">\u{1F957} Macros Promedio</div>
   ${macroHtml}
 </div>
+
+${weightSection}
 
 <div class="section">
   <div class="section-title">\u{1F3AF} Proyeccion</div>
   <div class="proj-grid">
     <div class="proj-box" style="background:#CCFBF1;">
-      <div style="font-size:10px;text-transform:uppercase;letter-spacing:1px;color:#0D9488;font-weight:700;margin-bottom:4px;">Peso Estimado</div>
-      <div style="font-size:28px;font-weight:700;color:#0D9488;">${currentWeight.toFixed(1)} kg</div>
-      <div style="font-size:10px;color:#64748B;margin-top:3px;">de 89 kg inicial</div>
+      <div style="font-size:9px;text-transform:uppercase;letter-spacing:1px;color:#0D9488;font-weight:700;margin-bottom:3px;">Peso Actual</div>
+      <div style="font-size:24px;font-weight:700;color:#0D9488;">${currentWeight.toFixed(1)} kg</div>
+      <div style="font-size:9px;color:#64748B;margin-top:2px;">de 89 kg inicial</div>
     </div>
     <div class="proj-box" style="background:#D1FAE5;">
-      <div style="font-size:10px;text-transform:uppercase;letter-spacing:1px;color:#059669;font-weight:700;margin-bottom:4px;">Meta 75 kg</div>
-      <div style="font-size:28px;font-weight:700;color:#059669;">${goalLabel}</div>
-      <div style="font-size:10px;color:#64748B;margin-top:3px;">~${weeksToGoal} semanas a ${weeklyFatLoss.toFixed(2)} kg/sem</div>
+      <div style="font-size:9px;text-transform:uppercase;letter-spacing:1px;color:#059669;font-weight:700;margin-bottom:3px;">Meta 75 kg</div>
+      <div style="font-size:24px;font-weight:700;color:#059669;">${goalLabel}</div>
+      <div style="font-size:9px;color:#64748B;margin-top:2px;">~${weeksToGoal} semanas a ${weeklyFatLoss.toFixed(2)} kg/sem</div>
     </div>
   </div>
 </div>
 
-<div class="footer">NutrIA | Generado desde NutrIA Dashboard | ${new Date().toLocaleDateString('es-ES',{day:'numeric',month:'long',year:'numeric'})}</div>
+<div class="page-break"></div>
+<div class="header" style="border-bottom:2px solid #0D9488;">
+  <div class="tag">DETALLE DIARIO</div>
+  <div class="sub">${rangeLabel} | ${USERS[currentUser].name}</div>
+</div>
+${dailyDetailHtml}
+
+<div class="footer">NutrIA | ${new Date().toLocaleDateString('es-ES',{day:'numeric',month:'long',year:'numeric'})} | TDEE base: ${TDEE_PDF} kcal</div>
 
 </body></html>`);
     printWin.document.close();
