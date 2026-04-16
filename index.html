@@ -350,6 +350,8 @@
     .tc-chk.pass-carbs { color: #86EFAC; }
     .tc-chk.pass-fat { color: #FDE68A; }
     .tc-chk.fail { color: rgba(255,255,255,0.3); }
+    .tc-junk { color: #EF4444; font-size: 0.85em; }
+    .meal-col-header .tc-junk { color: #DC2626; }
     .meal-col-header .tc-chk.pass-prot { color: #4A9EF5; }
     .meal-col-header .tc-chk.pass-carbs { color: #22C55E; }
     .meal-col-header .tc-chk.pass-fat { color: #F5D423; }
@@ -1257,12 +1259,13 @@
 
   function round1(n) { return Math.round(n * 10) / 10; }
 
-  function tripleCheck(kcal, prot, carbs, fat) {
+  function tripleCheck(kcal, prot, carbs, fat, dailyTarget) {
     if (kcal <= 0) return '';
     const pP = prot / kcal >= 0.10;
     const pC = carbs / kcal <= 0.07;
     const pF = fat / kcal <= 0.05;
     if (pP && pC && pF) return `<span class="triple-check" title="Power Meal ⭐ P${round1(prot/kcal*100)}% C${round1(carbs/kcal*100)}% F${round1(fat/kcal*100)}%">⭐</span>`;
+    if (!pP && !pC && !pF && dailyTarget && kcal > dailyTarget * 0.25) return `<span class="triple-check tc-junk" title="Junk Meal ❌ P${round1(prot/kcal*100)}% C${round1(carbs/kcal*100)}% F${round1(fat/kcal*100)}% (${round1(kcal/dailyTarget*100)}% del dia)">❌</span>`;
     return `<span class="triple-check">`
       + `<span class="tc-chk ${pP ? 'pass-prot' : 'fail'}" title="Prot ${round1(prot/kcal*100)}%">✓</span>`
       + `<span class="tc-chk ${pC ? 'pass-carbs' : 'fail'}" title="Carbs ${round1(carbs/kcal*100)}%">✓</span>`
@@ -1552,7 +1555,7 @@
         <div class="mfp-meal-group">
           <div class="mfp-meal-header ${isCollapsed ? 'collapsed' : ''}" onclick="toggleMealAccordion('${m}')">
             <span>${MEAL_ICONS[m]} ${MEAL_LABELS[m]} <span class="mfp-chevron">▼</span></span>
-            <span class="mfp-kcal">${Math.round(kcal)} kcal ${tripleCheck(kcal, mealMacros[m].prot, mealMacros[m].carbs, mealMacros[m].fat)}</span>
+            <span class="mfp-kcal">${Math.round(kcal)} kcal ${tripleCheck(kcal, mealMacros[m].prot, mealMacros[m].carbs, mealMacros[m].fat, TARGETS().kcal)}</span>
           </div>
           <div class="mfp-meal-summary ${isCollapsed ? 'visible' : ''}">
             <span>${Math.round(kcal)} kcal</span>
@@ -1652,7 +1655,7 @@
               <span class="meal-icon">${MEAL_ICONS[m]}</span>
               ${MEAL_LABELS[m]}
             </div>
-            <span class="meal-kcal">${kcal > 0 ? Math.round(kcal) + ' kcal' + tripleCheck(kcal, mealMacros[m].prot, mealMacros[m].carbs, mealMacros[m].fat) : '—'}</span>
+            <span class="meal-kcal">${kcal > 0 ? Math.round(kcal) + ' kcal' + tripleCheck(kcal, mealMacros[m].prot, mealMacros[m].carbs, mealMacros[m].fat, TARGETS().kcal) : '—'}</span>
           </div>
           ${kcal > 0 ? `<div class="meal-macros-bar"><span class="meal-macro-tag prot">${mealMacros[m].prot}P</span><span class="meal-macro-tag carbs">${mealMacros[m].carbs}C</span><span class="meal-macro-tag fat">${mealMacros[m].fat}F</span></div>` : ''}
           ${itemCards}
