@@ -3088,5 +3088,15 @@ const WEIGHT_LOG = [
     bmr: null, metabolicAge: null,
     source: "manual",
     notes: ""
+  },
+  {
+    date: "2026-04-16",
+    weight: 86.9,
+    bmi: 28.4,
+    bodyFat: null, fatFreeWeight: null, subcutFat: null, visceralFat: null,
+    bodyWater: null, skeletalMuscle: null, muscleMass: null, boneMass: null,
+    bmr: null, metabolicAge: null,
+    source: "manual",
+    notes: ""
   }
 ];
