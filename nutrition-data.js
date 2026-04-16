@@ -2,7 +2,7 @@
 // Updated by Claude Code via /log-food skill
 // DO NOT EDIT MANUALLY - use /log-food to add meals
 
-const DATA_TIMESTAMP = "2026-04-16T13:30:00 Europe/Paris";
+const DATA_TIMESTAMP = "2026-04-16T17:00:00 Europe/Paris";
 
 const NUTRITION_CONFIG = {
   targets: { kcal: 1770, prot: 190, carbs: 140, fat: 50 },
@@ -1233,6 +1233,24 @@ const FOOD_DATABASE = [
     per100g: { kcal: 545, prot: 8, carbs: 35, fat: 40, fiber: 11 },
     source: "web",
     addedDate: "2026-04-15"
+  },
+  {
+    id: "mini-financier-amandes",
+    name: "Mini Financier aux Amandes",
+    brand: "Generic",
+    per100g: { kcal: 453, prot: 5.4, carbs: 46.9, fat: 25.6, fiber: 1 },
+    unitWeight: 15, unitLabel: "financier",
+    source: "web",
+    addedDate: "2026-04-16"
+  },
+  {
+    id: "madeleine-traditionnelle",
+    name: "Madeleine Traditionnelle",
+    brand: "Generic",
+    per100g: { kcal: 433, prot: 6.7, carbs: 50, fat: 23.3, fiber: 0.5 },
+    unitWeight: 25, unitLabel: "madeleine",
+    source: "web",
+    addedDate: "2026-04-16"
   },
   {
     id: "champinones-frescos",
@@ -3040,6 +3058,57 @@ const MEAL_LOG = [
       { foodId: "tomate-cherry", name: "Tomates Cherry Frescos", grams: 25, kcal: 4.5, prot: 0.2, carbs: 1.0, fat: 0.1 },
       { foodId: "arroz-bomba-cocido", name: "Arroz Cocido (agua espinacas)", grams: 60, kcal: 78.0, prot: 1.6, carbs: 16.8, fat: 0.2 },
       { foodId: "cote-dor-noir-70", name: "Côte d'Or 70%", grams: 4, kcal: 21.8, prot: 0.3, carbs: 1.4, fat: 1.6 }
+    ],
+    timestamp: "2026-04-16T13:30:00"
+  },
+  // Ernesto - Snack 16/04
+  {
+    id: "2026-04-16-003",
+    date: "2026-04-16",
+    meal: "snack",
+    items: [
+      { foodId: "gerble-cookie-cacao-pepites-ss", name: "Gerblé Cookie Chocola x2", grams: 21.6, units: 2, kcal: 111.9, prot: 1.7, carbs: 13.2, fat: 3.9 }
+    ],
+    timestamp: "2026-04-16T17:00:00"
+  },
+  // Adriana - Desayuno 16/04
+  {
+    id: "2026-04-16-A01",
+    date: "2026-04-16",
+    meal: "desayuno", who: "adriana",
+    items: [
+      { foodId: "leche-almendra", name: "Leche de Almendras", grams: 150, kcal: 19.5, prot: 0.6, carbs: 0.3, fat: 1.7 },
+      { foodId: "hipro-vanille", name: "HiPro Vanille", grams: 153, kcal: 117.8, prot: 15.6, carbs: 9.0, fat: 1.2 },
+      { foodId: "siggis-skyr-nature", name: "Skyr Siggis", grams: 127, kcal: 80.0, prot: 14.0, carbs: 5.1, fat: 0.3 },
+      { foodId: "semillas-chia", name: "Chia (1 tsp)", grams: 5, kcal: 24.3, prot: 0.9, carbs: 2.1, fat: 1.6 },
+      { foodId: "cote-dor-noir-70", name: "Côte d'Or 70%", grams: 10, kcal: 54.5, prot: 0.8, carbs: 3.5, fat: 4.0 },
+      { foodId: "blueberries-frescas", name: "Blueberries", grams: 25, kcal: 14.3, prot: 0.2, carbs: 3.6, fat: 0.1 },
+      { foodId: "fruits-rouges-mix", name: "Fruits Rouges", grams: 25, kcal: 10.0, prot: 0.2, carbs: 2.3, fat: 0.1 }
+    ],
+    timestamp: "2026-04-16T08:30:00"
+  },
+  // Adriana - Snack 16/04
+  {
+    id: "2026-04-16-A02",
+    date: "2026-04-16",
+    meal: "snack", who: "adriana",
+    items: [
+      { foodId: "mini-financier-amandes", name: "Mini Financier x2", grams: 30, units: 2, kcal: 135.9, prot: 1.6, carbs: 14.1, fat: 7.7 },
+      { foodId: "madeleine-traditionnelle", name: "Madeleine x2", grams: 50, units: 2, kcal: 216.5, prot: 3.3, carbs: 25.0, fat: 11.7 }
+    ],
+    timestamp: "2026-04-16T11:00:00"
+  },
+  // Adriana - Almuerzo 16/04
+  {
+    id: "2026-04-16-A03",
+    date: "2026-04-16",
+    meal: "almuerzo", who: "adriana",
+    items: [
+      { foodId: "arroz-bomba-cocido", name: "Arroz Cocido", grams: 70, kcal: 91.0, prot: 1.9, carbs: 19.6, fat: 0.2 },
+      { foodId: "pollo-pechuga-horneada", name: "Pollo Horneado", grams: 80, kcal: 132.0, prot: 24.8, carbs: 0, fat: 2.9 },
+      { foodId: "cebolla-cruda", name: "Cebolla", grams: 25, kcal: 10.0, prot: 0.3, carbs: 2.3, fat: 0.0 },
+      { foodId: "pimiento-rojo-crudo", name: "Chile (Pimiento)", grams: 25, kcal: 7.8, prot: 0.3, carbs: 1.5, fat: 0.1 },
+      { foodId: "tostones-platano-macho", name: "Tostón (x1)", grams: 12, kcal: 33.6, prot: 0.2, carbs: 5.3, fat: 1.3 }
     ],
     timestamp: "2026-04-16T13:30:00"
   }
