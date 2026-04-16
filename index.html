@@ -2076,7 +2076,7 @@
 
   // ── INFORMES ─────────────────────────────────────────────────────────
 
-  let informeRange = 'dia'; // dia | semana | mes | custom
+  let informeRange = 'semana'; // dia | semana | mes | custom
   let informeChartMode = 'intake'; // 'intake' | 'deficit'
   let informeShowCombined = false;
   // Default date pickers to last 7 days
@@ -2145,10 +2145,12 @@
         end = new Date(today);
       }
     } else if (informeRange === 'semana') {
-      const dayOfWeek = today.getDay(); // 0=Sun
-      end = new Date(today);
+      const dow = today.getDay(); // 0=Sun
+      const diffToMon = dow === 0 ? 6 : dow - 1; // days back to Monday
       start = new Date(today);
-      start.setDate(today.getDate() - 6);
+      start.setDate(today.getDate() - diffToMon);
+      end = new Date(start);
+      end.setDate(start.getDate() + 6); // Sunday
     } else if (informeRange === 'mes') {
       end = new Date(today);
       start = new Date(today);
@@ -2235,7 +2237,7 @@
 
     // Range label
     const rangeLabel = informeRange === 'dia' ? `Dia ${dates[0]}`
-      : informeRange === 'semana' ? 'Ultimos 7 dias'
+      : informeRange === 'semana' ? `Semana ${dates[0].slice(8)}-${dates[dates.length-1].slice(8)} ${dates[0].slice(5,7)}`
       : informeRange === 'mes' ? 'Ultimos 30 dias'
       : `${dates[0]} a ${dates[dates.length-1]}`;
 
@@ -3735,7 +3737,7 @@
     const goalDate = new Date(); goalDate.setDate(goalDate.getDate() + weeksToGoal * 7);
     const goalLabel = goalDate.toLocaleDateString('es-ES',{month:'long',year:'numeric'});
 
-    const rangeLabel = informeRange === 'dia' ? `Dia ${dates[0]}` : informeRange === 'semana' ? 'Ultimos 7 dias' : informeRange === 'mes' ? 'Este mes' : `${dates[0]} a ${dates[dates.length-1]}`;
+    const rangeLabel = informeRange === 'dia' ? `Dia ${dates[0]}` : informeRange === 'semana' ? `Semana ${dates[0].slice(8)}-${dates[dates.length-1].slice(8)} ${dates[0].slice(5,7)}` : informeRange === 'mes' ? 'Este mes' : `${dates[0]} a ${dates[dates.length-1]}`;
 
     const printWin = window.open('', '_blank');
     printWin.document.write(`<!DOCTYPE html>
