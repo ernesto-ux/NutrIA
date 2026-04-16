@@ -2380,12 +2380,13 @@
     }), 500);
     const maxDeficit = maxBurn;
 
-    // Zero line for diverging deficit chart
+    // Zero line for diverging deficit chart — single scale for proportional bars
     const maxDeficitUp = Math.max(...deficitData.filter(d => d.hasData && d.totalDeficit > 0).map(d => d.totalDeficit), 1);
     const maxSurplusDown = Math.max(...deficitData.filter(d => d.hasData && d.totalDeficit < 0).map(d => Math.abs(d.totalDeficit)), 0);
     const hasSurplus = maxSurplusDown > 0;
+    const totalRange = maxDeficitUp + maxSurplusDown;
     const zeroFromTop = hasSurplus
-      ? Math.min(Math.max(Math.round((maxDeficitUp / (maxDeficitUp + maxSurplusDown)) * 120), 24), 96)
+      ? Math.round((maxDeficitUp / totalRange) * 120)
       : 120;
 
     // Helper: day label with emojis BELOW in fixed container
@@ -2442,7 +2443,7 @@
         let barContent;
         if (isDeficit) {
           // Deficit = good = bars grow UP from zero line
-          const totalH = maxDeficitUp > 0 ? (dd.totalDeficit / maxDeficitUp) * zeroFromTop : 0;
+          const totalH = totalRange > 0 ? (dd.totalDeficit / totalRange) * 120 : 0;
           const stepsH = dd.stepsKcal > 0 && dd.totalDeficit > 0 ? (dd.stepsKcal / dd.totalDeficit) * totalH : 0;
           const gymH = dd.gymKcal > 0 && dd.totalDeficit > 0 ? (dd.gymKcal / dd.totalDeficit) * totalH : 0;
           const baseH = Math.max(totalH - stepsH - gymH, 2);
@@ -2455,7 +2456,7 @@
             <div style="height:${120 - zeroFromTop}px;"></div>`;
         } else {
           // Surplus = bad = bar grows DOWN from zero line
-          const surplusH = maxSurplusDown > 0 ? (absVal / maxSurplusDown) * (120 - zeroFromTop) : 0;
+          const surplusH = totalRange > 0 ? (absVal / totalRange) * 120 : 0;
           barContent = `
             <div style="height:${zeroFromTop}px;"></div>
             <div style="height:${120 - zeroFromTop}px;display:flex;flex-direction:column;justify-content:flex-start;align-items:center;">
