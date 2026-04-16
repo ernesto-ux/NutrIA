@@ -2049,11 +2049,29 @@
   let informeRange = 'semana'; // dia | semana | mes | custom
   let informeChartMode = 'intake'; // 'intake' | 'deficit'
   let informeShowCombined = false;
-  let informeCustomStart = '';
-  let informeCustomEnd = '';
+  // Default date pickers to last 7 days
+  let _initToday = new Date();
+  let _initStart = new Date(_initToday); _initStart.setDate(_initToday.getDate() - 6);
+  const _fmt = d => `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`;
+  let informeCustomStart = _fmt(_initStart);
+  let informeCustomEnd = _fmt(_initToday);
 
   window.setInformeRange = function(range) {
     informeRange = range;
+    const today = parseDate(getTodayStr());
+    const fmt = d => `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`;
+    if (range === 'dia') {
+      informeCustomStart = fmt(today);
+      informeCustomEnd = fmt(today);
+    } else if (range === 'semana') {
+      const s = new Date(today); s.setDate(today.getDate() - 6);
+      informeCustomStart = fmt(s);
+      informeCustomEnd = fmt(today);
+    } else if (range === 'mes') {
+      const s = new Date(today); s.setDate(today.getDate() - 29);
+      informeCustomStart = fmt(s);
+      informeCustomEnd = fmt(today);
+    }
     render();
   };
   window.toggleInformeChartMode = function() {
@@ -2103,7 +2121,8 @@
       start.setDate(today.getDate() - 6);
     } else if (informeRange === 'mes') {
       end = new Date(today);
-      start = new Date(today.getFullYear(), today.getMonth(), 1);
+      start = new Date(today);
+      start.setDate(today.getDate() - 29);
     } else if (informeRange === 'custom' && informeCustomStart && informeCustomEnd) {
       start = parseDate(informeCustomStart);
       end = parseDate(informeCustomEnd);
@@ -2187,7 +2206,7 @@
     // Range label
     const rangeLabel = informeRange === 'dia' ? `Dia ${dates[0]}`
       : informeRange === 'semana' ? 'Ultimos 7 dias'
-      : informeRange === 'mes' ? 'Este mes'
+      : informeRange === 'mes' ? 'Ultimos 30 dias'
       : `${dates[0]} a ${dates[dates.length-1]}`;
 
     // Period filter buttons
