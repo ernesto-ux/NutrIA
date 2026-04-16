@@ -1258,6 +1258,7 @@
     const pP = prot / kcal >= 0.10;
     const pC = carbs / kcal <= 0.07;
     const pF = fat / kcal <= 0.05;
+    if (pP && pC && pF) return `<span class="triple-check" title="Power Meal ⭐ P${round1(prot/kcal*100)}% C${round1(carbs/kcal*100)}% F${round1(fat/kcal*100)}%">⭐</span>`;
     return `<span class="triple-check">`
       + `<span class="tc-chk ${pP ? 'pass-prot' : 'fail'}" title="Prot ${round1(prot/kcal*100)}%">✓</span>`
       + `<span class="tc-chk ${pC ? 'pass-carbs' : 'fail'}" title="Carbs ${round1(carbs/kcal*100)}%">✓</span>`
