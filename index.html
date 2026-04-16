@@ -2432,25 +2432,36 @@
       const intakeColor = ratio <= 1.1 ? 'var(--teal)' : ratio <= 1.2 ? 'var(--yellow)' : 'var(--red)';
       const isDeficit = dd.totalDeficit > 0;
       const absDeficit = Math.abs(dd.totalDeficit);
-      // Right bar: stacked burn segments
+
+      if (!isDeficit) {
+        // Surplus: only intake bar, red +XX above
+        return `<div style="display:flex;flex-direction:column;align-items:center;gap:2px;flex:1;min-width:${isMonthView?'24':'44'}px;">
+          <div style="display:flex;gap:1px;font-size:${isMonthView?'7':'9'}px;">
+            <span style="color:var(--text-sec);">${Math.round(d.totals.kcal)}</span>
+            <span style="color:var(--red);font-weight:600;">+${Math.round(absDeficit)}</span>
+          </div>
+          <div style="height:120px;display:flex;align-items:flex-end;justify-content:center;gap:1px;width:100%;">
+            <div style="width:${bw}px;height:${intakeH}px;background:${intakeColor};border-radius:3px 3px 1px 1px;opacity:0.85;" title="Ingesta ${Math.round(d.totals.kcal)} kcal"></div>
+          </div>
+          ${dayLabel(d, idx)}
+        </div>`;
+      }
+
+      // Deficit: intake bar + stacked deficit bar
       const stepsH = (dd.stepsKcal / maxCombined) * 120;
       const gymH = (dd.gymKcal / maxCombined) * 120;
-      const absBase = Math.abs(dd.baseDeficit);
-      const baseH = (absBase / maxCombined) * 120;
-      const baseColor = dd.baseDeficit >= 0 ? 'var(--teal)' : 'var(--red)';
-      const sign = isDeficit ? '-' : '+';
-      const numColor = isDeficit ? 'var(--green)' : 'var(--red)';
+      const baseH = (Math.max(dd.baseDeficit, 0) / maxCombined) * 120;
       return `<div style="display:flex;flex-direction:column;align-items:center;gap:2px;flex:1;min-width:${isMonthView?'24':'44'}px;">
         <div style="display:flex;gap:1px;font-size:${isMonthView?'7':'9'}px;">
           <span style="color:var(--text-sec);">${Math.round(d.totals.kcal)}</span>
-          <span style="color:${numColor};font-weight:600;">${sign}${Math.round(absDeficit)}</span>
+          <span style="color:var(--green);font-weight:600;">-${Math.round(absDeficit)}</span>
         </div>
         <div style="height:120px;display:flex;align-items:flex-end;justify-content:center;gap:1px;width:100%;">
           <div style="width:${bw}px;height:${intakeH}px;background:${intakeColor};border-radius:3px 3px 1px 1px;opacity:0.85;" title="Ingesta ${Math.round(d.totals.kcal)} kcal"></div>
           <div style="width:${bw}px;display:flex;flex-direction:column;justify-content:flex-end;">
             ${gymH > 0 ? `<div style="width:${bw}px;height:${gymH}px;background:#10b981;border-radius:3px 3px 0 0;opacity:0.5;" title="Gym ${dd.gymKcal}"></div>` : ''}
             ${stepsH > 0 ? `<div style="width:${bw}px;height:${stepsH}px;background:#F59E0B;opacity:0.5;" title="Pasos ${dd.stepsKcal}"></div>` : ''}
-            <div style="width:${bw}px;height:${Math.max(baseH, 2)}px;background:${baseColor};border-radius:0 0 1px 1px;opacity:0.5;" title="${dd.baseDeficit>=0?'Dieta':'Exceso'} ${Math.round(absBase)}"></div>
+            ${baseH > 0 ? `<div style="width:${bw}px;height:${baseH}px;background:var(--teal);border-radius:0 0 1px 1px;opacity:0.5;" title="Dieta ${Math.round(dd.baseDeficit)}"></div>` : ''}
           </div>
         </div>
         ${dayLabel(d, idx)}
