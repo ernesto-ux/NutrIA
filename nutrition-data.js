@@ -3291,7 +3291,12 @@ const MEAL_LOG = [
     date: "2026-04-17",
     meal: "cena",
     items: [
-      { foodId: "carne-mechada-netozolana", name: "Carne Mechada Netozolana", grams: 404, kcal: 750.2, prot: 40.8, carbs: 71.9, fat: 33.1 },
+      { foodId: "arroz-bomba-cocido", name: "Arroz Cocido (casamiento)", grams: 50, kcal: 65.0, prot: 1.4, carbs: 14.0, fat: 0.2 },
+      { foodId: "frijoles-negros-licuados", name: "Frijoles Licuados", grams: 30, kcal: 27.0, prot: 1.8, carbs: 3.6, fat: 0.5 },
+      { foodId: "carne-mechada-venezolana", name: "Carne Mechada Venezolana", grams: 176, kcal: 246.4, prot: 29.9, carbs: 5.3, fat: 11.4 },
+      { foodId: "platano-maduro-frito", name: "Plátano Sazón Frito", grams: 64, kcal: 153.6, prot: 0.6, carbs: 25.6, fat: 5.8 },
+      { foodId: "tostones-platano-macho", name: "Tostones Fritos", grams: 51, kcal: 142.8, prot: 0.7, carbs: 22.4, fat: 5.6 },
+      { foodId: "halloumi-frito", name: "Halloumi Frito", grams: 33, kcal: 115.5, prot: 6.6, carbs: 1.0, fat: 9.9 },
       { foodId: "agua-jamaica-sin-azucar", name: "Agua de Jamaica sin Azúcar", grams: 200, kcal: 4.0, prot: 0, carbs: 1.0, fat: 0 }
     ],
     timestamp: "2026-04-17T20:30:00"
