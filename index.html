@@ -1024,6 +1024,12 @@
 
   function TARGETS() { return USERS[currentUser].targets; }
 
+  // TDEE by date: 2182 until 2026-04-16, 2145 from 2026-04-17
+  function getTDEE(date) {
+    if (!date) return 2145;
+    return date >= '2026-04-17' ? 2145 : 2182;
+  }
+
   // ── STORAGE LAYER (server → GitHub API → LocalStorage) ──────────────
   let _serverData = { meals: [], overrides: {} };
   let _hasServer = false;
@@ -2231,7 +2237,7 @@
     });
 
     // Energy balance
-    const totalTDEE = numDays * 2145;
+    const totalTDEE = daysWithData.reduce((s, d) => s + getTDEE(d.date), 0);
     const totalBurn = totalTDEE + totalGym + totalStepsKcal;
     const totalDeficit = totalIntake - totalBurn;
     const fatLost = Math.abs(totalDeficit) / 7700;
@@ -2299,7 +2305,8 @@
       const intake = d.hasData ? Math.round(d.totals.kcal) : '—';
       const gym = d.activity && d.activity.gymKcal > 0 ? d.activity.gymKcal : '';
       const steps = d.activity ? d.activity.stepsKcal : '';
-      const bal = d.hasData ? Math.round(d.totals.kcal - 2145 - (d.activity ? d.activity.gymKcal||0 : 0) - (d.activity ? d.activity.stepsKcal||0 : 0)) : '';
+      const dayTDEE = getTDEE(d.date);
+      const bal = d.hasData ? Math.round(d.totals.kcal - dayTDEE - (d.activity ? d.activity.gymKcal||0 : 0) - (d.activity ? d.activity.stepsKcal||0 : 0)) : '';
       const balNum = typeof bal === 'number' ? bal : 0;
       const balColor = balNum < -1000 ? 'var(--green)' : balNum < 0 ? 'var(--teal)' : balNum > 0 ? 'var(--red)' : 'var(--text-sec)';
       const balStr = typeof bal === 'number' ? (bal > 0 ? '+' + bal : bal) : '—';
@@ -2307,7 +2314,7 @@
 
       if (d.hasData) {
         weekTotal.intake += d.totals.kcal;
-        weekTotal.tdee += 2145;
+        weekTotal.tdee += dayTDEE;
         weekTotal.steps += (d.activity ? d.activity.stepsKcal||0 : 0);
         weekTotal.gym += (d.activity ? d.activity.gymKcal||0 : 0);
         weekTotal.balance += balNum;
@@ -2318,7 +2325,7 @@
           <td style="padding:8px 10px;font-weight:600;color:var(--text);font-size:12px;">${d.dayName}</td>
           <td style="padding:8px 10px;font-size:12px;color:var(--text-sec);">${d.dayLabel}</td>
           <td style="padding:8px 10px;text-align:center;font-size:13px;font-weight:500;">${intake}</td>
-          <td style="padding:8px 10px;text-align:center;font-size:12px;color:var(--text-sec);">2,145</td>
+          <td style="padding:8px 10px;text-align:center;font-size:12px;color:var(--text-sec);">${dayTDEE.toLocaleString()}</td>
           <td style="padding:8px 10px;text-align:center;font-size:12px;color:#F59E0B;font-weight:500;">${steps || '—'}</td>
           <td style="padding:8px 10px;text-align:center;font-size:12px;color:var(--teal);font-weight:600;">${gym || '—'}</td>
           <td style="padding:8px 10px;text-align:center;font-size:13px;font-weight:700;color:${balColor};">${balStr}</td>
@@ -2365,12 +2372,12 @@
     const maxKcal = Math.max(...days.map(d => d.totals.kcal), tgt.kcal * 1.3);
 
     // Deficit mode data
-    const TDEE = 2145;
     const deficitData = days.map(d => {
       if (!d.hasData) return { ...d, totalDeficit: 0, stepsKcal: 0, gymKcal: 0, baseDeficit: 0 };
+      const dayTDEE = getTDEE(d.date);
       const stepsK = d.activity ? d.activity.stepsKcal || 0 : 0;
       const gymK = d.activity ? d.activity.gymKcal || 0 : 0;
-      const baseDeficit = TDEE - d.totals.kcal;
+      const baseDeficit = dayTDEE - d.totals.kcal;
       const totalDeficit = baseDeficit + stepsK + gymK;
       return { ...d, totalDeficit, stepsKcal: stepsK, gymKcal: gymK, baseDeficit };
     });
@@ -2851,7 +2858,17 @@
             const x = 30 + (i / Math.max(sorted.length - 1, 1)) * (chartW - 40);
             const y = 10 + ((maxW - w.weight) / rangeW) * (chartH - 20);
             const dateLabel = new Date(w.date + 'T00:00:00').toLocaleDateString('es-ES', { day:'numeric', month:'short' });
-            return `<g style="cursor:pointer;">
+            let deltaLabel = '';
+            if (i > 0) {
+              const prevX = 30 + ((i - 1) / Math.max(sorted.length - 1, 1)) * (chartW - 40);
+              const prevY = 10 + ((maxW - sorted[i - 1].weight) / rangeW) * (chartH - 20);
+              const midX = (prevX + x) / 2;
+              const midY = (prevY + y) / 2 - 10;
+              const diff = (w.weight - sorted[i - 1].weight).toFixed(1);
+              const dColor = diff < 0 ? 'var(--green)' : 'var(--red)';
+              deltaLabel = `<text x="${midX}" y="${midY}" text-anchor="middle" font-size="10" font-weight="700" fill="${dColor}" font-family="Inter,sans-serif">${diff > 0 ? '+' : ''}${diff}</text>`;
+            }
+            return `${deltaLabel}<g style="cursor:pointer;">
               <circle cx="${x}" cy="${y}" r="3.5" fill="var(--teal)" stroke="#fff" stroke-width="1" />
               <circle cx="${x}" cy="${y}" r="12" fill="transparent" />
               <title>${dateLabel}: ${w.weight} kg</title>
@@ -3930,7 +3947,7 @@
       }
     });
 
-    const totalTDEE = days.length * 2145;
+    const totalTDEE = daysWithData.reduce((s, d) => s + getTDEE(d.date), 0);
     const totalBurn = totalTDEE + totalGym + totalStepsKcal;
     const totalDeficit = totalIntake - totalBurn;
     const fatLost = Math.abs(totalDeficit) / 7700;
@@ -3966,16 +3983,17 @@
       const intake = d.hasData ? Math.round(d.totals.kcal) : '-';
       const gym = d.activity && d.activity.gymKcal > 0 ? d.activity.gymKcal : '-';
       const steps = d.activity ? d.activity.stepsKcal : '-';
-      const bal = d.balance ? d.balance.balance : (d.hasData ? Math.round(d.totals.kcal - 2145 - (d.activity?d.activity.gymKcal||0:0) - (d.activity?d.activity.stepsKcal||0:0)) : '-');
+      const pdfTDEE = getTDEE(d.date);
+      const bal = d.balance ? d.balance.balance : (d.hasData ? Math.round(d.totals.kcal - pdfTDEE - (d.activity?d.activity.gymKcal||0:0) - (d.activity?d.activity.stepsKcal||0:0)) : '-');
       const balNum = typeof bal === 'number' ? bal : 0;
       const balColor = balNum < -1000 ? '#059669' : balNum < 0 ? '#0D9488' : balNum > 0 ? '#EF4444' : '#64748B';
       const bgColor = (d.dayName==='Sab'||d.dayName==='Dom') ? '#F0FDFA' : (balNum < -1500 ? '#ECFDF5' : '#fff');
-      if (d.hasData) { wkIntake += d.totals.kcal; wkTDEE += 2145; wkSteps += (d.activity?d.activity.stepsKcal||0:0); wkGym += (d.activity?d.activity.gymKcal||0:0); wkBal += balNum; }
+      if (d.hasData) { wkIntake += d.totals.kcal; wkTDEE += pdfTDEE; wkSteps += (d.activity?d.activity.stepsKcal||0:0); wkGym += (d.activity?d.activity.gymKcal||0:0); wkBal += balNum; }
       balanceRows += `<tr style="background:${bgColor}">
         <td style="font-weight:700;text-align:left;">${d.dayName}</td>
         <td style="text-align:left;color:#64748B;">${d.dayLabel}</td>
         <td style="font-weight:500;">${intake}</td>
-        <td style="color:#64748B;">2,145</td>
+        <td style="color:#64748B;">${pdfTDEE.toLocaleString()}</td>
         <td style="color:#F59E0B;font-weight:500;">${steps}</td>
         <td style="color:#0D9488;font-weight:${gym!=='-'?'700':'400'};">${gym}</td>
         <td style="color:${balColor};font-weight:700;">${typeof bal==='number'?(bal>0?'+':'')+bal:'-'}</td>
@@ -4025,9 +4043,9 @@
     const rangeLabel = informeRange === 'dia' ? `Dia ${dates[0]}` : informeRange === 'semana' ? `Semana ${dates[0].slice(8)}-${dates[dates.length-1].slice(8)} ${dates[0].slice(5,7)}` : informeRange === 'mes' ? 'Este mes' : `${dates[0]} a ${dates[dates.length-1]}`;
 
     // Deficit chart SVG for PDF
-    const TDEE_PDF = 2145;
     const deficitDataPdf = days.map(d => {
       if (!d.hasData) return { ...d, totalDeficit: 0, stepsKcal: 0, gymKcal: 0, baseDeficit: 0 };
+      const TDEE_PDF = getTDEE(d.date);
       const stepsK = d.activity ? d.activity.stepsKcal || 0 : 0;
       const gymK = d.activity ? d.activity.gymKcal || 0 : 0;
       const baseDeficit = TDEE_PDF - d.totals.kcal;
@@ -4101,7 +4119,7 @@
       });
       const stepsK = d.activity ? d.activity.stepsKcal || 0 : 0;
       const gymK = d.activity ? d.activity.gymKcal || 0 : 0;
-      const bal = Math.round(d.totals.kcal - TDEE_PDF - stepsK - gymK);
+      const bal = Math.round(d.totals.kcal - getTDEE(d.date) - stepsK - gymK);
       const balColor = bal < 0 ? '#059669' : '#EF4444';
       dailyDetailHtml += `
         <div style="margin-bottom:10px;">
@@ -4275,7 +4293,7 @@ ${weightSection}
 </div>
 ${dailyDetailHtml}
 
-<div class="footer">NutrIA | ${new Date().toLocaleDateString('es-ES',{day:'numeric',month:'long',year:'numeric'})} | TDEE base: ${TDEE_PDF} kcal</div>
+<div class="footer">NutrIA | ${new Date().toLocaleDateString('es-ES',{day:'numeric',month:'long',year:'numeric'})} | TDEE: 2182 (hasta 16/04) / 2145 (desde 17/04)</div>
 
 </body></html>`);
     printWin.document.close();
