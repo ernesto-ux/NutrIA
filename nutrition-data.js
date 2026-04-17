@@ -2,7 +2,7 @@
 // Updated by Claude Code via /log-food skill
 // DO NOT EDIT MANUALLY - use /log-food to add meals
 
-const DATA_TIMESTAMP = "2026-04-17T20:45:00 Europe/Paris";
+const DATA_TIMESTAMP = "2026-04-17T21:00:00 Europe/Paris";
 
 const NUTRITION_CONFIG = {
   targets: { kcal: 1770, prot: 190, carbs: 140, fat: 50 },
@@ -1328,6 +1328,14 @@ const FOOD_DATABASE = [
     source: "recetario",
     addedDate: "2026-04-17",
     notes: "Casamiento (arroz cocido 50g + frijoles licuados 30g, asado no frito), carne mechada venezolana 176g (guiso francés hervido + sofrito tomate/cebolla/ajo/pimiento/2cditas AOVE), plátano sazón frito arachide 64g, tostones fritos arachide 51g, halloumi frito arachide 33g. Todo frito bien secado con toalla."
+  },
+  {
+    id: "mache-salade",
+    name: "Mâche (Salade)",
+    brand: "",
+    per100g: { kcal: 11, prot: 2.0, carbs: 0.4, fat: 0.4, fiber: 1.5 },
+    source: "web",
+    addedDate: "2026-04-17"
   }
 ];
 
@@ -3284,6 +3292,62 @@ const MEAL_LOG = [
     meal: "cena",
     items: [
       { foodId: "carne-mechada-netozolana", name: "Carne Mechada Netozolana", grams: 404, kcal: 750.2, prot: 40.8, carbs: 71.9, fat: 33.1 },
+      { foodId: "agua-jamaica-sin-azucar", name: "Agua de Jamaica sin Azúcar", grams: 200, kcal: 4.0, prot: 0, carbs: 1.0, fat: 0 }
+    ],
+    timestamp: "2026-04-17T20:30:00"
+  },
+  // === ADRIANA 2026-04-17 ===
+  {
+    id: "2026-04-17-A01",
+    date: "2026-04-17",
+    meal: "desayuno", who: "adriana",
+    items: [
+      { foodId: "hipro-coco", name: "HiPro Coco", grams: 79, kcal: 44.2, prot: 7.4, carbs: 2.9, fat: 0.3 },
+      { foodId: "siggis-skyr-nature", name: "Skyr Siggis", grams: 171, kcal: 107.7, prot: 18.8, carbs: 6.8, fat: 0.3 },
+      { foodId: "blueberries-frescas", name: "Blueberries", grams: 50, kcal: 28.5, prot: 0.4, carbs: 7.3, fat: 0.2 },
+      { foodId: "chocolate-negro-90", name: "Chocolate Negro 90%", grams: 10, kcal: 59.2, prot: 1.0, carbs: 1.4, fat: 5.5 },
+      { foodId: "semillas-chia", name: "Chia (1 tsp)", grams: 5, kcal: 24.3, prot: 0.9, carbs: 2.1, fat: 1.6 }
+    ],
+    timestamp: "2026-04-17T09:00:00"
+  },
+  {
+    id: "2026-04-17-A02",
+    date: "2026-04-17",
+    meal: "almuerzo", who: "adriana",
+    items: [
+      { foodId: "pollo-pechuga-horneada", name: "Pollo Horneado", grams: 80, kcal: 132.0, prot: 24.8, carbs: 0, fat: 2.9 },
+      { foodId: "cannelloni-ricotta-epinard-picard", name: "Cannelloni Ricotta Épinard", grams: 175, kcal: 210.0, prot: 9.8, carbs: 16.1, fat: 11.4 },
+      { foodId: "mache-salade", name: "Mâche", grams: 15, kcal: 1.7, prot: 0.3, carbs: 0.1, fat: 0.1 },
+      { foodId: "tomate-cherry", name: "Tomates Cherry", grams: 10, kcal: 1.8, prot: 0.1, carbs: 0.4, fat: 0 }
+    ],
+    timestamp: "2026-04-17T13:00:00"
+  },
+  {
+    id: "2026-04-17-A03",
+    date: "2026-04-17",
+    meal: "snack", who: "adriana",
+    items: [
+      { foodId: "kefir-lactel-0-bio", name: "Kéfir Lactel 0%", grams: 130, kcal: 57.2, prot: 4.4, carbs: 5.3, fat: 2.0 },
+      { foodId: "eafit-pure-isolate-vanille", name: "EAFit Vainilla", grams: 25, kcal: 91.5, prot: 21.5, carbs: 0.8, fat: 0.2 },
+      { foodId: "fresas-frescas", name: "Fresas", grams: 54, kcal: 17.3, prot: 0.4, carbs: 4.2, fat: 0.2 },
+      { foodId: "siggis-skyr-nature", name: "Skyr Siggis", grams: 45, kcal: 28.4, prot: 5.0, carbs: 1.8, fat: 0.1 },
+      { foodId: "almendras-enteras", name: "Almendras", grams: 7, kcal: 40.3, prot: 1.5, carbs: 1.5, fat: 3.4 },
+      { foodId: "miel-abeja", name: "Miel (1/2 tsp)", grams: 3.5, kcal: 10.6, prot: 0, carbs: 2.9, fat: 0 }
+    ],
+    timestamp: "2026-04-17T16:30:00"
+  },
+  // Adriana - Cena 17/04
+  {
+    id: "2026-04-17-A04",
+    date: "2026-04-17",
+    meal: "cena", who: "adriana",
+    items: [
+      { foodId: "arroz-bomba-cocido", name: "Arroz Cocido (casamiento)", grams: 20, kcal: 26.0, prot: 0.5, carbs: 5.6, fat: 0.1 },
+      { foodId: "frijoles-negros-licuados", name: "Frijoles Licuados", grams: 14, kcal: 12.6, prot: 0.8, carbs: 1.7, fat: 0.2 },
+      { foodId: "carne-mechada-venezolana", name: "Carne Mechada Venezolana", grams: 123, kcal: 172.2, prot: 20.9, carbs: 3.7, fat: 8.0 },
+      { foodId: "platano-maduro-frito", name: "Plátano Sazón Frito", grams: 59, kcal: 141.6, prot: 0.6, carbs: 23.6, fat: 5.3 },
+      { foodId: "tostones-platano-macho", name: "Tostones Fritos", grams: 63, kcal: 176.4, prot: 0.8, carbs: 27.7, fat: 6.9 },
+      { foodId: "halloumi-frito", name: "Halloumi Frito", grams: 14, kcal: 49.0, prot: 2.8, carbs: 0.4, fat: 4.2 },
       { foodId: "agua-jamaica-sin-azucar", name: "Agua de Jamaica sin Azúcar", grams: 200, kcal: 4.0, prot: 0, carbs: 1.0, fat: 0 }
     ],
     timestamp: "2026-04-17T20:30:00"
