@@ -2,7 +2,7 @@
 // Updated by Claude Code via /log-food skill
 // DO NOT EDIT MANUALLY - use /log-food to add meals
 
-const DATA_TIMESTAMP = "2026-04-17T09:00:00 Europe/Paris";
+const DATA_TIMESTAMP = "2026-04-17T20:45:00 Europe/Paris";
 
 const NUTRITION_CONFIG = {
   targets: { kcal: 1770, prot: 190, carbs: 140, fat: 50 },
@@ -1285,6 +1285,49 @@ const FOOD_DATABASE = [
     source: "web",
     addedDate: "2026-04-17",
     notes: "4 cannelloni farcis épinards ricotta, sauce tomate, mozzarella. Caja 350g"
+  },
+  {
+    id: "frijoles-negros-licuados",
+    name: "Frijoles Negros Licuados (sin grasa extra)",
+    brand: "Homemade",
+    per100g: { kcal: 90, prot: 6, carbs: 12, fat: 1.5, fiber: 4 },
+    source: "web",
+    addedDate: "2026-04-17"
+  },
+  {
+    id: "carne-mechada-venezolana",
+    name: "Carne Mechada Venezolana (guiso hervido + sofrito AOVE)",
+    brand: "Homemade",
+    per100g: { kcal: 140, prot: 17, carbs: 3, fat: 6.5, fiber: 0.5 },
+    source: "web",
+    addedDate: "2026-04-17"
+  },
+  {
+    id: "halloumi-frito",
+    name: "Halloumi Frito (aceite arachide, secado toalla)",
+    brand: "Generic",
+    per100g: { kcal: 350, prot: 20, carbs: 3, fat: 30, fiber: 0 },
+    source: "web",
+    addedDate: "2026-04-17"
+  },
+  {
+    id: "agua-jamaica-sin-azucar",
+    name: "Agua de Jamaica sin Azúcar",
+    brand: "Homemade",
+    per100g: { kcal: 2, prot: 0, carbs: 0.5, fat: 0, fiber: 0 },
+    source: "web",
+    addedDate: "2026-04-17"
+  },
+  // Carne mechada Netozolana — arroz cocido 50g, frijoles licuados 30g, carne mechada 176g, platano sazon frito 64g, tostones fritos 51g, halloumi frito 33g. Total 404g
+  {
+    id: "carne-mechada-netozolana",
+    name: "Carne Mechada Netozolana",
+    brand: "Recetario",
+    per100g: { kcal: 185.7, prot: 10.1, carbs: 17.8, fat: 8.2, fiber: 2.0 },
+    totalG: 404,
+    source: "recetario",
+    addedDate: "2026-04-17",
+    notes: "Casamiento (arroz cocido 50g + frijoles licuados 30g, asado no frito), carne mechada venezolana 176g (guiso francés hervido + sofrito tomate/cebolla/ajo/pimiento/2cditas AOVE), plátano sazón frito arachide 64g, tostones fritos arachide 51g, halloumi frito arachide 33g. Todo frito bien secado con toalla."
   }
 ];
 
@@ -3221,6 +3264,29 @@ const MEAL_LOG = [
       { foodId: "cannelloni-ricotta-epinard-picard", name: "Cannelloni Ricotta Épinard Picard", grams: 175, kcal: 210.0, prot: 9.8, carbs: 16.1, fat: 11.4 }
     ],
     timestamp: "2026-04-17T13:00:00"
+  },
+  // Ernesto - Snack 17/04
+  {
+    id: "2026-04-17-003",
+    date: "2026-04-17",
+    meal: "snack",
+    items: [
+      { foodId: "kefir-lactel-0-bio", name: "Kéfir Lactel 0%", grams: 150, kcal: 66.0, prot: 5.1, carbs: 6.2, fat: 2.3 },
+      { foodId: "eafit-pure-isolate-vanille", name: "EAFit Vainilla", grams: 40, kcal: 146.4, prot: 34.4, carbs: 1.3, fat: 0.4 },
+      { foodId: "fresas-frescas", name: "Fresas", grams: 66, kcal: 21.1, prot: 0.5, carbs: 5.1, fat: 0.2 }
+    ],
+    timestamp: "2026-04-17T16:00:00"
+  },
+  // Ernesto - Cena 17/04
+  {
+    id: "2026-04-17-004",
+    date: "2026-04-17",
+    meal: "cena",
+    items: [
+      { foodId: "carne-mechada-netozolana", name: "Carne Mechada Netozolana", grams: 404, kcal: 750.2, prot: 40.8, carbs: 71.9, fat: 33.1 },
+      { foodId: "agua-jamaica-sin-azucar", name: "Agua de Jamaica sin Azúcar", grams: 200, kcal: 4.0, prot: 0, carbs: 1.0, fat: 0 }
+    ],
+    timestamp: "2026-04-17T20:30:00"
   }
 
 ];
