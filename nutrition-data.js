@@ -3197,6 +3197,30 @@ const MEAL_LOG = [
       { foodId: "eafit-pure-isolate-vanille", name: "EAFit Vanille", grams: 35, kcal: 128.1, prot: 30.1, carbs: 1.2, fat: 0.3 }
     ],
     timestamp: "2026-04-16T22:00:00"
+  },
+  // Ernesto - Desayuno 17/04
+  {
+    id: "2026-04-17-001",
+    date: "2026-04-17",
+    meal: "desayuno",
+    items: [
+      { foodId: "eafit-pure-isolate-chocolat", name: "EAFit Chocolat", grams: 40, kcal: 141.6, prot: 32.4, carbs: 1.5, fat: 0.6 },
+      { foodId: "kefir-lactel-0-bio", name: "Kéfir Lactel 0%", grams: 50, kcal: 22.0, prot: 1.7, carbs: 2.1, fat: 0.8 },
+      { foodId: "siggis-skyr-nature", name: "Skyr Siggis Nature", grams: 50, kcal: 31.5, prot: 5.5, carbs: 2.0, fat: 0.1 },
+      { foodId: "hipro-coco", name: "HiPro Coco (1/2 pot)", grams: 80, kcal: 44.8, prot: 7.5, carbs: 3.0, fat: 0.3 }
+    ],
+    timestamp: "2026-04-17T11:41:10"
+  },
+  // Ernesto - Almuerzo 17/04
+  {
+    id: "2026-04-17-002",
+    date: "2026-04-17",
+    meal: "almuerzo",
+    items: [
+      { foodId: "pollo-pechuga-horneada", name: "Pollo Horneado", grams: 100, kcal: 165.0, prot: 31.0, carbs: 0, fat: 3.6 },
+      { foodId: "cannelloni-ricotta-epinard-picard", name: "Cannelloni Ricotta Épinard Picard", grams: 175, kcal: 210.0, prot: 9.8, carbs: 16.1, fat: 11.4 }
+    ],
+    timestamp: "2026-04-17T13:00:00"
   }
 
 ];
