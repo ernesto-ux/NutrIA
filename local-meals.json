@@ -2381,6 +2381,51 @@
       "timestamp": "2026-04-08T15:48:45.000Z",
       "source": "local",
       "user": "ernesto"
+    },
+    {
+      "id": "2026-04-17-001",
+      "date": "2026-04-17",
+      "meal": "desayuno",
+      "items": [
+        {
+          "foodId": "eafit-pure-isolate-chocolat",
+          "name": "EAFit Chocolat",
+          "grams": 40,
+          "kcal": 141.6,
+          "prot": 32.4,
+          "carbs": 1.5,
+          "fat": 0.6
+        },
+        {
+          "foodId": "kefir-lactel-0-bio",
+          "name": "Kéfir Lactel 0%",
+          "grams": 50,
+          "kcal": 22.0,
+          "prot": 1.7,
+          "carbs": 2.1,
+          "fat": 0.8
+        },
+        {
+          "foodId": "siggis-skyr-nature",
+          "name": "Skyr Siggis Nature",
+          "grams": 50,
+          "kcal": 31.5,
+          "prot": 5.5,
+          "carbs": 2.0,
+          "fat": 0.1
+        },
+        {
+          "foodId": "hipro-coco",
+          "name": "HiPro Coco (1/2 pot)",
+          "grams": 80,
+          "units": 0.5,
+          "kcal": 44.8,
+          "prot": 7.5,
+          "carbs": 3.0,
+          "fat": 0.3
+        }
+      ],
+      "timestamp": "2026-04-17T11:41:10"
     }
   ],
   "overrides": {
