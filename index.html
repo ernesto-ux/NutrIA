@@ -2922,18 +2922,18 @@
     const maxScore = Math.max(...scoredFoods.map(f => f.score));
     const scoreRange = maxScore - minScore || 1;
 
+    // Axes: X = Densidad Nutricional (score, left=low, right=high), Y = Calorias (top=high, bottom=low)
     let dots = '';
     scoredFoods.forEach(f => {
-      const x = pad + Math.min(f.kcalPer100 / maxKcal, 1) * (chartW - pad * 2);
-      const y = pad + ((maxScore - f.score) / scoreRange) * (chartH - pad * 2);
+      const x = pad + ((f.score - minScore) / scoreRange) * (chartW - pad * 2);
+      const y = pad + ((maxKcal - Math.min(f.kcalPer100, maxKcal)) / maxKcal) * (chartH - pad * 2);
       const isRecipe = f.source === 'recetario';
       const color = f.score >= 60 ? '#059669' : f.score >= 30 ? '#0D9488' : f.score >= 0 ? '#F59E0B' : '#EF4444';
       const r = isRecipe ? 5 : 4;
       const label = f.name.length > 20 ? f.name.slice(0, 18) + '..' : f.name;
       dots += `<circle cx="${x}" cy="${y}" r="${r}" fill="${color}" opacity="0.75" style="cursor:pointer;">
-        <title>${f.name}\n${f.kcalPer100} kcal/100g | Score: ${f.score}\nProt: ${f.per100g.prot}g | Carbs: ${f.per100g.carbs}g | Fat: ${f.per100g.fat}g</title>
+        <title>${f.name}\n${f.kcalPer100} kcal/100g | Densidad: ${f.score}\nProt: ${f.per100g.prot}g | Carbs: ${f.per100g.carbs}g | Fat: ${f.per100g.fat}g</title>
       </circle>`;
-      // Label top 10 and bottom 5
       const rank = scoredFoods.indexOf(f);
       if (rank < 8 || rank >= scoredFoods.length - 4) {
         const anchor = x > chartW / 2 ? 'end' : 'start';
@@ -2943,18 +2943,21 @@
     });
 
     // Quadrant lines (median)
-    const medKcal = scoredFoods.length > 0 ? scoredFoods[Math.floor(scoredFoods.length / 2)].kcalPer100 : 200;
-    const medX = pad + (medKcal / maxKcal) * (chartW - pad * 2);
-    const medY = chartH / 2;
+    const medScore = scoredFoods.length > 0 ? scoredFoods[Math.floor(scoredFoods.length / 2)].score : 0;
+    const medX = pad + ((medScore - minScore) / scoreRange) * (chartW - pad * 2);
+    const medKcalVal = scoredFoods.length > 0 ? scoredFoods.map(f => f.kcalPer100).sort((a,b) => a - b)[Math.floor(scoredFoods.length / 2)] : 200;
+    const medY = pad + ((maxKcal - medKcalVal) / maxKcal) * (chartH - pad * 2);
 
     // Quadrant labels
     const quadLabels = `
-      <text x="${pad + 10}" y="${pad + 15}" font-size="10" fill="#059669" font-weight="600" opacity="0.6">IDEAL</text>
-      <text x="${pad + 10}" y="${pad + 25}" font-size="8" fill="#059669" opacity="0.5">Bajo cal + Alto score</text>
-      <text x="${chartW - pad - 10}" y="${pad + 15}" text-anchor="end" font-size="10" fill="#F59E0B" font-weight="600" opacity="0.6">DENSO</text>
-      <text x="${chartW - pad - 10}" y="${pad + 25}" text-anchor="end" font-size="8" fill="#F59E0B" opacity="0.5">Alto cal + Alto score</text>
+      <text x="${pad + 10}" y="${pad + 15}" font-size="10" fill="#EF4444" font-weight="600" opacity="0.6">EVITAR</text>
+      <text x="${pad + 10}" y="${pad + 25}" font-size="8" fill="#EF4444" opacity="0.5">Alto cal + Baja densidad</text>
+      <text x="${chartW - pad - 10}" y="${pad + 15}" text-anchor="end" font-size="10" fill="#F59E0B" font-weight="600" opacity="0.6">DENSO NUTRITIVO</text>
+      <text x="${chartW - pad - 10}" y="${pad + 25}" text-anchor="end" font-size="8" fill="#F59E0B" opacity="0.5">Alto cal + Alta densidad</text>
       <text x="${pad + 10}" y="${chartH - pad - 10}" font-size="10" fill="#94A3B8" font-weight="600" opacity="0.6">BAJO VALOR</text>
-      <text x="${chartW - pad - 10}" y="${chartH - pad - 10}" text-anchor="end" font-size="10" fill="#EF4444" font-weight="600" opacity="0.6">EVITAR</text>
+      <text x="${pad + 10}" y="${chartH - pad - 20}" font-size="8" fill="#94A3B8" opacity="0.5">Bajo cal + Baja densidad</text>
+      <text x="${chartW - pad - 10}" y="${chartH - pad - 10}" text-anchor="end" font-size="10" fill="#059669" font-weight="600" opacity="0.6">IDEAL</text>
+      <text x="${chartW - pad - 10}" y="${chartH - pad - 20}" text-anchor="end" font-size="8" fill="#059669" opacity="0.5">Bajo cal + Alta densidad</text>
     `;
 
     const quadrantSvg = `<svg viewBox="0 0 ${chartW} ${chartH}" style="width:100%;max-width:${chartW}px;height:auto;">
@@ -2963,13 +2966,13 @@
       <line x1="${pad}" y1="${medY}" x2="${chartW - pad}" y2="${medY}" stroke="var(--border)" stroke-width="1" stroke-dasharray="4,3"/>
       ${quadLabels}
       ${/* Y-axis labels */''}
-      <text x="${pad - 6}" y="${pad + 8}" text-anchor="end" font-size="8" fill="var(--text-sec)">+fit</text>
-      <text x="${pad - 6}" y="${chartH - pad}" text-anchor="end" font-size="8" fill="var(--text-sec)">-fit</text>
-      <text x="${12}" y="${chartH / 2 + 3}" text-anchor="middle" font-size="9" fill="var(--text-sec)" transform="rotate(-90, 12, ${chartH/2})">Macro Score</text>
+      <text x="${pad - 6}" y="${pad + 8}" text-anchor="end" font-size="8" fill="var(--text-sec)">+ kcal</text>
+      <text x="${pad - 6}" y="${chartH - pad}" text-anchor="end" font-size="8" fill="var(--text-sec)">- kcal</text>
+      <text x="${12}" y="${chartH / 2 + 3}" text-anchor="middle" font-size="9" fill="var(--text-sec)" transform="rotate(-90, 12, ${chartH/2})">Calorias /100g</text>
       ${/* X-axis labels */''}
-      <text x="${pad}" y="${chartH - pad + 16}" text-anchor="start" font-size="8" fill="var(--text-sec)">0 kcal</text>
-      <text x="${chartW - pad}" y="${chartH - pad + 16}" text-anchor="end" font-size="8" fill="var(--text-sec)">${maxKcal} kcal</text>
-      <text x="${chartW / 2}" y="${chartH - 8}" text-anchor="middle" font-size="9" fill="var(--text-sec)">Calorias por 100g</text>
+      <text x="${pad}" y="${chartH - pad + 16}" text-anchor="start" font-size="8" fill="var(--text-sec)">- Densidad</text>
+      <text x="${chartW - pad}" y="${chartH - pad + 16}" text-anchor="end" font-size="8" fill="var(--text-sec)">+ Densidad</text>
+      <text x="${chartW / 2}" y="${chartH - 8}" text-anchor="middle" font-size="9" fill="var(--text-sec)">Densidad Nutricional</text>
       ${dots}
     </svg>`;
 
@@ -3097,7 +3100,7 @@
 
       <div class="card" style="margin-bottom:16px;">
         <div class="card-title" style="margin-bottom:8px;">📍 Mapa de Alimentos</div>
-        <div style="font-size:10px;color:var(--text-sec);margin-bottom:8px;">Cada punto = un alimento. Hover para ver detalle. Arriba = mejor macro fit. Izquierda = menos calorico.</div>
+        <div style="font-size:10px;color:var(--text-sec);margin-bottom:8px;">Cada punto = un alimento. Hover para detalle. Derecha = mayor densidad nutricional. Arriba = mas calorico.</div>
         ${quadrantSvg}
         <div style="display:flex;gap:12px;justify-content:center;margin-top:8px;font-size:10px;">
           <span><span style="color:#059669;">●</span> Score 60+</span>
