@@ -3301,6 +3301,16 @@ const MEAL_LOG = [
     ],
     timestamp: "2026-04-17T20:30:00"
   },
+  // Ernesto - Snack 2 17/04
+  {
+    id: "2026-04-17-005",
+    date: "2026-04-17",
+    meal: "snack",
+    items: [
+      { foodId: "hipro-creme-dessert-choco-noisette", name: "HiPro Crème Dessert Choco Noisette", grams: 111, kcal: 84.4, prot: 11.3, carbs: 7.0, fat: 1.0 }
+    ],
+    timestamp: "2026-04-17T22:00:00"
+  },
   // === ADRIANA 2026-04-17 ===
   {
     id: "2026-04-17-A01",
@@ -3356,6 +3366,16 @@ const MEAL_LOG = [
       { foodId: "agua-jamaica-sin-azucar", name: "Agua de Jamaica sin Azúcar", grams: 200, kcal: 4.0, prot: 0, carbs: 1.0, fat: 0 }
     ],
     timestamp: "2026-04-17T20:30:00"
+  },
+  // Adriana - Snack 2 17/04
+  {
+    id: "2026-04-17-A05",
+    date: "2026-04-17",
+    meal: "snack", who: "adriana",
+    items: [
+      { foodId: "hipro-creme-dessert-choco-noisette", name: "HiPro Crème Dessert Choco Noisette", grams: 69, kcal: 52.4, prot: 7.0, carbs: 4.3, fat: 0.6 }
+    ],
+    timestamp: "2026-04-17T22:00:00"
   }
 
 ];
