@@ -2512,7 +2512,7 @@
     }).join('');
 
     // Combined view: intake bar + stacked deficit bar side by side
-    const maxCombined = Math.max(maxKcal, ...deficitData.map(d => TDEE + (d.stepsKcal||0) + (d.gymKcal||0)));
+    const maxCombined = Math.max(maxKcal, ...deficitData.map((d, i) => getTDEE(days[i].date) + (d.stepsKcal||0) + (d.gymKcal||0)));
     const combinedBars = days.map((d, idx) => {
       if (!d.hasData) {
         return `<div style="display:flex;flex-direction:column;align-items:center;gap:2px;flex:1;min-width:${isMonthView?'24':'44'}px;">
