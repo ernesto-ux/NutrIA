@@ -2426,6 +2426,32 @@
         }
       ],
       "timestamp": "2026-04-17T11:41:10"
+    },
+    {
+      "id": "2026-04-17-002",
+      "date": "2026-04-17",
+      "meal": "almuerzo",
+      "items": [
+        {
+          "foodId": "pollo-pechuga-horneada",
+          "name": "Pollo Horneado",
+          "grams": 100,
+          "kcal": 165.0,
+          "prot": 31.0,
+          "carbs": 0,
+          "fat": 3.6
+        },
+        {
+          "foodId": "cannelloni-ricotta-epinard-picard",
+          "name": "Cannelloni Ricotta Épinard Picard",
+          "grams": 175,
+          "kcal": 210.0,
+          "prot": 9.8,
+          "carbs": 16.1,
+          "fat": 11.4
+        }
+      ],
+      "timestamp": "2026-04-17T13:00:00"
     }
   ],
   "overrides": {

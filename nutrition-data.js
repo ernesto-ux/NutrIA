@@ -1275,6 +1275,16 @@ const FOOD_DATABASE = [
     per100g: { kcal: 76, prot: 10.2, carbs: 6.3, fat: 0.9, fiber: 0 },
     source: "web",
     addedDate: "2026-04-17"
+  },
+  {
+    id: "cannelloni-ricotta-epinard-picard",
+    name: "Cannelloni Ricotta Épinard Sauce Tomate",
+    brand: "Picard",
+    per100g: { kcal: 120, prot: 5.6, carbs: 9.2, fat: 6.5, fiber: 1.3 },
+    totalG: 350,
+    source: "web",
+    addedDate: "2026-04-17",
+    notes: "4 cannelloni farcis épinards ricotta, sauce tomate, mozzarella. Caja 350g"
   }
 ];
 
