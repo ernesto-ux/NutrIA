@@ -2,7 +2,7 @@
 // Updated by Claude Code via /log-food skill
 // DO NOT EDIT MANUALLY - use /log-food to add meals
 
-const DATA_TIMESTAMP = "2026-04-17T21:00:00 Europe/Paris";
+const DATA_TIMESTAMP = "2026-04-18T14:00:00 Europe/Paris";
 
 const NUTRITION_CONFIG = {
   targets: { kcal: 1770, prot: 190, carbs: 140, fat: 50 },
@@ -1328,6 +1328,22 @@ const FOOD_DATABASE = [
     source: "recetario",
     addedDate: "2026-04-17",
     notes: "Casamiento (arroz cocido 50g + frijoles licuados 30g, asado no frito), carne mechada venezolana 176g (guiso francés hervido + sofrito tomate/cebolla/ajo/pimiento/2cditas AOVE), plátano sazón frito arachide 64g, tostones fritos arachide 51g, halloumi frito arachide 33g. Todo frito bien secado con toalla."
+  },
+  {
+    id: "croissant-boulangerie",
+    name: "Croissant Artisanal",
+    brand: "Les Commères",
+    per100g: { kcal: 406, prot: 8.2, carbs: 45.8, fat: 21, fiber: 2 },
+    source: "web",
+    addedDate: "2026-04-18"
+  },
+  {
+    id: "chausson-pommes-boulangerie",
+    name: "Chausson aux Pommes Artisanal",
+    brand: "Les Commères",
+    per100g: { kcal: 340, prot: 3.5, carbs: 40, fat: 18, fiber: 1.5 },
+    source: "web",
+    addedDate: "2026-04-18"
   },
   {
     id: "mache-salade",
@@ -3376,6 +3392,72 @@ const MEAL_LOG = [
       { foodId: "hipro-creme-dessert-choco-noisette", name: "HiPro Crème Dessert Choco Noisette", grams: 69, kcal: 52.4, prot: 7.0, carbs: 4.3, fat: 0.6 }
     ],
     timestamp: "2026-04-17T22:00:00"
+  },
+  // === ERNESTO 2026-04-18 ===
+  {
+    id: "2026-04-18-001",
+    date: "2026-04-18",
+    meal: "desayuno",
+    items: [
+      { foodId: "avena-cruda", name: "Avena en Hojuelas", grams: 40, kcal: 155.6, prot: 6.8, carbs: 26.5, fat: 2.8 },
+      { foodId: "huevo-entero", name: "Huevo Entero (x1)", grams: 50, units: 1, kcal: 77.5, prot: 6.5, carbs: 0.6, fat: 5.5 },
+      { foodId: "cocoa-en-polvo", name: "Cocoa en Polvo", grams: 8, kcal: 18.2, prot: 1.6, carbs: 4.6, fat: 1.1 },
+      { foodId: "eafit-pure-isolate-vanille", name: "EAFit Vainilla", grams: 40, kcal: 146.4, prot: 34.4, carbs: 1.3, fat: 0.4 },
+      { foodId: "weider-peanut-butter-powder", name: "PB Powder (2 tsp)", grams: 10, kcal: 44.0, prot: 4.9, carbs: 1.9, fat: 1.3 },
+      { foodId: "hipro-vanille", name: "HiPro Vanille", grams: 100, kcal: 77.0, prot: 10.2, carbs: 5.9, fat: 0.8 },
+      { foodId: "leche-almendra", name: "Leche Almendra Alpro Grillée", grams: 150, kcal: 19.5, prot: 0.6, carbs: 0.3, fat: 1.7 }
+    ],
+    timestamp: "2026-04-18T09:00:00"
+  },
+  {
+    id: "2026-04-18-002",
+    date: "2026-04-18",
+    meal: "almuerzo",
+    items: [
+      { foodId: "carne-mechada-venezolana", name: "Carne Mechada Venezolana", grams: 165, kcal: 231.0, prot: 28.1, carbs: 5.0, fat: 10.7 },
+      { foodId: "platano-maduro-frito", name: "Plátano Maduro Frito", grams: 57, kcal: 136.8, prot: 0.6, carbs: 22.8, fat: 5.1 },
+      { foodId: "halloumi-frito", name: "Halloumi Frito", grams: 22, kcal: 77.0, prot: 4.4, carbs: 0.7, fat: 6.6 },
+      { foodId: "arroz-bomba-cocido", name: "Arroz Cocido (casamiento)", grams: 24, kcal: 31.2, prot: 0.6, carbs: 6.7, fat: 0.1 },
+      { foodId: "frijoles-negros-licuados", name: "Frijoles Licuados", grams: 16, kcal: 14.4, prot: 1.0, carbs: 1.9, fat: 0.2 }
+    ],
+    timestamp: "2026-04-18T13:00:00"
+  },
+  // === ADRIANA 2026-04-18 ===
+  {
+    id: "2026-04-18-A01",
+    date: "2026-04-18",
+    meal: "desayuno", who: "adriana",
+    items: [
+      { foodId: "avena-cruda", name: "Avena en Hojuelas", grams: 40, kcal: 155.6, prot: 6.8, carbs: 26.5, fat: 2.8 },
+      { foodId: "huevo-entero", name: "Huevo Entero (x1)", grams: 50, units: 1, kcal: 77.5, prot: 6.5, carbs: 0.6, fat: 5.5 },
+      { foodId: "cocoa-en-polvo", name: "Cocoa en Polvo", grams: 8, kcal: 18.2, prot: 1.6, carbs: 4.6, fat: 1.1 },
+      { foodId: "eafit-pure-isolate-vanille", name: "EAFit Vainilla", grams: 40, kcal: 146.4, prot: 34.4, carbs: 1.3, fat: 0.4 },
+      { foodId: "weider-peanut-butter-powder", name: "PB Powder (2 tsp)", grams: 10, kcal: 44.0, prot: 4.9, carbs: 1.9, fat: 1.3 },
+      { foodId: "hipro-vanille", name: "HiPro Vanille", grams: 100, kcal: 77.0, prot: 10.2, carbs: 5.9, fat: 0.8 },
+      { foodId: "leche-almendra", name: "Leche Almendra Alpro Grillée", grams: 100, kcal: 13.0, prot: 0.4, carbs: 0.2, fat: 1.1 }
+    ],
+    timestamp: "2026-04-18T09:00:00"
+  },
+  {
+    id: "2026-04-18-A02",
+    date: "2026-04-18",
+    meal: "snack", who: "adriana",
+    items: [
+      { foodId: "chausson-pommes-boulangerie", name: "Chausson aux Pommes", grams: 42, kcal: 142.8, prot: 1.5, carbs: 16.8, fat: 7.6 }
+    ],
+    timestamp: "2026-04-18T11:00:00"
+  },
+  {
+    id: "2026-04-18-A03",
+    date: "2026-04-18",
+    meal: "almuerzo", who: "adriana",
+    items: [
+      { foodId: "carne-mechada-venezolana", name: "Carne Mechada Venezolana", grams: 125, kcal: 175.0, prot: 21.3, carbs: 3.8, fat: 8.1 },
+      { foodId: "platano-maduro-frito", name: "Plátano Maduro Frito", grams: 55, kcal: 132.0, prot: 0.6, carbs: 22.0, fat: 5.0 },
+      { foodId: "arroz-bomba-cocido", name: "Arroz Cocido (casamiento)", grams: 18, kcal: 23.4, prot: 0.5, carbs: 5.0, fat: 0.1 },
+      { foodId: "frijoles-negros-licuados", name: "Frijoles Licuados", grams: 12, kcal: 10.8, prot: 0.7, carbs: 1.4, fat: 0.2 }
+    ],
+    timestamp: "2026-04-18T13:00:00"
   }
 
 ];
