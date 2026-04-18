@@ -2,7 +2,7 @@
 // Updated by Claude Code via /log-food skill
 // DO NOT EDIT MANUALLY - use /log-food to add meals
 
-const DATA_TIMESTAMP = "2026-04-18T14:00:00 Europe/Paris";
+const DATA_TIMESTAMP = "2026-04-18T21:30:00 Europe/Paris";
 
 const NUTRITION_CONFIG = {
   targets: { kcal: 1770, prot: 190, carbs: 140, fat: 50 },
@@ -1354,6 +1354,47 @@ const FOOD_DATABASE = [
     per100g: { kcal: 11, prot: 2.0, carbs: 0.4, fat: 0.4, fiber: 1.5 },
     source: "web",
     addedDate: "2026-04-17"
+  },
+  // LouieLouie restaurant (Charonne, Paris) - 2026-04-18
+  {
+    id: "pizza-margherite-louielouie",
+    name: "Pizza Margherite LouieLouie (salsa, poca mozza, masa)",
+    brand: "LouieLouie",
+    per100g: { kcal: 210, prot: 7, carbs: 31, fat: 6, fiber: 1.5 },
+    source: "web",
+    addedDate: "2026-04-18"
+  },
+  {
+    id: "pizza-jamon-bigorre-louielouie",
+    name: "Pizza Jamón Noir de Bigorre LouieLouie (arugula, burrata, tomate)",
+    brand: "LouieLouie",
+    per100g: { kcal: 250, prot: 11, carbs: 27, fat: 10, fiber: 1 },
+    source: "web",
+    addedDate: "2026-04-18"
+  },
+  {
+    id: "profiterole-sorbet-vanille-chocolat",
+    name: "Profiterole (sorbete vainilla, salsa chocolate negro, avellana)",
+    brand: "LouieLouie",
+    per100g: { kcal: 280, prot: 4, carbs: 33, fat: 14, fiber: 0.5 },
+    source: "web",
+    addedDate: "2026-04-18"
+  },
+  {
+    id: "vino-blanco-seco",
+    name: "Vino Blanco Seco",
+    brand: "Generic",
+    per100g: { kcal: 82, prot: 0.1, carbs: 2.6, fat: 0, fiber: 0 },
+    source: "web",
+    addedDate: "2026-04-18"
+  },
+  {
+    id: "limonada-casera",
+    name: "Limonada Casera (limón, azúcar, agua)",
+    brand: "Generic",
+    per100g: { kcal: 35, prot: 0, carbs: 9, fat: 0, fiber: 0 },
+    source: "web",
+    addedDate: "2026-04-18"
   }
 ];
 
@@ -3461,6 +3502,33 @@ const MEAL_LOG = [
       { foodId: "frijoles-negros-licuados", name: "Frijoles Licuados", grams: 12, kcal: 10.8, prot: 0.7, carbs: 1.4, fat: 0.2 }
     ],
     timestamp: "2026-04-18T13:00:00"
+  },
+  // Ernesto - Cena 18/04 - Pizza LouieLouie
+  {
+    id: "2026-04-18-003",
+    date: "2026-04-18",
+    meal: "cena",
+    items: [
+      { foodId: "vino-blanco-seco", name: "Vino Blanco Ouistiti (2 copas peq)", grams: 200, kcal: 164.0, prot: 0.2, carbs: 5.2, fat: 0 },
+      { foodId: "pizza-margherite-louielouie", name: "Pizza Margherite LouieLouie (1/2)", grams: 150, kcal: 315.0, prot: 10.5, carbs: 46.5, fat: 9.0 },
+      { foodId: "pizza-jamon-bigorre-louielouie", name: "Pizza Jamón Noir de Bigorre (1/2)", grams: 165, kcal: 412.5, prot: 18.2, carbs: 44.6, fat: 16.5 },
+      { foodId: "profiterole-sorbet-vanille-chocolat", name: "Profiterole (sorbete vainilla, choco, avellana)", grams: 180, kcal: 504.0, prot: 7.2, carbs: 59.4, fat: 25.2 },
+      { foodId: "aceite-oliva", name: "AOVE Piquant (1 cdita)", grams: 5, kcal: 44.2, prot: 0, carbs: 0, fat: 5.0 }
+    ],
+    timestamp: "2026-04-18T21:00:00"
+  },
+  // Adriana - Cena 18/04 - Pizza LouieLouie
+  {
+    id: "2026-04-18-A04",
+    date: "2026-04-18",
+    meal: "cena", who: "adriana",
+    items: [
+      { foodId: "limonada-casera", name: "Limonada Casera", grams: 250, kcal: 87.5, prot: 0, carbs: 22.5, fat: 0 },
+      { foodId: "pizza-margherite-louielouie", name: "Pizza Margherite LouieLouie (1/3)", grams: 100, kcal: 210.0, prot: 7.0, carbs: 31.0, fat: 6.0 },
+      { foodId: "pizza-jamon-bigorre-louielouie", name: "Pizza Jamón Noir de Bigorre (1/3)", grams: 110, kcal: 275.0, prot: 12.1, carbs: 29.7, fat: 11.0 },
+      { foodId: "profiterole-sorbet-vanille-chocolat", name: "Profiterole (sorbete vainilla, choco, avellana)", grams: 180, kcal: 504.0, prot: 7.2, carbs: 59.4, fat: 25.2 }
+    ],
+    timestamp: "2026-04-18T21:00:00"
   }
 
 ];
