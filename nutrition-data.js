@@ -3421,7 +3421,7 @@ const MEAL_LOG = [
       { foodId: "halloumi-frito", name: "Halloumi Frito", grams: 22, kcal: 77.0, prot: 4.4, carbs: 0.7, fat: 6.6 },
       { foodId: "arroz-bomba-cocido", name: "Arroz Cocido (casamiento)", grams: 24, kcal: 31.2, prot: 0.6, carbs: 6.7, fat: 0.1 },
       { foodId: "frijoles-negros-licuados", name: "Frijoles Licuados", grams: 16, kcal: 14.4, prot: 1.0, carbs: 1.9, fat: 0.2 },
-      { foodId: "eafit-pure-isolate-vanille", name: "EAFit Vainilla", grams: 25, kcal: 91.5, prot: 21.5, carbs: 0.8, fat: 0.2 }
+      { foodId: "eafit-pure-isolate-vanille", name: "EAFit Vainilla", grams: 30, kcal: 109.8, prot: 25.8, carbs: 1.0, fat: 0.3 }
     ],
     timestamp: "2026-04-18T13:00:00"
   },
