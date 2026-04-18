@@ -3399,13 +3399,10 @@ const MEAL_LOG = [
     date: "2026-04-18",
     meal: "desayuno",
     items: [
-      { foodId: "avena-cruda", name: "Avena en Hojuelas", grams: 40, kcal: 155.6, prot: 6.8, carbs: 26.5, fat: 2.8 },
+      { foodId: "avena-cruda", name: "Avena en Hojuelas (75%)", grams: 30, kcal: 116.7, prot: 5.1, carbs: 19.9, fat: 2.1 },
       { foodId: "huevo-entero", name: "Huevo Entero (x1)", grams: 50, units: 1, kcal: 77.5, prot: 6.5, carbs: 0.6, fat: 5.5 },
       { foodId: "cocoa-en-polvo", name: "Cocoa en Polvo", grams: 8, kcal: 18.2, prot: 1.6, carbs: 4.6, fat: 1.1 },
-      { foodId: "eafit-pure-isolate-vanille", name: "EAFit Vainilla", grams: 40, kcal: 146.4, prot: 34.4, carbs: 1.3, fat: 0.4 },
-      { foodId: "weider-peanut-butter-powder", name: "PB Powder (2 tsp)", grams: 10, kcal: 44.0, prot: 4.9, carbs: 1.9, fat: 1.3 },
-      { foodId: "hipro-vanille", name: "HiPro Vanille", grams: 100, kcal: 77.0, prot: 10.2, carbs: 5.9, fat: 0.8 },
-      { foodId: "leche-almendra", name: "Leche Almendra Alpro Grillée", grams: 150, kcal: 19.5, prot: 0.6, carbs: 0.3, fat: 1.7 }
+      { foodId: "eafit-pure-isolate-vanille", name: "EAFit Vainilla", grams: 40, kcal: 146.4, prot: 34.4, carbs: 1.3, fat: 0.4 }
     ],
     timestamp: "2026-04-18T09:00:00"
   },
@@ -3418,7 +3415,8 @@ const MEAL_LOG = [
       { foodId: "platano-maduro-frito", name: "Plátano Maduro Frito", grams: 57, kcal: 136.8, prot: 0.6, carbs: 22.8, fat: 5.1 },
       { foodId: "halloumi-frito", name: "Halloumi Frito", grams: 22, kcal: 77.0, prot: 4.4, carbs: 0.7, fat: 6.6 },
       { foodId: "arroz-bomba-cocido", name: "Arroz Cocido (casamiento)", grams: 24, kcal: 31.2, prot: 0.6, carbs: 6.7, fat: 0.1 },
-      { foodId: "frijoles-negros-licuados", name: "Frijoles Licuados", grams: 16, kcal: 14.4, prot: 1.0, carbs: 1.9, fat: 0.2 }
+      { foodId: "frijoles-negros-licuados", name: "Frijoles Licuados", grams: 16, kcal: 14.4, prot: 1.0, carbs: 1.9, fat: 0.2 },
+      { foodId: "eafit-pure-isolate-vanille", name: "EAFit Vainilla", grams: 25, kcal: 91.5, prot: 21.5, carbs: 0.8, fat: 0.2 }
     ],
     timestamp: "2026-04-18T13:00:00"
   },
