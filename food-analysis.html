@@ -1,0 +1,742 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>🦦 NutrIA — Analisis de Alimentos</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🦦</text></svg>" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:        #0F172A;
+      --card:      #1E293B;
+      --card-alt:  #334155;
+      --text:      #F1F5F9;
+      --text-sec:  #94A3B8;
+      --border:    #334155;
+      --teal:      #14B8A6;
+      --teal-dark: #0D9488;
+      --green:     #22C55E;
+      --red:       #EF4444;
+      --yellow:    #F59E0B;
+      --orange:    #F97316;
+      --purple:    #A78BFA;
+      --shadow:    0 1px 3px rgba(0,0,0,.3);
+      --radius:    12px;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.5;
+      min-height: 100vh;
+    }
+
+    .container { max-width: 1100px; margin: 0 auto; padding: 0 16px 40px; }
+
+    /* Header */
+    .header {
+      position: sticky; top: 0; z-index: 100;
+      background: linear-gradient(135deg, #0F172A 0%, #1E293B 100%);
+      border-bottom: 1px solid var(--border);
+      padding: 12px 16px;
+      backdrop-filter: blur(10px);
+    }
+    .header-inner { max-width: 1100px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 10px; }
+    .brand { font-size: 18px; font-weight: 700; display: flex; align-items: center; gap: 8px; }
+    .brand span { color: var(--teal); }
+    .nav-pills { display: flex; gap: 4px; flex-wrap: wrap; }
+    .pill {
+      padding: 6px 14px; border-radius: 20px; border: 1px solid var(--border);
+      background: transparent; color: var(--text-sec); font-size: 13px; font-weight: 500;
+      cursor: pointer; transition: all .2s; font-family: inherit;
+    }
+    .pill:hover { border-color: var(--teal); color: var(--text); }
+    .pill.active { background: var(--teal); color: #fff; border-color: var(--teal); }
+
+    /* Cards */
+    .card {
+      background: var(--card); border-radius: var(--radius); border: 1px solid var(--border);
+      padding: 20px; box-shadow: var(--shadow);
+    }
+    .card-title { font-size: 14px; font-weight: 600; color: var(--text-sec); text-transform: uppercase; letter-spacing: .5px; margin-bottom: 12px; }
+
+    /* Controls */
+    .controls { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 16px; align-items: center; }
+    .search-input, .filter-select {
+      padding: 8px 14px; border-radius: 8px; border: 1px solid var(--border);
+      background: var(--card-alt); color: var(--text); font-size: 13px; font-family: inherit;
+      outline: none; transition: border-color .2s;
+    }
+    .search-input:focus, .filter-select:focus { border-color: var(--teal); }
+    .search-input { flex: 1; min-width: 180px; }
+    .filter-select { min-width: 140px; }
+
+    .score-filters { display: flex; gap: 4px; }
+    .score-btn {
+      padding: 5px 12px; border-radius: 16px; border: 1px solid var(--border);
+      background: transparent; color: var(--text-sec); font-size: 12px; cursor: pointer;
+      font-family: inherit; transition: all .2s;
+    }
+    .score-btn.active { background: var(--teal); color: #fff; border-color: var(--teal); }
+
+    /* Food Table */
+    .food-table { width: 100%; border-collapse: collapse; }
+    .food-table th {
+      text-align: left; padding: 10px 8px; font-size: 11px; font-weight: 600;
+      color: var(--text-sec); text-transform: uppercase; letter-spacing: .5px;
+      border-bottom: 2px solid var(--border); cursor: pointer; user-select: none;
+      white-space: nowrap; transition: color .2s;
+    }
+    .food-table th:hover { color: var(--teal); }
+    .food-table th.sorted { color: var(--teal); }
+    .food-table th .arrow { font-size: 10px; margin-left: 2px; }
+    .food-table td {
+      padding: 10px 8px; font-size: 13px; border-bottom: 1px solid var(--border);
+      vertical-align: middle;
+    }
+    .food-table tr:hover td { background: rgba(20,184,166,.05); }
+    .food-table .name-cell { font-weight: 500; max-width: 200px; }
+    .food-table .brand-cell { color: var(--text-sec); font-size: 12px; }
+    .food-table .num-cell { text-align: right; font-variant-numeric: tabular-nums; }
+    .food-table .family-badge {
+      display: inline-block; padding: 2px 8px; border-radius: 10px; font-size: 11px;
+      font-weight: 500; white-space: nowrap;
+    }
+
+    /* Score badge */
+    .score-badge {
+      display: inline-flex; align-items: center; justify-content: center;
+      width: 36px; height: 24px; border-radius: 6px; font-size: 12px; font-weight: 700;
+    }
+    .score-excelente { background: rgba(34,197,94,.15); color: var(--green); }
+    .score-bueno { background: rgba(20,184,166,.15); color: var(--teal); }
+    .score-regular { background: rgba(245,158,11,.15); color: var(--yellow); }
+    .score-pobre { background: rgba(239,68,68,.15); color: var(--red); }
+
+    /* Triple check dots */
+    .tc-dots { display: flex; gap: 4px; }
+    .tc-dot {
+      width: 8px; height: 8px; border-radius: 50%;
+    }
+    .tc-pass { background: var(--green); }
+    .tc-fail { background: var(--card-alt); }
+
+    /* Family colors */
+    .fam-proteinas { background: rgba(34,197,94,.12); color: #4ade80; }
+    .fam-lacteos { background: rgba(96,165,250,.12); color: #93bbfd; }
+    .fam-cereales { background: rgba(245,158,11,.12); color: #fbbf24; }
+    .fam-frutas { background: rgba(251,146,60,.12); color: #fb923c; }
+    .fam-verduras { background: rgba(74,222,128,.12); color: #86efac; }
+    .fam-grasas { background: rgba(167,139,250,.12); color: #c4b5fd; }
+    .fam-recetario { background: rgba(244,114,182,.12); color: #f472b6; }
+    .fam-panaderia { background: rgba(217,119,6,.12); color: #fbbf24; }
+    .fam-snacks { background: rgba(251,113,133,.12); color: #fda4af; }
+    .fam-bebidas { background: rgba(56,189,248,.12); color: #7dd3fc; }
+    .fam-otros { background: rgba(148,163,184,.12); color: #cbd5e1; }
+
+    /* Family cards grid */
+    .family-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 16px; }
+    .family-card { position: relative; overflow: hidden; }
+    .family-card .fam-header { display: flex; align-items: center; gap: 10px; margin-bottom: 14px; }
+    .family-card .fam-icon { font-size: 24px; }
+    .family-card .fam-name { font-size: 16px; font-weight: 700; }
+    .family-card .fam-count { font-size: 12px; color: var(--text-sec); }
+    .family-card .fam-avg { display: flex; gap: 16px; margin-bottom: 14px; flex-wrap: wrap; }
+    .family-card .fam-stat { text-align: center; }
+    .family-card .fam-stat-val { font-size: 18px; font-weight: 700; }
+    .family-card .fam-stat-label { font-size: 10px; color: var(--text-sec); text-transform: uppercase; }
+    .family-card .fam-pick { padding: 8px 12px; border-radius: 8px; margin-bottom: 6px; display: flex; justify-content: space-between; align-items: center; }
+    .family-card .pick-best { background: rgba(34,197,94,.08); }
+    .family-card .pick-worst { background: rgba(239,68,68,.08); }
+    .family-card .pick-name { font-size: 13px; font-weight: 500; }
+    .family-card .pick-label { font-size: 10px; color: var(--text-sec); text-transform: uppercase; margin-bottom: 2px; }
+
+    /* Meal Optimizer */
+    .opt-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    .opt-meal-list { max-height: 300px; overflow-y: auto; }
+    .opt-meal-item {
+      padding: 10px 14px; border-radius: 8px; border: 1px solid var(--border);
+      margin-bottom: 6px; cursor: pointer; transition: all .2s; font-size: 13px;
+    }
+    .opt-meal-item:hover { border-color: var(--teal); }
+    .opt-meal-item.selected { border-color: var(--teal); background: rgba(20,184,166,.08); }
+    .opt-meal-date { font-weight: 600; }
+    .opt-meal-type { color: var(--text-sec); font-size: 12px; }
+    .opt-meal-kcal { float: right; font-weight: 600; color: var(--teal); }
+
+    .macro-bar { display: flex; gap: 12px; margin: 12px 0; flex-wrap: wrap; }
+    .macro-item { text-align: center; flex: 1; min-width: 60px; }
+    .macro-val { font-size: 20px; font-weight: 700; }
+    .macro-label { font-size: 10px; color: var(--text-sec); text-transform: uppercase; }
+    .macro-prot .macro-val { color: var(--teal); }
+    .macro-carbs .macro-val { color: var(--yellow); }
+    .macro-fat .macro-val { color: var(--orange); }
+    .macro-kcal .macro-val { color: var(--text); }
+
+    .rec-card {
+      padding: 12px 14px; border-radius: 8px; border: 1px solid var(--border);
+      margin-bottom: 8px; display: flex; justify-content: space-between; align-items: center;
+      transition: all .2s;
+    }
+    .rec-card:hover { border-color: var(--teal); background: rgba(20,184,166,.04); }
+    .rec-food { font-weight: 500; font-size: 13px; }
+    .rec-portion { color: var(--text-sec); font-size: 12px; }
+    .rec-adds { font-size: 12px; color: var(--teal); }
+    .rec-score-change { font-size: 11px; font-weight: 600; }
+
+    .summary-row { display: flex; gap: 12px; margin-bottom: 16px; flex-wrap: wrap; }
+    .summary-stat {
+      flex: 1; min-width: 120px; padding: 14px; border-radius: var(--radius);
+      background: var(--card); border: 1px solid var(--border); text-align: center;
+    }
+    .summary-stat .val { font-size: 24px; font-weight: 800; }
+    .summary-stat .label { font-size: 11px; color: var(--text-sec); text-transform: uppercase; }
+
+    .tab-panel { display: none; }
+    .tab-panel.active { display: block; }
+
+    .empty-state { text-align: center; padding: 40px; color: var(--text-sec); }
+
+    /* Scrollbar */
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-track { background: var(--bg); }
+    ::-webkit-scrollbar-thumb { background: var(--card-alt); border-radius: 3px; }
+
+    .results-count { font-size: 12px; color: var(--text-sec); padding: 4px 0; }
+
+    @media (max-width: 768px) {
+      .opt-grid { grid-template-columns: 1fr; }
+      .food-table .hide-mobile { display: none; }
+      .family-grid { grid-template-columns: 1fr; }
+      .header-inner { flex-direction: column; align-items: flex-start; }
+    }
+
+    .tc-summary { display: flex; gap: 8px; align-items: center; font-size: 12px; }
+    .tc-tag { padding: 2px 8px; border-radius: 10px; font-size: 11px; font-weight: 600; }
+    .tc-tag-pass { background: rgba(34,197,94,.12); color: var(--green); }
+    .tc-tag-fail { background: rgba(239,68,68,.12); color: var(--red); }
+
+    .back-link { display: inline-flex; align-items: center; gap: 6px; color: var(--text-sec); font-size: 13px; text-decoration: none; margin-top: 10px; margin-bottom: 6px; }
+    .back-link:hover { color: var(--teal); }
+  </style>
+</head>
+<body>
+
+<div class="header">
+  <div class="header-inner">
+    <div class="brand">🦦 NutrIA <span>Analisis de Alimentos</span></div>
+    <div class="nav-pills">
+      <button class="pill active" data-tab="tabla">Tabla de Alimentos</button>
+      <button class="pill" data-tab="familias">Familias</button>
+      <button class="pill" data-tab="optimizer">Optimizador</button>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+  <a href="index.html" class="back-link">← Volver a NutrIA</a>
+
+  <!-- TAB 1: Food Table -->
+  <div id="tab-tabla" class="tab-panel active">
+    <div class="controls">
+      <input type="text" class="search-input" id="search" placeholder="Buscar alimento..." />
+      <select class="filter-select" id="familyFilter">
+        <option value="">Todas las familias</option>
+      </select>
+      <div class="score-filters">
+        <button class="score-btn" data-min="0">Todos</button>
+        <button class="score-btn" data-min="40">Buenos+</button>
+        <button class="score-btn" data-min="60">Excelentes</button>
+      </div>
+    </div>
+    <div id="results-count" class="results-count"></div>
+    <div style="overflow-x:auto;">
+      <table class="food-table" id="foodTable">
+        <thead><tr id="tableHead"></tr></thead>
+        <tbody id="tableBody"></tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- TAB 2: Family Analysis -->
+  <div id="tab-familias" class="tab-panel">
+    <div class="summary-row" id="familySummary"></div>
+    <div class="family-grid" id="familyGrid"></div>
+  </div>
+
+  <!-- TAB 3: Meal Optimizer -->
+  <div id="tab-optimizer" class="tab-panel">
+    <div class="opt-grid">
+      <div>
+        <div class="card">
+          <div class="card-title">Seleccionar Comida</div>
+          <select class="filter-select" id="mealDateFilter" style="width:100%;margin-bottom:10px;">
+            <option value="">Ultimos 10 dias</option>
+          </select>
+          <div class="opt-meal-list" id="mealList"></div>
+        </div>
+      </div>
+      <div>
+        <div class="card" id="mealAnalysis">
+          <div class="card-title">Analisis de Comida</div>
+          <div class="empty-state">Selecciona una comida para analizar</div>
+        </div>
+        <div class="card" style="margin-top:16px;" id="mealRecs">
+          <div class="card-title">Recomendaciones para mejorar</div>
+          <div class="empty-state">Selecciona una comida primero</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="nutrition-data.js?v=${Date.now()}"></script>
+<script>
+(function() {
+  'use strict';
+
+  // ── Helpers ──
+  const r1 = n => Math.round(n * 10) / 10;
+  const clamp = (n, lo, hi) => Math.max(lo, Math.min(hi, n));
+
+  // ── Family Classifier ──
+  const FAMILY_RULES = [
+    { name: 'Recetario', icon: '👨‍🍳', test: f => f.source === 'recetario' },
+    { name: 'Bebidas', icon: '🥤', test: f => /agua|jamaica|coca-cola|cafe-|champagne|boisson/.test(f.id) || (f.per100g.kcal <= 15 && /leche|lait|alpro/.test(f.id)) },
+    { name: 'Proteinas', icon: '🥩', test: f => /pollo|salmon|pechuga|carne-mechada|jamon|surimi|saumon|thon|pavo|atun|rumsteck|boeuf|clara-huevo|huevo-entero/.test(f.id) || (/fleury/i.test(f.brand) || /eafit|pp-vanilla/i.test(f.id)) },
+    { name: 'Lacteos', icon: '🥛', test: f => /skyr|ricotta|cottage|fromage|yogur|queso|kefir|hipro|mozzarella/i.test(f.id) || /danone|siggis|lactel|casa azzurra/i.test(f.brand) },
+    { name: 'Verduras', icon: '🥬', test: f => /brocoli|espinaca|tomate|cebolla|pimiento|endive|mache|zanahoria|ejote|calabacin|champinon|remolacha/i.test(f.id) },
+    { name: 'Frutas', icon: '🍓', test: f => /fresa|melon|banana|platano-maduro|manzana|fruta|mango|blueberr|fruits-rouge|coulis-fraise|naranja/i.test(f.id) },
+    { name: 'Grasas', icon: '🫒', test: f => /aceite|mantequilla|aguacate|avellana|semilla|chia|nuez|almendra|mani|peanut/i.test(f.id) || f.per100g.fat > 40 },
+    { name: 'Panaderia', icon: '🥐', test: f => /croissant|pan-|galleta|biscuit|cracker|toast|chausson|wasa|madeleine|financier|brioche/i.test(f.id) || /commeres|lu |mere poulard|mulino/i.test(f.brand) },
+    { name: 'Snacks', icon: '🍫', test: f => /chocolate|cookie|cheesecake|brownie|oreo|cote-dor/i.test(f.id) || /jeff de bruges/i.test(f.brand) },
+    { name: 'Cereales', icon: '🌾', test: f => /quinoa|arroz|pasta|avena|cereales|lentej|frijol/i.test(f.id) },
+  ];
+  const FALLBACK_FAMILY = { name: 'Otros', icon: '📦' };
+
+  function inferFamily(food) {
+    for (const rule of FAMILY_RULES) {
+      if (rule.test(food)) return rule;
+    }
+    return FALLBACK_FAMILY;
+  }
+
+  // ── Scoring ──
+  function tripleCheck(p) {
+    if (!p || !p.kcal || p.kcal === 0) return { prot: false, carbs: false, fat: false };
+    return {
+      prot:  (p.prot / p.kcal) >= 0.10,
+      carbs: (p.carbs / p.kcal) <= 0.07,
+      fat:   (p.fat / p.kcal) <= 0.05
+    };
+  }
+
+  function computeRawScore(p) {
+    if (!p || !p.kcal || p.kcal === 0) return -999;
+    const protRatio = (p.prot * 4) / p.kcal;
+    const carbPenalty = Math.max(0, (p.carbs * 4 / p.kcal) - 0.32) * 0.6;
+    const fatPenalty  = Math.max(0, (p.fat * 9 / p.kcal) - 0.25) * 0.9;
+    return protRatio - carbPenalty - fatPenalty;
+  }
+
+  // Compute all scores, then normalize
+  let allFoods = [];
+  let scoreMin = Infinity, scoreMax = -Infinity;
+
+  function initFoods() {
+    allFoods = FOOD_DATABASE.map(f => {
+      const fam = inferFamily(f);
+      const raw = computeRawScore(f.per100g);
+      const tc = tripleCheck(f.per100g);
+      const protDensity = f.per100g.kcal > 0 ? r1(f.per100g.prot / f.per100g.kcal * 100) : 0;
+      return { ...f, family: fam.name, familyIcon: fam.icon, rawScore: raw, tc, protDensity };
+    });
+
+    // Find min/max for normalization (exclude extreme outliers)
+    const valids = allFoods.filter(f => f.rawScore > -900);
+    scoreMin = Math.min(...valids.map(f => f.rawScore));
+    scoreMax = Math.max(...valids.map(f => f.rawScore));
+
+    allFoods.forEach(f => {
+      if (f.rawScore <= -900) { f.score = 0; return; }
+      f.score = clamp(Math.round((f.rawScore - scoreMin) / (scoreMax - scoreMin) * 100), 0, 100);
+    });
+  }
+
+  function scoreClass(s) {
+    if (s >= 60) return 'score-excelente';
+    if (s >= 40) return 'score-bueno';
+    if (s >= 20) return 'score-regular';
+    return 'score-pobre';
+  }
+  function scoreLabel(s) {
+    if (s >= 60) return 'Excelente';
+    if (s >= 40) return 'Bueno';
+    if (s >= 20) return 'Regular';
+    return 'Pobre';
+  }
+  function famClass(name) { return 'fam-' + name.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,''); }
+
+  // ── State ──
+  const state = {
+    tab: 'tabla',
+    search: '',
+    familyFilter: '',
+    scoreMin: 0,
+    sortCol: 'score',
+    sortDir: -1,
+    selectedMeal: null
+  };
+
+  // ── Tab navigation ──
+  document.querySelectorAll('.pill[data-tab]').forEach(btn => {
+    btn.addEventListener('click', () => {
+      state.tab = btn.dataset.tab;
+      document.querySelectorAll('.pill[data-tab]').forEach(b => b.classList.toggle('active', b === btn));
+      document.querySelectorAll('.tab-panel').forEach(p => p.classList.toggle('active', p.id === 'tab-' + state.tab));
+      if (state.tab === 'familias') renderFamilies();
+      if (state.tab === 'optimizer') renderOptimizer();
+    });
+  });
+
+  // ── TAB 1: Food Table ──
+  const COLS = [
+    { key: 'name',     label: 'Alimento',   sortable: true },
+    { key: 'family',   label: 'Familia',     sortable: true },
+    { key: 'kcal',     label: 'Kcal',        sortable: true, num: true },
+    { key: 'prot',     label: 'Prot',        sortable: true, num: true },
+    { key: 'carbs',    label: 'Carbs',       sortable: true, num: true, mobile_hide: true },
+    { key: 'fat',      label: 'Fat',         sortable: true, num: true, mobile_hide: true },
+    { key: 'protDens', label: 'g Prot/100kcal', sortable: true, num: true },
+    { key: 'score',    label: 'Score',       sortable: true, num: true },
+    { key: 'tc',       label: 'Check',       sortable: false }
+  ];
+
+  function renderTableHead() {
+    const head = document.getElementById('tableHead');
+    head.innerHTML = COLS.map(c => {
+      const sorted = state.sortCol === c.key;
+      const arrow = sorted ? (state.sortDir === 1 ? '▲' : '▼') : '';
+      const cls = [sorted ? 'sorted' : '', c.mobile_hide ? 'hide-mobile' : ''].filter(Boolean).join(' ');
+      return `<th class="${cls}" data-sort="${c.sortable ? c.key : ''}">${c.label} <span class="arrow">${arrow}</span></th>`;
+    }).join('');
+  }
+
+  function getFiltered() {
+    let list = allFoods;
+    if (state.search) {
+      const q = state.search.toLowerCase();
+      list = list.filter(f => f.name.toLowerCase().includes(q) || (f.brand||'').toLowerCase().includes(q) || f.id.includes(q));
+    }
+    if (state.familyFilter) list = list.filter(f => f.family === state.familyFilter);
+    if (state.scoreMin > 0) list = list.filter(f => f.score >= state.scoreMin);
+
+    // Sort
+    const col = state.sortCol;
+    const dir = state.sortDir;
+    list.sort((a, b) => {
+      let va, vb;
+      if (col === 'name') { va = a.name.toLowerCase(); vb = b.name.toLowerCase(); return va < vb ? -dir : va > vb ? dir : 0; }
+      if (col === 'family') { va = a.family; vb = b.family; return va < vb ? -dir : va > vb ? dir : 0; }
+      if (col === 'kcal') { va = a.per100g.kcal; vb = b.per100g.kcal; }
+      else if (col === 'prot') { va = a.per100g.prot; vb = b.per100g.prot; }
+      else if (col === 'carbs') { va = a.per100g.carbs; vb = b.per100g.carbs; }
+      else if (col === 'fat') { va = a.per100g.fat; vb = b.per100g.fat; }
+      else if (col === 'protDens') { va = a.protDensity; vb = b.protDensity; }
+      else if (col === 'score') { va = a.score; vb = b.score; }
+      else { va = 0; vb = 0; }
+      return (va - vb) * dir;
+    });
+    return list;
+  }
+
+  function renderTable() {
+    renderTableHead();
+    const list = getFiltered();
+    const body = document.getElementById('tableBody');
+    document.getElementById('results-count').textContent = `${list.length} alimentos`;
+
+    body.innerHTML = list.map(f => {
+      const p = f.per100g;
+      const tc = f.tc;
+      return `<tr>
+        <td class="name-cell">${f.name}${f.brand ? `<div class="brand-cell">${f.brand}</div>` : ''}</td>
+        <td><span class="family-badge ${famClass(f.family)}">${f.familyIcon} ${f.family}</span></td>
+        <td class="num-cell">${p.kcal}</td>
+        <td class="num-cell" style="font-weight:600;color:var(--teal)">${p.prot}g</td>
+        <td class="num-cell hide-mobile">${p.carbs}g</td>
+        <td class="num-cell hide-mobile">${p.fat}g</td>
+        <td class="num-cell" style="font-weight:600">${f.protDensity}g</td>
+        <td class="num-cell"><span class="score-badge ${scoreClass(f.score)}">${f.score}</span></td>
+        <td><div class="tc-dots">
+          <div class="tc-dot ${tc.prot ? 'tc-pass' : 'tc-fail'}" title="Prot ≥10%"></div>
+          <div class="tc-dot ${tc.carbs ? 'tc-pass' : 'tc-fail'}" title="Carbs ≤7%"></div>
+          <div class="tc-dot ${tc.fat ? 'tc-pass' : 'tc-fail'}" title="Fat ≤5%"></div>
+        </div></td>
+      </tr>`;
+    }).join('');
+  }
+
+  // Table sort
+  document.getElementById('foodTable').addEventListener('click', e => {
+    const th = e.target.closest('th[data-sort]');
+    if (!th || !th.dataset.sort) return;
+    const col = th.dataset.sort;
+    if (state.sortCol === col) state.sortDir *= -1;
+    else { state.sortCol = col; state.sortDir = -1; }
+    renderTable();
+  });
+
+  // Search
+  let searchTimer;
+  document.getElementById('search').addEventListener('input', e => {
+    clearTimeout(searchTimer);
+    searchTimer = setTimeout(() => { state.search = e.target.value; renderTable(); }, 200);
+  });
+
+  // Family filter
+  document.getElementById('familyFilter').addEventListener('change', e => {
+    state.familyFilter = e.target.value;
+    renderTable();
+  });
+
+  // Score filters
+  document.querySelectorAll('.score-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      state.scoreMin = parseInt(btn.dataset.min);
+      document.querySelectorAll('.score-btn').forEach(b => b.classList.toggle('active', b === btn));
+      renderTable();
+    });
+  });
+
+  function populateFamilyFilter() {
+    const families = [...new Set(allFoods.map(f => f.family))].sort();
+    const sel = document.getElementById('familyFilter');
+    families.forEach(fam => {
+      const opt = document.createElement('option');
+      opt.value = fam; opt.textContent = fam;
+      sel.appendChild(opt);
+    });
+  }
+
+  // ── TAB 2: Family Analysis ──
+  function renderFamilies() {
+    const groups = {};
+    allFoods.forEach(f => {
+      if (!groups[f.family]) groups[f.family] = { name: f.family, icon: f.familyIcon, items: [] };
+      groups[f.family].items.push(f);
+    });
+
+    const families = Object.values(groups).sort((a, b) => {
+      const avgA = a.items.reduce((s, f) => s + f.score, 0) / a.items.length;
+      const avgB = b.items.reduce((s, f) => s + f.score, 0) / b.items.length;
+      return avgB - avgA;
+    });
+
+    // Summary
+    const totalFoods = allFoods.length;
+    const avgScore = Math.round(allFoods.reduce((s, f) => s + f.score, 0) / totalFoods);
+    const bestFam = families[0];
+    const worstFam = families[families.length - 1];
+
+    document.getElementById('familySummary').innerHTML = `
+      <div class="summary-stat"><div class="val">${totalFoods}</div><div class="label">Alimentos</div></div>
+      <div class="summary-stat"><div class="val" style="color:var(--teal)">${avgScore}</div><div class="label">Score Promedio</div></div>
+      <div class="summary-stat"><div class="val" style="color:var(--green)">${bestFam.icon} ${bestFam.name}</div><div class="label">Mejor Familia</div></div>
+      <div class="summary-stat"><div class="val" style="color:var(--red)">${worstFam.icon} ${worstFam.name}</div><div class="label">Peor Familia</div></div>
+    `;
+
+    document.getElementById('familyGrid').innerHTML = families.map(fam => {
+      const items = fam.items;
+      const avg = Math.round(items.reduce((s, f) => s + f.score, 0) / items.length);
+      const avgKcal = Math.round(items.reduce((s, f) => s + f.per100g.kcal, 0) / items.length);
+      const avgProt = r1(items.reduce((s, f) => s + f.per100g.prot, 0) / items.length);
+      const avgCarbs = r1(items.reduce((s, f) => s + f.per100g.carbs, 0) / items.length);
+      const avgFat = r1(items.reduce((s, f) => s + f.per100g.fat, 0) / items.length);
+
+      const sorted = [...items].sort((a, b) => b.score - a.score);
+      const best = sorted[0];
+      const worst = sorted[sorted.length - 1];
+
+      return `<div class="card family-card">
+        <div class="fam-header">
+          <span class="fam-icon">${fam.icon}</span>
+          <div>
+            <div class="fam-name">${fam.name}</div>
+            <div class="fam-count">${items.length} alimentos</div>
+          </div>
+          <span class="score-badge ${scoreClass(avg)}" style="margin-left:auto">${avg}</span>
+        </div>
+        <div class="fam-avg">
+          <div class="fam-stat"><div class="fam-stat-val">${avgKcal}</div><div class="fam-stat-label">Kcal</div></div>
+          <div class="fam-stat"><div class="fam-stat-val" style="color:var(--teal)">${avgProt}g</div><div class="fam-stat-label">Prot</div></div>
+          <div class="fam-stat"><div class="fam-stat-val" style="color:var(--yellow)">${avgCarbs}g</div><div class="fam-stat-label">Carbs</div></div>
+          <div class="fam-stat"><div class="fam-stat-val" style="color:var(--orange)">${avgFat}g</div><div class="fam-stat-label">Fat</div></div>
+        </div>
+        <div class="fam-pick pick-best">
+          <div><div class="pick-label">Mejor</div><div class="pick-name">${best.name}</div></div>
+          <span class="score-badge ${scoreClass(best.score)}">${best.score}</span>
+        </div>
+        ${worst !== best ? `<div class="fam-pick pick-worst">
+          <div><div class="pick-label">Peor</div><div class="pick-name">${worst.name}</div></div>
+          <span class="score-badge ${scoreClass(worst.score)}">${worst.score}</span>
+        </div>` : ''}
+      </div>`;
+    }).join('');
+  }
+
+  // ── TAB 3: Meal Optimizer ──
+  function getRecentMeals() {
+    const now = new Date();
+    const tenDaysAgo = new Date(now); tenDaysAgo.setDate(tenDaysAgo.getDate() - 10);
+    const cutoff = tenDaysAgo.toISOString().slice(0, 10);
+    return MEAL_LOG.filter(m => m.date >= cutoff && !m.who).reverse();
+  }
+
+  function mealMacros(meal) {
+    const totals = { kcal: 0, prot: 0, carbs: 0, fat: 0 };
+    (meal.items || []).forEach(item => {
+      totals.kcal += item.kcal || 0;
+      totals.prot += item.prot || 0;
+      totals.carbs += item.carbs || 0;
+      totals.fat += item.fat || 0;
+    });
+    return { kcal: r1(totals.kcal), prot: r1(totals.prot), carbs: r1(totals.carbs), fat: r1(totals.fat) };
+  }
+
+  function renderOptimizer() {
+    const meals = getRecentMeals();
+    const labels = { desayuno: 'Desayuno', almuerzo: 'Almuerzo', cena: 'Cena', snack: 'Snack' };
+    const icons = { desayuno: '🥣', almuerzo: '🍲', cena: '🌙', snack: '🍎' };
+
+    const list = document.getElementById('mealList');
+    list.innerHTML = meals.map((m, i) => {
+      const mac = mealMacros(m);
+      return `<div class="opt-meal-item ${state.selectedMeal === i ? 'selected' : ''}" data-idx="${i}">
+        <span class="opt-meal-kcal">${Math.round(mac.kcal)} kcal</span>
+        <span class="opt-meal-date">${m.date}</span>
+        <span class="opt-meal-type">${icons[m.meal]||''} ${labels[m.meal]||m.meal}</span>
+      </div>`;
+    }).join('');
+
+    list.querySelectorAll('.opt-meal-item').forEach(el => {
+      el.addEventListener('click', () => {
+        state.selectedMeal = parseInt(el.dataset.idx);
+        renderOptimizer();
+        renderMealAnalysis(meals[state.selectedMeal]);
+      });
+    });
+
+    if (state.selectedMeal !== null && meals[state.selectedMeal]) {
+      renderMealAnalysis(meals[state.selectedMeal]);
+    }
+  }
+
+  function renderMealAnalysis(meal) {
+    const mac = mealMacros(meal);
+    const tc = tripleCheck({ kcal: mac.kcal, prot: mac.prot, carbs: mac.carbs, fat: mac.fat });
+    const labels = { desayuno: 'Desayuno', almuerzo: 'Almuerzo', cena: 'Cena', snack: 'Snack' };
+
+    const el = document.getElementById('mealAnalysis');
+    el.innerHTML = `
+      <div class="card-title">${labels[meal.meal]||meal.meal} - ${meal.date}</div>
+      <div style="margin-bottom:12px;font-size:13px;color:var(--text-sec)">
+        ${(meal.items||[]).map(it => `${it.name} (${it.grams}g)`).join(', ')}
+      </div>
+      <div class="macro-bar">
+        <div class="macro-item macro-kcal"><div class="macro-val">${Math.round(mac.kcal)}</div><div class="macro-label">Kcal</div></div>
+        <div class="macro-item macro-prot"><div class="macro-val">${mac.prot}g</div><div class="macro-label">Proteina</div></div>
+        <div class="macro-item macro-carbs"><div class="macro-val">${mac.carbs}g</div><div class="macro-label">Carbs</div></div>
+        <div class="macro-item macro-fat"><div class="macro-val">${mac.fat}g</div><div class="macro-label">Grasa</div></div>
+      </div>
+      <div class="tc-summary">
+        <span class="tc-tag ${tc.prot ? 'tc-tag-pass' : 'tc-tag-fail'}">P ${r1(mac.prot/mac.kcal*100)}%</span>
+        <span class="tc-tag ${tc.carbs ? 'tc-tag-pass' : 'tc-tag-fail'}">C ${r1(mac.carbs/mac.kcal*100)}%</span>
+        <span class="tc-tag ${tc.fat ? 'tc-tag-pass' : 'tc-tag-fail'}">F ${r1(mac.fat/mac.kcal*100)}%</span>
+      </div>
+    `;
+
+    renderRecommendations(mac);
+  }
+
+  function renderRecommendations(currentMac) {
+    const target = NUTRITION_CONFIG.targets;
+    const protGap = target.prot - currentMac.prot;
+    const kcalBudget = (target.kcal * 0.35) - currentMac.kcal; // assume this meal is ~35% of daily
+
+    // Find foods that would improve protein density
+    const candidates = allFoods
+      .filter(f => f.per100g.prot > 5 && f.per100g.kcal > 0 && f.score >= 30)
+      .map(f => {
+        // Suggest portion to add ~15-30g protein or fill gap
+        const targetProt = Math.min(30, Math.max(10, protGap * 0.5));
+        const grams = Math.round(targetProt / f.per100g.prot * 100);
+        const clampedGrams = clamp(grams, 20, 200);
+        const addKcal = r1(clampedGrams / 100 * f.per100g.kcal);
+        const addProt = r1(clampedGrams / 100 * f.per100g.prot);
+        const addCarbs = r1(clampedGrams / 100 * f.per100g.carbs);
+        const addFat = r1(clampedGrams / 100 * f.per100g.fat);
+
+        // New meal macros
+        const newMac = {
+          kcal: currentMac.kcal + addKcal,
+          prot: currentMac.prot + addProt,
+          carbs: currentMac.carbs + addCarbs,
+          fat: currentMac.fat + addFat
+        };
+        const newTc = tripleCheck(newMac);
+        const tcPasses = [newTc.prot, newTc.carbs, newTc.fat].filter(Boolean).length;
+        const oldTc = tripleCheck(currentMac);
+        const oldPasses = [oldTc.prot, oldTc.carbs, oldTc.fat].filter(Boolean).length;
+        const improvement = tcPasses - oldPasses;
+
+        return { food: f, grams: clampedGrams, addKcal, addProt, addCarbs, addFat, tcPasses, improvement, newProtRatio: r1(newMac.prot / newMac.kcal * 100) };
+      })
+      .filter(r => r.addKcal < 300) // don't suggest huge additions
+      .sort((a, b) => {
+        // Priority: more TC passes, then higher protein ratio
+        if (b.tcPasses !== a.tcPasses) return b.tcPasses - a.tcPasses;
+        return b.newProtRatio - a.newProtRatio;
+      })
+      .slice(0, 8);
+
+    const el = document.getElementById('mealRecs');
+    if (candidates.length === 0) {
+      el.innerHTML = `<div class="card-title">Recomendaciones</div><div class="empty-state">Esta comida ya es optima</div>`;
+      return;
+    }
+
+    el.innerHTML = `
+      <div class="card-title">Agregar para mejorar</div>
+      <div style="font-size:12px;color:var(--text-sec);margin-bottom:10px;">Gap proteina: ${r1(protGap)}g restantes del target diario</div>
+      ${candidates.map(r => `
+        <div class="rec-card">
+          <div>
+            <div class="rec-food">${r.food.familyIcon} ${r.food.name}</div>
+            <div class="rec-portion">${r.grams}g → +${r.addProt}g prot, +${Math.round(r.addKcal)} kcal</div>
+          </div>
+          <div style="text-align:right">
+            <div class="rec-adds">${r.tcPasses}/3 checks</div>
+            ${r.improvement > 0 ? `<div class="rec-score-change" style="color:var(--green)">+${r.improvement} check${r.improvement>1?'s':''}</div>` : ''}
+          </div>
+        </div>
+      `).join('')}
+    `;
+  }
+
+  // ── Init ──
+  initFoods();
+  populateFamilyFilter();
+  renderTable();
+  document.querySelector('.score-btn[data-min="0"]').classList.add('active');
+
+})();
+</script>
+</body>
+</html>
