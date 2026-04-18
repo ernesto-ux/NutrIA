@@ -1334,6 +1334,7 @@ const FOOD_DATABASE = [
     name: "Croissant Artisanal",
     brand: "Les Commères",
     per100g: { kcal: 406, prot: 8.2, carbs: 45.8, fat: 21, fiber: 2 },
+    unitWeight: 50, unitLabel: "croissant",
     source: "web",
     addedDate: "2026-04-18"
   },
@@ -1342,6 +1343,7 @@ const FOOD_DATABASE = [
     name: "Chausson aux Pommes Artisanal",
     brand: "Les Commères",
     per100g: { kcal: 340, prot: 3.5, carbs: 40, fat: 18, fiber: 1.5 },
+    unitWeight: 140, unitLabel: "chausson",
     source: "web",
     addedDate: "2026-04-18"
   },

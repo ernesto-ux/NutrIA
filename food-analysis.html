@@ -406,14 +406,22 @@
   });
 
   // ── TAB 1: Food Table ──
+  // Pre-compute global ranking (by score desc, always)
+  function computeRankings() {
+    const sorted = [...allFoods].sort((a, b) => b.score - a.score);
+    sorted.forEach((f, i) => { f.globalRank = i + 1; });
+  }
+
   const COLS = [
-    { key: 'name',     label: 'Alimento',   sortable: true },
+    { key: 'rank',     label: '#',           sortable: true, num: true },
+    { key: 'name',     label: 'Alimento',    sortable: true },
     { key: 'family',   label: 'Familia',     sortable: true },
     { key: 'kcal',     label: 'Kcal',        sortable: true, num: true },
     { key: 'prot',     label: 'Prot',        sortable: true, num: true },
     { key: 'carbs',    label: 'Carbs',       sortable: true, num: true, mobile_hide: true },
     { key: 'fat',      label: 'Fat',         sortable: true, num: true, mobile_hide: true },
-    { key: 'protDens', label: 'g Prot/100kcal', sortable: true, num: true },
+    { key: 'protDens', label: 'Prot/100kcal', sortable: true, num: true },
+    { key: 'piece',    label: 'Por Pieza',   sortable: false },
     { key: 'score',    label: 'Score',       sortable: true, num: true },
     { key: 'tc',       label: 'Check',       sortable: false }
   ];
@@ -444,7 +452,8 @@
       let va, vb;
       if (col === 'name') { va = a.name.toLowerCase(); vb = b.name.toLowerCase(); return va < vb ? -dir : va > vb ? dir : 0; }
       if (col === 'family') { va = a.family; vb = b.family; return va < vb ? -dir : va > vb ? dir : 0; }
-      if (col === 'kcal') { va = a.per100g.kcal; vb = b.per100g.kcal; }
+      if (col === 'rank') { va = a.globalRank; vb = b.globalRank; }
+      else if (col === 'kcal') { va = a.per100g.kcal; vb = b.per100g.kcal; }
       else if (col === 'prot') { va = a.per100g.prot; vb = b.per100g.prot; }
       else if (col === 'carbs') { va = a.per100g.carbs; vb = b.per100g.carbs; }
       else if (col === 'fat') { va = a.per100g.fat; vb = b.per100g.fat; }
@@ -460,12 +469,35 @@
     renderTableHead();
     const list = getFiltered();
     const body = document.getElementById('tableBody');
-    document.getElementById('results-count').textContent = `${list.length} alimentos`;
+    const countEl = document.getElementById('results-count');
+    if (state.search && list.length > 0 && list.length <= 5) {
+      const ranks = list.map(f => `${f.name}: #${f.globalRank}/${total}`).join(' · ');
+      countEl.innerHTML = `${list.length} resultado${list.length>1?'s':''} — <span style="color:var(--teal)">${ranks}</span>`;
+    } else {
+      countEl.textContent = `${list.length} alimentos`;
+    }
 
+    const total = allFoods.length;
     body.innerHTML = list.map(f => {
       const p = f.per100g;
       const tc = f.tc;
+      // Per-piece info
+      let pieceHtml = '<span style="color:var(--text-sec);font-size:11px">—</span>';
+      if (f.unitWeight) {
+        const w = f.unitWeight;
+        const pKcal = Math.round(w / 100 * p.kcal);
+        const pProt = r1(w / 100 * p.prot);
+        const pCarbs = r1(w / 100 * p.carbs);
+        const pFat = r1(w / 100 * p.fat);
+        pieceHtml = `<div style="font-size:11px;line-height:1.3">
+          <div style="font-weight:600">${w}g/${f.unitLabel||'ud'}</div>
+          <div>${pKcal}kcal <span style="color:var(--teal)">${pProt}p</span> <span style="color:var(--yellow)">${pCarbs}c</span> <span style="color:var(--orange)">${pFat}f</span></div>
+        </div>`;
+      }
+      // Rank badge color
+      const rankColor = f.globalRank <= 10 ? 'var(--green)' : f.globalRank <= 30 ? 'var(--teal)' : f.globalRank <= total * 0.5 ? 'var(--text)' : f.globalRank <= total * 0.75 ? 'var(--yellow)' : 'var(--red)';
       return `<tr>
+        <td class="num-cell" style="font-weight:700;color:${rankColor}">${f.globalRank}<span style="color:var(--text-sec);font-size:10px">/${total}</span></td>
         <td class="name-cell">${f.name}${f.brand ? `<div class="brand-cell">${f.brand}</div>` : ''}</td>
         <td><span class="family-badge ${famClass(f.family)}">${f.familyIcon} ${f.family}</span></td>
         <td class="num-cell">${p.kcal}</td>
@@ -473,6 +505,7 @@
         <td class="num-cell hide-mobile">${p.carbs}g</td>
         <td class="num-cell hide-mobile">${p.fat}g</td>
         <td class="num-cell" style="font-weight:600">${f.protDensity}g</td>
+        <td>${pieceHtml}</td>
         <td class="num-cell"><span class="score-badge ${scoreClass(f.score)}">${f.score}</span></td>
         <td><div class="tc-dots">
           <div class="tc-dot ${tc.prot ? 'tc-pass' : 'tc-fail'}" title="Prot ≥10%"></div>
@@ -732,6 +765,7 @@
 
   // ── Init ──
   initFoods();
+  computeRankings();
   populateFamilyFilter();
   renderTable();
   document.querySelector('.score-btn[data-min="0"]').classList.add('active');
