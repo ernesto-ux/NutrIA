@@ -3400,9 +3400,12 @@ const MEAL_LOG = [
     meal: "desayuno",
     items: [
       { foodId: "avena-cruda", name: "Avena en Hojuelas (75%)", grams: 30, kcal: 116.7, prot: 5.1, carbs: 19.9, fat: 2.1 },
-      { foodId: "huevo-entero", name: "Huevo Entero (x1)", grams: 50, units: 1, kcal: 77.5, prot: 6.5, carbs: 0.6, fat: 5.5 },
-      { foodId: "cocoa-en-polvo", name: "Cocoa en Polvo", grams: 8, kcal: 18.2, prot: 1.6, carbs: 4.6, fat: 1.1 },
-      { foodId: "eafit-pure-isolate-vanille", name: "EAFit Vainilla", grams: 40, kcal: 146.4, prot: 34.4, carbs: 1.3, fat: 0.4 }
+      { foodId: "huevo-entero", name: "Huevo Entero (75%)", grams: 37.5, kcal: 58.1, prot: 4.9, carbs: 0.4, fat: 4.1 },
+      { foodId: "cocoa-en-polvo", name: "Cocoa en Polvo (75%)", grams: 6, kcal: 13.7, prot: 1.2, carbs: 3.5, fat: 0.8 },
+      { foodId: "eafit-pure-isolate-vanille", name: "EAFit Vainilla (75%)", grams: 30, kcal: 109.8, prot: 25.8, carbs: 1.0, fat: 0.3 },
+      { foodId: "weider-peanut-butter-powder", name: "PB Powder (2 tsp)", grams: 10, kcal: 44.0, prot: 4.9, carbs: 1.9, fat: 1.3 },
+      { foodId: "hipro-vanille", name: "HiPro Vanille", grams: 100, kcal: 77.0, prot: 10.2, carbs: 5.9, fat: 0.8 },
+      { foodId: "leche-almendra", name: "Leche Almendra Alpro Grillée", grams: 150, kcal: 19.5, prot: 0.6, carbs: 0.3, fat: 1.7 }
     ],
     timestamp: "2026-04-18T09:00:00"
   },
