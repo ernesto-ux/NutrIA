@@ -2,7 +2,7 @@
 // Updated by Claude Code via /log-food skill
 // DO NOT EDIT MANUALLY - use /log-food to add meals
 
-const DATA_TIMESTAMP = "2026-04-18T21:30:00 Europe/Paris";
+const DATA_TIMESTAMP = "2026-04-18T22:30:00 Europe/Paris";
 
 const NUTRITION_CONFIG = {
   targets: { kcal: 1770, prot: 190, carbs: 140, fat: 50 },
@@ -3529,6 +3529,16 @@ const MEAL_LOG = [
       { foodId: "profiterole-sorbet-vanille-chocolat", name: "Profiterole (sorbete vainilla, choco, avellana)", grams: 180, kcal: 504.0, prot: 7.2, carbs: 59.4, fat: 25.2 }
     ],
     timestamp: "2026-04-18T21:00:00"
+  },
+  // Ernesto - Snack 18/04 - Proteina para meta
+  {
+    id: "2026-04-18-004",
+    date: "2026-04-18",
+    meal: "snack",
+    items: [
+      { foodId: "eafit-pure-isolate-vanille", name: "EAFit Vainilla", grams: 48, kcal: 175.7, prot: 41.3, carbs: 1.6, fat: 0.4 }
+    ],
+    timestamp: "2026-04-18T22:30:00"
   }
 
 ];
@@ -3555,7 +3565,8 @@ const ACTIVITY_LOG = [
   { date: "2026-04-14", steps: 4737, stepsKcal: 125, gym: "gym", gymKcal: 480, notes: "" },
   { date: "2026-04-15", steps: 5500, stepsKcal: 150, gym: null, gymKcal: 0, notes: "" },
   { date: "2026-04-16", steps: 6336, stepsKcal: 175, gym: null, gymKcal: 0, notes: "" },
-  { date: "2026-04-17", steps: 8800, stepsKcal: 250, gym: "caminata cardio 45min", gymKcal: 300, notes: "" }
+  { date: "2026-04-17", steps: 8800, stepsKcal: 250, gym: "caminata cardio 45min", gymKcal: 300, notes: "" },
+  { date: "2026-04-18", steps: 16846, stepsKcal: 500, gym: "gym", gymKcal: 507, notes: "pizza LouieLouie" }
 ];
 
 // Daily energy balance (sabado a sabado: 29 mar - 4 abr + dom 5)
