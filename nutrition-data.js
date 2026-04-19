@@ -2,7 +2,7 @@
 // Updated by Claude Code via /log-food skill
 // DO NOT EDIT MANUALLY - use /log-food to add meals
 
-const DATA_TIMESTAMP = "2026-04-18T22:30:00 Europe/Paris";
+const DATA_TIMESTAMP = "2026-04-20T00:15:00 Europe/Paris";
 
 const NUTRITION_CONFIG = {
   targets: { kcal: 1770, prot: 190, carbs: 140, fat: 50 },
@@ -1196,6 +1196,7 @@ const FOOD_DATABASE = [
     name: "Tostones de Plátano Macho (fritos, secados con toalla)",
     brand: "Homemade",
     per100g: { kcal: 280, prot: 1.3, carbs: 44, fat: 11, fiber: 2 },
+    unitWeight: 33, unitLabel: "toston",
     source: "web",
     addedDate: "2026-04-15"
   },
@@ -1395,6 +1396,96 @@ const FOOD_DATABASE = [
     per100g: { kcal: 35, prot: 0, carbs: 9, fat: 0, fiber: 0 },
     source: "web",
     addedDate: "2026-04-18"
+  },
+  // === PRODUCTOS Y RECETARIO (added 2026-04-19) ===
+  {
+    id: "alfajor-havanna-chocolate-ddl",
+    name: "Alfajor Chocolate con Dulce de Leche",
+    brand: "Havanna",
+    per100g: { kcal: 409, prot: 5.3, carbs: 58, fat: 17, fiber: 1 },
+    unitWeight: 55, unitLabel: "alfajor",
+    source: "web",
+    addedDate: "2026-04-19"
+  },
+  {
+    id: "arepa-maiz-blanco-casera",
+    name: "Arepa de Maiz Blanco Casera (Harina PAN, cocida)",
+    brand: "Homemade",
+    per100g: { kcal: 152, prot: 3.5, carbs: 34, fat: 0.7, fiber: 1.5 },
+    source: "web",
+    addedDate: "2026-04-19"
+  },
+  {
+    id: "hipro-chocolate-drink",
+    name: "HiPro Protein Drink Chocolat (bebida liquida)",
+    brand: "Danone",
+    per100g: { kcal: 54, prot: 7.2, carbs: 4, fat: 0.3, fiber: 0 },
+    source: "web",
+    addedDate: "2026-04-19",
+    notes: "Botella 345ml, 25g proteina. Bebida liquida, no yogur"
+  },
+  {
+    id: "cottage-cheese-president",
+    name: "Cottage Cheese",
+    brand: "President",
+    per100g: { kcal: 99, prot: 12, carbs: 2.5, fat: 4.5, fiber: 0 },
+    source: "web",
+    addedDate: "2026-04-19"
+  },
+  {
+    id: "casamiento-arroz-frijoles",
+    name: "Casamiento (Arroz Cocido + Frijoles Negros Licuados)",
+    brand: "Homemade",
+    per100g: { kcal: 115, prot: 3.9, carbs: 22, fat: 0.8, fiber: 2 },
+    source: "recetario",
+    addedDate: "2026-04-19",
+    notes: "Mezcla ~62% arroz cocido + ~38% frijoles negros licuados, salteado sin grasa extra"
+  },
+  {
+    id: "pollo-pepiado-zucchini",
+    name: "Pollo Pepiado (pechuga hervida + zucchini licuado + AOVE)",
+    brand: "Recetario",
+    per100g: { kcal: 91, prot: 13.3, carbs: 1.8, fat: 3.3, fiber: 0.5 },
+    totalG: 615,
+    source: "recetario",
+    addedDate: "2026-04-19",
+    notes: "Pechuga hervida (~250g cocida), salteada en AOVE con ajo, 2 zucchinis licuados (~400g). Total ~615g"
+  },
+  {
+    id: "salsa-skyr-cilantro",
+    name: "Salsa de Skyr con Cilantro y AOVE",
+    brand: "Recetario",
+    per100g: { kcal: 85, prot: 10, carbs: 4, fat: 3, fiber: 0 },
+    source: "recetario",
+    addedDate: "2026-04-19",
+    notes: "Skyr siggis + ajo + AOVE poquito + cilantro"
+  },
+  {
+    id: "guacamole-zucchini-limon",
+    name: "Guacamole de Aguacate con Zucchini y Limon",
+    brand: "Homemade",
+    per100g: { kcal: 88, prot: 1.5, carbs: 5.7, fat: 7.5, fiber: 3 },
+    source: "recetario",
+    addedDate: "2026-04-19",
+    notes: "1/2 aguacate + 1/2 zucchini + limon"
+  },
+  {
+    id: "cebolla-salteada",
+    name: "Cebolla Salteada (poco aceite)",
+    brand: "",
+    per100g: { kcal: 50, prot: 1.1, carbs: 9, fat: 1, fiber: 1.5 },
+    source: "web",
+    addedDate: "2026-04-19"
+  },
+  {
+    id: "shake-vanilla-fresas",
+    name: "Shake Vanilla Fresas (EAFit + fresas + agua)",
+    brand: "Recetario",
+    per100g: { kcal: 44, prot: 8.8, carbs: 2.1, fat: 0.2, fiber: 0.3 },
+    totalG: 300,
+    source: "recetario",
+    addedDate: "2026-04-19",
+    notes: "~30g EAFit vanille + ~70g fresas frescas + ~200ml agua, licuado"
   }
 ];
 
@@ -3539,6 +3630,136 @@ const MEAL_LOG = [
       { foodId: "eafit-pure-isolate-vanille", name: "EAFit Vainilla", grams: 48, kcal: 175.7, prot: 41.3, carbs: 1.6, fat: 0.4 }
     ],
     timestamp: "2026-04-18T22:30:00"
+  },
+  // === ERNESTO 2026-04-19 ===
+  {
+    id: "2026-04-19-001",
+    date: "2026-04-19",
+    meal: "desayuno",
+    items: [
+      { foodId: "shake-vanilla-fresas", name: "Shake Vanilla Fresas", grams: 300, kcal: 132.0, prot: 26.4, carbs: 6.3, fat: 0.6 },
+      { foodId: "siggis-skyr-nature", name: "Skyr Nature", grams: 50, kcal: 31.5, prot: 5.5, carbs: 2.0, fat: 0.1 },
+      { foodId: "fresas-frescas", name: "Fresas Frescas", grams: 50, kcal: 16.0, prot: 0.4, carbs: 3.9, fat: 0.2 }
+    ],
+    timestamp: "2026-04-19T09:00:00"
+  },
+  {
+    id: "2026-04-19-002",
+    date: "2026-04-19",
+    meal: "almuerzo",
+    items: [
+      { foodId: "carne-mechada-venezolana", name: "Carne Mechada", grams: 180, kcal: 252.0, prot: 30.6, carbs: 5.4, fat: 11.7 },
+      { foodId: "casamiento-arroz-frijoles", name: "Casamiento", grams: 35, kcal: 40.3, prot: 1.4, carbs: 7.7, fat: 0.3 },
+      { foodId: "pizza-margherite-louielouie", name: "Pizza Margherite (1/6)", grams: 50, kcal: 105.0, prot: 3.5, carbs: 15.5, fat: 3.0 },
+      { foodId: "pizza-jamon-bigorre-louielouie", name: "Pizza Jamon Bigorre (1/6)", grams: 55, kcal: 137.5, prot: 6.1, carbs: 14.9, fat: 5.5 },
+      { foodId: "tostones-platano-macho", name: "Tostones (1.5 uds)", grams: 50, units: 1.5, kcal: 140.0, prot: 0.7, carbs: 22.0, fat: 5.5 }
+    ],
+    timestamp: "2026-04-19T13:00:00"
+  },
+  {
+    id: "2026-04-19-003",
+    date: "2026-04-19",
+    meal: "snack",
+    items: [
+      { foodId: "eafit-pure-isolate-chocolat", name: "EAFit Choco", grams: 40, kcal: 141.6, prot: 32.4, carbs: 1.5, fat: 0.6 },
+      { foodId: "kefir-lactel-0-bio", name: "Kefir Lactel 0%", grams: 50, kcal: 22.0, prot: 1.7, carbs: 2.1, fat: 0.8 },
+      { foodId: "weider-peanut-butter-powder", name: "PB Powder", grams: 3, kcal: 13.2, prot: 1.5, carbs: 0.6, fat: 0.4 },
+      { foodId: "banana-fresca", name: "Banano", grams: 42, kcal: 37.4, prot: 0.5, carbs: 9.6, fat: 0.1 },
+      { foodId: "croissant-boulangerie", name: "Croissant Les Commeres", grams: 50, units: 1, kcal: 203.0, prot: 4.1, carbs: 22.9, fat: 10.5 },
+      { foodId: "alfajor-havanna-chocolate-ddl", name: "Alfajor Havanna (1/2)", grams: 27.5, kcal: 112.5, prot: 1.5, carbs: 16.0, fat: 4.7 }
+    ],
+    timestamp: "2026-04-19T16:00:00"
+  },
+  // Ernesto - Cena 19/04 - Arepa Reina Pepiada
+  {
+    id: "2026-04-19-004",
+    date: "2026-04-19",
+    meal: "cena",
+    items: [
+      { foodId: "pollo-pepiado-zucchini", name: "Pollo Pepiado (pechuga + zucchini + AOVE)", grams: 185, kcal: 168.4, prot: 24.6, carbs: 3.3, fat: 6.1 },
+      { foodId: "salsa-skyr-cilantro", name: "Salsa de Skyr", grams: 36, kcal: 30.6, prot: 3.6, carbs: 1.4, fat: 1.1 },
+      { foodId: "guacamole-zucchini-limon", name: "Guacamole Zucchini Limon", grams: 20, kcal: 17.6, prot: 0.3, carbs: 1.1, fat: 1.5 },
+      { foodId: "cebolla-salteada", name: "Cebolla Salteada", grams: 17, kcal: 8.5, prot: 0.2, carbs: 1.5, fat: 0.2 },
+      { foodId: "cilantro-fresco", name: "Cilantro", grams: 3, kcal: 0.7, prot: 0.1, carbs: 0.1, fat: 0 },
+      { foodId: "arepa-maiz-blanco-casera", name: "Arepa Maiz Blanco", grams: 186, kcal: 282.7, prot: 6.5, carbs: 63.2, fat: 1.3 },
+      { foodId: "aguacate-fresco", name: "Aguacate", grams: 25, kcal: 40.0, prot: 0.5, carbs: 2.1, fat: 3.7 },
+      { foodId: "danone-cottage-cheese", name: "Cottage (1.5 tbsp)", grams: 22.5, kcal: 20.3, prot: 2.7, carbs: 0.4, fat: 0.9 }
+    ],
+    timestamp: "2026-04-19T20:00:00"
+  },
+  {
+    id: "2026-04-19-005",
+    date: "2026-04-19",
+    meal: "snack",
+    items: [
+      { foodId: "hipro-chocolate-drink", name: "HiPro Choco Drink", grams: 100, kcal: 54.0, prot: 7.2, carbs: 4.0, fat: 0.3 }
+    ],
+    timestamp: "2026-04-19T22:00:00"
+  },
+  // === ADRIANA 2026-04-19 ===
+  {
+    id: "2026-04-19-A01",
+    date: "2026-04-19",
+    meal: "desayuno", who: "adriana",
+    items: [
+      { foodId: "eafit-pure-isolate-vanille", name: "EAFit Vanilla", grams: 20, kcal: 73.2, prot: 17.2, carbs: 0.7, fat: 0.2 },
+      { foodId: "siggis-skyr-nature", name: "Skyr Nature", grams: 50, kcal: 31.5, prot: 5.5, carbs: 2.0, fat: 0.1 },
+      { foodId: "fresas-frescas", name: "Fresas Frescas", grams: 50, kcal: 16.0, prot: 0.4, carbs: 3.9, fat: 0.2 }
+    ],
+    timestamp: "2026-04-19T09:00:00"
+  },
+  {
+    id: "2026-04-19-A02",
+    date: "2026-04-19",
+    meal: "snack", who: "adriana",
+    items: [
+      { foodId: "eafit-pure-isolate-chocolat", name: "EAFit Choco", grams: 23, kcal: 81.4, prot: 18.6, carbs: 0.9, fat: 0.4 },
+      { foodId: "kefir-lactel-0-bio", name: "Kefir Lactel 0%", grams: 50, kcal: 22.0, prot: 1.7, carbs: 2.1, fat: 0.8 },
+      { foodId: "weider-peanut-butter-powder", name: "PB Powder", grams: 3, kcal: 13.2, prot: 1.5, carbs: 0.6, fat: 0.4 },
+      { foodId: "banana-fresca", name: "Banano", grams: 44, kcal: 39.2, prot: 0.5, carbs: 10.0, fat: 0.1 },
+      { foodId: "cottage-cheese-president", name: "Cottage President (2 tbsp)", grams: 30, kcal: 29.7, prot: 3.6, carbs: 0.8, fat: 1.4 }
+    ],
+    timestamp: "2026-04-19T11:00:00"
+  },
+  {
+    id: "2026-04-19-A03",
+    date: "2026-04-19",
+    meal: "almuerzo", who: "adriana",
+    items: [
+      { foodId: "pizza-margherite-louielouie", name: "Pizza Margherite (1/6)", grams: 50, kcal: 105.0, prot: 3.5, carbs: 15.5, fat: 3.0 },
+      { foodId: "pizza-jamon-bigorre-louielouie", name: "Pizza Jamon Bigorre (1/6)", grams: 55, kcal: 137.5, prot: 6.1, carbs: 14.9, fat: 5.5 },
+      { foodId: "carne-mechada-venezolana", name: "Carne Mechada", grams: 150, kcal: 210.0, prot: 25.5, carbs: 4.5, fat: 9.8 },
+      { foodId: "casamiento-arroz-frijoles", name: "Casamiento", grams: 30, kcal: 34.5, prot: 1.2, carbs: 6.6, fat: 0.2 },
+      { foodId: "tostones-platano-macho", name: "Tostones (1.5 uds)", grams: 50, units: 1.5, kcal: 140.0, prot: 0.7, carbs: 22.0, fat: 5.5 }
+    ],
+    timestamp: "2026-04-19T13:00:00"
+  },
+  {
+    id: "2026-04-19-A04",
+    date: "2026-04-19",
+    meal: "snack", who: "adriana",
+    items: [
+      { foodId: "alfajor-havanna-chocolate-ddl", name: "Alfajor Havanna (1/2)", grams: 27.5, kcal: 112.5, prot: 1.5, carbs: 16.0, fat: 4.7 }
+    ],
+    timestamp: "2026-04-19T17:00:00"
+  },
+  // Adriana - Cena 19/04 - Arepa Reina Pepiada
+  {
+    id: "2026-04-19-A05",
+    date: "2026-04-19",
+    meal: "cena", who: "adriana",
+    items: [
+      { foodId: "pollo-pepiado-zucchini", name: "Pollo Pepiado", grams: 130, kcal: 118.3, prot: 17.3, carbs: 2.3, fat: 4.3 },
+      { foodId: "salsa-skyr-cilantro", name: "Salsa de Skyr", grams: 34, kcal: 28.9, prot: 3.4, carbs: 1.4, fat: 1.0 },
+      { foodId: "cebolla-salteada", name: "Cebolla Salteada", grams: 16, kcal: 8.0, prot: 0.2, carbs: 1.4, fat: 0.2 },
+      { foodId: "cilantro-fresco", name: "Cilantro", grams: 3, kcal: 0.7, prot: 0.1, carbs: 0.1, fat: 0 },
+      { foodId: "arepa-maiz-blanco-casera", name: "Arepa Maiz Blanco", grams: 83, kcal: 126.2, prot: 2.9, carbs: 28.2, fat: 0.6 },
+      { foodId: "aguacate-fresco", name: "Aguacate", grams: 22, kcal: 35.2, prot: 0.4, carbs: 1.9, fat: 3.2 },
+      { foodId: "cottage-cheese-president", name: "Cottage President + Casero (2 tbsp)", grams: 30, kcal: 29.7, prot: 3.6, carbs: 0.8, fat: 1.4 },
+      { foodId: "hipro-chocolate-drink", name: "HiPro Choco Drink", grams: 100, kcal: 54.0, prot: 7.2, carbs: 4.0, fat: 0.3 },
+      { foodId: "cote-dor-noir-70", name: "Chocolate 70%", grams: 20, kcal: 109.0, prot: 1.6, carbs: 7.0, fat: 8.0 }
+    ],
+    timestamp: "2026-04-19T20:00:00"
   }
 
 ];
