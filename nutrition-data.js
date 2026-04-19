@@ -3666,7 +3666,8 @@ const MEAL_LOG = [
       { foodId: "weider-peanut-butter-powder", name: "PB Powder", grams: 3, kcal: 13.2, prot: 1.5, carbs: 0.6, fat: 0.4 },
       { foodId: "banana-fresca", name: "Banano", grams: 42, kcal: 37.4, prot: 0.5, carbs: 9.6, fat: 0.1 },
       { foodId: "croissant-boulangerie", name: "Croissant Les Commeres", grams: 50, units: 1, kcal: 203.0, prot: 4.1, carbs: 22.9, fat: 10.5 },
-      { foodId: "alfajor-havanna-chocolate-ddl", name: "Alfajor Havanna (1/2)", grams: 27.5, kcal: 112.5, prot: 1.5, carbs: 16.0, fat: 4.7 }
+      { foodId: "alfajor-havanna-chocolate-ddl", name: "Alfajor Havanna (1/2)", grams: 27.5, kcal: 112.5, prot: 1.5, carbs: 16.0, fat: 4.7 },
+      { foodId: "eafit-pure-isolate-vanille", name: "EAFit Vanilla", grams: 30, kcal: 109.8, prot: 25.8, carbs: 1.0, fat: 0.3 }
     ],
     timestamp: "2026-04-19T16:00:00"
   },
