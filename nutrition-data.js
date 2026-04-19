@@ -3667,7 +3667,10 @@ const MEAL_LOG = [
       { foodId: "banana-fresca", name: "Banano", grams: 42, kcal: 37.4, prot: 0.5, carbs: 9.6, fat: 0.1 },
       { foodId: "croissant-boulangerie", name: "Croissant Les Commeres", grams: 50, units: 1, kcal: 203.0, prot: 4.1, carbs: 22.9, fat: 10.5 },
       { foodId: "alfajor-havanna-chocolate-ddl", name: "Alfajor Havanna (1/2)", grams: 27.5, kcal: 112.5, prot: 1.5, carbs: 16.0, fat: 4.7 },
-      { foodId: "eafit-pure-isolate-vanille", name: "EAFit Vanilla", grams: 38, kcal: 139.1, prot: 32.7, carbs: 1.3, fat: 0.3 }
+      { foodId: "eafit-pure-isolate-vanille", name: "EAFit Vanilla", grams: 38, kcal: 139.1, prot: 32.7, carbs: 1.3, fat: 0.3 },
+      { foodId: "wasa-leger", name: "Wasa Leger x2", grams: 19.2, units: 2, kcal: 64.9, prot: 1.7, carbs: 11.9, fat: 0.3 },
+      { foodId: "ricotta-casero", name: "Ricotta Casero", grams: 30, kcal: 52.2, prot: 3.4, carbs: 0.9, fat: 3.9 },
+      { foodId: "mermelada-lucien-fraises-sans-sucres", name: "Mermelada Fraises Sans Sucres", grams: 20, kcal: 17.8, prot: 0.1, carbs: 4.3, fat: 0.1 }
     ],
     timestamp: "2026-04-19T16:00:00"
   },
