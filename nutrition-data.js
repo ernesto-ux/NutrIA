@@ -3650,8 +3650,8 @@ const MEAL_LOG = [
     items: [
       { foodId: "carne-mechada-venezolana", name: "Carne Mechada", grams: 180, kcal: 252.0, prot: 30.6, carbs: 5.4, fat: 11.7 },
       { foodId: "casamiento-arroz-frijoles", name: "Casamiento", grams: 35, kcal: 40.3, prot: 1.4, carbs: 7.7, fat: 0.3 },
-      { foodId: "pizza-margherite-louielouie", name: "Pizza Margherite (1/6)", grams: 50, kcal: 105.0, prot: 3.5, carbs: 15.5, fat: 3.0 },
-      { foodId: "pizza-jamon-bigorre-louielouie", name: "Pizza Jamon Bigorre (1/6)", grams: 55, kcal: 137.5, prot: 6.1, carbs: 14.9, fat: 5.5 },
+      { foodId: "pizza-margherite-louielouie", name: "Pizza Margherite (1/12)", grams: 25, kcal: 52.5, prot: 1.8, carbs: 7.8, fat: 1.5 },
+      { foodId: "pizza-jamon-bigorre-louielouie", name: "Pizza Jamon Bigorre (1/12)", grams: 27.5, kcal: 68.8, prot: 3.0, carbs: 7.4, fat: 2.8 },
       { foodId: "tostones-platano-macho", name: "Tostones (1.5 uds)", grams: 50, units: 1.5, kcal: 140.0, prot: 0.7, carbs: 22.0, fat: 5.5 }
     ],
     timestamp: "2026-04-19T13:00:00"
@@ -3727,8 +3727,8 @@ const MEAL_LOG = [
     date: "2026-04-19",
     meal: "almuerzo", who: "adriana",
     items: [
-      { foodId: "pizza-margherite-louielouie", name: "Pizza Margherite (1/6)", grams: 50, kcal: 105.0, prot: 3.5, carbs: 15.5, fat: 3.0 },
-      { foodId: "pizza-jamon-bigorre-louielouie", name: "Pizza Jamon Bigorre (1/6)", grams: 55, kcal: 137.5, prot: 6.1, carbs: 14.9, fat: 5.5 },
+      { foodId: "pizza-margherite-louielouie", name: "Pizza Margherite (1/12)", grams: 25, kcal: 52.5, prot: 1.8, carbs: 7.8, fat: 1.5 },
+      { foodId: "pizza-jamon-bigorre-louielouie", name: "Pizza Jamon Bigorre (1/12)", grams: 27.5, kcal: 68.8, prot: 3.0, carbs: 7.4, fat: 2.8 },
       { foodId: "carne-mechada-venezolana", name: "Carne Mechada", grams: 150, kcal: 210.0, prot: 25.5, carbs: 4.5, fat: 9.8 },
       { foodId: "casamiento-arroz-frijoles", name: "Casamiento", grams: 30, kcal: 34.5, prot: 1.2, carbs: 6.6, fat: 0.2 },
       { foodId: "tostones-platano-macho", name: "Tostones (1.5 uds)", grams: 50, units: 1.5, kcal: 140.0, prot: 0.7, carbs: 22.0, fat: 5.5 }
