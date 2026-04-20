@@ -2,7 +2,7 @@
 // Updated by Claude Code via /log-food skill
 // DO NOT EDIT MANUALLY - use /log-food to add meals
 
-const DATA_TIMESTAMP = "2026-04-20T00:15:00 Europe/Paris";
+const DATA_TIMESTAMP = "2026-04-20T22:15:00 Europe/Paris";
 
 const NUTRITION_CONFIG = {
   targets: { kcal: 1770, prot: 190, carbs: 140, fat: 50 },
@@ -1486,6 +1486,16 @@ const FOOD_DATABASE = [
     source: "recetario",
     addedDate: "2026-04-19",
     notes: "~30g EAFit vanille + ~70g fresas frescas + ~200ml agua, licuado"
+  },
+  {
+    id: "sante-crispy-oat-honey",
+    name: "Crispy Oat and Honey Cookie",
+    brand: "Santé",
+    per100g: { kcal: 475, prot: 9, carbs: 60, fat: 20, fiber: 4 },
+    unitWeight: 40, unitLabel: "galleta",
+    source: "user",
+    addedDate: "2026-04-20",
+    notes: "User-provided: 190 kcal, 3.6g prot, 24g carbs, 8g fat por galleta (40g)"
   }
 ];
 
@@ -3764,6 +3774,95 @@ const MEAL_LOG = [
       { foodId: "cote-dor-noir-70", name: "Chocolate 70%", grams: 20, kcal: 109.0, prot: 1.6, carbs: 7.0, fat: 8.0 }
     ],
     timestamp: "2026-04-19T20:00:00"
+  },
+  // === ERNESTO 2026-04-20 ===
+  {
+    id: "2026-04-20-E01",
+    date: "2026-04-20",
+    meal: "desayuno",
+    items: [
+      { foodId: "eafit-pure-isolate-vanille", name: "EAFit Vanilla", grams: 40, kcal: 146.4, prot: 34.4, carbs: 1.3, fat: 0.4 },
+      { foodId: "leche-almendra", name: "Leche Almendra", grams: 100, kcal: 13.0, prot: 0.4, carbs: 0.2, fat: 1.1 }
+    ],
+    timestamp: "2026-04-20T09:00:00"
+  },
+  {
+    id: "2026-04-20-E02",
+    date: "2026-04-20",
+    meal: "almuerzo",
+    items: [
+      { foodId: "pollo-pepiado-zucchini", name: "Pollo Pepiado (ayer)", grams: 180, kcal: 163.8, prot: 23.9, carbs: 3.2, fat: 5.9 },
+      { foodId: "arepa-maiz-blanco-casera", name: "Arepa Maiz Blanco", grams: 83, kcal: 126.2, prot: 2.9, carbs: 28.2, fat: 0.6 },
+      { foodId: "salsa-skyr-cilantro", name: "Salsa Skyr Cilantro (ayer)", grams: 30, kcal: 25.5, prot: 3.0, carbs: 1.2, fat: 0.9 },
+      { foodId: "guacamole-zucchini-limon", name: "Aguacate + Zucchini Mix (ayer)", grams: 30, kcal: 26.4, prot: 0.5, carbs: 1.7, fat: 2.3 }
+    ],
+    timestamp: "2026-04-20T13:00:00"
+  },
+  {
+    id: "2026-04-20-E03",
+    date: "2026-04-20",
+    meal: "snack",
+    items: [
+      { foodId: "chausson-pommes-boulangerie", name: "Chausson Pommes (1/2)", grams: 70, units: 0.5, kcal: 238.0, prot: 2.5, carbs: 28.0, fat: 12.6 },
+      { foodId: "hipro-vanille", name: "HiPro Vanille", grams: 160, units: 1, kcal: 123.2, prot: 16.3, carbs: 9.4, fat: 1.3 }
+    ],
+    timestamp: "2026-04-20T16:00:00"
+  },
+  {
+    id: "2026-04-20-E04",
+    date: "2026-04-20",
+    meal: "snack",
+    items: [
+      { foodId: "queso-maduro-espanol", name: "Queso Maduro", grams: 15, kcal: 60.0, prot: 3.8, carbs: 0.1, fat: 5.0 },
+      { foodId: "sante-crispy-oat-honey", name: "Galleta Crispy Oat & Honey Santé", grams: 40, units: 1, kcal: 190.0, prot: 3.6, carbs: 24.0, fat: 8.0 }
+    ],
+    timestamp: "2026-04-20T17:30:00"
+  },
+  {
+    id: "2026-04-20-E05",
+    date: "2026-04-20",
+    meal: "cena",
+    items: [
+      { foodId: "jamon-porc-fleury-michon", name: "Jamon Porc", grams: 67, kcal: 77.1, prot: 13.4, carbs: 0.7, fat: 2.3 },
+      { foodId: "champinones-frescos", name: "Hongos", grams: 70, kcal: 15.4, prot: 2.2, carbs: 2.3, fat: 0.2 },
+      { foodId: "huevo-entero", name: "Huevo Entero", grams: 50, units: 1, kcal: 77.5, prot: 6.5, carbs: 0.6, fat: 5.5 },
+      { foodId: "clara-huevo", name: "Claras", grams: 66, units: 2, kcal: 34.3, prot: 7.3, carbs: 0.5, fat: 0.1 },
+      { foodId: "pollo-pepiado-zucchini", name: "Pollo Pepiado (ayer)", grams: 85, kcal: 77.4, prot: 11.3, carbs: 1.5, fat: 2.8 },
+      { foodId: "cottage-cheese-president", name: "Cottage", grams: 55, kcal: 54.5, prot: 6.6, carbs: 1.4, fat: 2.5 },
+      { foodId: "tomate-cherry", name: "Tomate Cherry", grams: 75, kcal: 13.5, prot: 0.7, carbs: 2.9, fat: 0.2 },
+      { foodId: "queso-maduro-espanol", name: "Queso Viejo Tostado", grams: 7, kcal: 28.0, prot: 1.8, carbs: 0.0, fat: 2.3 }
+    ],
+    timestamp: "2026-04-20T20:30:00"
+  },
+  {
+    id: "2026-04-20-E06",
+    date: "2026-04-20",
+    meal: "snack",
+    items: [
+      { foodId: "gerble-cookie-cacao-pepites-ss", name: "Gerblé Cookie Cacao x3", grams: 32.4, units: 3, kcal: 167.8, prot: 2.6, carbs: 19.8, fat: 5.8 }
+    ],
+    timestamp: "2026-04-20T21:30:00"
+  },
+  {
+    id: "2026-04-20-E07",
+    date: "2026-04-20",
+    meal: "snack",
+    items: [
+      { foodId: "eafit-pure-isolate-chocolat", name: "EAFit Chocolat (shake compartido, 293/443g)", grams: 49.6, kcal: 175.6, prot: 40.2, carbs: 1.8, fat: 0.8 },
+      { foodId: "weider-peanut-butter-powder", name: "PB Powder (shake compartido, 293/443g)", grams: 5.3, kcal: 23.3, prot: 2.6, carbs: 1.0, fat: 0.7 }
+    ],
+    timestamp: "2026-04-20T22:00:00"
+  },
+  // === ADRIANA 2026-04-20 ===
+  {
+    id: "2026-04-20-A01",
+    date: "2026-04-20",
+    meal: "snack", who: "adriana",
+    items: [
+      { foodId: "eafit-pure-isolate-chocolat", name: "EAFit Chocolat (shake compartido, 150/443g)", grams: 25.4, kcal: 89.9, prot: 20.6, carbs: 0.9, fat: 0.4 },
+      { foodId: "weider-peanut-butter-powder", name: "PB Powder (shake compartido, 150/443g)", grams: 2.7, kcal: 11.9, prot: 1.3, carbs: 0.5, fat: 0.4 }
+    ],
+    timestamp: "2026-04-20T22:00:00"
   }
 
 ];
