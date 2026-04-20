@@ -3830,7 +3830,8 @@ const MEAL_LOG = [
       { foodId: "pollo-pepiado-zucchini", name: "Pollo Pepiado (ayer)", grams: 85, kcal: 77.4, prot: 11.3, carbs: 1.5, fat: 2.8 },
       { foodId: "cottage-cheese-president", name: "Cottage", grams: 55, kcal: 54.5, prot: 6.6, carbs: 1.4, fat: 2.5 },
       { foodId: "tomate-cherry", name: "Tomate Cherry", grams: 75, kcal: 13.5, prot: 0.7, carbs: 2.9, fat: 0.2 },
-      { foodId: "queso-maduro-espanol", name: "Queso Viejo Tostado", grams: 7, kcal: 28.0, prot: 1.8, carbs: 0.0, fat: 2.3 }
+      { foodId: "queso-maduro-espanol", name: "Queso Viejo Tostado", grams: 7, kcal: 28.0, prot: 1.8, carbs: 0.0, fat: 2.3 },
+      { foodId: "wasa-fibre", name: "Wasa Fibre x2", grams: 22.8, units: 2, kcal: 75.9, prot: 3.0, carbs: 10.5, fat: 1.1 }
     ],
     timestamp: "2026-04-20T20:30:00"
   },
