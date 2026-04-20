@@ -3858,6 +3858,58 @@ const MEAL_LOG = [
   {
     id: "2026-04-20-A01",
     date: "2026-04-20",
+    meal: "desayuno", who: "adriana",
+    items: [
+      { foodId: "hipro-coco", name: "HiPro Coco", grams: 155, kcal: 86.8, prot: 14.6, carbs: 5.7, fat: 0.6 },
+      { foodId: "siggis-skyr-nature", name: "Skyr Nature", grams: 145, kcal: 91.4, prot: 16.0, carbs: 5.8, fat: 0.3 },
+      { foodId: "blueberries-frescas", name: "Blueberries", grams: 50, kcal: 28.5, prot: 0.4, carbs: 7.3, fat: 0.2 },
+      { foodId: "semillas-chia", name: "Chia", grams: 5, kcal: 24.3, prot: 0.9, carbs: 2.1, fat: 1.6 }
+    ],
+    timestamp: "2026-04-20T09:00:00"
+  },
+  {
+    id: "2026-04-20-A02",
+    date: "2026-04-20",
+    meal: "almuerzo", who: "adriana",
+    items: [
+      { foodId: "pollo-pepiado-zucchini", name: "Pollo Pepiado", grams: 120, kcal: 109.2, prot: 16.0, carbs: 2.2, fat: 4.0 },
+      { foodId: "salsa-skyr-cilantro", name: "Salsa Skyr (ayer)", grams: 20, kcal: 17.0, prot: 2.0, carbs: 0.8, fat: 0.6 },
+      { foodId: "arepa-maiz-blanco-casera", name: "Arepa Maiz Blanco", grams: 83, kcal: 126.2, prot: 2.9, carbs: 28.2, fat: 0.6 }
+    ],
+    timestamp: "2026-04-20T13:00:00"
+  },
+  {
+    id: "2026-04-20-A03",
+    date: "2026-04-20",
+    meal: "snack", who: "adriana",
+    items: [
+      { foodId: "kiwi-fresco", name: "Kiwis x2", grams: 150, units: 2, kcal: 91.5, prot: 1.7, carbs: 22.1, fat: 0.8 },
+      { foodId: "cottage-cheese-president", name: "Cottage Casero (2 tbsp)", grams: 30, kcal: 29.7, prot: 3.6, carbs: 0.8, fat: 1.4 },
+      { foodId: "queso-maduro-espanol", name: "Queso Maduro", grams: 15, kcal: 60.0, prot: 3.8, carbs: 0.1, fat: 5.0 },
+      { foodId: "siggis-skyr-nature", name: "Skyr Nature", grams: 100, kcal: 63.0, prot: 11.0, carbs: 4.0, fat: 0.2 },
+      { foodId: "miel-abeja", name: "Miel (1/2 tsp)", grams: 2.5, kcal: 7.6, prot: 0.0, carbs: 2.1, fat: 0.0 },
+      { foodId: "blueberries-frescas", name: "Blueberries", grams: 20, kcal: 11.4, prot: 0.1, carbs: 2.9, fat: 0.1 }
+    ],
+    timestamp: "2026-04-20T17:00:00"
+  },
+  {
+    id: "2026-04-20-A04",
+    date: "2026-04-20",
+    meal: "cena", who: "adriana",
+    items: [
+      { foodId: "jamon-porc-fleury-michon", name: "Jamon Porc", grams: 56, kcal: 64.4, prot: 11.2, carbs: 0.6, fat: 2.0 },
+      { foodId: "champinones-frescos", name: "Hongos Salteados", grams: 56, kcal: 12.3, prot: 1.7, carbs: 1.8, fat: 0.2 },
+      { foodId: "huevo-entero", name: "Huevo Entero", grams: 50, units: 1, kcal: 77.5, prot: 6.5, carbs: 0.6, fat: 5.5 },
+      { foodId: "clara-huevo", name: "Clara", grams: 33, units: 1, kcal: 17.2, prot: 3.6, carbs: 0.2, fat: 0.1 },
+      { foodId: "cottage-cheese-president", name: "Cottage", grams: 60, kcal: 59.4, prot: 7.2, carbs: 1.5, fat: 2.7 },
+      { foodId: "tomate-cherry", name: "Tomate Cherry", grams: 46, kcal: 8.3, prot: 0.4, carbs: 1.8, fat: 0.1 },
+      { foodId: "queso-maduro-espanol", name: "Queso Viejo Tostado", grams: 7, kcal: 28.0, prot: 1.8, carbs: 0.0, fat: 2.3 }
+    ],
+    timestamp: "2026-04-20T20:30:00"
+  },
+  {
+    id: "2026-04-20-A05",
+    date: "2026-04-20",
     meal: "snack", who: "adriana",
     items: [
       { foodId: "eafit-pure-isolate-chocolat", name: "EAFit Chocolat (shake compartido, 150/443g)", grams: 25.4, kcal: 89.9, prot: 20.6, carbs: 0.9, fat: 0.4 },
