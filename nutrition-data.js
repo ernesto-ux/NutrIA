@@ -3801,12 +3801,12 @@ const MEAL_LOG = [
   {
     id: "2026-04-20-E03",
     date: "2026-04-20",
-    meal: "snack",
+    meal: "desayuno",
     items: [
       { foodId: "chausson-pommes-boulangerie", name: "Chausson Pommes (1/2)", grams: 70, units: 0.5, kcal: 238.0, prot: 2.5, carbs: 28.0, fat: 12.6 },
       { foodId: "hipro-vanille", name: "HiPro Vanille", grams: 160, units: 1, kcal: 123.2, prot: 16.3, carbs: 9.4, fat: 1.3 }
     ],
-    timestamp: "2026-04-20T16:00:00"
+    timestamp: "2026-04-20T09:30:00"
   },
   {
     id: "2026-04-20-E04",
