@@ -2,7 +2,7 @@
 // Updated by Claude Code via /log-food skill
 // DO NOT EDIT MANUALLY - use /log-food to add meals
 
-const DATA_TIMESTAMP = "2026-04-21T10:00:00 Europe/Paris";
+const DATA_TIMESTAMP = "2026-04-21T14:30:00 Europe/Paris";
 
 const NUTRITION_CONFIG = {
   targets: { kcal: 1770, prot: 190, carbs: 140, fat: 50 },
@@ -3927,6 +3927,29 @@ const MEAL_LOG = [
       { foodId: "eafit-pure-isolate-chocolat", name: "EAFit Isolate Chocolat", grams: 30, kcal: 106.2, prot: 24.3, carbs: 1.1, fat: 0.5 }
     ],
     timestamp: "2026-04-21T09:00:00"
+  },
+  {
+    id: "2026-04-21-E02",
+    date: "2026-04-21",
+    meal: "almuerzo",
+    items: [
+      { foodId: "pollo-pepiado-zucchini", name: "Pollo Pepiado (ayer)", grams: 180, kcal: 163.8, prot: 23.9, carbs: 3.2, fat: 5.9 },
+      { foodId: "brocoli-cuit", name: "Brocoli", grams: 130, kcal: 45.5, prot: 3.9, carbs: 5.2, fat: 0.5 },
+      { foodId: "tomate-cherry", name: "Tomate Cherry", grams: 50, kcal: 9.0, prot: 0.5, carbs: 2.0, fat: 0.1 },
+      { foodId: "arepa-maiz-blanco-casera", name: "Arepa Maiz Blanco", grams: 120, kcal: 182.4, prot: 4.2, carbs: 40.8, fat: 0.8 }
+    ],
+    timestamp: "2026-04-21T13:30:00"
+  },
+  {
+    id: "2026-04-21-E03",
+    date: "2026-04-21",
+    meal: "snack",
+    items: [
+      { foodId: "blueberries-frescas", name: "Blueberries", grams: 50, kcal: 28.5, prot: 0.4, carbs: 7.3, fat: 0.2 },
+      { foodId: "gerble-cookie-cacao-pepites-ss", name: "Gerblé Cookie Cacao x3", grams: 32.4, units: 3, kcal: 167.8, prot: 2.6, carbs: 19.8, fat: 5.8 },
+      { foodId: "cafe-negro", name: "Café Negro (sin azucar)", grams: 240, units: 1, kcal: 4.8, prot: 0.2, carbs: 0, fat: 0 }
+    ],
+    timestamp: "2026-04-21T16:00:00"
   },
   // === ADRIANA 2026-04-21 ===
   {
