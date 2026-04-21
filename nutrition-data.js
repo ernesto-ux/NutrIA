@@ -2,7 +2,7 @@
 // Updated by Claude Code via /log-food skill
 // DO NOT EDIT MANUALLY - use /log-food to add meals
 
-const DATA_TIMESTAMP = "2026-04-20T22:15:00 Europe/Paris";
+const DATA_TIMESTAMP = "2026-04-21T10:00:00 Europe/Paris";
 
 const NUTRITION_CONFIG = {
   targets: { kcal: 1770, prot: 190, carbs: 140, fat: 50 },
@@ -3916,6 +3916,43 @@ const MEAL_LOG = [
       { foodId: "weider-peanut-butter-powder", name: "PB Powder (shake compartido, 150/443g)", grams: 2.7, kcal: 11.9, prot: 1.3, carbs: 0.5, fat: 0.4 }
     ],
     timestamp: "2026-04-20T22:00:00"
+  },
+  // === ERNESTO 2026-04-21 ===
+  {
+    id: "2026-04-21-E01",
+    date: "2026-04-21",
+    meal: "desayuno",
+    items: [
+      { foodId: "hipro-coco", name: "HiPro Coco", grams: 160, units: 1, kcal: 89.6, prot: 15.0, carbs: 5.9, fat: 0.6 },
+      { foodId: "eafit-pure-isolate-chocolat", name: "EAFit Isolate Chocolat", grams: 30, kcal: 106.2, prot: 24.3, carbs: 1.1, fat: 0.5 }
+    ],
+    timestamp: "2026-04-21T09:00:00"
+  },
+  // === ADRIANA 2026-04-21 ===
+  {
+    id: "2026-04-21-A01",
+    date: "2026-04-21",
+    meal: "desayuno", who: "adriana",
+    items: [
+      { foodId: "kefir-lactel-0-bio", name: "Kefir Lactel 0% Bio", grams: 200, kcal: 88.0, prot: 6.8, carbs: 8.2, fat: 3.0 },
+      { foodId: "eafit-pure-isolate-vanille", name: "EAFit Isolate Vanille", grams: 27, kcal: 98.8, prot: 23.2, carbs: 0.9, fat: 0.2 },
+      { foodId: "banana-fresca", name: "Banano", grams: 60, kcal: 53.4, prot: 0.7, carbs: 13.7, fat: 0.2 },
+      { foodId: "blueberries-frescas", name: "Blueberries", grams: 53, kcal: 30.2, prot: 0.4, carbs: 7.7, fat: 0.2 }
+    ],
+    timestamp: "2026-04-21T09:00:00"
+  },
+  {
+    id: "2026-04-21-A02",
+    date: "2026-04-21",
+    meal: "almuerzo", who: "adriana",
+    items: [
+      { foodId: "pollo-pepiado-zucchini", name: "Pollo Pepiado", grams: 120, kcal: 109.2, prot: 16.0, carbs: 2.2, fat: 4.0 },
+      { foodId: "salsa-skyr-cilantro", name: "Salsa Skyr (ayer)", grams: 20, kcal: 17.0, prot: 2.0, carbs: 0.8, fat: 0.6 },
+      { foodId: "arepa-maiz-blanco-casera", name: "Arepa Maiz Blanco", grams: 83, kcal: 126.2, prot: 2.9, carbs: 28.2, fat: 0.6 },
+      { foodId: "tomate-cherry", name: "Tomate Cherry", grams: 60, kcal: 10.8, prot: 0.5, carbs: 2.3, fat: 0.1 },
+      { foodId: "brocoli-cuit", name: "Brocoli", grams: 73, kcal: 25.6, prot: 2.2, carbs: 2.9, fat: 0.3 }
+    ],
+    timestamp: "2026-04-21T13:00:00"
   }
 
 ];
