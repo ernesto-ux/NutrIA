@@ -2,7 +2,7 @@
 // Updated by Claude Code via /log-food skill
 // DO NOT EDIT MANUALLY - use /log-food to add meals
 
-const DATA_TIMESTAMP = "2026-04-21T21:30:00 Europe/Paris";
+const DATA_TIMESTAMP = "2026-04-22T21:00:00 Europe/Paris";
 
 const NUTRITION_CONFIG = {
   targets: { kcal: 1770, prot: 190, carbs: 140, fat: 50 },
@@ -4029,6 +4029,33 @@ const MEAL_LOG = [
       { foodId: "brocoli-cuit", name: "Brocoli", grams: 73, kcal: 25.6, prot: 2.2, carbs: 2.9, fat: 0.3 }
     ],
     timestamp: "2026-04-21T13:00:00"
+  },
+  // === ADRIANA 2026-04-22 ===
+  {
+    id: "2026-04-22-A01",
+    date: "2026-04-22",
+    meal: "snack", who: "adriana",
+    items: [
+      { foodId: "kiwi-fresco", name: "Kiwi", grams: 75, units: 1, kcal: 45.8, prot: 0.8, carbs: 11.0, fat: 0.4 },
+      { foodId: "eafit-pure-isolate-vanille", name: "EAFit Isolate Vanille", grams: 20, kcal: 73.2, prot: 17.2, carbs: 0.7, fat: 0.2 },
+      { foodId: "weider-peanut-butter-powder", name: "PB Powder", grams: 4, kcal: 17.6, prot: 2.0, carbs: 0.8, fat: 0.5 },
+      { foodId: "kefir-lactel-0-bio", name: "Kéfir Lactel 0%", grams: 44, kcal: 19.4, prot: 1.5, carbs: 1.8, fat: 0.7 },
+      { foodId: "siggis-skyr-nature", name: "Skyr Siggis Nature", grams: 43, kcal: 27.1, prot: 4.7, carbs: 1.7, fat: 0.1 },
+      { foodId: "cote-dor-noir-70", name: "Chocolat Noir 70%", grams: 10, kcal: 54.5, prot: 0.8, carbs: 3.5, fat: 4.0 }
+    ],
+    timestamp: "2026-04-22T17:00:00"
+  },
+  {
+    id: "2026-04-22-A02",
+    date: "2026-04-22",
+    meal: "cena", who: "adriana",
+    items: [
+      { foodId: "huevo-entero", name: "Huevo Entero", grams: 50, units: 1, kcal: 77.5, prot: 6.5, carbs: 0.6, fat: 5.5 },
+      { foodId: "jamon-porc-fleury-michon", name: "Jambon de Porc", grams: 43, kcal: 49.5, prot: 8.6, carbs: 0.4, fat: 1.5 },
+      { foodId: "baguette-croustigraine-ounissi", name: "Baguette Croustigraine Ounissi", grams: 45, kcal: 126.0, prot: 4.5, carbs: 22.5, fat: 1.4 },
+      { foodId: "queso-maduro-espanol", name: "Queso Maduro", grams: 15, kcal: 60.0, prot: 3.8, carbs: 0.1, fat: 5.0 }
+    ],
+    timestamp: "2026-04-22T20:30:00"
   }
 
 ];
