@@ -2,7 +2,7 @@
 // Updated by Claude Code via /log-food skill
 // DO NOT EDIT MANUALLY - use /log-food to add meals
 
-const DATA_TIMESTAMP = "2026-04-21T14:30:00 Europe/Paris";
+const DATA_TIMESTAMP = "2026-04-21T20:45:00 Europe/Paris";
 
 const NUTRITION_CONFIG = {
   targets: { kcal: 1770, prot: 190, carbs: 140, fat: 50 },
@@ -1496,6 +1496,24 @@ const FOOD_DATABASE = [
     source: "user",
     addedDate: "2026-04-20",
     notes: "User-provided: 190 kcal, 3.6g prot, 24g carbs, 8g fat por galleta (40g)"
+  },
+  {
+    id: "odyssee-salade-thon-intermarche",
+    name: "Salade au Thon Odyssée (valeur moyenne variantes)",
+    brand: "Odyssée - Intermarché",
+    per100g: { kcal: 125, prot: 7.5, carbs: 10, fat: 6, fiber: 1.5 },
+    source: "web",
+    addedDate: "2026-04-21",
+    notes: "Valor promedio entre variantes (parisienne/nicoise/indienne/mexicaine/piemontaise). Ajustar si variante especifica"
+  },
+  {
+    id: "baguette-croustigraine-ounissi",
+    name: "Baguette Croustigraine (multicéréales)",
+    brand: "Ounissi",
+    per100g: { kcal: 280, prot: 10, carbs: 50, fat: 3, fiber: 4 },
+    source: "web",
+    addedDate: "2026-04-21",
+    notes: "Baguette multicereales con graines. Valores estimados genericos multigrain baguette"
   }
 ];
 
@@ -3950,6 +3968,32 @@ const MEAL_LOG = [
       { foodId: "cafe-negro", name: "Café Negro (sin azucar)", grams: 240, units: 1, kcal: 4.8, prot: 0.2, carbs: 0, fat: 0 }
     ],
     timestamp: "2026-04-21T16:00:00"
+  },
+  {
+    id: "2026-04-21-E04",
+    date: "2026-04-21",
+    meal: "snack",
+    items: [
+      { foodId: "odyssee-salade-thon-intermarche", name: "Odyssée Salade au Thon", grams: 70, kcal: 87.5, prot: 5.3, carbs: 7.0, fat: 4.2 },
+      { foodId: "eafit-pure-isolate-vanille", name: "EAFit Isolate Vanille", grams: 44, kcal: 161.0, prot: 37.8, carbs: 1.5, fat: 0.4 },
+      { foodId: "kefir-lactel-0-bio", name: "Kéfir Lactel 0%", grams: 50, kcal: 22.0, prot: 1.7, carbs: 2.1, fat: 0.8 },
+      { foodId: "siggis-skyr-nature", name: "Skyr Siggis Nature", grams: 50, kcal: 31.5, prot: 5.5, carbs: 2.0, fat: 0.1 },
+      { foodId: "fruits-rouges-mix", name: "Fruits Rouges Surgelés Picard", grams: 100, kcal: 40.0, prot: 0.8, carbs: 9.0, fat: 0.3 }
+    ],
+    timestamp: "2026-04-21T18:00:00"
+  },
+  {
+    id: "2026-04-21-E05",
+    date: "2026-04-21",
+    meal: "cena",
+    items: [
+      { foodId: "huevo-entero", name: "Huevo Entero", grams: 50, units: 1, kcal: 77.5, prot: 6.5, carbs: 0.6, fat: 5.5 },
+      { foodId: "clara-huevo", name: "Claras x2", grams: 66, units: 2, kcal: 34.3, prot: 7.3, carbs: 0.5, fat: 0.1 },
+      { foodId: "jamon-porc-fleury-michon", name: "Jambon de Porc", grams: 76, kcal: 87.4, prot: 15.2, carbs: 0.8, fat: 2.7 },
+      { foodId: "baguette-croustigraine-ounissi", name: "Baguette Croustigraine Ounissi", grams: 48, kcal: 134.4, prot: 4.8, carbs: 24.0, fat: 1.4 },
+      { foodId: "queso-maduro-espanol", name: "Queso Maduro", grams: 15, kcal: 60.0, prot: 3.8, carbs: 0.1, fat: 5.0 }
+    ],
+    timestamp: "2026-04-21T20:30:00"
   },
   // === ADRIANA 2026-04-21 ===
   {
