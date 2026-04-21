@@ -2,7 +2,7 @@
 // Updated by Claude Code via /log-food skill
 // DO NOT EDIT MANUALLY - use /log-food to add meals
 
-const DATA_TIMESTAMP = "2026-04-21T20:45:00 Europe/Paris";
+const DATA_TIMESTAMP = "2026-04-21T21:30:00 Europe/Paris";
 
 const NUTRITION_CONFIG = {
   targets: { kcal: 1770, prot: 190, carbs: 140, fat: 50 },
@@ -3994,6 +3994,15 @@ const MEAL_LOG = [
       { foodId: "queso-maduro-espanol", name: "Queso Maduro", grams: 15, kcal: 60.0, prot: 3.8, carbs: 0.1, fat: 5.0 }
     ],
     timestamp: "2026-04-21T20:30:00"
+  },
+  {
+    id: "2026-04-21-E06",
+    date: "2026-04-21",
+    meal: "snack",
+    items: [
+      { foodId: "eafit-pure-isolate-vanille", name: "EAFit Isolate Vanille (ajuste prot)", grams: 31, kcal: 113.5, prot: 26.7, carbs: 1.0, fat: 0.3 }
+    ],
+    timestamp: "2026-04-21T21:30:00"
   },
   // === ADRIANA 2026-04-21 ===
   {
