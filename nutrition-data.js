@@ -4552,6 +4552,7 @@ const ACTIVITY_LOG = [
   { date: "2026-04-19", steps: 12221, stepsKcal: 365, gym: "gym", gymKcal: 923, notes: "arepa reina pepiada day" },
   { date: "2026-04-20", steps: 3054,  stepsKcal: 50,  gym: "gym", gymKcal: 487, notes: "" },
   { date: "2026-04-21", steps: 3922,  stepsKcal: 75,  gym: null,  gymKcal: 0,   notes: "" },
+  { date: "2026-04-22", steps: 8224,  stepsKcal: 525, gym: null,  gymKcal: 0,   notes: "8224 pasos + 7h de pie en fila (~275 kcal standing extra)" },
   { date: "2026-04-23", steps: 16705, stepsKcal: 500, gym: null,  gymKcal: 0,   notes: "Amsterdam walking day" }
 ];
 
