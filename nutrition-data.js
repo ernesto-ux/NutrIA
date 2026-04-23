@@ -4512,6 +4512,15 @@ const MEAL_LOG = [
       { foodId: "thai-carne-vegetales-maranon-hongos", name: "Thai Carne con Vegetales, Marañón y Hongos", grams: 120, kcal: 216.0, prot: 16.8, carbs: 12.0, fat: 12.0 }
     ],
     timestamp: "2026-04-23T20:30:00"
+  },
+  {
+    id: "2026-04-23-E05",
+    date: "2026-04-23",
+    meal: "snack",
+    items: [
+      { foodId: "eafit-pure-isolate-vanille", name: "EAFit Isolate Vanille", grams: 40, kcal: 146.4, prot: 34.4, carbs: 1.3, fat: 0.4 }
+    ],
+    timestamp: "2026-04-23T22:00:00"
   }
 
 ];
@@ -4542,7 +4551,8 @@ const ACTIVITY_LOG = [
   { date: "2026-04-18", steps: 16846, stepsKcal: 500, gym: "gym", gymKcal: 507, notes: "pizza LouieLouie" },
   { date: "2026-04-19", steps: 12221, stepsKcal: 365, gym: "gym", gymKcal: 923, notes: "arepa reina pepiada day" },
   { date: "2026-04-20", steps: 3054,  stepsKcal: 50,  gym: "gym", gymKcal: 487, notes: "" },
-  { date: "2026-04-21", steps: 3922,  stepsKcal: 75,  gym: null,  gymKcal: 0,   notes: "" }
+  { date: "2026-04-21", steps: 3922,  stepsKcal: 75,  gym: null,  gymKcal: 0,   notes: "" },
+  { date: "2026-04-23", steps: 16705, stepsKcal: 500, gym: null,  gymKcal: 0,   notes: "Amsterdam walking day" }
 ];
 
 // Daily energy balance (sabado a sabado: 29 mar - 4 abr + dom 5)
