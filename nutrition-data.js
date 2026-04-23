@@ -2,7 +2,7 @@
 // Updated by Claude Code via /log-food skill
 // DO NOT EDIT MANUALLY - use /log-food to add meals
 
-const DATA_TIMESTAMP = "2026-04-23T09:30:00 Europe/Paris";
+const DATA_TIMESTAMP = "2026-04-23T14:00:00 Europe/Paris";
 
 const NUTRITION_CONFIG = {
   targets: { kcal: 1770, prot: 190, carbs: 140, fat: 50 },
@@ -1680,6 +1680,64 @@ const FOOD_DATABASE = [
     source: "web",
     addedDate: "2026-04-23",
     notes: "Pot 500g típico. 1/3 = ~167g"
+  },
+  {
+    id: "papas-ambacht-frites-artesanales",
+    name: "Frites Artesanales Amsterdam (Papa's Ambacht)",
+    brand: "Papa's Ambacht",
+    per100g: { kcal: 350, prot: 4, carbs: 42, fat: 18, fiber: 4 },
+    source: "web",
+    addedDate: "2026-04-23",
+    notes: "Hand-cut double-fried Dutch frites, más ricas que McDo"
+  },
+  {
+    id: "queso-dutch-oud-amsterdam",
+    name: "Queso Dutch Oud (Amsterdam Old)",
+    brand: "Generic",
+    per100g: { kcal: 380, prot: 28, carbs: 0, fat: 30, fiber: 0 },
+    source: "web",
+    addedDate: "2026-04-23",
+    notes: "Queso holandés añejo"
+  },
+  {
+    id: "salsa-trufa-parmesan",
+    name: "Salsa Trufa con Parmesano",
+    brand: "Generic",
+    per100g: { kcal: 450, prot: 3, carbs: 5, fat: 46, fiber: 0 },
+    source: "web",
+    addedDate: "2026-04-23"
+  },
+  {
+    id: "mayo-picante",
+    name: "Mayonesa Picante",
+    brand: "Generic",
+    per100g: { kcal: 650, prot: 1, carbs: 2, fat: 70, fiber: 0 },
+    source: "web",
+    addedDate: "2026-04-23"
+  },
+  {
+    id: "ketchup-generico",
+    name: "Ketchup Genérico",
+    brand: "Generic",
+    per100g: { kcal: 100, prot: 1, carbs: 24, fat: 0.1, fiber: 0.3 },
+    source: "web",
+    addedDate: "2026-04-23"
+  },
+  {
+    id: "muffin-blueberry-artesanal",
+    name: "Muffin Blueberry Artesanal",
+    brand: "Boulangerie",
+    per100g: { kcal: 370, prot: 5, carbs: 55, fat: 14, fiber: 1.5 },
+    source: "web",
+    addedDate: "2026-04-23"
+  },
+  {
+    id: "muffin-chocolate-artesanal",
+    name: "Muffin Chocolate Artesanal",
+    brand: "Boulangerie",
+    per100g: { kcal: 420, prot: 5, carbs: 54, fat: 20, fiber: 2 },
+    source: "web",
+    addedDate: "2026-04-23"
   }
 ];
 
@@ -4351,6 +4409,34 @@ const MEAL_LOG = [
       { foodId: "zuivelhoeve-boern-yoghurt", name: "Zuivelhoeve Boer'n Yoghurt (1/3 pot)", grams: 167, kcal: 90.2, prot: 6.2, carbs: 7.2, fat: 4.2 }
     ],
     timestamp: "2026-04-23T09:00:00"
+  },
+  {
+    id: "2026-04-23-E02",
+    date: "2026-04-23",
+    meal: "almuerzo",
+    items: [
+      { foodId: "papas-ambacht-frites-artesanales", name: "Frites Papa's Ambacht (Large+Regular /2)", grams: 275, kcal: 962.5, prot: 11.0, carbs: 115.5, fat: 49.5 },
+      { foodId: "queso-dutch-oud-amsterdam", name: "Queso Dutch Oud (compartido /2)", grams: 15, kcal: 57.0, prot: 4.2, carbs: 0, fat: 4.5 },
+      { foodId: "salsa-trufa-parmesan", name: "Salsa Trufa Parmesano (compartido /2)", grams: 20, kcal: 90.0, prot: 0.6, carbs: 1.0, fat: 9.2 },
+      { foodId: "mayo-picante", name: "Mayo Picante (compartido /2)", grams: 20, kcal: 130.0, prot: 0.2, carbs: 0.4, fat: 14.0 },
+      { foodId: "ketchup-generico", name: "Ketchup (compartido /2)", grams: 20, kcal: 20.0, prot: 0.2, carbs: 4.8, fat: 0 },
+      { foodId: "muffin-blueberry-artesanal", name: "Muffin Blueberry Artesanal", grams: 125, kcal: 462.5, prot: 6.3, carbs: 68.8, fat: 17.5 }
+    ],
+    timestamp: "2026-04-23T13:30:00"
+  },
+  {
+    id: "2026-04-23-A02",
+    date: "2026-04-23",
+    meal: "almuerzo", who: "adriana",
+    items: [
+      { foodId: "papas-ambacht-frites-artesanales", name: "Frites Papa's Ambacht (Large+Regular /2)", grams: 275, kcal: 962.5, prot: 11.0, carbs: 115.5, fat: 49.5 },
+      { foodId: "queso-dutch-oud-amsterdam", name: "Queso Dutch Oud (compartido /2)", grams: 15, kcal: 57.0, prot: 4.2, carbs: 0, fat: 4.5 },
+      { foodId: "salsa-trufa-parmesan", name: "Salsa Trufa Parmesano (compartido /2)", grams: 20, kcal: 90.0, prot: 0.6, carbs: 1.0, fat: 9.2 },
+      { foodId: "mayo-picante", name: "Mayo Picante (compartido /2)", grams: 20, kcal: 130.0, prot: 0.2, carbs: 0.4, fat: 14.0 },
+      { foodId: "ketchup-generico", name: "Ketchup (compartido /2)", grams: 20, kcal: 20.0, prot: 0.2, carbs: 4.8, fat: 0 },
+      { foodId: "muffin-chocolate-artesanal", name: "Muffin Chocolate Artesanal", grams: 125, kcal: 525.0, prot: 6.3, carbs: 67.5, fat: 25.0 }
+    ],
+    timestamp: "2026-04-23T13:30:00"
   }
 
 ];
