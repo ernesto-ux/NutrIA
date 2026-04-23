@@ -2,7 +2,7 @@
 // Updated by Claude Code via /log-food skill
 // DO NOT EDIT MANUALLY - use /log-food to add meals
 
-const DATA_TIMESTAMP = "2026-04-23T14:00:00 Europe/Paris";
+const DATA_TIMESTAMP = "2026-04-24T00:30:00 Europe/Paris";
 
 const NUTRITION_CONFIG = {
   targets: { kcal: 1770, prot: 190, carbs: 140, fat: 50 },
@@ -1736,6 +1736,57 @@ const FOOD_DATABASE = [
     name: "Muffin Chocolate Artesanal",
     brand: "Boulangerie",
     per100g: { kcal: 420, prot: 5, carbs: 54, fat: 20, fiber: 2 },
+    source: "web",
+    addedDate: "2026-04-23"
+  },
+  {
+    id: "poffertjes-mini-dutch",
+    name: "Mini Poffertjes Holandesas",
+    brand: "Boulangerie NL",
+    per100g: { kcal: 340, prot: 5, carbs: 48, fat: 13, fiber: 1.5 },
+    unitWeight: 8, unitLabel: "mini pancake",
+    source: "web",
+    addedDate: "2026-04-23",
+    notes: "Pancakes pequeñas dulces tipicas de Amsterdam, con mantequilla y azucar"
+  },
+  {
+    id: "salsa-pistacho",
+    name: "Salsa de Pistacho (topping)",
+    brand: "Generic",
+    per100g: { kcal: 500, prot: 8, carbs: 40, fat: 35, fiber: 2 },
+    source: "web",
+    addedDate: "2026-04-23"
+  },
+  {
+    id: "salsa-kinder-bueno",
+    name: "Salsa Kinder Bueno (topping)",
+    brand: "Generic",
+    per100g: { kcal: 560, prot: 7, carbs: 55, fat: 36, fiber: 1 },
+    source: "web",
+    addedDate: "2026-04-23"
+  },
+  {
+    id: "sopa-thai-mariscos-picante",
+    name: "Sopa Thai Picante con Broth de Mariscos",
+    brand: "Restaurant",
+    per100g: { kcal: 50, prot: 4, carbs: 4, fat: 1.5, fiber: 0.5 },
+    source: "web",
+    addedDate: "2026-04-23",
+    notes: "Tipo tom yum con broth mariscos y vegetales"
+  },
+  {
+    id: "arroz-basmati-cocido",
+    name: "Arroz Basmati Cocido",
+    brand: "",
+    per100g: { kcal: 130, prot: 2.7, carbs: 28, fat: 0.3, fiber: 0.4 },
+    source: "web",
+    addedDate: "2026-04-23"
+  },
+  {
+    id: "thai-carne-vegetales-maranon-hongos",
+    name: "Thai Carne con Vegetales, Marañón y Hongos",
+    brand: "Restaurant",
+    per100g: { kcal: 180, prot: 14, carbs: 10, fat: 10, fiber: 2 },
     source: "web",
     addedDate: "2026-04-23"
   }
@@ -4437,6 +4488,30 @@ const MEAL_LOG = [
       { foodId: "muffin-chocolate-artesanal", name: "Muffin Chocolate Artesanal", grams: 125, kcal: 525.0, prot: 6.3, carbs: 67.5, fat: 25.0 }
     ],
     timestamp: "2026-04-23T13:30:00"
+  },
+  {
+    id: "2026-04-23-E03",
+    date: "2026-04-23",
+    meal: "snack",
+    items: [
+      { foodId: "poffertjes-mini-dutch", name: "Mini Poffertjes x10", grams: 80, units: 10, kcal: 272.0, prot: 4.0, carbs: 38.4, fat: 10.4 },
+      { foodId: "salsa-pistacho", name: "Salsa Pistacho", grams: 20, kcal: 100.0, prot: 1.6, carbs: 8.0, fat: 7.0 },
+      { foodId: "salsa-kinder-bueno", name: "Salsa Kinder Bueno", grams: 20, kcal: 112.0, prot: 1.4, carbs: 11.0, fat: 7.2 },
+      { foodId: "cafe-negro", name: "Café Americano", grams: 240, units: 1, kcal: 4.8, prot: 0.2, carbs: 0, fat: 0 }
+    ],
+    timestamp: "2026-04-23T17:00:00"
+  },
+  {
+    id: "2026-04-23-E04",
+    date: "2026-04-23",
+    meal: "cena",
+    items: [
+      { foodId: "sopa-thai-mariscos-picante", name: "Sopa Thai Picante Mariscos", grams: 300, kcal: 150.0, prot: 12.0, carbs: 12.0, fat: 4.5 },
+      { foodId: "coca-cola-zero", name: "Coca-Cola Zero", grams: 330, kcal: 1.3, prot: 0, carbs: 0, fat: 0 },
+      { foodId: "arroz-basmati-cocido", name: "Arroz Basmati", grams: 60, kcal: 78.0, prot: 1.6, carbs: 16.8, fat: 0.2 },
+      { foodId: "thai-carne-vegetales-maranon-hongos", name: "Thai Carne con Vegetales, Marañón y Hongos", grams: 120, kcal: 216.0, prot: 16.8, carbs: 12.0, fat: 12.0 }
+    ],
+    timestamp: "2026-04-23T20:30:00"
   }
 
 ];
