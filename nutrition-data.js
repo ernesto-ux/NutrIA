@@ -2,7 +2,7 @@
 // Updated by Claude Code via /log-food skill
 // DO NOT EDIT MANUALLY - use /log-food to add meals
 
-const DATA_TIMESTAMP = "2026-04-22T21:00:00 Europe/Paris";
+const DATA_TIMESTAMP = "2026-04-23T09:30:00 Europe/Paris";
 
 const NUTRITION_CONFIG = {
   targets: { kcal: 1770, prot: 190, carbs: 140, fat: 50 },
@@ -1514,6 +1514,172 @@ const FOOD_DATABASE = [
     source: "web",
     addedDate: "2026-04-21",
     notes: "Baguette multicereales con graines. Valores estimados genericos multigrain baguette"
+  },
+  // === NUEVOS 2026-04-22 ===
+  {
+    id: "klm-macaron-coco",
+    name: "Macaron de Coco (galleta avión KLM)",
+    brand: "KLM",
+    per100g: { kcal: 460, prot: 4, carbs: 63, fat: 21, fiber: 3 },
+    source: "web",
+    addedDate: "2026-04-22",
+    notes: "Dutch coconut macaron típica de vuelos KLM"
+  },
+  {
+    id: "pan-panini-delgado",
+    name: "Pan Panini Pequeño Delgado",
+    brand: "Boulangerie",
+    per100g: { kcal: 280, prot: 9, carbs: 50, fat: 3, fiber: 2.5 },
+    source: "web",
+    addedDate: "2026-04-22"
+  },
+  {
+    id: "pesto-generico",
+    name: "Pesto Genérico (albahaca, piñones, queso, aceite)",
+    brand: "Generic",
+    per100g: { kcal: 400, prot: 3.5, carbs: 5, fat: 39, fiber: 1 },
+    source: "web",
+    addedDate: "2026-04-22"
+  },
+  {
+    id: "queso-cabra-fresco",
+    name: "Queso de Cabra Fresco",
+    brand: "Generic",
+    per100g: { kcal: 300, prot: 19, carbs: 1, fat: 25, fiber: 0 },
+    source: "web",
+    addedDate: "2026-04-22"
+  },
+  {
+    id: "arugula-fresca",
+    name: "Arugula (Roquette) Fresca",
+    brand: "",
+    per100g: { kcal: 25, prot: 2.6, carbs: 3.7, fat: 0.7, fiber: 1.6 },
+    source: "web",
+    addedDate: "2026-04-22"
+  },
+  {
+    id: "nueces-enteras",
+    name: "Nueces Enteras (Walnuts)",
+    brand: "",
+    per100g: { kcal: 654, prot: 15, carbs: 14, fat: 65, fiber: 6.7 },
+    unitWeight: 4, unitLabel: "nuez",
+    source: "web",
+    addedDate: "2026-04-22"
+  },
+  {
+    id: "vegetales-mixtos-tomate-chile-hojas",
+    name: "Vegetales Mixtos (tomate, chile rojo, hojas verdes)",
+    brand: "Homemade",
+    per100g: { kcal: 25, prot: 1.2, carbs: 5, fat: 0.2, fiber: 1.8 },
+    source: "web",
+    addedDate: "2026-04-22"
+  },
+  {
+    id: "tarta-manzana-amsterdam-crumble",
+    name: "Tarta de Manzana Estilo Amsterdam con Crumble",
+    brand: "Boulangerie",
+    per100g: { kcal: 250, prot: 3, carbs: 30, fat: 12, fiber: 1.5 },
+    source: "web",
+    addedDate: "2026-04-22",
+    notes: "Dutch appeltaart con crumble topping"
+  },
+  {
+    id: "nata-chantilly",
+    name: "Nata Chantilly (crème fouettée sucrée)",
+    brand: "Generic",
+    per100g: { kcal: 250, prot: 2, carbs: 3, fat: 25, fiber: 0 },
+    source: "web",
+    addedDate: "2026-04-22"
+  },
+  {
+    id: "mcdonalds-mccrispy-chicken",
+    name: "McCrispy Chicken (sandwich clasico)",
+    brand: "McDonald's",
+    per100g: { kcal: 229, prot: 13.2, carbs: 22, fat: 9.8, fiber: 0.5 },
+    unitWeight: 205, unitLabel: "sandwich",
+    source: "web",
+    addedDate: "2026-04-22",
+    notes: "Sandwich entero ~205g = 470 kcal, 27g prot, 45g carbs, 20g fat"
+  },
+  {
+    id: "mcdonalds-royal-cheese",
+    name: "Royal Cheese (Quarter Pounder con queso)",
+    brand: "McDonald's",
+    per100g: { kcal: 267, prot: 15.4, carbs: 20.5, fat: 13.3, fiber: 0.8 },
+    unitWeight: 195, unitLabel: "burger",
+    source: "web",
+    addedDate: "2026-04-22",
+    notes: "Burger entera ~195g = 520 kcal, 30g prot, 40g carbs, 26g fat"
+  },
+  {
+    id: "mcdonalds-papas-large",
+    name: "Papas Fritas Large",
+    brand: "McDonald's",
+    per100g: { kcal: 312, prot: 3.4, carbs: 41, fat: 15, fiber: 4 },
+    source: "web",
+    addedDate: "2026-04-22",
+    notes: "Large McDo France ~150g"
+  },
+  {
+    id: "mcdonalds-cheesestick",
+    name: "Cheese Stick (mozzarella frita)",
+    brand: "McDonald's",
+    per100g: { kcal: 248, prot: 11, carbs: 22, fat: 12, fiber: 1 },
+    unitWeight: 27, unitLabel: "stick",
+    source: "web",
+    addedDate: "2026-04-22",
+    notes: "3 sticks = 200 kcal, ~81g total"
+  },
+  {
+    id: "mcdonalds-sweet-sour-sauce",
+    name: "Salsa Sweet and Sour",
+    brand: "McDonald's",
+    per100g: { kcal: 184, prot: 0.5, carbs: 43, fat: 0.5, fiber: 0 },
+    unitWeight: 25, unitLabel: "sachet",
+    source: "web",
+    addedDate: "2026-04-22"
+  },
+  {
+    id: "mcdonalds-ketchup-sachet",
+    name: "Ketchup Sachet",
+    brand: "McDonald's",
+    per100g: { kcal: 100, prot: 1, carbs: 24, fat: 0.1, fiber: 0.3 },
+    unitWeight: 10, unitLabel: "sobre",
+    source: "web",
+    addedDate: "2026-04-22"
+  },
+  {
+    id: "heineken-biere",
+    name: "Cerveza Heineken (rubia 5%)",
+    brand: "Heineken",
+    per100g: { kcal: 42, prot: 0.5, carbs: 3.2, fat: 0, fiber: 0 },
+    source: "web",
+    addedDate: "2026-04-22"
+  },
+  {
+    id: "lipton-ice-tea-low-sugar",
+    name: "Lipton Ice Tea Low Sugar",
+    brand: "Lipton",
+    per100g: { kcal: 18, prot: 0, carbs: 4.3, fat: 0, fiber: 0 },
+    source: "web",
+    addedDate: "2026-04-22"
+  },
+  {
+    id: "fuze-tea-the-vert",
+    name: "Fuze Tea Thé Vert",
+    brand: "Fuze Tea",
+    per100g: { kcal: 18, prot: 0, carbs: 4.4, fat: 0, fiber: 0 },
+    source: "web",
+    addedDate: "2026-04-22"
+  },
+  {
+    id: "zuivelhoeve-boern-yoghurt",
+    name: "Boer'n Yoghurt (yogur espeso holandés)",
+    brand: "Zuivelhoeve",
+    per100g: { kcal: 54, prot: 3.7, carbs: 4.3, fat: 2.5, fiber: 0 },
+    source: "web",
+    addedDate: "2026-04-23",
+    notes: "Pot 500g típico. 1/3 = ~167g"
   }
 ];
 
@@ -4055,6 +4221,136 @@ const MEAL_LOG = [
       { foodId: "queso-maduro-espanol", name: "Queso Maduro", grams: 15, kcal: 60.0, prot: 3.8, carbs: 0.1, fat: 5.0 }
     ],
     timestamp: "2026-04-21T20:30:00"
+  },
+  // === ERNESTO 2026-04-22 ===
+  {
+    id: "2026-04-22-E01",
+    date: "2026-04-22",
+    meal: "desayuno",
+    items: [
+      { foodId: "pain-baguette", name: "Pan Baguette", grams: 79, kcal: 216.5, prot: 6.7, carbs: 43.5, fat: 1.0 },
+      { foodId: "salsa-skyr-cilantro", name: "Salsa Skyr", grams: 15, kcal: 12.8, prot: 1.5, carbs: 0.6, fat: 0.5 },
+      { foodId: "pollo-pechuga-horneada", name: "Pollo Hervido y Salteado", grams: 130, kcal: 214.5, prot: 40.3, carbs: 0, fat: 4.7 },
+      { foodId: "vegetales-mixtos-tomate-chile-hojas", name: "Vegetales (tomate, chile, hojas)", grams: 80, kcal: 20.0, prot: 1.0, carbs: 4.0, fat: 0.2 },
+      { foodId: "cottage-cheese-president", name: "Cottage Cheese", grams: 35, kcal: 34.7, prot: 4.2, carbs: 0.9, fat: 1.6 },
+      { foodId: "klm-macaron-coco", name: "Macaron Coco KLM (entero)", grams: 80, kcal: 368.0, prot: 3.2, carbs: 50.4, fat: 16.8 }
+    ],
+    timestamp: "2026-04-22T09:00:00"
+  },
+  {
+    id: "2026-04-22-E02",
+    date: "2026-04-22",
+    meal: "almuerzo",
+    items: [
+      { foodId: "pain-baguette", name: "Pan Sandwich (1/2)", grams: 70, kcal: 191.8, prot: 6.0, carbs: 38.5, fat: 0.9 },
+      { foodId: "pollo-pechuga-horneada", name: "Pollo sandwich", grams: 40, kcal: 66.0, prot: 12.4, carbs: 0, fat: 1.4 },
+      { foodId: "pesto-generico", name: "Pesto (poco)", grams: 10, kcal: 40.0, prot: 0.4, carbs: 0.5, fat: 3.9 },
+      { foodId: "tomate-fresco", name: "Tomate", grams: 20, kcal: 3.6, prot: 0.2, carbs: 0.8, fat: 0 },
+      { foodId: "arugula-fresca", name: "Arugula sandwich", grams: 10, kcal: 2.5, prot: 0.3, carbs: 0.4, fat: 0.1 },
+      { foodId: "pan-panini-delgado", name: "Pan Panini (1/2)", grams: 50, kcal: 140.0, prot: 4.5, carbs: 25.0, fat: 1.5 },
+      { foodId: "queso-cabra-fresco", name: "Queso Cabra Fresco", grams: 25, kcal: 75.0, prot: 4.8, carbs: 0.3, fat: 6.3 },
+      { foodId: "arugula-fresca", name: "Arugula panini", grams: 5, kcal: 1.3, prot: 0.1, carbs: 0.2, fat: 0 },
+      { foodId: "miel-abeja", name: "Miel de Abeja (poco)", grams: 5, kcal: 15.2, prot: 0, carbs: 4.1, fat: 0 },
+      { foodId: "nueces-enteras", name: "Nueces", grams: 8, units: 2, kcal: 52.3, prot: 1.2, carbs: 1.1, fat: 5.2 },
+      { foodId: "tarta-manzana-amsterdam-crumble", name: "Tarta Manzana Amsterdam (1/2)", grams: 100, kcal: 250.0, prot: 3.0, carbs: 30.0, fat: 12.0 },
+      { foodId: "nata-chantilly", name: "Nata Chantilly", grams: 20, kcal: 50.0, prot: 0.4, carbs: 0.6, fat: 5.0 }
+    ],
+    timestamp: "2026-04-22T13:30:00"
+  },
+  {
+    id: "2026-04-22-E03",
+    date: "2026-04-22",
+    meal: "cena",
+    items: [
+      { foodId: "mcdonalds-mccrispy-chicken", name: "Chicken McCrispy", grams: 205, units: 1, kcal: 470.0, prot: 27.0, carbs: 45.0, fat: 20.0 },
+      { foodId: "mcdonalds-papas-large", name: "Papas Large (1/2)", grams: 75, kcal: 234.0, prot: 2.6, carbs: 30.8, fat: 11.3 },
+      { foodId: "mcdonalds-cheesestick", name: "Cheese Sticks x2", grams: 54, units: 2, kcal: 134.0, prot: 5.9, carbs: 11.9, fat: 6.5 },
+      { foodId: "mcdonalds-sweet-sour-sauce", name: "Sweet & Sour (1/2)", grams: 12.5, kcal: 23.0, prot: 0.1, carbs: 5.4, fat: 0.1 },
+      { foodId: "mcdonalds-ketchup-sachet", name: "Ketchup (2/3 sobre)", grams: 6.7, kcal: 6.7, prot: 0.1, carbs: 1.6, fat: 0 },
+      { foodId: "coca-cola-zero", name: "Coca-Cola Zero", grams: 330, kcal: 1.3, prot: 0, carbs: 0, fat: 0 },
+      { foodId: "pollo-pechuga-horneada", name: "Pollo Hervido extra", grams: 80, kcal: 132.0, prot: 24.8, carbs: 0, fat: 2.9 }
+    ],
+    timestamp: "2026-04-22T20:00:00"
+  },
+  {
+    id: "2026-04-22-E04",
+    date: "2026-04-22",
+    meal: "snack",
+    items: [
+      { foodId: "eafit-pure-isolate-vanille", name: "EAFit Isolate Vanille", grams: 40, kcal: 146.4, prot: 34.4, carbs: 1.3, fat: 0.4 },
+      { foodId: "heineken-biere", name: "Heineken 500ml", grams: 500, kcal: 210.0, prot: 2.5, carbs: 16.0, fat: 0 }
+    ],
+    timestamp: "2026-04-22T21:30:00"
+  },
+  // === ADRIANA 2026-04-22 ===
+  {
+    id: "2026-04-22-A01",
+    date: "2026-04-22",
+    meal: "desayuno", who: "adriana",
+    items: [
+      { foodId: "pain-baguette", name: "Pan Baguette", grams: 71, kcal: 194.5, prot: 6.0, carbs: 39.1, fat: 0.9 },
+      { foodId: "salsa-skyr-cilantro", name: "Salsa Skyr", grams: 10, kcal: 8.5, prot: 1.0, carbs: 0.4, fat: 0.3 },
+      { foodId: "pollo-pechuga-horneada", name: "Pollo Hervido y Salteado", grams: 100, kcal: 165.0, prot: 31.0, carbs: 0, fat: 3.6 },
+      { foodId: "vegetales-mixtos-tomate-chile-hojas", name: "Vegetales (tomate, chile, hojas)", grams: 60, kcal: 15.0, prot: 0.7, carbs: 3.0, fat: 0.1 },
+      { foodId: "cottage-cheese-president", name: "Cottage Cheese", grams: 35, kcal: 34.7, prot: 4.2, carbs: 0.9, fat: 1.6 },
+      { foodId: "klm-macaron-coco", name: "Macaron Coco KLM (entero)", grams: 80, kcal: 368.0, prot: 3.2, carbs: 50.4, fat: 16.8 }
+    ],
+    timestamp: "2026-04-22T09:00:00"
+  },
+  {
+    id: "2026-04-22-A02",
+    date: "2026-04-22",
+    meal: "almuerzo", who: "adriana",
+    items: [
+      { foodId: "pain-baguette", name: "Pan Sandwich (1/2)", grams: 70, kcal: 191.8, prot: 6.0, carbs: 38.5, fat: 0.9 },
+      { foodId: "pollo-pechuga-horneada", name: "Pollo sandwich", grams: 40, kcal: 66.0, prot: 12.4, carbs: 0, fat: 1.4 },
+      { foodId: "pesto-generico", name: "Pesto (poco)", grams: 10, kcal: 40.0, prot: 0.4, carbs: 0.5, fat: 3.9 },
+      { foodId: "tomate-fresco", name: "Tomate", grams: 20, kcal: 3.6, prot: 0.2, carbs: 0.8, fat: 0 },
+      { foodId: "arugula-fresca", name: "Arugula sandwich", grams: 10, kcal: 2.5, prot: 0.3, carbs: 0.4, fat: 0.1 },
+      { foodId: "pan-panini-delgado", name: "Pan Panini (1/2)", grams: 50, kcal: 140.0, prot: 4.5, carbs: 25.0, fat: 1.5 },
+      { foodId: "queso-cabra-fresco", name: "Queso Cabra Fresco", grams: 25, kcal: 75.0, prot: 4.8, carbs: 0.3, fat: 6.3 },
+      { foodId: "arugula-fresca", name: "Arugula panini", grams: 5, kcal: 1.3, prot: 0.1, carbs: 0.2, fat: 0 },
+      { foodId: "miel-abeja", name: "Miel de Abeja (poco)", grams: 5, kcal: 15.2, prot: 0, carbs: 4.1, fat: 0 },
+      { foodId: "nueces-enteras", name: "Nueces", grams: 8, units: 2, kcal: 52.3, prot: 1.2, carbs: 1.1, fat: 5.2 },
+      { foodId: "tarta-manzana-amsterdam-crumble", name: "Tarta Manzana Amsterdam (1/2)", grams: 100, kcal: 250.0, prot: 3.0, carbs: 30.0, fat: 12.0 },
+      { foodId: "nata-chantilly", name: "Nata Chantilly", grams: 20, kcal: 50.0, prot: 0.4, carbs: 0.6, fat: 5.0 },
+      { foodId: "lipton-ice-tea-low-sugar", name: "Lipton Ice Tea Low Sugar 200ml", grams: 200, kcal: 36.0, prot: 0, carbs: 8.6, fat: 0 }
+    ],
+    timestamp: "2026-04-22T13:30:00"
+  },
+  {
+    id: "2026-04-22-A03",
+    date: "2026-04-22",
+    meal: "cena", who: "adriana",
+    items: [
+      { foodId: "mcdonalds-royal-cheese", name: "Royal Cheese (1/4 Pounder)", grams: 195, units: 1, kcal: 520.0, prot: 30.0, carbs: 40.0, fat: 26.0 },
+      { foodId: "mcdonalds-papas-large", name: "Papas Large (1/2)", grams: 75, kcal: 234.0, prot: 2.6, carbs: 30.8, fat: 11.3 },
+      { foodId: "mcdonalds-cheesestick", name: "Cheese Sticks x2", grams: 54, units: 2, kcal: 134.0, prot: 5.9, carbs: 11.9, fat: 6.5 },
+      { foodId: "mcdonalds-sweet-sour-sauce", name: "Sweet & Sour (1/2)", grams: 12.5, kcal: 23.0, prot: 0.1, carbs: 5.4, fat: 0.1 },
+      { foodId: "mcdonalds-ketchup-sachet", name: "Ketchup (2/3 sobre)", grams: 6.7, kcal: 6.7, prot: 0.1, carbs: 1.6, fat: 0 }
+    ],
+    timestamp: "2026-04-22T20:00:00"
+  },
+  {
+    id: "2026-04-22-A04",
+    date: "2026-04-22",
+    meal: "snack", who: "adriana",
+    items: [
+      { foodId: "fuze-tea-the-vert", name: "Fuze Tea Thé Vert 330ml", grams: 330, kcal: 59.4, prot: 0, carbs: 14.5, fat: 0 }
+    ],
+    timestamp: "2026-04-22T17:00:00"
+  },
+  // === ERNESTO 2026-04-23 ===
+  {
+    id: "2026-04-23-E01",
+    date: "2026-04-23",
+    meal: "desayuno",
+    items: [
+      { foodId: "hipro-coco", name: "HiPro Coco", grams: 160, units: 1, kcal: 89.6, prot: 15.0, carbs: 5.9, fat: 0.6 },
+      { foodId: "eafit-pure-isolate-chocolat", name: "EAFit Isolate Chocolat", grams: 30, kcal: 106.2, prot: 24.3, carbs: 1.1, fat: 0.5 },
+      { foodId: "zuivelhoeve-boern-yoghurt", name: "Zuivelhoeve Boer'n Yoghurt (1/3 pot)", grams: 167, kcal: 90.2, prot: 6.2, carbs: 7.2, fat: 4.2 }
+    ],
+    timestamp: "2026-04-23T09:00:00"
   }
 
 ];
