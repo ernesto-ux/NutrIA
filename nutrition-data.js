@@ -2,7 +2,7 @@
 // Updated by Claude Code via /log-food skill
 // DO NOT EDIT MANUALLY - use /log-food to add meals
 
-const DATA_TIMESTAMP = "2026-04-24T00:30:00 Europe/Paris";
+const DATA_TIMESTAMP = "2026-04-25T00:30:00 Europe/Paris";
 
 const NUTRITION_CONFIG = {
   targets: { kcal: 1770, prot: 190, carbs: 140, fat: 50 },
@@ -1789,6 +1789,75 @@ const FOOD_DATABASE = [
     per100g: { kcal: 180, prot: 14, carbs: 10, fat: 10, fiber: 2 },
     source: "web",
     addedDate: "2026-04-23"
+  },
+  {
+    id: "hipro-banana-drink",
+    name: "HiPro Protein Drink Banane (bebida liquida)",
+    brand: "Danone",
+    per100g: { kcal: 54, prot: 7.2, carbs: 4, fat: 0.3, fiber: 0 },
+    source: "web",
+    addedDate: "2026-04-24",
+    notes: "Botella 345ml, 25g proteina. Bebida liquida, no yogur"
+  },
+  {
+    id: "ensalada-thai-peanut-mango-satay-oliver-green",
+    name: "Ensalada Thai Peanut con Mango y Pollo Satay",
+    brand: "Oliver Green Amsterdam",
+    per100g: { kcal: 130, prot: 8.5, carbs: 11, fat: 6, fiber: 2 },
+    source: "web",
+    addedDate: "2026-04-24",
+    notes: "Bowl tipico 450-500g, ensalada con pollo satay, mango y aderezo peanut"
+  },
+  {
+    id: "stroopwafel-rudi-chocolate-negro",
+    name: "Stroopwafel con Chocolate Negro",
+    brand: "Rudi's Original",
+    per100g: { kcal: 480, prot: 6, carbs: 65, fat: 22, fiber: 1.5 },
+    unitWeight: 40, unitLabel: "stroopwafel",
+    source: "web",
+    addedDate: "2026-04-24"
+  },
+  {
+    id: "te-verde-menta",
+    name: "Té Verde con Menta",
+    brand: "",
+    per100g: { kcal: 1, prot: 0, carbs: 0, fat: 0, fiber: 0 },
+    source: "web",
+    addedDate: "2026-04-24"
+  },
+  {
+    id: "frites-pareltje-amsterdam",
+    name: "Frites Artesanales 't Pareltje Amsterdam",
+    brand: "'t Pareltje",
+    per100g: { kcal: 350, prot: 4, carbs: 42, fat: 18, fiber: 4 },
+    source: "web",
+    addedDate: "2026-04-24",
+    notes: "Hand-cut Dutch frites Amsterdam"
+  },
+  {
+    id: "mayo-trufa",
+    name: "Mayonesa de Trufa",
+    brand: "Generic",
+    per100g: { kcal: 450, prot: 3, carbs: 5, fat: 46, fiber: 0 },
+    source: "web",
+    addedDate: "2026-04-24"
+  },
+  {
+    id: "parmesano-rayado",
+    name: "Queso Parmesano Rallado",
+    brand: "Generic",
+    per100g: { kcal: 392, prot: 36, carbs: 0.4, fat: 28, fiber: 0 },
+    source: "web",
+    addedDate: "2026-04-24"
+  },
+  {
+    id: "ensalada-ah-linzen-kikkererwten-geitenkaas",
+    name: "Ensalada Albert Heijn Lentejas, Garbanzos y Queso de Cabra",
+    brand: "Albert Heijn",
+    per100g: { kcal: 140, prot: 7, carbs: 14, fat: 6, fiber: 4 },
+    source: "web",
+    addedDate: "2026-04-24",
+    notes: "AH ready salad: linzen + kikkererwten + 9.3 geitenkaas + vinagreta 12%"
   }
 ];
 
@@ -4521,6 +4590,49 @@ const MEAL_LOG = [
       { foodId: "eafit-pure-isolate-vanille", name: "EAFit Isolate Vanille", grams: 40, kcal: 146.4, prot: 34.4, carbs: 1.3, fat: 0.4 }
     ],
     timestamp: "2026-04-23T22:00:00"
+  },
+  // === ERNESTO 2026-04-24 ===
+  {
+    id: "2026-04-24-E01",
+    date: "2026-04-24",
+    meal: "desayuno",
+    items: [
+      { foodId: "hipro-banana-drink", name: "HiPro Banana Drink (botella 345ml, 25g prot)", grams: 345, kcal: 186.3, prot: 24.8, carbs: 13.8, fat: 1.0 },
+      { foodId: "eafit-pure-isolate-vanille", name: "EAFit Isolate Vanille", grams: 40, kcal: 146.4, prot: 34.4, carbs: 1.3, fat: 0.4 }
+    ],
+    timestamp: "2026-04-24T09:00:00"
+  },
+  {
+    id: "2026-04-24-E02",
+    date: "2026-04-24",
+    meal: "almuerzo",
+    items: [
+      { foodId: "te-verde-menta", name: "Té Verde con Menta", grams: 250, kcal: 2.5, prot: 0, carbs: 0, fat: 0 },
+      { foodId: "ensalada-thai-peanut-mango-satay-oliver-green", name: "Ensalada Thai Peanut Mango Satay (Oliver Green)", grams: 500, kcal: 650.0, prot: 42.5, carbs: 55.0, fat: 30.0 }
+    ],
+    timestamp: "2026-04-24T13:30:00"
+  },
+  {
+    id: "2026-04-24-E03",
+    date: "2026-04-24",
+    meal: "snack",
+    items: [
+      { foodId: "stroopwafel-rudi-chocolate-negro", name: "Stroopwafel Rudi con Chocolate Negro", grams: 40, units: 1, kcal: 192.0, prot: 2.4, carbs: 26.0, fat: 8.8 }
+    ],
+    timestamp: "2026-04-24T17:00:00"
+  },
+  {
+    id: "2026-04-24-E04",
+    date: "2026-04-24",
+    meal: "cena",
+    items: [
+      { foodId: "frites-pareltje-amsterdam", name: "Large Frites 't Pareltje (5oz)", grams: 142, kcal: 497.0, prot: 5.7, carbs: 59.6, fat: 25.6 },
+      { foodId: "mayo-trufa", name: "Mayo Trufa (1/3)", grams: 17, kcal: 76.5, prot: 0.5, carbs: 0.9, fat: 7.8 },
+      { foodId: "ketchup-generico", name: "Ketchup (1/3)", grams: 17, kcal: 17.0, prot: 0.2, carbs: 4.1, fat: 0 },
+      { foodId: "parmesano-rayado", name: "Parmesano Rallado", grams: 10, kcal: 39.2, prot: 3.6, carbs: 0, fat: 2.8 },
+      { foodId: "ensalada-ah-linzen-kikkererwten-geitenkaas", name: "Ensalada AH Linzen + Kikkererwten + Geitenkaas", grams: 220, kcal: 308.0, prot: 15.4, carbs: 30.8, fat: 13.2 }
+    ],
+    timestamp: "2026-04-24T20:30:00"
   }
 
 ];
@@ -4553,7 +4665,8 @@ const ACTIVITY_LOG = [
   { date: "2026-04-20", steps: 3054,  stepsKcal: 50,  gym: "gym", gymKcal: 487, notes: "" },
   { date: "2026-04-21", steps: 3922,  stepsKcal: 75,  gym: null,  gymKcal: 0,   notes: "" },
   { date: "2026-04-22", steps: 8224,  stepsKcal: 525, gym: null,  gymKcal: 0,   notes: "8224 pasos + 7h de pie en fila (~275 kcal standing extra)" },
-  { date: "2026-04-23", steps: 16705, stepsKcal: 500, gym: null,  gymKcal: 0,   notes: "Amsterdam walking day" }
+  { date: "2026-04-23", steps: 16705, stepsKcal: 500, gym: null,  gymKcal: 0,   notes: "Amsterdam walking day" },
+  { date: "2026-04-24", steps: 18795, stepsKcal: 600, gym: null,  gymKcal: 0,   notes: "Amsterdam walking day 2" }
 ];
 
 // Daily energy balance (sabado a sabado: 29 mar - 4 abr + dom 5)
