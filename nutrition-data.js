@@ -5170,6 +5170,15 @@ const MEAL_LOG = [
       { foodId: "siggis-skyr-nature", name: "Skyr Siggis Nature", grams: 30, kcal: 18.9, prot: 3.3, carbs: 1.2, fat: 0.1 }
     ],
     timestamp: "2026-04-27T21:30:00"
+  },
+  {
+    id: "2026-04-27-E06",
+    date: "2026-04-27",
+    meal: "snack",
+    items: [
+      { foodId: "lu-petit-beurre", name: "LU Petit Beurre x3", grams: 25, units: 3, kcal: 108.8, prot: 1.9, carbs: 18.8, fat: 2.8 }
+    ],
+    timestamp: "2026-04-27T22:30:00"
   }
 
 ];
