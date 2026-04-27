@@ -2,7 +2,7 @@
 // Updated by Claude Code via /log-food skill
 // DO NOT EDIT MANUALLY - use /log-food to add meals
 
-const DATA_TIMESTAMP = "2026-04-25T00:30:00 Europe/Paris";
+const DATA_TIMESTAMP = "2026-04-27T10:00:00 Europe/Paris";
 
 const NUTRITION_CONFIG = {
   targets: { kcal: 1770, prot: 190, carbs: 140, fat: 50 },
@@ -1858,6 +1858,102 @@ const FOOD_DATABASE = [
     source: "web",
     addedDate: "2026-04-24",
     notes: "AH ready salad: linzen + kikkererwten + 9.3 geitenkaas + vinagreta 12%"
+  },
+  // === PRODUCTOS (added 2026-04-27) ===
+  {
+    id: "zuivelhoeve-stevige-trek",
+    name: "Stevige Trek Yoghurt con Granola",
+    brand: "Zuivelhoeve",
+    per100g: { kcal: 135, prot: 5, carbs: 17, fat: 4.5, fiber: 1 },
+    unitWeight: 200, unitLabel: "pot grande",
+    source: "web",
+    addedDate: "2026-04-27",
+    notes: "Pot grande con yogur espeso + granola incluida (200g)"
+  },
+  {
+    id: "van-stapele-cookie",
+    name: "Cookie Chocolate Negro con Núcleo Chocolate Blanco",
+    brand: "Van Stapele Koekmakerij",
+    per100g: { kcal: 500, prot: 5, carbs: 50, fat: 28, fiber: 2 },
+    unitWeight: 80, unitLabel: "cookie",
+    source: "web",
+    addedDate: "2026-04-27",
+    notes: "Famosa cookie de Amsterdam, 60g de chocolate blanco fundido en el núcleo"
+  },
+  {
+    id: "subway-sweet-onion-chicken-teriyaki-15cm",
+    name: "Subway Sweet Onion Chicken Teriyaki 15cm con pan sésamo",
+    brand: "Subway",
+    per100g: { kcal: 151, prot: 11, carbs: 24.5, fat: 1.8, fiber: 1.5 },
+    unitWeight: 245, unitLabel: "sub 15cm",
+    source: "web",
+    addedDate: "2026-04-27",
+    notes: "6\" sub: 370 kcal, 27g prot, 60g carbs, 4.5g fat. Pan con sésamo, salsa cebolla dulce, vegetales"
+  },
+  {
+    id: "tres-leches-tiramisu-amsterdam",
+    name: "Tres Leches Tiramisu",
+    brand: "De Beste Lekkernij Herenstraat",
+    per100g: { kcal: 280, prot: 4.5, carbs: 30, fat: 15, fiber: 0 },
+    unitWeight: 120, unitLabel: "porcion",
+    source: "estimate",
+    addedDate: "2026-04-27",
+    notes: "Pastelería Amsterdam, postre fusion tres leches + tiramisu, ~120g porción"
+  },
+  {
+    id: "zaanlander-48-cheese",
+    name: "Queso Zaanlander 48+",
+    brand: "Zaanlander",
+    per100g: { kcal: 420, prot: 27, carbs: 0, fat: 35, fiber: 0 },
+    unitWeight: 20, unitLabel: "rodaja",
+    source: "web",
+    addedDate: "2026-04-27",
+    notes: "Queso holandés madurado 48% MG. 1 rodaja ~20g"
+  },
+  {
+    id: "pollo-salteado",
+    name: "Pechuga de Pollo Salteado (con poco aceite)",
+    brand: "",
+    per100g: { kcal: 180, prot: 31, carbs: 0, fat: 6, fiber: 0 },
+    source: "web",
+    addedDate: "2026-04-27",
+    notes: "Pechuga horneada 165 kcal/100g + ~1 cdita aceite oliva por porción"
+  },
+  {
+    id: "bolletje-pan-amsterdam-semillas",
+    name: "Bolletje Pan Amsterdam con Semillas",
+    brand: "",
+    per100g: { kcal: 270, prot: 9, carbs: 40, fat: 7, fiber: 5 },
+    unitWeight: 80, unitLabel: "bol",
+    source: "web",
+    addedDate: "2026-04-27",
+    notes: "Pan de Amsterdam estilo Bolletje con semillas mixtas"
+  },
+  {
+    id: "frambuesas-fresas",
+    name: "Frambuesas Frescas",
+    brand: "",
+    per100g: { kcal: 52, prot: 1.2, carbs: 11.9, fat: 0.7, fiber: 6.5 },
+    source: "web",
+    addedDate: "2026-04-27"
+  },
+  {
+    id: "carne-mechada",
+    name: "Carne Mechada (res deshebrada estilo latino)",
+    brand: "",
+    per100g: { kcal: 190, prot: 22, carbs: 4, fat: 9, fiber: 1 },
+    source: "web",
+    addedDate: "2026-04-27",
+    notes: "Falda/sobrebarriga deshebrada con cebolla, pimentón, tomate"
+  },
+  {
+    id: "sopa-pollo-fideos-vegetales",
+    name: "Sopa de Pollo con Fideos, Brócoli y Zanahoria",
+    brand: "",
+    per100g: { kcal: 50, prot: 3, carbs: 6, fat: 1.2, fiber: 0.8 },
+    source: "estimate",
+    addedDate: "2026-04-27",
+    notes: "Sopa casera tipo bowl ~400ml: pollo, fideos, brócoli, zanahoria"
   }
 ];
 
@@ -4633,6 +4729,92 @@ const MEAL_LOG = [
       { foodId: "ensalada-ah-linzen-kikkererwten-geitenkaas", name: "Ensalada AH Linzen + Kikkererwten + Geitenkaas", grams: 220, kcal: 308.0, prot: 15.4, carbs: 30.8, fat: 13.2 }
     ],
     timestamp: "2026-04-24T20:30:00"
+  },
+  // === ERNESTO 2026-04-25 ===
+  {
+    id: "2026-04-25-E01",
+    date: "2026-04-25",
+    meal: "desayuno",
+    items: [
+      { foodId: "zuivelhoeve-stevige-trek", name: "Zuivelhoeve Stevige Trek con Granola (pot grande)", grams: 200, units: 1, kcal: 270.0, prot: 10.0, carbs: 34.0, fat: 9.0 }
+    ],
+    timestamp: "2026-04-25T09:30:00"
+  },
+  {
+    id: "2026-04-25-E02",
+    date: "2026-04-25",
+    meal: "almuerzo",
+    items: [
+      { foodId: "van-stapele-cookie", name: "Van Stapele Cookie x2", grams: 160, units: 2, kcal: 800.0, prot: 8.0, carbs: 80.0, fat: 44.8 },
+      { foodId: "subway-sweet-onion-chicken-teriyaki-15cm", name: "Subway Sweet Onion Chicken Teriyaki 15cm (pan sésamo)", grams: 245, units: 1, kcal: 370.0, prot: 27.0, carbs: 60.0, fat: 4.5 }
+    ],
+    timestamp: "2026-04-25T13:30:00"
+  },
+  {
+    id: "2026-04-25-E03",
+    date: "2026-04-25",
+    meal: "snack",
+    items: [
+      { foodId: "tres-leches-tiramisu-amsterdam", name: "Tres Leches Tiramisu (De Beste Lekkernij Herenstraat)", grams: 120, units: 1, kcal: 336.0, prot: 5.4, carbs: 36.0, fat: 18.0 },
+      { foodId: "papas-ambacht-frites-artesanales", name: "Frites Regular 1/2 (compartidas)", grams: 75, kcal: 262.5, prot: 3.0, carbs: 31.5, fat: 13.5 },
+      { foodId: "mayo-trufa", name: "Mayo Trufa (poquito)", grams: 10, kcal: 45.0, prot: 0.3, carbs: 0.5, fat: 4.6 }
+    ],
+    timestamp: "2026-04-25T17:30:00"
+  },
+  {
+    id: "2026-04-25-E04",
+    date: "2026-04-25",
+    meal: "cena",
+    items: [
+      { foodId: "zaanlander-48-cheese", name: "Queso Zaanlander +48 (2.5 rodajas)", grams: 50, units: 2.5, kcal: 210.0, prot: 13.5, carbs: 0, fat: 17.5 },
+      { foodId: "pollo-salteado", name: "Pollo Salteado", grams: 200, kcal: 360.0, prot: 62.0, carbs: 0, fat: 12.0 },
+      { foodId: "bolletje-pan-amsterdam-semillas", name: "Bol Pan Amsterdam con Semillas", grams: 80, units: 1, kcal: 216.0, prot: 7.2, carbs: 32.0, fat: 5.6 },
+      { foodId: "coca-cola-zero", name: "Coca-Cola Zero", grams: 330, kcal: 1.3, prot: 0, carbs: 0, fat: 0 }
+    ],
+    timestamp: "2026-04-25T21:00:00"
+  },
+  // === ERNESTO 2026-04-26 ===
+  {
+    id: "2026-04-26-E01",
+    date: "2026-04-26",
+    meal: "desayuno",
+    items: [
+      { foodId: "hipro-vanille", name: "HiPro Vanille (1 pot)", grams: 160, units: 1, kcal: 123.2, prot: 16.3, carbs: 9.4, fat: 1.3 },
+      { foodId: "frambuesas-fresas", name: "Frambuesas", grams: 20, kcal: 10.4, prot: 0.2, carbs: 2.4, fat: 0.1 }
+    ],
+    timestamp: "2026-04-26T09:30:00"
+  },
+  {
+    id: "2026-04-26-E02",
+    date: "2026-04-26",
+    meal: "snack",
+    items: [
+      { foodId: "gerble-cookie-cacao-pepites-ss", name: "Gerblé Cookie Cacao Pépites Sans Sucres x3", grams: 32.4, units: 3, kcal: 167.8, prot: 2.6, carbs: 19.8, fat: 5.8 }
+    ],
+    timestamp: "2026-04-26T11:30:00"
+  },
+  {
+    id: "2026-04-26-E03",
+    date: "2026-04-26",
+    meal: "almuerzo",
+    items: [
+      { foodId: "carne-mechada", name: "Carne Mechada", grams: 250, kcal: 475.0, prot: 55.0, carbs: 10.0, fat: 22.5 },
+      { foodId: "pain-baguette", name: "Pain Baguette", grams: 40, kcal: 109.6, prot: 3.4, carbs: 22.0, fat: 0.5 },
+      { foodId: "zaanlander-48-cheese", name: "Queso Zaanlander +48 (1.5 rodajas)", grams: 30, units: 1.5, kcal: 126.0, prot: 8.1, carbs: 0, fat: 10.5 },
+      { foodId: "ricotta-casa-azzurra", name: "Ricotta Casa Azzurra", grams: 30, kcal: 45.0, prot: 2.4, carbs: 0.4, fat: 3.6 },
+      { foodId: "eafit-pure-isolate-vanille", name: "EAFit Pure Isolate Vanille", grams: 40, kcal: 146.4, prot: 34.4, carbs: 1.3, fat: 0.4 }
+    ],
+    timestamp: "2026-04-26T14:00:00"
+  },
+  {
+    id: "2026-04-26-E04",
+    date: "2026-04-26",
+    meal: "cena",
+    items: [
+      { foodId: "sopa-pollo-fideos-vegetales", name: "Sopa Pollo Fideos Brócoli y Zanahoria", grams: 400, kcal: 200.0, prot: 12.0, carbs: 24.0, fat: 4.8 },
+      { foodId: "chocolate-negro-90", name: "Chocolate Negro 10g", grams: 10, kcal: 59.2, prot: 1.0, carbs: 1.4, fat: 5.5 }
+    ],
+    timestamp: "2026-04-26T20:30:00"
   }
 
 ];
@@ -4666,7 +4848,9 @@ const ACTIVITY_LOG = [
   { date: "2026-04-21", steps: 3922,  stepsKcal: 75,  gym: null,  gymKcal: 0,   notes: "" },
   { date: "2026-04-22", steps: 8224,  stepsKcal: 525, gym: null,  gymKcal: 0,   notes: "8224 pasos + 7h de pie en fila (~275 kcal standing extra)" },
   { date: "2026-04-23", steps: 16705, stepsKcal: 500, gym: null,  gymKcal: 0,   notes: "Amsterdam walking day" },
-  { date: "2026-04-24", steps: 18795, stepsKcal: 600, gym: "gym", gymKcal: 610, notes: "Amsterdam walking day 2 + gym" }
+  { date: "2026-04-24", steps: 18795, stepsKcal: 600, gym: "gym", gymKcal: 610, notes: "Amsterdam walking day 2 + gym" },
+  { date: "2026-04-25", steps: 15119, stepsKcal: 450, gym: null,  gymKcal: 0,   notes: "Amsterdam walking day 3" },
+  { date: "2026-04-26", steps: 500,   stepsKcal: 0,   gym: null,  gymKcal: 0,   notes: "Domingo descanso, viaje" }
 ];
 
 // Daily energy balance (sabado a sabado: 29 mar - 4 abr + dom 5)
