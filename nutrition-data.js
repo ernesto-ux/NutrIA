@@ -5050,10 +5050,10 @@ const MEAL_LOG = [
     ],
     timestamp: "2026-04-27T13:30:00"
   },
-  // === ERNESTO 2026-04-28 ===
+  // === ERNESTO 2026-04-27 ===
   {
-    id: "2026-04-28-E01",
-    date: "2026-04-28",
+    id: "2026-04-27-E01",
+    date: "2026-04-27",
     meal: "desayuno",
     items: [
       { foodId: "hipro-blueberry", name: "HiPro Myrtille (Blueberry)", grams: 160, units: 1, kcal: 84.8, prot: 15.0, carbs: 6.1, fat: 0 },
@@ -5061,11 +5061,11 @@ const MEAL_LOG = [
       { foodId: "wasa-fibre", name: "Cracker Wasa Fibre", grams: 11.4, units: 1, kcal: 38.0, prot: 1.5, carbs: 5.2, fat: 0.6 },
       { foodId: "danone-cottage-cheese", name: "Cottage Cheese", grams: 20, kcal: 18.0, prot: 2.4, carbs: 0.3, fat: 0.8 }
     ],
-    timestamp: "2026-04-28T09:00:00"
+    timestamp: "2026-04-27T09:00:00"
   },
   {
-    id: "2026-04-28-E02",
-    date: "2026-04-28",
+    id: "2026-04-27-E02",
+    date: "2026-04-27",
     meal: "almuerzo",
     items: [
       { foodId: "lechuga-fresca", name: "Hojas de Lechuga", grams: 40, kcal: 6.0, prot: 0.6, carbs: 1.2, fat: 0.1 },
@@ -5076,7 +5076,7 @@ const MEAL_LOG = [
       { foodId: "crutones-caseros", name: "Crutones Caseros", grams: 20, kcal: 80.0, prot: 2.4, carbs: 14.0, fat: 1.6 },
       { foodId: "sopa-pollo-fideos-vegetales", name: "Sopa Pollo Fideos (de anoche, 200ml)", grams: 200, kcal: 100.0, prot: 6.0, carbs: 12.0, fat: 2.4 }
     ],
-    timestamp: "2026-04-28T13:30:00"
+    timestamp: "2026-04-27T13:30:00"
   }
 
 ];
