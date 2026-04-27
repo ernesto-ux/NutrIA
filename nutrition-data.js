@@ -5159,6 +5159,17 @@ const MEAL_LOG = [
       { foodId: "tastybasics-cracker-protein", name: "TastyBasics High Prot Low Carb Crackers", grams: 40, kcal: 199.2, prot: 14.4, carbs: 6.0, fat: 12.0 }
     ],
     timestamp: "2026-04-27T20:30:00"
+  },
+  {
+    id: "2026-04-27-E05",
+    date: "2026-04-27",
+    meal: "snack",
+    items: [
+      { foodId: "wasa-fibre", name: "Wasa Fibre", grams: 14, units: 1, kcal: 47.6, prot: 1.4, carbs: 8.1, fat: 0.4 },
+      { foodId: "mermelada-lucien-fraises-sans-sucres", name: "Mermelada Sans Sucres", grams: 10, kcal: 8.9, prot: 0.1, carbs: 2.2, fat: 0.1 },
+      { foodId: "siggis-skyr-nature", name: "Skyr Siggis Nature", grams: 30, kcal: 18.9, prot: 3.3, carbs: 1.2, fat: 0.1 }
+    ],
+    timestamp: "2026-04-27T21:30:00"
   }
 
 ];
