@@ -2,7 +2,7 @@
 // Updated by Claude Code via /log-food skill
 // DO NOT EDIT MANUALLY - use /log-food to add meals
 
-const DATA_TIMESTAMP = "2026-04-27T10:00:00 Europe/Paris";
+const DATA_TIMESTAMP = "2026-04-28T15:00:00 Europe/Paris";
 
 const NUTRITION_CONFIG = {
   targets: { kcal: 1770, prot: 190, carbs: 140, fat: 50 },
@@ -1954,6 +1954,79 @@ const FOOD_DATABASE = [
     source: "estimate",
     addedDate: "2026-04-27",
     notes: "Sopa casera tipo bowl ~400ml: pollo, fideos, brócoli, zanahoria"
+  },
+  // === PRODUCTOS (added 2026-04-28) ===
+  {
+    id: "hotel-yogurt-granola-amsterdam",
+    name: "Yogurt con Granola del Hotel (Amsterdam)",
+    brand: "Hotel buffet",
+    per100g: { kcal: 120, prot: 5, carbs: 14, fat: 5, fiber: 1 },
+    unitWeight: 180, unitLabel: "pot",
+    source: "estimate",
+    addedDate: "2026-04-28",
+    notes: "Pot mediano hotel buffet ~180g: yogur natural + granola"
+  },
+  {
+    id: "subway-melt-sweet-onion-15cm",
+    name: "Subway Melt 15cm con Sweet Onion (jamón, pavo, bacon, queso)",
+    brand: "Subway",
+    per100g: { kcal: 167, prot: 9.4, carbs: 22.9, fat: 4.5, fiber: 2 },
+    unitWeight: 245, unitLabel: "sub 15cm",
+    source: "web",
+    addedDate: "2026-04-28",
+    notes: "6\" Subway Melt: 370 kcal, 23g prot, 47g carbs, 11g fat + ~40 kcal sweet onion sauce"
+  },
+  {
+    id: "tres-leches-pistacho-amsterdam",
+    name: "Tres Leches Pistacho",
+    brand: "De Beste Lekkernij Herenstraat",
+    per100g: { kcal: 290, prot: 5.5, carbs: 28, fat: 16, fiber: 0.5 },
+    unitWeight: 120, unitLabel: "porcion",
+    source: "estimate",
+    addedDate: "2026-04-28",
+    notes: "Variante con crema de pistacho, ~120g porción"
+  },
+  {
+    id: "jugo-manzana-avion",
+    name: "Jugo de Manzana",
+    brand: "Avion",
+    per100g: { kcal: 46, prot: 0.1, carbs: 11.3, fat: 0, fiber: 0.2 },
+    source: "web",
+    addedDate: "2026-04-28",
+    notes: "Vaso pequeño ~150ml"
+  },
+  {
+    id: "caldo-pollo",
+    name: "Caldo de Pollo",
+    brand: "",
+    per100g: { kcal: 10, prot: 1.5, carbs: 0.5, fat: 0.3, fiber: 0 },
+    source: "web",
+    addedDate: "2026-04-28"
+  },
+  {
+    id: "crutones-caseros",
+    name: "Crutones Caseros (pan tostado)",
+    brand: "Homemade",
+    per100g: { kcal: 400, prot: 12, carbs: 70, fat: 8, fiber: 3 },
+    source: "estimate",
+    addedDate: "2026-04-28",
+    notes: "Pan tostado en horno con poco aceite"
+  },
+  {
+    id: "lechuga-fresca",
+    name: "Hojas de Lechuga Frescas",
+    brand: "",
+    per100g: { kcal: 15, prot: 1.4, carbs: 2.9, fat: 0.2, fiber: 1.3 },
+    source: "web",
+    addedDate: "2026-04-28"
+  },
+  {
+    id: "chile-rojo-fresco",
+    name: "Chile Rojo Fresco (pimiento rojo)",
+    brand: "",
+    per100g: { kcal: 31, prot: 1.0, carbs: 6.0, fat: 0.3, fiber: 2.1 },
+    source: "web",
+    addedDate: "2026-04-28"
   }
 ];
 
@@ -4815,6 +4888,195 @@ const MEAL_LOG = [
       { foodId: "chocolate-negro-90", name: "Chocolate Negro 10g", grams: 10, kcal: 59.2, prot: 1.0, carbs: 1.4, fat: 5.5 }
     ],
     timestamp: "2026-04-26T20:30:00"
+  },
+  // === ADRIANA 2026-04-24 ===
+  {
+    id: "2026-04-24-A01",
+    date: "2026-04-24",
+    meal: "desayuno", who: "adriana",
+    items: [
+      { foodId: "hotel-yogurt-granola-amsterdam", name: "Yogurt con Granola del Hotel", grams: 180, units: 1, kcal: 216.0, prot: 9.0, carbs: 25.2, fat: 9.0 },
+      { foodId: "eafit-pure-isolate-vanille", name: "EAFit Vainilla con agua (120ml)", grams: 30, kcal: 109.8, prot: 25.8, carbs: 1.0, fat: 0.3 }
+    ],
+    timestamp: "2026-04-24T09:00:00"
+  },
+  {
+    id: "2026-04-24-A02",
+    date: "2026-04-24",
+    meal: "almuerzo", who: "adriana",
+    items: [
+      { foodId: "ensalada-thai-peanut-mango-satay-oliver-green", name: "Bowl Autumn Chicken (espinaca, pollo, camote, feta, brocoli, tomate cherry, manzana, almendras, balsamico, arroz integral)", grams: 500, kcal: 650.0, prot: 40.0, carbs: 75.0, fat: 25.0 },
+      { foodId: "te-verde-menta", name: "Té de Menta", grams: 250, kcal: 2.5, prot: 0, carbs: 0, fat: 0 }
+    ],
+    timestamp: "2026-04-24T13:30:00"
+  },
+  {
+    id: "2026-04-24-A03",
+    date: "2026-04-24",
+    meal: "snack", who: "adriana",
+    items: [
+      { foodId: "stroopwafel-rudi-chocolate-negro", name: "Stroopwafel Rudi's", grams: 40, units: 1, kcal: 192.0, prot: 2.4, carbs: 26.0, fat: 8.8 }
+    ],
+    timestamp: "2026-04-24T17:00:00"
+  },
+  {
+    id: "2026-04-24-A04",
+    date: "2026-04-24",
+    meal: "cena", who: "adriana",
+    items: [
+      { foodId: "frites-pareltje-amsterdam", name: "Large Frites 't Pareltje (5oz, mismas que Ernesto)", grams: 142, kcal: 497.0, prot: 5.7, carbs: 59.6, fat: 25.6 },
+      { foodId: "mayo-trufa", name: "Mayo Trufa", grams: 17, kcal: 76.5, prot: 0.5, carbs: 0.9, fat: 7.8 },
+      { foodId: "ketchup-generico", name: "Ketchup", grams: 17, kcal: 17.0, prot: 0.2, carbs: 4.1, fat: 0 },
+      { foodId: "parmesano-rayado", name: "Parmesano Rallado", grams: 10, kcal: 39.2, prot: 3.6, carbs: 0, fat: 2.8 }
+    ],
+    timestamp: "2026-04-24T20:30:00"
+  },
+  // === ADRIANA 2026-04-25 ===
+  {
+    id: "2026-04-25-A01",
+    date: "2026-04-25",
+    meal: "desayuno", who: "adriana",
+    items: [
+      { foodId: "zuivelhoeve-stevige-trek", name: "Zuivelhoeve Stevige Trek con Granola (pot grande)", grams: 200, units: 1, kcal: 270.0, prot: 10.0, carbs: 34.0, fat: 9.0 }
+    ],
+    timestamp: "2026-04-25T09:30:00"
+  },
+  {
+    id: "2026-04-25-A02",
+    date: "2026-04-25",
+    meal: "almuerzo", who: "adriana",
+    items: [
+      { foodId: "subway-melt-sweet-onion-15cm", name: "Subway Melt 15cm con Sweet Onion", grams: 245, units: 1, kcal: 410.0, prot: 23.0, carbs: 56.0, fat: 11.0 },
+      { foodId: "van-stapele-cookie", name: "Van Stapele Cookie x2", grams: 160, units: 2, kcal: 800.0, prot: 8.0, carbs: 80.0, fat: 44.8 }
+    ],
+    timestamp: "2026-04-25T13:30:00"
+  },
+  {
+    id: "2026-04-25-A03",
+    date: "2026-04-25",
+    meal: "cena", who: "adriana",
+    items: [
+      { foodId: "zaanlander-48-cheese", name: "Queso Zaanlander +48 (2 rodajas)", grams: 40, units: 2, kcal: 168.0, prot: 10.8, carbs: 0, fat: 14.0 },
+      { foodId: "pollo-salteado", name: "Pollo Salteado", grams: 100, kcal: 180.0, prot: 31.0, carbs: 0, fat: 6.0 },
+      { foodId: "bolletje-pan-amsterdam-semillas", name: "Bol Pan Amsterdam con Semillas", grams: 80, units: 1, kcal: 216.0, prot: 7.2, carbs: 32.0, fat: 5.6 },
+      { foodId: "jugo-manzana-avion", name: "Jugo de Manzana Avion (vaso pequeño 150ml)", grams: 150, kcal: 69.0, prot: 0.2, carbs: 17.0, fat: 0 }
+    ],
+    timestamp: "2026-04-25T21:00:00"
+  },
+  {
+    id: "2026-04-25-A04",
+    date: "2026-04-25",
+    meal: "snack", who: "adriana",
+    items: [
+      { foodId: "tres-leches-tiramisu-amsterdam", name: "Tres Leches Tiramisu (1/2 porción)", grams: 60, units: 0.5, kcal: 168.0, prot: 2.7, carbs: 18.0, fat: 9.0 },
+      { foodId: "tres-leches-pistacho-amsterdam", name: "Tres Leches Pistacho (1/2 porción)", grams: 60, units: 0.5, kcal: 174.0, prot: 3.3, carbs: 16.8, fat: 9.6 },
+      { foodId: "papas-ambacht-frites-artesanales", name: "Frites Regular", grams: 150, kcal: 525.0, prot: 6.0, carbs: 63.0, fat: 27.0 },
+      { foodId: "mayo-trufa", name: "Mayo Trufa", grams: 15, kcal: 67.5, prot: 0.5, carbs: 0.8, fat: 6.9 }
+    ],
+    timestamp: "2026-04-25T18:00:00"
+  },
+  // === ADRIANA 2026-04-26 ===
+  {
+    id: "2026-04-26-A01",
+    date: "2026-04-26",
+    meal: "desayuno", who: "adriana",
+    items: [
+      { foodId: "huevo-entero", name: "Huevo Entero x2", grams: 100, units: 2, kcal: 155.0, prot: 13.0, carbs: 1.2, fat: 11.0 },
+      { foodId: "jamon-porc-fleury-michon", name: "Jamón", grams: 23, kcal: 26.5, prot: 4.6, carbs: 0.2, fat: 0.8 },
+      { foodId: "zaanlander-48-cheese", name: "Queso Zaanlander +48", grams: 26, kcal: 109.2, prot: 7.0, carbs: 0, fat: 9.1 },
+      { foodId: "pain-baguette", name: "Pain Baguette", grams: 50, kcal: 137.0, prot: 4.3, carbs: 27.5, fat: 0.7 },
+      { foodId: "aceite-oliva", name: "Aceite de Oliva (1/2 tsp)", grams: 2.5, kcal: 22.5, prot: 0, carbs: 0, fat: 2.5 },
+      { foodId: "leche-almendra", name: "Leche de Almendras (150ml)", grams: 150, kcal: 19.5, prot: 0.6, carbs: 0.3, fat: 1.7 }
+    ],
+    timestamp: "2026-04-26T09:00:00"
+  },
+  {
+    id: "2026-04-26-A02",
+    date: "2026-04-26",
+    meal: "snack", who: "adriana",
+    items: [
+      { foodId: "frambuesas-fresas", name: "Frambuesas", grams: 24, kcal: 12.5, prot: 0.3, carbs: 2.9, fat: 0.2 },
+      { foodId: "fresas-frescas", name: "Fresas Frescas", grams: 45, kcal: 14.4, prot: 0.3, carbs: 3.5, fat: 0.1 },
+      { foodId: "kefir-lactel-0-bio", name: "Kéfir Lactel 0% Bio", grams: 114, kcal: 50.2, prot: 3.9, carbs: 4.7, fat: 1.7 },
+      { foodId: "siggis-skyr-nature", name: "Skyr Nature", grams: 30, kcal: 18.9, prot: 3.3, carbs: 1.2, fat: 0.1 },
+      { foodId: "eafit-pure-isolate-vanille", name: "EAFit Vainilla", grams: 26, kcal: 95.2, prot: 22.4, carbs: 0.9, fat: 0.2 }
+    ],
+    timestamp: "2026-04-26T11:30:00"
+  },
+  {
+    id: "2026-04-26-A03",
+    date: "2026-04-26",
+    meal: "cena", who: "adriana",
+    items: [
+      { foodId: "bavette-cocida", name: "Fideos Cocidos", grams: 87, kcal: 136.6, prot: 4.8, carbs: 27.0, fat: 0.8 },
+      { foodId: "caldo-pollo", name: "Caldo de Pollo (180ml)", grams: 180, kcal: 18.0, prot: 2.7, carbs: 0.9, fat: 0.5 },
+      { foodId: "pollo-pechuga-horneada", name: "Pollo", grams: 40, kcal: 66.0, prot: 12.4, carbs: 0, fat: 1.4 },
+      { foodId: "brocoli-cuit", name: "Brócoli (cocido)", grams: 28, kcal: 9.8, prot: 0.8, carbs: 1.1, fat: 0.1 }
+    ],
+    timestamp: "2026-04-26T20:30:00"
+  },
+  // === ADRIANA 2026-04-27 ===
+  {
+    id: "2026-04-27-A01",
+    date: "2026-04-27",
+    meal: "desayuno", who: "adriana",
+    items: [
+      { foodId: "hipro-vanille", name: "HiPro Vanille", grams: 155, kcal: 119.4, prot: 15.8, carbs: 9.1, fat: 1.2 },
+      { foodId: "siggis-skyr-nature", name: "Skyr Nature", grams: 145, kcal: 91.4, prot: 16.0, carbs: 5.8, fat: 0.3 },
+      { foodId: "fresas-frescas", name: "Fresas Frescas", grams: 64, kcal: 20.5, prot: 0.4, carbs: 4.9, fat: 0.2 }
+    ],
+    timestamp: "2026-04-27T09:00:00"
+  },
+  {
+    id: "2026-04-27-A02",
+    date: "2026-04-27",
+    meal: "snack", who: "adriana",
+    items: [
+      { foodId: "stroopwafel-rudi-chocolate-negro", name: "Stroopwafels x2", grams: 80, units: 2, kcal: 384.0, prot: 4.8, carbs: 52.0, fat: 17.6 }
+    ],
+    timestamp: "2026-04-27T11:30:00"
+  },
+  {
+    id: "2026-04-27-A03",
+    date: "2026-04-27",
+    meal: "almuerzo", who: "adriana",
+    items: [
+      { foodId: "lechuga-fresca", name: "Hojas de Lechuga", grams: 40, kcal: 6.0, prot: 0.6, carbs: 1.2, fat: 0.1 },
+      { foodId: "chile-rojo-fresco", name: "Chile Rojo", grams: 40, kcal: 12.4, prot: 0.4, carbs: 2.4, fat: 0.1 },
+      { foodId: "tomate-cherry", name: "Tomate Cherry", grams: 18, kcal: 3.2, prot: 0.2, carbs: 0.7, fat: 0 },
+      { foodId: "brocoli-cuit", name: "Brócoli", grams: 50, kcal: 17.5, prot: 1.5, carbs: 2.0, fat: 0.2 },
+      { foodId: "pollo-pechuga-horneada", name: "Pollo", grams: 99, kcal: 163.4, prot: 30.7, carbs: 0, fat: 3.6 },
+      { foodId: "crutones-caseros", name: "Crutones Caseros", grams: 20, kcal: 80.0, prot: 2.4, carbs: 14.0, fat: 1.6 }
+    ],
+    timestamp: "2026-04-27T13:30:00"
+  },
+  // === ERNESTO 2026-04-28 ===
+  {
+    id: "2026-04-28-E01",
+    date: "2026-04-28",
+    meal: "desayuno",
+    items: [
+      { foodId: "hipro-blueberry", name: "HiPro Myrtille (Blueberry)", grams: 160, units: 1, kcal: 84.8, prot: 15.0, carbs: 6.1, fat: 0 },
+      { foodId: "cafe-negro", name: "Café sin azúcar", grams: 240, units: 1, kcal: 4.8, prot: 0.2, carbs: 0, fat: 0 },
+      { foodId: "wasa-fibre", name: "Cracker Wasa Fibre", grams: 11.4, units: 1, kcal: 38.0, prot: 1.5, carbs: 5.2, fat: 0.6 },
+      { foodId: "danone-cottage-cheese", name: "Cottage Cheese", grams: 20, kcal: 18.0, prot: 2.4, carbs: 0.3, fat: 0.8 }
+    ],
+    timestamp: "2026-04-28T09:00:00"
+  },
+  {
+    id: "2026-04-28-E02",
+    date: "2026-04-28",
+    meal: "almuerzo",
+    items: [
+      { foodId: "lechuga-fresca", name: "Hojas de Lechuga", grams: 40, kcal: 6.0, prot: 0.6, carbs: 1.2, fat: 0.1 },
+      { foodId: "chile-rojo-fresco", name: "Chile Rojo", grams: 40, kcal: 12.4, prot: 0.4, carbs: 2.4, fat: 0.1 },
+      { foodId: "tomate-cherry", name: "Tomate Cherry", grams: 18, kcal: 3.2, prot: 0.2, carbs: 0.7, fat: 0 },
+      { foodId: "brocoli-cuit", name: "Brócoli", grams: 50, kcal: 17.5, prot: 1.5, carbs: 2.0, fat: 0.2 },
+      { foodId: "pollo-pechuga-horneada", name: "Pollo", grams: 100, kcal: 165.0, prot: 31.0, carbs: 0, fat: 3.6 },
+      { foodId: "crutones-caseros", name: "Crutones Caseros", grams: 20, kcal: 80.0, prot: 2.4, carbs: 14.0, fat: 1.6 },
+      { foodId: "sopa-pollo-fideos-vegetales", name: "Sopa Pollo Fideos (de anoche, 200ml)", grams: 200, kcal: 100.0, prot: 6.0, carbs: 12.0, fat: 2.4 }
+    ],
+    timestamp: "2026-04-28T13:30:00"
   }
 
 ];
