@@ -2,7 +2,7 @@
 // Updated by Claude Code via /log-food skill
 // DO NOT EDIT MANUALLY - use /log-food to add meals
 
-const DATA_TIMESTAMP = "2026-04-27T14:50:00 Europe/Paris";
+const DATA_TIMESTAMP = "2026-04-27T20:30:00 Europe/Paris";
 
 const NUTRITION_CONFIG = {
   targets: { kcal: 1770, prot: 190, carbs: 140, fat: 50 },
@@ -5097,6 +5097,44 @@ const MEAL_LOG = [
       { foodId: "sopa-pollo-fideos-vegetales", name: "Sopa Pollo Fideos (de anoche, 200ml)", grams: 200, kcal: 100.0, prot: 6.0, carbs: 12.0, fat: 2.4 }
     ],
     timestamp: "2026-04-27T13:30:00"
+  },
+  {
+    id: "2026-04-27-A04",
+    date: "2026-04-27",
+    meal: "snack", who: "adriana",
+    items: [
+      { foodId: "eafit-pure-isolate-chocolat", name: "Pure Isolate Whey Chocolat", grams: 25, kcal: 88.5, prot: 20.3, carbs: 0.9, fat: 0.4 },
+      { foodId: "kefir-lactel-0-bio", name: "Kéfir Lactel 0%", grams: 107, kcal: 47.1, prot: 3.6, carbs: 4.4, fat: 1.6 },
+      { foodId: "kefir-lactel-0-bio", name: "Kéfir Lactel 0%", grams: 31, kcal: 13.6, prot: 1.1, carbs: 1.3, fat: 0.5 },
+      { foodId: "banana-fresca", name: "Banano", grams: 40, kcal: 35.6, prot: 0.4, carbs: 9.1, fat: 0.1 },
+      { foodId: "weider-peanut-butter-powder", name: "PB en polvo", grams: 3, kcal: 13.2, prot: 1.5, carbs: 0.6, fat: 0.4 },
+      { foodId: "siggis-skyr-nature", name: "Skyr Siggis Nature", grams: 100, kcal: 63.0, prot: 11.0, carbs: 4.0, fat: 0.2 },
+      { foodId: "miel-abeja", name: "Miel (1/2 tsp)", grams: 2.5, kcal: 7.6, prot: 0, carbs: 2.1, fat: 0 }
+    ],
+    timestamp: "2026-04-27T17:00:00"
+  },
+  {
+    id: "2026-04-27-A05",
+    date: "2026-04-27",
+    meal: "cena", who: "adriana",
+    items: [
+      { foodId: "huevo-entero", name: "Huevo Entero", grams: 50, units: 1, kcal: 77.5, prot: 6.5, carbs: 0.6, fat: 5.5 },
+      { foodId: "clara-huevo", name: "Clara de Huevo", grams: 33, units: 1, kcal: 17.2, prot: 3.6, carbs: 0.2, fat: 0.1 },
+      { foodId: "jamon-porc-fleury-michon", name: "Jambon (1 rodaja)", grams: 30, kcal: 34.5, prot: 6.0, carbs: 0.3, fat: 1.1 },
+      { foodId: "cebolla-salteada", name: "Cebolla Salteada", grams: 45, kcal: 22.5, prot: 0.5, carbs: 4.1, fat: 0.5 },
+      { foodId: "aceite-oliva", name: "AOVE (1/2 tsp)", grams: 2.5, kcal: 22.1, prot: 0, carbs: 0, fat: 2.5 }
+    ],
+    timestamp: "2026-04-27T20:00:00"
+  },
+  {
+    id: "2026-04-27-E03",
+    date: "2026-04-27",
+    meal: "snack",
+    items: [
+      { foodId: "eafit-pure-isolate-vanille", name: "Pure Isolate Whey Vanille", grams: 40, kcal: 146.4, prot: 34.4, carbs: 1.3, fat: 0.4 },
+      { foodId: "fresas-frescas", name: "Fresas Frescas", grams: 50, kcal: 16.0, prot: 0.4, carbs: 3.9, fat: 0.2 }
+    ],
+    timestamp: "2026-04-27T17:00:00"
   }
 
 ];
