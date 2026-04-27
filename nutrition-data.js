@@ -2,7 +2,7 @@
 // Updated by Claude Code via /log-food skill
 // DO NOT EDIT MANUALLY - use /log-food to add meals
 
-const DATA_TIMESTAMP = "2026-04-28T15:00:00 Europe/Paris";
+const DATA_TIMESTAMP = "2026-04-27T14:50:00 Europe/Paris";
 
 const NUTRITION_CONFIG = {
   targets: { kcal: 1770, prot: 190, carbs: 140, fat: 50 },
@@ -4700,6 +4700,15 @@ const MEAL_LOG = [
     timestamp: "2026-04-23T09:00:00"
   },
   {
+    id: "2026-04-23-A01",
+    date: "2026-04-23",
+    meal: "desayuno", who: "adriana",
+    items: [
+      { foodId: "hipro-coco", name: "HiPro Coco", grams: 160, units: 1, kcal: 89.6, prot: 15.0, carbs: 5.9, fat: 0.6 }
+    ],
+    timestamp: "2026-04-23T09:00:00"
+  },
+  {
     id: "2026-04-23-E02",
     date: "2026-04-23",
     meal: "almuerzo",
@@ -4746,6 +4755,17 @@ const MEAL_LOG = [
     items: [
       { foodId: "sopa-thai-mariscos-picante", name: "Sopa Thai Picante Mariscos", grams: 300, kcal: 150.0, prot: 12.0, carbs: 12.0, fat: 4.5 },
       { foodId: "coca-cola-zero", name: "Coca-Cola Zero", grams: 330, kcal: 1.3, prot: 0, carbs: 0, fat: 0 },
+      { foodId: "arroz-basmati-cocido", name: "Arroz Basmati", grams: 60, kcal: 78.0, prot: 1.6, carbs: 16.8, fat: 0.2 },
+      { foodId: "thai-carne-vegetales-maranon-hongos", name: "Thai Carne con Vegetales, Marañón y Hongos", grams: 120, kcal: 216.0, prot: 16.8, carbs: 12.0, fat: 12.0 }
+    ],
+    timestamp: "2026-04-23T20:30:00"
+  },
+  {
+    id: "2026-04-23-A03",
+    date: "2026-04-23",
+    meal: "cena", who: "adriana",
+    items: [
+      { foodId: "sopa-thai-mariscos-picante", name: "Sopa Thai Picante Mariscos", grams: 300, kcal: 150.0, prot: 12.0, carbs: 12.0, fat: 4.5 },
       { foodId: "arroz-basmati-cocido", name: "Arroz Basmati", grams: 60, kcal: 78.0, prot: 1.6, carbs: 16.8, fat: 0.2 },
       { foodId: "thai-carne-vegetales-maranon-hongos", name: "Thai Carne con Vegetales, Marañón y Hongos", grams: 120, kcal: 216.0, prot: 16.8, carbs: 12.0, fat: 12.0 }
     ],
