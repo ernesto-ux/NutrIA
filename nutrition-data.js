@@ -2027,6 +2027,14 @@ const FOOD_DATABASE = [
     per100g: { kcal: 31, prot: 1.0, carbs: 6.0, fat: 0.3, fiber: 2.1 },
     source: "web",
     addedDate: "2026-04-28"
+  },
+  {
+    id: "tastybasics-cracker-protein",
+    name: "Crackers Less Carbs More Protein",
+    brand: "TastyBasics",
+    per100g: { kcal: 498, prot: 36, carbs: 15, fat: 30, fiber: 15 },
+    source: "web",
+    addedDate: "2026-04-27"
   }
 ];
 
@@ -5135,6 +5143,22 @@ const MEAL_LOG = [
       { foodId: "fresas-frescas", name: "Fresas Frescas", grams: 50, kcal: 16.0, prot: 0.4, carbs: 3.9, fat: 0.2 }
     ],
     timestamp: "2026-04-27T17:00:00"
+  },
+  {
+    id: "2026-04-27-E04",
+    date: "2026-04-27",
+    meal: "cena",
+    items: [
+      { foodId: "huevo-entero", name: "Huevo Entero", grams: 50, units: 1, kcal: 77.5, prot: 6.5, carbs: 0.6, fat: 5.5 },
+      { foodId: "clara-huevo", name: "Claras de Huevo", grams: 66, units: 2, kcal: 34.3, prot: 7.3, carbs: 0.5, fat: 0.1 },
+      { foodId: "jamon-porc-fleury-michon", name: "Jambon (1 rodaja)", grams: 30, kcal: 34.5, prot: 6.0, carbs: 0.3, fat: 1.1 },
+      { foodId: "queso-maduro-espanol", name: "Queso Maduro", grams: 15, kcal: 60.0, prot: 3.8, carbs: 0.1, fat: 5.0 },
+      { foodId: "chile-rojo-fresco", name: "Pimiento Rojo", grams: 30, kcal: 9.3, prot: 0.3, carbs: 1.8, fat: 0.1 },
+      { foodId: "cebolla-cruda", name: "Cebolla (1/2 pequeña)", grams: 35, kcal: 14.0, prot: 0.4, carbs: 3.3, fat: 0 },
+      { foodId: "tomate-cherry", name: "Tomate Cherry x4", grams: 40, kcal: 7.2, prot: 0.4, carbs: 1.6, fat: 0.1 },
+      { foodId: "tastybasics-cracker-protein", name: "TastyBasics High Prot Low Carb Crackers", grams: 40, kcal: 199.2, prot: 14.4, carbs: 6.0, fat: 12.0 }
+    ],
+    timestamp: "2026-04-27T20:30:00"
   }
 
 ];
