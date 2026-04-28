@@ -2,7 +2,7 @@
 // Updated by Claude Code via /log-food skill
 // DO NOT EDIT MANUALLY - use /log-food to add meals
 
-const DATA_TIMESTAMP = "2026-04-27T20:30:00 Europe/Paris";
+const DATA_TIMESTAMP = "2026-04-29T10:00:00 Europe/Paris";
 
 const NUTRITION_CONFIG = {
   targets: { kcal: 1770, prot: 190, carbs: 140, fat: 50 },
@@ -2062,6 +2062,16 @@ const FOOD_DATABASE = [
     unitWeight: 4, unitLabel: "aceituna",
     source: "web",
     addedDate: "2026-04-28"
+  },
+  // === PRODUCTOS (added 2026-04-29) ===
+  {
+    id: "tony-chocolonely-dark-70",
+    name: "Chocolate Negro 70%",
+    brand: "Tony's Chocolonely",
+    per100g: { kcal: 575, prot: 9, carbs: 34, fat: 41, fiber: 11.6 },
+    source: "web",
+    addedDate: "2026-04-29",
+    notes: "Pure 70% dark, fairtrade. Tablette estándar 180g divisible en 15 cuadros (~12g)"
   }
 ];
 
@@ -5272,6 +5282,29 @@ const MEAL_LOG = [
       { foodId: "siggis-skyr-nature", name: "Skyr Siggis Nature", grams: 40, kcal: 25.2, prot: 4.4, carbs: 1.6, fat: 0.1 }
     ],
     timestamp: "2026-04-28T13:30:00"
+  },
+  {
+    id: "2026-04-28-E03",
+    date: "2026-04-28",
+    meal: "cena",
+    items: [
+      { foodId: "huevo-entero", name: "Huevo Entero", grams: 50, units: 1, kcal: 77.5, prot: 6.5, carbs: 0.6, fat: 5.5 },
+      { foodId: "clara-huevo", name: "Claras de Huevo", grams: 66, units: 2, kcal: 34.3, prot: 7.3, carbs: 0.5, fat: 0.1 },
+      { foodId: "jamon-porc-fleury-michon", name: "Jambon Porc Rôti FM (1 rodaja)", grams: 28, units: 1, kcal: 32.2, prot: 5.6, carbs: 0.3, fat: 1.0 },
+      { foodId: "danone-cottage-cheese", name: "Cottage Cheese", grams: 80, kcal: 72.0, prot: 9.6, carbs: 1.3, fat: 3.1 },
+      { foodId: "tastybasics-cracker-protein", name: "TastyBasics High Prot Low Carb Crackers", grams: 15, kcal: 74.7, prot: 5.4, carbs: 2.3, fat: 4.5 },
+      { foodId: "eafit-pure-isolate-vanille", name: "Pure Isolate Whey Vanille", grams: 35, kcal: 128.1, prot: 30.1, carbs: 1.1, fat: 0.4 }
+    ],
+    timestamp: "2026-04-28T20:30:00"
+  },
+  {
+    id: "2026-04-28-E04",
+    date: "2026-04-28",
+    meal: "snack",
+    items: [
+      { foodId: "tony-chocolonely-dark-70", name: "Tony's Chocolonely Dark 70%", grams: 12, kcal: 69.0, prot: 1.1, carbs: 4.1, fat: 4.9 }
+    ],
+    timestamp: "2026-04-28T22:00:00"
   }
 
 ];

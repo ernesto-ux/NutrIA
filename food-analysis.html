@@ -528,10 +528,15 @@
 
   // Search
   let searchTimer;
-  document.getElementById('search').addEventListener('input', e => {
+  const searchEl = document.getElementById('search');
+  function onSearchChange() {
     clearTimeout(searchTimer);
-    searchTimer = setTimeout(() => { state.search = e.target.value; renderTable(); }, 200);
-  });
+    searchTimer = setTimeout(() => { state.search = searchEl.value; renderTable(); }, 200);
+  }
+  searchEl.addEventListener('input', onSearchChange);
+  searchEl.addEventListener('change', onSearchChange);
+  // Also poll for programmatic fills (Kapture, etc.)
+  setInterval(() => { if (searchEl.value !== state.search) { state.search = searchEl.value; renderTable(); } }, 500);
 
   // Family filter
   document.getElementById('familyFilter').addEventListener('change', e => {
