@@ -1136,7 +1136,17 @@
       return;
     }
 
-    // 3) Fallback: LocalStorage only
+    // 3) Try static local-meals.json (GitHub Pages fallback)
+    try {
+      const r = await fetch('local-meals.json', { cache: 'no-store' });
+      if (r.ok) {
+        _serverData = await r.json();
+        _lsSave();
+        return;
+      }
+    } catch(e) {}
+
+    // 4) Fallback: LocalStorage only
     _serverData = _lsLoad();
   }
 
