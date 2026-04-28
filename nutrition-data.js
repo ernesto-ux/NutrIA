@@ -2035,6 +2035,33 @@ const FOOD_DATABASE = [
     per100g: { kcal: 498, prot: 36, carbs: 15, fat: 30, fiber: 15 },
     source: "web",
     addedDate: "2026-04-27"
+  },
+  {
+    id: "flax-seed",
+    name: "Semillas de Lino (Flax Seed)",
+    brand: "",
+    per100g: { kcal: 534, prot: 18, carbs: 29, fat: 42, fiber: 27 },
+    source: "web",
+    addedDate: "2026-04-28"
+  },
+  {
+    id: "starbucks-protein-drink-coffee-lowfat",
+    name: "Protein Drink with Coffee Caffe Latte Low Fat",
+    brand: "Starbucks",
+    per100g: { kcal: 51, prot: 6.1, carbs: 4.1, fat: 1.1, fiber: 0 },
+    unitWeight: 330, unitLabel: "bottle",
+    source: "web",
+    addedDate: "2026-04-28",
+    notes: "1 bottle 330ml = 20g proteina"
+  },
+  {
+    id: "aceituna-kalamata",
+    name: "Aceituna Kalamata (sin hueso)",
+    brand: "",
+    per100g: { kcal: 240, prot: 1, carbs: 6, fat: 22, fiber: 3.3 },
+    unitWeight: 4, unitLabel: "aceituna",
+    source: "web",
+    addedDate: "2026-04-28"
   }
 ];
 
@@ -5179,6 +5206,72 @@ const MEAL_LOG = [
       { foodId: "lu-petit-beurre", name: "LU Petit Beurre x3", grams: 25, units: 3, kcal: 108.8, prot: 1.9, carbs: 18.8, fat: 2.8 }
     ],
     timestamp: "2026-04-27T22:30:00"
+  },
+  {
+    id: "2026-04-28-A01",
+    date: "2026-04-28",
+    meal: "desayuno", who: "adriana",
+    items: [
+      { foodId: "hipro-coco", name: "HiPro Coco", grams: 155, kcal: 86.8, prot: 14.6, carbs: 5.7, fat: 0.6 },
+      { foodId: "siggis-skyr-nature", name: "Skyr Siggis Nature", grams: 150, kcal: 94.5, prot: 16.5, carbs: 6.0, fat: 0.3 },
+      { foodId: "flax-seed", name: "Flax Seed", grams: 3, kcal: 16.0, prot: 0.5, carbs: 0.9, fat: 1.3 },
+      { foodId: "fresas-frescas", name: "Fresas Frescas", grams: 63, kcal: 20.2, prot: 0.4, carbs: 4.9, fat: 0.2 }
+    ],
+    timestamp: "2026-04-28T09:00:00"
+  },
+  {
+    id: "2026-04-28-A02",
+    date: "2026-04-28",
+    meal: "almuerzo", who: "adriana",
+    items: [
+      { foodId: "lechuga-fresca", name: "Hojas de Lechuga", grams: 40, kcal: 6.0, prot: 0.6, carbs: 1.2, fat: 0.1 },
+      { foodId: "chile-rojo-fresco", name: "Chile Rojo", grams: 40, kcal: 12.4, prot: 0.4, carbs: 2.4, fat: 0.1 },
+      { foodId: "tomate-cherry", name: "Tomate Cherry", grams: 18, kcal: 3.2, prot: 0.2, carbs: 0.7, fat: 0 },
+      { foodId: "brocoli-cuit", name: "Brócoli", grams: 50, kcal: 17.5, prot: 1.5, carbs: 2.0, fat: 0.2 },
+      { foodId: "pollo-pechuga-horneada", name: "Pollo", grams: 99, kcal: 163.4, prot: 30.7, carbs: 0, fat: 3.6 },
+      { foodId: "crutones-caseros", name: "Crutones Caseros", grams: 20, kcal: 80.0, prot: 2.4, carbs: 14.0, fat: 1.6 }
+    ],
+    timestamp: "2026-04-28T13:30:00"
+  },
+  {
+    id: "2026-04-28-A03",
+    date: "2026-04-28",
+    meal: "snack", who: "adriana",
+    items: [
+      { foodId: "mandarina-fresca", name: "Mandarina", grams: 80, units: 1, kcal: 37.6, prot: 0.6, carbs: 9.6, fat: 0.2 }
+    ],
+    timestamp: "2026-04-28T16:30:00"
+  },
+  {
+    id: "2026-04-28-E01",
+    date: "2026-04-28",
+    meal: "desayuno",
+    items: [
+      { foodId: "hipro-coco", name: "HiPro Coco", grams: 160, units: 1, kcal: 89.6, prot: 15.0, carbs: 5.9, fat: 0.6 },
+      { foodId: "starbucks-protein-drink-coffee-lowfat", name: "Starbucks Protein Coffee Drink Low Fat", grams: 330, units: 1, kcal: 168.3, prot: 20.1, carbs: 13.5, fat: 3.6 }
+    ],
+    timestamp: "2026-04-28T09:00:00"
+  },
+  {
+    id: "2026-04-28-E02",
+    date: "2026-04-28",
+    meal: "almuerzo",
+    items: [
+      { foodId: "lechuga-fresca", name: "Hojas de Lechuga", grams: 40, kcal: 6.0, prot: 0.6, carbs: 1.2, fat: 0.1 },
+      { foodId: "chile-rojo-fresco", name: "Chile Rojo", grams: 40, kcal: 12.4, prot: 0.4, carbs: 2.4, fat: 0.1 },
+      { foodId: "tomate-cherry", name: "Tomate Cherry", grams: 18, kcal: 3.2, prot: 0.2, carbs: 0.7, fat: 0 },
+      { foodId: "brocoli-cuit", name: "Brócoli", grams: 50, kcal: 17.5, prot: 1.5, carbs: 2.0, fat: 0.2 },
+      { foodId: "pollo-pechuga-horneada", name: "Pollo", grams: 99, kcal: 163.4, prot: 30.7, carbs: 0, fat: 3.6 },
+      { foodId: "crutones-caseros", name: "Crutones Caseros", grams: 20, kcal: 80.0, prot: 2.4, carbs: 14.0, fat: 1.6 },
+      { foodId: "aceituna-kalamata", name: "Aceituna Kalamata x4", grams: 16, units: 4, kcal: 38.4, prot: 0.2, carbs: 1.0, fat: 3.5 },
+      { foodId: "siggis-skyr-nature", name: "Skyr Siggis Nature (aderezo)", grams: 20, kcal: 12.6, prot: 2.2, carbs: 0.8, fat: 0 },
+      { foodId: "aceite-oliva", name: "AOVE (1/3 cdta)", grams: 1.7, kcal: 15.0, prot: 0, carbs: 0, fat: 1.7 },
+      { foodId: "eafit-pure-isolate-chocolat", name: "Pure Isolate Whey Chocolat", grams: 45, kcal: 159.3, prot: 36.5, carbs: 1.7, fat: 0.7 },
+      { foodId: "banana-fresca", name: "Banana", grams: 50, kcal: 44.5, prot: 0.6, carbs: 11.4, fat: 0.2 },
+      { foodId: "weider-peanut-butter-powder", name: "PB en polvo", grams: 4, kcal: 17.6, prot: 2.0, carbs: 0.8, fat: 0.5 },
+      { foodId: "siggis-skyr-nature", name: "Skyr Siggis Nature", grams: 40, kcal: 25.2, prot: 4.4, carbs: 1.6, fat: 0.1 }
+    ],
+    timestamp: "2026-04-28T13:30:00"
   }
 
 ];
