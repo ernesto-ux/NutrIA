@@ -2072,6 +2072,24 @@ const FOOD_DATABASE = [
     source: "web",
     addedDate: "2026-04-29",
     notes: "Pure 70% dark, fairtrade. Tablette estándar 180g divisible en 15 cuadros (~12g)"
+  },
+  {
+    id: "lomo-cerdo-horneado",
+    name: "Lomo de Cerdo Horneado",
+    brand: "",
+    per100g: { kcal: 143, prot: 26, carbs: 0, fat: 4.5, fiber: 0 },
+    source: "web",
+    addedDate: "2026-04-29",
+    notes: "Lean pork loin, baked, no oil added. USDA reference"
+  },
+  {
+    id: "camote-hervido",
+    name: "Camote Hervido",
+    brand: "",
+    per100g: { kcal: 76, prot: 1.4, carbs: 17.7, fat: 0.1, fiber: 2.5 },
+    source: "web",
+    addedDate: "2026-04-29",
+    notes: "Sweet potato (boniato/batata), boiled without skin. USDA reference"
   }
 ];
 
@@ -5305,6 +5323,39 @@ const MEAL_LOG = [
       { foodId: "tony-chocolonely-dark-70", name: "Tony's Chocolonely Dark 70%", grams: 12, kcal: 69.0, prot: 1.1, carbs: 4.1, fat: 4.9 }
     ],
     timestamp: "2026-04-28T22:00:00"
+  },
+  {
+    id: "2026-04-29-E01",
+    date: "2026-04-29",
+    meal: "desayuno",
+    items: [
+      { foodId: "hipro-coco", name: "HiPro Coco", grams: 160, units: 1, kcal: 89.6, prot: 15.0, carbs: 5.9, fat: 0.6 },
+      { foodId: "eafit-pure-isolate-vanille", name: "Pure Isolate Whey Vanille", grams: 30, kcal: 109.8, prot: 25.8, carbs: 1.0, fat: 0.3 }
+    ],
+    timestamp: "2026-04-29T09:00:00"
+  },
+  {
+    id: "2026-04-29-E02",
+    date: "2026-04-29",
+    meal: "almuerzo",
+    items: [
+      { foodId: "lomo-cerdo-horneado", name: "Lomo de Cerdo Horneado", grams: 120, kcal: 171.6, prot: 31.2, carbs: 0, fat: 5.4 },
+      { foodId: "camote-hervido", name: "Camote Hervido", grams: 80, kcal: 60.8, prot: 1.1, carbs: 14.2, fat: 0.1 },
+      { foodId: "brocoli-cuit", name: "Brócoli", grams: 100, kcal: 35.0, prot: 3.0, carbs: 4.0, fat: 0.4 },
+      { foodId: "cebolla-cruda", name: "Cebolla Horneada", grams: 30, kcal: 12.0, prot: 0.3, carbs: 2.8, fat: 0 },
+      { foodId: "agua-jamaica-sin-azucar", name: "Fresco de Rosa de Jamaica sin Azúcar", grams: 250, kcal: 5.0, prot: 0, carbs: 1.3, fat: 0 }
+    ],
+    timestamp: "2026-04-29T13:30:00"
+  },
+  {
+    id: "2026-04-29-E03",
+    date: "2026-04-29",
+    meal: "snack",
+    items: [
+      { foodId: "tastybasics-cracker-protein", name: "TastyBasics Fibre Cracker (Amsterdam)", grams: 20, kcal: 99.6, prot: 7.2, carbs: 3.0, fat: 6.0 },
+      { foodId: "danone-cottage-cheese", name: "Cottage Cheese", grams: 80, kcal: 72.0, prot: 9.6, carbs: 1.3, fat: 3.1 }
+    ],
+    timestamp: "2026-04-29T17:00:00"
   }
 
 ];
