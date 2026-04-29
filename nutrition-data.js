@@ -2,7 +2,7 @@
 // Updated by Claude Code via /log-food skill
 // DO NOT EDIT MANUALLY - use /log-food to add meals
 
-const DATA_TIMESTAMP = "2026-04-29T10:00:00 Europe/Paris";
+const DATA_TIMESTAMP = "2026-04-29T22:10:00 Europe/Paris";
 
 const NUTRITION_CONFIG = {
   targets: { kcal: 1770, prot: 190, carbs: 140, fat: 50 },
@@ -2090,6 +2090,16 @@ const FOOD_DATABASE = [
     source: "web",
     addedDate: "2026-04-29",
     notes: "Sweet potato (boniato/batata), boiled without skin. USDA reference"
+  },
+  {
+    id: "pain-aux-raisins",
+    name: "Pain aux Raisins (Roulé)",
+    brand: "Boulangerie",
+    per100g: { kcal: 340, prot: 6.5, carbs: 45, fat: 15, fiber: 2 },
+    unitWeight: 90, unitLabel: "pièce",
+    source: "web",
+    addedDate: "2026-04-29",
+    notes: "Viennoiserie française classique, ~90g par pièce"
   }
 ];
 
@@ -5356,6 +5366,55 @@ const MEAL_LOG = [
       { foodId: "danone-cottage-cheese", name: "Cottage Cheese", grams: 80, kcal: 72.0, prot: 9.6, carbs: 1.3, fat: 3.1 }
     ],
     timestamp: "2026-04-29T17:00:00"
+  },
+  {
+    id: "2026-04-29-A01",
+    date: "2026-04-29",
+    meal: "desayuno",
+    who: "adriana",
+    items: [
+      { foodId: "kefir-lactel-0-bio", name: "Kéfir Lactel 0%", grams: 90, kcal: 39.6, prot: 3.1, carbs: 3.7, fat: 1.4 },
+      { foodId: "siggis-skyr-nature", name: "Skyr Nature", grams: 75, kcal: 47.3, prot: 8.3, carbs: 3.0, fat: 0.2 },
+      { foodId: "flax-seed", name: "Semillas de Lino", grams: 5, units: 1, kcal: 26.7, prot: 0.9, carbs: 1.5, fat: 2.1 },
+      { foodId: "fresas-frescas", name: "Fresas Frescas", grams: 55, kcal: 17.6, prot: 0.4, carbs: 4.2, fat: 0.2 },
+      { foodId: "eafit-pure-isolate-vanille", name: "Pure Isolate Whey Vanille", grams: 30, kcal: 109.8, prot: 25.8, carbs: 1.0, fat: 0.3 }
+    ],
+    timestamp: "2026-04-29T07:55:00"
+  },
+  {
+    id: "2026-04-29-A02",
+    date: "2026-04-29",
+    meal: "snack",
+    who: "adriana",
+    items: [
+      { foodId: "pain-aux-raisins", name: "Pain aux Raisins (Roulé)", grams: 90, units: 1, kcal: 306.0, prot: 5.9, carbs: 40.5, fat: 13.5 }
+    ],
+    timestamp: "2026-04-29T11:35:00"
+  },
+  {
+    id: "2026-04-29-A03",
+    date: "2026-04-29",
+    meal: "snack",
+    who: "adriana",
+    items: [
+      { foodId: "wasa-leger", name: "Wasa Leger x2", grams: 19.2, units: 2, kcal: 64.9, prot: 1.7, carbs: 11.9, fat: 0.3 },
+      { foodId: "ricotta-casa-azzurra", name: "Ricotta Casa Azzurra", grams: 46, kcal: 69.0, prot: 3.7, carbs: 0.6, fat: 5.5 },
+      { foodId: "fresas-frescas", name: "Fresas Frescas", grams: 56, kcal: 17.9, prot: 0.4, carbs: 4.3, fat: 0.2 }
+    ],
+    timestamp: "2026-04-29T18:23:00"
+  },
+  {
+    id: "2026-04-29-A04",
+    date: "2026-04-29",
+    meal: "cena",
+    who: "adriana",
+    items: [
+      { foodId: "bavette-cocida", name: "Fideos Cocidos", grams: 93, kcal: 146.0, prot: 5.1, carbs: 28.8, fat: 0.8 },
+      { foodId: "caldo-pollo", name: "Caldo de Pollo", grams: 198, kcal: 19.8, prot: 3.0, carbs: 1.0, fat: 0.6 },
+      { foodId: "ricotta-casa-azzurra", name: "Ricotta Casa Azzurra", grams: 25, kcal: 37.5, prot: 2.0, carbs: 0.3, fat: 3.0 },
+      { foodId: "pollo-pechuga-horneada", name: "Pechuga de Pollo Horneada", grams: 79, kcal: 130.4, prot: 24.5, carbs: 0, fat: 2.8 }
+    ],
+    timestamp: "2026-04-29T22:05:00"
   }
 
 ];
