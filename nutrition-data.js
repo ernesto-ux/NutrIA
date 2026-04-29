@@ -2,7 +2,7 @@
 // Updated by Claude Code via /log-food skill
 // DO NOT EDIT MANUALLY - use /log-food to add meals
 
-const DATA_TIMESTAMP = "2026-04-29T22:10:00 Europe/Paris";
+const DATA_TIMESTAMP = "2026-04-29T22:25:00 Europe/Paris";
 
 const NUTRITION_CONFIG = {
   targets: { kcal: 1770, prot: 190, carbs: 140, fat: 50 },
@@ -5279,6 +5279,32 @@ const MEAL_LOG = [
       { foodId: "mandarina-fresca", name: "Mandarina", grams: 80, units: 1, kcal: 37.6, prot: 0.6, carbs: 9.6, fat: 0.2 }
     ],
     timestamp: "2026-04-28T16:30:00"
+  },
+  {
+    id: "2026-04-28-A04",
+    date: "2026-04-28",
+    meal: "snack", who: "adriana",
+    items: [
+      { foodId: "kefir-lactel-0-bio", name: "Kéfir Lactel 0%", grams: 130, kcal: 57.2, prot: 4.4, carbs: 5.3, fat: 2.0 },
+      { foodId: "siggis-skyr-nature", name: "Skyr Nature", grams: 42, kcal: 26.5, prot: 4.6, carbs: 1.7, fat: 0.1 },
+      { foodId: "eafit-pure-isolate-vanille", name: "Pure Isolate Whey Vanille", grams: 28, kcal: 102.5, prot: 24.1, carbs: 0.9, fat: 0.3 },
+      { foodId: "fresas-frescas", name: "Fresas Frescas", grams: 55, kcal: 17.6, prot: 0.4, carbs: 4.2, fat: 0.2 },
+      { foodId: "wasa-leger", name: "Wasa Leger", grams: 9.6, units: 1, kcal: 32.4, prot: 0.9, carbs: 6.0, fat: 0.1 }
+    ],
+    timestamp: "2026-04-28T18:00:00"
+  },
+  {
+    id: "2026-04-28-A05",
+    date: "2026-04-28",
+    meal: "cena", who: "adriana",
+    items: [
+      { foodId: "huevo-entero", name: "Huevos Enteros x2", grams: 100, units: 2, kcal: 155.0, prot: 13.0, carbs: 1.1, fat: 11.0 },
+      { foodId: "wasa-leger", name: "Wasa Holandesa", grams: 25, kcal: 84.5, prot: 2.3, carbs: 15.5, fat: 0.4 },
+      { foodId: "jamon-porc-fleury-michon", name: "Jamón", grams: 35, kcal: 40.3, prot: 7.0, carbs: 0.4, fat: 1.2 },
+      { foodId: "zaanlander-48-cheese", name: "Queso Zaanlander 48+", grams: 26, kcal: 109.2, prot: 7.0, carbs: 0, fat: 9.1 },
+      { foodId: "aceite-oliva", name: "AOVE (1/2 tsp)", grams: 2.5, kcal: 22.1, prot: 0, carbs: 0, fat: 2.5 }
+    ],
+    timestamp: "2026-04-28T21:30:00"
   },
   {
     id: "2026-04-28-E01",
