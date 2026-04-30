@@ -2,7 +2,7 @@
 // Updated by Claude Code via /log-food skill
 // DO NOT EDIT MANUALLY - use /log-food to add meals
 
-const DATA_TIMESTAMP = "2026-04-30T08:35:00 Europe/Paris";
+const DATA_TIMESTAMP = "2026-04-30T08:45:00 Europe/Paris";
 
 const NUTRITION_CONFIG = {
   targets: { kcal: 1770, prot: 190, carbs: 140, fat: 50 },
@@ -2103,12 +2103,13 @@ const FOOD_DATABASE = [
   },
   {
     id: "fideos-chinos-mamee",
-    name: "Fideos Chinos Mamee (cocidos en sopa)",
+    name: "Mamee Nouilles Instantanées Saveur Poulet",
     brand: "Mamee",
-    per100g: { kcal: 140, prot: 3, carbs: 19, fat: 6, fiber: 0.7 },
+    per100g: { kcal: 378, prot: 9.2, carbs: 46.6, fat: 16.5, fiber: 2.4 },
+    unitWeight: 85, unitLabel: "paquete",
     source: "web",
     addedDate: "2026-04-30",
-    notes: "Mamee instant noodles, valor por 100g COCIDO (después de absorber agua + caldo). Paquete seco ~85g rinde ~300g cocido"
+    notes: "Valores per 100g SECO (FatSecret). Paquete completo 85g = 321 kcal, 7.8 prot, 39.6 carbs, 14 fat"
   }
 ];
 
@@ -5481,7 +5482,7 @@ const MEAL_LOG = [
     date: "2026-04-29",
     meal: "cena",
     items: [
-      { foodId: "fideos-chinos-mamee", name: "Fideos Chinos Mamee (cocidos)", grams: 300, kcal: 420.0, prot: 9.0, carbs: 57.0, fat: 18.0 },
+      { foodId: "fideos-chinos-mamee", name: "Mamee Poulet (80% del sachet 85g = 68g seco)", grams: 68, kcal: 257.0, prot: 6.3, carbs: 31.7, fat: 11.2 },
       { foodId: "lomo-cerdo-horneado", name: "Cerdo Horneado", grams: 50, kcal: 71.5, prot: 13.0, carbs: 0, fat: 2.3 },
       { foodId: "brocoli-cuit", name: "Brócoli (en sopa)", grams: 60, kcal: 21.0, prot: 1.8, carbs: 2.4, fat: 0.2 },
       { foodId: "stroopwafel-rudi-chocolate-negro", name: "Stroopwafel 9cm", grams: 35, kcal: 168.0, prot: 2.1, carbs: 22.8, fat: 7.7 }
