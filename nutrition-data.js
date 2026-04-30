@@ -2,7 +2,7 @@
 // Updated by Claude Code via /log-food skill
 // DO NOT EDIT MANUALLY - use /log-food to add meals
 
-const DATA_TIMESTAMP = "2026-04-30T08:30:00 Europe/Paris";
+const DATA_TIMESTAMP = "2026-04-30T08:35:00 Europe/Paris";
 
 const NUTRITION_CONFIG = {
   targets: { kcal: 1770, prot: 190, carbs: 140, fat: 50 },
@@ -2102,14 +2102,13 @@ const FOOD_DATABASE = [
     notes: "Viennoiserie française classique, ~90g par pièce"
   },
   {
-    id: "fideos-chinos-instantaneos",
-    name: "Fideos Chinos Instantáneos (paquete)",
-    brand: "Generic",
-    per100g: { kcal: 440, prot: 9, carbs: 60, fat: 18, fiber: 2 },
-    unitWeight: 85, unitLabel: "paquete",
+    id: "fideos-chinos-mamee",
+    name: "Fideos Chinos Mamee (cocidos en sopa)",
+    brand: "Mamee",
+    per100g: { kcal: 140, prot: 3, carbs: 19, fat: 6, fiber: 0.7 },
     source: "web",
     addedDate: "2026-04-30",
-    notes: "Instant noodle pack típico (Maggi/Indomie/Nissin estilo), ~85g por paquete con seasoning"
+    notes: "Mamee instant noodles, valor por 100g COCIDO (después de absorber agua + caldo). Paquete seco ~85g rinde ~300g cocido"
   }
 ];
 
@@ -5482,10 +5481,10 @@ const MEAL_LOG = [
     date: "2026-04-29",
     meal: "cena",
     items: [
-      { foodId: "fideos-chinos-instantaneos", name: "Fideos Chinos Instantáneos (paquete)", grams: 85, units: 1, kcal: 374.0, prot: 7.7, carbs: 51.0, fat: 15.3 },
+      { foodId: "fideos-chinos-mamee", name: "Fideos Chinos Mamee (cocidos)", grams: 300, kcal: 420.0, prot: 9.0, carbs: 57.0, fat: 18.0 },
       { foodId: "lomo-cerdo-horneado", name: "Cerdo Horneado", grams: 50, kcal: 71.5, prot: 13.0, carbs: 0, fat: 2.3 },
       { foodId: "brocoli-cuit", name: "Brócoli (en sopa)", grams: 60, kcal: 21.0, prot: 1.8, carbs: 2.4, fat: 0.2 },
-      { foodId: "stroopwafel-rudi-chocolate-negro", name: "Stroopwafel pequeño", grams: 12, kcal: 57.6, prot: 0.7, carbs: 7.8, fat: 2.6 }
+      { foodId: "stroopwafel-rudi-chocolate-negro", name: "Stroopwafel 9cm", grams: 35, kcal: 168.0, prot: 2.1, carbs: 22.8, fat: 7.7 }
     ],
     timestamp: "2026-04-29T21:30:00"
   },
