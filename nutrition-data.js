@@ -2,7 +2,7 @@
 // Updated by Claude Code via /log-food skill
 // DO NOT EDIT MANUALLY - use /log-food to add meals
 
-const DATA_TIMESTAMP = "2026-04-29T22:25:00 Europe/Paris";
+const DATA_TIMESTAMP = "2026-04-30T08:00:00 Europe/Paris";
 
 const NUTRITION_CONFIG = {
   targets: { kcal: 1770, prot: 190, carbs: 140, fat: 50 },
@@ -5441,6 +5441,19 @@ const MEAL_LOG = [
       { foodId: "pollo-pechuga-horneada", name: "Pechuga de Pollo Horneada", grams: 79, kcal: 130.4, prot: 24.5, carbs: 0, fat: 2.8 }
     ],
     timestamp: "2026-04-29T22:05:00"
+  },
+  {
+    id: "2026-04-29-A05",
+    date: "2026-04-29",
+    meal: "almuerzo",
+    who: "adriana",
+    items: [
+      { foodId: "lomo-cerdo-horneado", name: "Lomo de Cerdo Horneado", grams: 90, kcal: 128.7, prot: 23.4, carbs: 0, fat: 4.1 },
+      { foodId: "brocoli-cuit", name: "Brócoli", grams: 90, kcal: 31.5, prot: 2.7, carbs: 3.6, fat: 0.4 },
+      { foodId: "cebolla-cruda", name: "Cebolla Horneada", grams: 30, kcal: 12.0, prot: 0.3, carbs: 2.8, fat: 0 },
+      { foodId: "camote-hervido", name: "Camote Hervido", grams: 70, kcal: 53.2, prot: 1.0, carbs: 12.4, fat: 0.1 }
+    ],
+    timestamp: "2026-04-29T13:30:00"
   }
 
 ];
