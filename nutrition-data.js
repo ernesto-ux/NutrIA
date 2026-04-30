@@ -2,7 +2,7 @@
 // Updated by Claude Code via /log-food skill
 // DO NOT EDIT MANUALLY - use /log-food to add meals
 
-const DATA_TIMESTAMP = "2026-04-30T08:45:00 Europe/Paris";
+const DATA_TIMESTAMP = "2026-04-30T16:05:00 Europe/Paris";
 
 const NUTRITION_CONFIG = {
   targets: { kcal: 1770, prot: 190, carbs: 140, fat: 50 },
@@ -2110,6 +2110,16 @@ const FOOD_DATABASE = [
     source: "web",
     addedDate: "2026-04-30",
     notes: "Valores per 100g SECO (FatSecret). Paquete completo 85g = 321 kcal, 7.8 prot, 39.6 carbs, 14 fat"
+  },
+  {
+    id: "kinder-chocobon",
+    name: "Kinder Schoko-Bons (Chocobon)",
+    brand: "Kinder",
+    per100g: { kcal: 565, prot: 7.5, carbs: 56, fat: 34, fiber: 1 },
+    unitWeight: 5, unitLabel: "chocobon",
+    source: "web",
+    addedDate: "2026-04-30",
+    notes: "Mini bombón Kinder relleno de leche/avellanas, ~5g cada uno"
   }
 ];
 
@@ -5500,6 +5510,29 @@ const MEAL_LOG = [
       { foodId: "cafe-negro", name: "Café Negro", grams: 240, units: 1, kcal: 4.8, prot: 0.2, carbs: 0, fat: 0 }
     ],
     timestamp: "2026-04-30T08:00:00"
+  },
+  {
+    id: "2026-04-30-E02",
+    date: "2026-04-30",
+    meal: "almuerzo",
+    items: [
+      { foodId: "lomo-cerdo-horneado", name: "Lomo de Cerdo Horneado", grams: 130, kcal: 185.9, prot: 33.8, carbs: 0, fat: 5.9 },
+      { foodId: "brocoli-cuit", name: "Brócoli", grams: 120, kcal: 42.0, prot: 3.6, carbs: 4.8, fat: 0.5 },
+      { foodId: "camote-hervido", name: "Camote Hervido", grams: 80, kcal: 60.8, prot: 1.1, carbs: 14.2, fat: 0.1 },
+      { foodId: "cebolla-cruda", name: "Cebolla Horneada", grams: 25, kcal: 10.0, prot: 0.3, carbs: 2.3, fat: 0 },
+      { foodId: "odyssee-salade-thon-intermarche", name: "Ensalada de Atún con Arroz (Odyssée)", grams: 35, kcal: 43.8, prot: 2.6, carbs: 3.5, fat: 2.1 },
+      { foodId: "jeff-de-bruges-oeuf-paques", name: "Huevito Orange Jeff de Bruges x1", grams: 13, units: 1, kcal: 69.9, prot: 0.9, carbs: 6.8, fat: 4.3 }
+    ],
+    timestamp: "2026-04-30T13:30:00"
+  },
+  {
+    id: "2026-04-30-E03",
+    date: "2026-04-30",
+    meal: "snack",
+    items: [
+      { foodId: "kinder-chocobon", name: "Kinder Chocobon x1", grams: 5, units: 1, kcal: 28.3, prot: 0.4, carbs: 2.8, fat: 1.7 }
+    ],
+    timestamp: "2026-04-30T16:00:00"
   }
 
 ];
