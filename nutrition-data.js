@@ -2,7 +2,7 @@
 // Updated by Claude Code via /log-food skill
 // DO NOT EDIT MANUALLY - use /log-food to add meals
 
-const DATA_TIMESTAMP = "2026-04-30T08:00:00 Europe/Paris";
+const DATA_TIMESTAMP = "2026-04-30T08:15:00 Europe/Paris";
 
 const NUTRITION_CONFIG = {
   targets: { kcal: 1770, prot: 190, carbs: 140, fat: 50 },
@@ -2100,6 +2100,16 @@ const FOOD_DATABASE = [
     source: "web",
     addedDate: "2026-04-29",
     notes: "Viennoiserie française classique, ~90g par pièce"
+  },
+  {
+    id: "fideos-chinos-instantaneos",
+    name: "Fideos Chinos Instantáneos (paquete)",
+    brand: "Generic",
+    per100g: { kcal: 440, prot: 9, carbs: 60, fat: 18, fiber: 2 },
+    unitWeight: 85, unitLabel: "paquete",
+    source: "web",
+    addedDate: "2026-04-30",
+    notes: "Instant noodle pack típico (Maggi/Indomie/Nissin estilo), ~85g por paquete con seasoning"
   }
 ];
 
@@ -5454,6 +5464,30 @@ const MEAL_LOG = [
       { foodId: "camote-hervido", name: "Camote Hervido", grams: 70, kcal: 53.2, prot: 1.0, carbs: 12.4, fat: 0.1 }
     ],
     timestamp: "2026-04-29T13:30:00"
+  },
+  {
+    id: "2026-04-29-E04",
+    date: "2026-04-29",
+    meal: "snack",
+    items: [
+      { foodId: "tony-chocolonely-dark-70", name: "Chocolate Negro 70%", grams: 20, kcal: 115.0, prot: 1.8, carbs: 6.8, fat: 8.2 },
+      { foodId: "wasa-leger", name: "Wasa Light x2", grams: 19.2, units: 2, kcal: 64.9, prot: 1.7, carbs: 11.9, fat: 0.3 },
+      { foodId: "ricotta-casa-azzurra", name: "Ricotta", grams: 20, kcal: 30.0, prot: 1.6, carbs: 0.2, fat: 2.4 },
+      { foodId: "mermelada-lucien-fraises-sans-sucres", name: "Mermelada sin Azúcar", grams: 12, kcal: 10.7, prot: 0.1, carbs: 2.6, fat: 0.1 }
+    ],
+    timestamp: "2026-04-29T19:30:00"
+  },
+  {
+    id: "2026-04-29-E05",
+    date: "2026-04-29",
+    meal: "cena",
+    items: [
+      { foodId: "fideos-chinos-instantaneos", name: "Fideos Chinos Instantáneos (paquete)", grams: 85, units: 1, kcal: 374.0, prot: 7.7, carbs: 51.0, fat: 15.3 },
+      { foodId: "lomo-cerdo-horneado", name: "Cerdo Horneado", grams: 50, kcal: 71.5, prot: 13.0, carbs: 0, fat: 2.3 },
+      { foodId: "brocoli-cuit", name: "Brócoli (en sopa)", grams: 60, kcal: 21.0, prot: 1.8, carbs: 2.4, fat: 0.2 },
+      { foodId: "stroopwafel-rudi-chocolate-negro", name: "Stroopwafel pequeño", grams: 12, kcal: 57.6, prot: 0.7, carbs: 7.8, fat: 2.6 }
+    ],
+    timestamp: "2026-04-29T21:30:00"
   }
 
 ];
