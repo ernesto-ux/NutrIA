@@ -2,7 +2,7 @@
 // Updated by Claude Code via /log-food skill
 // DO NOT EDIT MANUALLY - use /log-food to add meals
 
-const DATA_TIMESTAMP = "2026-04-30T08:15:00 Europe/Paris";
+const DATA_TIMESTAMP = "2026-04-30T08:30:00 Europe/Paris";
 
 const NUTRITION_CONFIG = {
   targets: { kcal: 1770, prot: 190, carbs: 140, fat: 50 },
@@ -5488,6 +5488,18 @@ const MEAL_LOG = [
       { foodId: "stroopwafel-rudi-chocolate-negro", name: "Stroopwafel pequeño", grams: 12, kcal: 57.6, prot: 0.7, carbs: 7.8, fat: 2.6 }
     ],
     timestamp: "2026-04-29T21:30:00"
+  },
+  {
+    id: "2026-04-30-E01",
+    date: "2026-04-30",
+    meal: "desayuno",
+    items: [
+      { foodId: "eafit-pure-isolate-vanille", name: "Pure Isolate Whey Vanille", grams: 40, kcal: 146.4, prot: 34.4, carbs: 1.3, fat: 0.4 },
+      { foodId: "banana-fresca", name: "Banana", grams: 35, kcal: 31.2, prot: 0.4, carbs: 8.0, fat: 0.1 },
+      { foodId: "fresas-frescas", name: "Fresas", grams: 40, kcal: 12.8, prot: 0.3, carbs: 3.1, fat: 0.1 },
+      { foodId: "cafe-negro", name: "Café Negro", grams: 240, units: 1, kcal: 4.8, prot: 0.2, carbs: 0, fat: 0 }
+    ],
+    timestamp: "2026-04-30T08:00:00"
   }
 
 ];
