@@ -1383,5 +1383,30 @@
     "unit_price": 16.0,
     "unit_size_g": 320,
     "notes": "Pizza Margherita LouieLouie ~€16"
+  },
+  "bowl-de-skir-con-fresas-avellanas-y-miel": {
+    "price_per_100g": 1.5,
+    "store": "Homemade",
+    "notes": "Skyr Siggis + fresas + avellanas + miel, costo ingredientes"
+  },
+  "mantequilla-de-mani": {
+    "price_per_100g": 1.0,
+    "store": "Carrefour / Monoprix",
+    "notes": "Beurre de cacahuète naturel ~€4/400g"
+  },
+  "menu-dia-29": {
+    "price_per_100g": 0.01,
+    "store": "Restaurant",
+    "notes": "Menú del día restaurante (registrado sin gramos)"
+  },
+  "menu-dia-30": {
+    "price_per_100g": 0.01,
+    "store": "Restaurant",
+    "notes": "Menú del día restaurante (registrado sin gramos)"
+  },
+  "menu-dia-31": {
+    "price_per_100g": 0.01,
+    "store": "Restaurant",
+    "notes": "Menú del día restaurante (registrado sin gramos)"
   }
 }
