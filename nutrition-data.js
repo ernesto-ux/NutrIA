@@ -5646,5 +5646,16 @@ const WEIGHT_LOG = [
     bmr: 1796, metabolicAge: null,
     source: "renpho",
     notes: "Renpho 28/04 17:26"
+  },
+  {
+    date: "2026-05-01",
+    weight: 85.85,
+    bmi: 28.0,
+    bodyFat: 23.2, fatFreeWeight: 65.90, subcutFat: 20.0, visceralFat: 10,
+    bodyWater: 55.4, skeletalMuscle: 49.6, muscleMass: 62.60, boneMass: 3.30,
+    protein: 17.5,
+    bmr: 1794, metabolicAge: null,
+    source: "renpho",
+    notes: "Renpho 01/05 17:25"
   }
 ];
