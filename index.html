@@ -2156,7 +2156,7 @@
   };
   window.toggleInformeDetailed = function() {
     informeShowDetailed = !informeShowDetailed;
-    renderAll();
+    render();
   };
 
   window.toggleInformeCombined = function() {
@@ -5010,7 +5010,6 @@ ${dailyDetailHtml}
         item.carbs = round1(g / 100 * fd.per100g.carbs);
         item.fat = round1(g / 100 * fd.per100g.fat);
       } else if (oldGrams > 0) {
-        // Food deleted: scale macros proportionally from stored values
         const ratio = g / oldGrams;
         item.kcal = round1((item.kcal || 0) * ratio);
         item.prot = round1((item.prot || 0) * ratio);
@@ -5019,11 +5018,22 @@ ${dailyDetailHtml}
       }
     }
 
-    const meals = getLocalMeals();
-    const entry = meals.find(e => e.id === entryId);
-    if (entry && entry.items[itemIdx]) {
-      recalcItem(entry.items[itemIdx]);
-      saveLocalMeals(meals);
+    if (source === 'file') {
+      // MEAL_LOG entry: use overrides system
+      const mlEntry = MEAL_LOG.find(e => e.id === entryId);
+      if (!mlEntry) return;
+      const overrides = getOverrides();
+      const items = JSON.parse(JSON.stringify(overrides[entryId] && overrides[entryId] !== 'deleted' ? overrides[entryId] : mlEntry.items));
+      recalcItem(items[itemIdx]);
+      overrides[entryId] = items;
+      saveOverrides(overrides);
+    } else {
+      const meals = getLocalMeals();
+      const entry = meals.find(e => e.id === entryId);
+      if (entry && entry.items[itemIdx]) {
+        recalcItem(entry.items[itemIdx]);
+        saveLocalMeals(meals);
+      }
     }
     showToast('✏️ ' + foodName + ' actualizado a ' + g + 'g');
     render();
@@ -5032,14 +5042,23 @@ ${dailyDetailHtml}
   window.deleteFoodItem = function (entryId, itemIdx, source) {
     if (!confirm('Eliminar este alimento?')) return;
 
-    const meals = getLocalMeals();
-    const entryIndex = meals.findIndex(e => e.id === entryId);
-    if (entryIndex >= 0) {
-      meals[entryIndex].items.splice(itemIdx, 1);
-      if (meals[entryIndex].items.length === 0) {
-        meals.splice(entryIndex, 1);
+    if (source === 'file') {
+      // MEAL_LOG entry: use overrides system
+      const mlEntry = MEAL_LOG.find(e => e.id === entryId);
+      if (!mlEntry) return;
+      const overrides = getOverrides();
+      const items = JSON.parse(JSON.stringify(overrides[entryId] && overrides[entryId] !== 'deleted' ? overrides[entryId] : mlEntry.items));
+      items.splice(itemIdx, 1);
+      overrides[entryId] = items.length === 0 ? 'deleted' : items;
+      saveOverrides(overrides);
+    } else {
+      const meals = getLocalMeals();
+      const entryIndex = meals.findIndex(e => e.id === entryId);
+      if (entryIndex >= 0) {
+        meals[entryIndex].items.splice(itemIdx, 1);
+        if (meals[entryIndex].items.length === 0) meals.splice(entryIndex, 1);
+        saveLocalMeals(meals);
       }
-      saveLocalMeals(meals);
     }
     showToast('🗑️ Eliminado');
     render();
@@ -5068,27 +5087,46 @@ ${dailyDetailHtml}
   window.moveFoodItem = function (entryId, itemIdx, source, fromMeal, toMeal) {
     if (fromMeal === toMeal) return;
 
-    const meals = getLocalMeals();
-    const entry = meals.find(e => e.id === entryId);
-    if (!entry || !entry.items[itemIdx]) return;
-    const item = entry.items.splice(itemIdx, 1)[0];
+    let item, entryDate;
 
-    // Find or create a target entry for toMeal on same date
-    let target = meals.find(e => e.date === entry.date && e.meal === toMeal);
-    if (target) {
-      target.items.push(item);
+    if (source === 'file') {
+      // MEAL_LOG entry: read from overrides or MEAL_LOG, write to overrides
+      const mlEntry = MEAL_LOG.find(e => e.id === entryId);
+      if (!mlEntry) return;
+      entryDate = mlEntry.date;
+      const overrides = getOverrides();
+      const items = JSON.parse(JSON.stringify(overrides[entryId] && overrides[entryId] !== 'deleted' ? overrides[entryId] : mlEntry.items));
+      item = items.splice(itemIdx, 1)[0];
+      overrides[entryId] = items.length === 0 ? 'deleted' : items;
+      // Add item to local-meals target
+      const meals = getLocalMeals();
+      let target = meals.find(e => e.date === entryDate && e.meal === toMeal);
+      if (target) {
+        target.items.push(item);
+      } else {
+        meals.push({ id: entryDate + '-L' + Date.now(), date: entryDate, meal: toMeal, items: [item], timestamp: new Date().toISOString(), source: 'local', user: currentUser });
+      }
+      saveLocalMeals(meals);
+      saveOverrides(overrides);
     } else {
-      const newId = entry.date + '-L' + Date.now();
-      target = { id: newId, date: entry.date, meal: toMeal, items: [item], timestamp: new Date().toISOString(), source: 'local', user: currentUser };
-      meals.push(target);
+      const meals = getLocalMeals();
+      const entry = meals.find(e => e.id === entryId);
+      if (!entry || !entry.items[itemIdx]) return;
+      entryDate = entry.date;
+      item = entry.items.splice(itemIdx, 1)[0];
+      let target = meals.find(e => e.date === entryDate && e.meal === toMeal);
+      if (target) {
+        target.items.push(item);
+      } else {
+        meals.push({ id: entryDate + '-L' + Date.now(), date: entryDate, meal: toMeal, items: [item], timestamp: new Date().toISOString(), source: 'local', user: currentUser });
+      }
+      if (entry.items.length === 0) {
+        const idx = meals.indexOf(entry);
+        if (idx >= 0) meals.splice(idx, 1);
+      }
+      saveLocalMeals(meals);
     }
 
-    // Clean up empty source entry
-    if (entry.items.length === 0) {
-      const idx = meals.indexOf(entry);
-      if (idx >= 0) meals.splice(idx, 1);
-    }
-    saveLocalMeals(meals);
     showToast('↔️ Movido a ' + (MEAL_LABELS[toMeal] || toMeal));
     render();
   };
