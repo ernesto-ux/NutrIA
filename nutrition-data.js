@@ -5568,7 +5568,11 @@ const ACTIVITY_LOG = [
   { date: "2026-04-23", steps: 16705, stepsKcal: 500, gym: null,  gymKcal: 0,   notes: "Amsterdam walking day" },
   { date: "2026-04-24", steps: 18795, stepsKcal: 600, gym: "gym", gymKcal: 610, notes: "Amsterdam walking day 2 + gym" },
   { date: "2026-04-25", steps: 15119, stepsKcal: 450, gym: null,  gymKcal: 0,   notes: "Amsterdam walking day 3" },
-  { date: "2026-04-26", steps: 500,   stepsKcal: 0,   gym: null,  gymKcal: 0,   notes: "Domingo descanso, viaje" }
+  { date: "2026-04-26", steps: 300,   stepsKcal: 0,   gym: null,  gymKcal: 0,   notes: "Domingo descanso, viaje" },
+  { date: "2026-04-27", steps: 2600,  stepsKcal: 25,  gym: null,  gymKcal: 0,   notes: "" },
+  { date: "2026-04-28", steps: 800,   stepsKcal: 0,   gym: null,  gymKcal: 0,   notes: "" },
+  { date: "2026-04-29", steps: 5065,  stepsKcal: 125, gym: null,  gymKcal: 0,   notes: "" },
+  { date: "2026-04-30", steps: 600,   stepsKcal: 0,   gym: null,  gymKcal: 0,   notes: "" }
 ];
 
 // Daily energy balance (sabado a sabado: 29 mar - 4 abr + dom 5)
