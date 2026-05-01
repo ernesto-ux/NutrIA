@@ -1042,6 +1042,7 @@
   // ── STORAGE LAYER (server → GitHub API → LocalStorage) ──────────────
   let _serverData = { meals: [], overrides: {} };
   let _hasServer = false;
+  let PRICE_DB = {};
   const LS_MEALS_KEY = 'nutria_meals_v1';
   const LS_OVERRIDES_KEY = 'nutria_overrides_v1';
   const GH_TOKEN_KEY = 'nutria_gh_token';
@@ -1124,6 +1125,26 @@
       render();
     }
   };
+
+  async function loadPriceDB() {
+    try {
+      const r = await fetch('local-prices.json', { cache: 'no-store' });
+      if (r.ok) PRICE_DB = await r.json();
+    } catch(e) {}
+  }
+
+  function getDayCost(date) {
+    const entries = getDay(date);
+    let cost = 0;
+    entries.forEach(entry => {
+      entry.items.forEach(item => {
+        if (!item.foodId || !(item.grams > 0)) return;
+        const p = PRICE_DB[item.foodId];
+        if (p && p.price_per_100g) cost += p.price_per_100g * item.grams / 100;
+      });
+    });
+    return Math.round(cost * 100) / 100;
+  }
 
   async function loadServerData() {
     // 1) Try local server (home network)
@@ -2331,6 +2352,11 @@
         </div>
       </div>`;
 
+    // Cost aggregates
+    const totalCost = daysWithData.reduce((s, d) => s + getDayCost(d.date), 0);
+    const avgCost = daysWithData.length > 0 ? totalCost / daysWithData.length : 0;
+    const hasPrices = Object.keys(PRICE_DB).length > 0;
+
     // KPI cards
     const kpis = [
       { emoji:'🔥', label:'Deficit Total', value: `${Math.abs(Math.round(totalDeficit)).toLocaleString()} kcal`, color: totalDeficit < 0 ? 'var(--green)' : 'var(--red)' },
@@ -2339,6 +2365,7 @@
       { emoji:'💪', label:'Gym', value: `${gymSessions}x — ${totalGym.toLocaleString()} kcal`, color: 'var(--teal)' },
       { emoji:'🚶', label:'Pasos', value: `~${totalStepsKcal.toLocaleString()} kcal`, color: 'var(--text-sec)', sub: `${totalSteps.toLocaleString()} (${Math.round(totalSteps/numDays)}/dia)` },
       { emoji:'📅', label:'Dias registrados', value: `${daysWithData.length}/${numDays}`, color: 'var(--text)' },
+      ...(hasPrices ? [{ emoji:'💶', label:'Gasto Total', value: `€${totalCost.toFixed(2)}`, color:'var(--teal)', sub:`€${avgCost.toFixed(2)}/dia` }] : []),
     ];
 
     const kpiHtml = kpis.map(k => `
@@ -2352,7 +2379,7 @@
 
     // Daily balance table
     let tableRows = '';
-    let weekTotal = { intake:0, tdee:0, steps:0, gym:0, balance:0 };
+    let weekTotal = { intake:0, tdee:0, steps:0, gym:0, balance:0, cost:0 };
     days.forEach(d => {
       const intake = d.hasData ? Math.round(d.totals.kcal) : '—';
       const gym = d.activity && d.activity.gymKcal > 0 ? d.activity.gymKcal : '';
@@ -2363,6 +2390,8 @@
       const balColor = balNum < -1000 ? 'var(--green)' : balNum < 0 ? 'var(--teal)' : balNum > 0 ? 'var(--red)' : 'var(--text-sec)';
       const balStr = typeof bal === 'number' ? (bal > 0 ? '+' + bal : bal) : '—';
       const rowBg = d.dayName === 'Sab' || d.dayName === 'Dom' ? 'rgba(13,148,136,0.04)' : 'transparent';
+      const dayCost = d.hasData ? getDayCost(d.date) : 0;
+      const costStr = d.hasData && hasPrices ? `€${dayCost.toFixed(0)}` : '';
 
       if (d.hasData) {
         weekTotal.intake += d.totals.kcal;
@@ -2370,6 +2399,7 @@
         weekTotal.steps += (d.activity ? d.activity.stepsKcal||0 : 0);
         weekTotal.gym += (d.activity ? d.activity.gymKcal||0 : 0);
         weekTotal.balance += balNum;
+        weekTotal.cost += dayCost;
       }
 
       tableRows += `
@@ -2381,6 +2411,7 @@
           <td style="padding:8px 10px;text-align:center;font-size:12px;color:#F59E0B;font-weight:500;">${steps || '—'}</td>
           <td style="padding:8px 10px;text-align:center;font-size:12px;color:var(--teal);font-weight:600;">${gym || '—'}</td>
           <td style="padding:8px 10px;text-align:center;font-size:13px;font-weight:700;color:${balColor};">${balStr}</td>
+          ${hasPrices ? `<td style="padding:8px 10px;text-align:center;font-size:12px;color:var(--green);font-weight:600;">${costStr}</td>` : ''}
         </tr>`;
     });
 
@@ -2394,6 +2425,7 @@
         <td style="padding:10px;text-align:center;font-size:12px;">${weekTotal.steps}</td>
         <td style="padding:10px;text-align:center;font-size:12px;">${weekTotal.gym.toLocaleString()}</td>
         <td style="padding:10px;text-align:center;font-weight:700;font-size:13px;">${totalBal > 0 ? '+':''}${Math.round(totalBal).toLocaleString()}</td>
+        ${hasPrices ? `<td style="padding:10px;text-align:center;font-weight:700;font-size:13px;">€${weekTotal.cost.toFixed(0)}</td>` : ''}
       </tr>`;
 
     // Macro averages vs targets
@@ -2714,6 +2746,7 @@
                 <th style="padding:8px 10px;text-align:center;font-size:10px;color:var(--text-sec);text-transform:uppercase;letter-spacing:1px;font-weight:700;">🚶 Pasos</th>
                 <th style="padding:8px 10px;text-align:center;font-size:10px;color:var(--text-sec);text-transform:uppercase;letter-spacing:1px;font-weight:700;">🏋️ Gym</th>
                 <th style="padding:8px 10px;text-align:center;font-size:10px;color:var(--text-sec);text-transform:uppercase;letter-spacing:1px;font-weight:700;">Balance</th>
+                ${hasPrices ? `<th style="padding:8px 10px;text-align:center;font-size:10px;color:var(--green);text-transform:uppercase;letter-spacing:1px;font-weight:700;">💶</th>` : ''}
               </tr>
             </thead>
             <tbody>${tableRows}</tbody>
@@ -5388,7 +5421,7 @@ ${dailyDetailHtml}
 
   // ── INIT ──────────────────────────────────────────────────────────────
   updateUserAvatars();
-  loadServerData().then(() => render()).catch(() => render());
+  Promise.all([loadServerData(), loadPriceDB()]).then(() => render()).catch(() => render());
 })();
 </script>
 <script>
