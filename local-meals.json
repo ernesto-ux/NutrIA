@@ -2452,6 +2452,107 @@
         }
       ],
       "timestamp": "2026-04-17T13:00:00"
+    },
+    {
+      "id": "2026-04-30-001",
+      "date": "2026-04-30",
+      "meal": "cena",
+      "items": [
+        {
+          "foodId": "pizza-regina-pizzou",
+          "name": "Pizza Regina Pizzou",
+          "grams": 320,
+          "kcal": 720.0,
+          "prot": 38.4,
+          "carbs": 86.4,
+          "fat": 25.6
+        },
+        {
+          "foodId": "semillas-chia",
+          "name": "Semillas de Chía",
+          "grams": 15,
+          "kcal": 72.9,
+          "prot": 2.5,
+          "carbs": 6.3,
+          "fat": 4.6
+        },
+        {
+          "foodId": "pollo-pechuga-horneada",
+          "name": "Pollo Horneado",
+          "grams": 30,
+          "kcal": 49.5,
+          "prot": 9.3,
+          "carbs": 0,
+          "fat": 1.1
+        }
+      ],
+      "timestamp": "2026-04-30T20:00:00",
+      "source": "local",
+      "user": "ernesto"
+    },
+    {
+      "id": "2026-04-30-002",
+      "date": "2026-04-30",
+      "meal": "snack",
+      "items": [
+        {
+          "foodId": "bon-vivant-mini-feuilletes-sesame-pavot",
+          "name": "Bon Vivant Mini Feuilletes Sésame Pavot",
+          "grams": 20,
+          "kcal": 104.0,
+          "prot": 1.8,
+          "carbs": 11.0,
+          "fat": 6.0
+        },
+        {
+          "foodId": "gerble-mini-brownie-sans-sucres",
+          "name": "Mini Brownie Sans Sucres Gerble",
+          "grams": 30,
+          "kcal": 109.5,
+          "prot": 1.7,
+          "carbs": 14.7,
+          "fat": 4.8
+        },
+        {
+          "foodId": "kiwi-grande",
+          "name": "Kiwi Grande",
+          "grams": 120,
+          "kcal": 73.2,
+          "prot": 1.3,
+          "carbs": 17.6,
+          "fat": 0.6
+        },
+        {
+          "foodId": "chocolonely-dark-chocolate",
+          "name": "Tony Chocolonely Chocolate Negro",
+          "grams": 17,
+          "kcal": 91.8,
+          "prot": 1.1,
+          "carbs": 8.0,
+          "fat": 6.1
+        },
+        {
+          "foodId": "eafit-pure-isolate-chocolat",
+          "name": "EAFit Chocolat",
+          "grams": 35,
+          "kcal": 123.9,
+          "prot": 28.4,
+          "carbs": 1.3,
+          "fat": 0.5
+        },
+        {
+          "foodId": "leche-almendra-sin-azucar",
+          "name": "Leche Almendra Sin Azúcar",
+          "grams": 40,
+          "kcal": 8.0,
+          "prot": 0.2,
+          "carbs": 0.4,
+          "fat": 0.6
+        }
+      ],
+      "timestamp": "2026-04-30T17:00:00",
+      "source": "local",
+      "user": "ernesto"
     }
   ],
   "overrides": {
