@@ -1306,7 +1306,7 @@
 
   function getDayTotals(date) {
     const entries = getDay(date);
-    const t = { kcal: 0, prot: 0, carbs: 0, fat: 0, fiber: 0 };
+    const t = { kcal: 0, prot: 0, carbs: 0, fat: 0, fiber: 0, sodium: 0, sugar: 0, sat_fat: 0 };
     entries.forEach(entry => {
       entry.items.forEach(item => {
         t.kcal  += (item.kcal  || 0);
@@ -1315,17 +1315,24 @@
         t.fat   += (item.fat   || 0);
         if (item.foodId && typeof FOOD_DATABASE !== 'undefined') {
           const food = FOOD_DATABASE.find(f => f.id === item.foodId);
-          if (food && food.per100g && food.per100g.fiber) {
-            t.fiber += (food.per100g.fiber * (item.grams || 0)) / 100;
+          if (food && food.per100g && (item.grams || 0) > 0) {
+            const g = item.grams;
+            if (food.per100g.fiber)   t.fiber   += (food.per100g.fiber   * g) / 100;
+            if (food.per100g.sodium)  t.sodium  += (food.per100g.sodium  * g) / 100;
+            if (food.per100g.sugar)   t.sugar   += (food.per100g.sugar   * g) / 100;
+            if (food.per100g.sat_fat) t.sat_fat += (food.per100g.sat_fat * g) / 100;
           }
         }
       });
     });
-    t.kcal  = round1(t.kcal);
-    t.prot  = round1(t.prot);
-    t.carbs = round1(t.carbs);
-    t.fat   = round1(t.fat);
-    t.fiber = round1(t.fiber);
+    t.kcal    = round1(t.kcal);
+    t.prot    = round1(t.prot);
+    t.carbs   = round1(t.carbs);
+    t.fat     = round1(t.fat);
+    t.fiber   = round1(t.fiber);
+    t.sodium  = Math.round(t.sodium);
+    t.sugar   = round1(t.sugar);
+    t.sat_fat = round1(t.sat_fat);
     return t;
   }
 
@@ -2257,12 +2264,18 @@
     const totalProt = daysWithData.reduce((s,d) => s + d.totals.prot, 0);
     const totalCarbs = daysWithData.reduce((s,d) => s + d.totals.carbs, 0);
     const totalFat = daysWithData.reduce((s,d) => s + d.totals.fat, 0);
-    const totalFiber = daysWithData.reduce((s,d) => s + d.totals.fiber, 0);
+    const totalFiber  = daysWithData.reduce((s,d) => s + (d.totals.fiber   || 0), 0);
+    const totalSodium = daysWithData.reduce((s,d) => s + (d.totals.sodium  || 0), 0);
+    const totalSugar  = daysWithData.reduce((s,d) => s + (d.totals.sugar   || 0), 0);
+    const totalSatFat = daysWithData.reduce((s,d) => s + (d.totals.sat_fat || 0), 0);
     const avgIntake = daysWithData.length > 0 ? totalIntake / daysWithData.length : 0;
-    const avgProt = daysWithData.length > 0 ? totalProt / daysWithData.length : 0;
-    const avgCarbs = daysWithData.length > 0 ? totalCarbs / daysWithData.length : 0;
-    const avgFat = daysWithData.length > 0 ? totalFat / daysWithData.length : 0;
-    const avgFiber = daysWithData.length > 0 ? totalFiber / daysWithData.length : 0;
+    const avgProt   = daysWithData.length > 0 ? totalProt   / daysWithData.length : 0;
+    const avgCarbs  = daysWithData.length > 0 ? totalCarbs  / daysWithData.length : 0;
+    const avgFat    = daysWithData.length > 0 ? totalFat    / daysWithData.length : 0;
+    const avgFiber  = daysWithData.length > 0 ? totalFiber  / daysWithData.length : 0;
+    const avgSodium = daysWithData.length > 0 ? totalSodium / daysWithData.length : 0;
+    const avgSugar  = daysWithData.length > 0 ? totalSugar  / daysWithData.length : 0;
+    const avgSatFat = daysWithData.length > 0 ? totalSatFat / daysWithData.length : 0;
 
     // Activity aggregates
     let totalGym = 0, totalStepsKcal = 0, totalSteps = 0, gymSessions = 0;
@@ -2715,44 +2728,61 @@
         </div>
         ${macroHtml}
         ${informeShowDetailed ? (() => {
-          const fiberTarget = 25;
-          const fiberPct = fiberTarget > 0 ? Math.round(avgFiber / fiberTarget * 100) : 0;
-          const fiberBarW = Math.min(fiberPct, 150);
-          const fiberColor = fiberPct >= 90 ? 'var(--green)' : fiberPct >= 60 ? 'var(--yellow)' : 'var(--red)';
-          const fiberRows = daysWithData.map(d => {
-            const f = d.totals.fiber;
-            const pct = Math.round(f / fiberTarget * 100);
-            const c = pct >= 90 ? 'var(--green)' : pct >= 60 ? 'var(--yellow)' : 'var(--red)';
-            return `<tr>
-              <td style="padding:5px 8px;font-size:12px;color:var(--text-sec);">${d.dayLabel}</td>
-              <td style="padding:5px 8px;font-size:12px;font-weight:600;color:${c};">${f}g</td>
-              <td style="padding:5px 8px;font-size:12px;color:var(--text-sec);">${pct}%</td>
+          const mkBar = (avg, target, emoji, label, unit, invert) => {
+            const pct = target > 0 ? Math.round(avg / target * 100) : 0;
+            const barW = Math.min(pct, 150);
+            const ok = invert ? pct <= 100 : pct >= 90 && pct <= 110;
+            const over = invert ? pct > 120 : pct > 130;
+            const color = ok ? 'var(--green)' : over ? 'var(--red)' : 'var(--yellow)';
+            const dispVal = unit === 'mg' ? Math.round(avg) : round1(avg);
+            return `<div style="margin-bottom:14px;">
+              <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:4px;">
+                <span style="font-size:13px;font-weight:600;color:var(--text);">${emoji} ${label}</span>
+                <span style="font-size:13px;color:var(--text-sec);">${dispVal}${unit} / ${target}${unit} <span style="font-weight:700;color:${color};">(${pct}%)</span></span>
+              </div>
+              <div style="background:var(--border);border-radius:6px;height:8px;overflow:hidden;">
+                <div style="background:${color};height:100%;width:${barW}%;border-radius:6px;transition:width 0.4s;"></div>
+              </div>
+            </div>`;
+          };
+
+          const microRows = daysWithData.map(d => {
+            const fib = d.totals.fiber || 0, sod = d.totals.sodium || 0;
+            const sug = d.totals.sugar || 0, sf = d.totals.sat_fat || 0;
+            const fibC = fib>=22?'var(--green)':fib>=15?'var(--yellow)':'var(--red)';
+            const sodC = sod<=2300?'var(--green)':sod<=3000?'var(--yellow)':'var(--red)';
+            const sugC = sug<=50?'var(--green)':sug<=70?'var(--yellow)':'var(--red)';
+            const sfC  = sf<=20?'var(--green)':sf<=28?'var(--yellow)':'var(--red)';
+            return `<tr style="border-bottom:1px solid var(--border);">
+              <td style="padding:5px 6px;font-size:11px;color:var(--text-sec);">${d.dayLabel}</td>
+              <td style="padding:5px 6px;font-size:11px;font-weight:600;color:${fibC};">${fib}g</td>
+              <td style="padding:5px 6px;font-size:11px;font-weight:600;color:${sodC};">${sod}mg</td>
+              <td style="padding:5px 6px;font-size:11px;font-weight:600;color:${sugC};">${sug}g</td>
+              <td style="padding:5px 6px;font-size:11px;font-weight:600;color:${sfC};">${sf}g</td>
             </tr>`;
           }).join('');
+
           return `
             <div style="border-top:1px solid var(--border);margin-top:16px;padding-top:16px;">
-              <div style="font-size:12px;font-weight:700;color:var(--text-sec);text-transform:uppercase;letter-spacing:0.5px;margin-bottom:12px;">Micronutrientes</div>
-              <div style="margin-bottom:14px;">
-                <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:4px;">
-                  <span style="font-size:13px;font-weight:600;color:var(--text);">🌿 Fibra</span>
-                  <span style="font-size:13px;color:var(--text-sec);">${round1(avgFiber)} / ${fiberTarget} g <span style="font-weight:700;color:${fiberColor};">(${fiberPct}%)</span></span>
-                </div>
-                <div style="background:var(--border);border-radius:6px;height:8px;overflow:hidden;">
-                  <div style="background:${fiberColor};height:100%;width:${fiberBarW}%;border-radius:6px;transition:width 0.4s;"></div>
-                </div>
-              </div>
-              <div style="overflow-x:auto;margin-bottom:14px;">
-                <table style="width:100%;border-collapse:collapse;font-size:12px;">
-                  <thead><tr style="border-bottom:1px solid var(--border);">
-                    <th style="padding:5px 8px;text-align:left;font-size:11px;color:var(--text-sec);">Dia</th>
-                    <th style="padding:5px 8px;text-align:left;font-size:11px;color:var(--text-sec);">Fibra</th>
-                    <th style="padding:5px 8px;text-align:left;font-size:11px;color:var(--text-sec);">% obj.</th>
+              <div style="font-size:12px;font-weight:700;color:var(--text-sec);text-transform:uppercase;letter-spacing:0.5px;margin-bottom:14px;">Micronutrientes — Promedio diario</div>
+              ${mkBar(avgFiber,  25,   '🌿', 'Fibra',          'g',  false)}
+              ${mkBar(avgSodium, 2300, '🧂', 'Sodio',          'mg', true)}
+              ${mkBar(avgSugar,  50,   '🍬', 'Azúcares totales','g', true)}
+              ${mkBar(avgSatFat, 20,   '🧈', 'Grasa saturada', 'g',  true)}
+              <div style="overflow-x:auto;margin-top:8px;">
+                <table style="width:100%;border-collapse:collapse;font-size:11px;">
+                  <thead><tr style="border-bottom:2px solid var(--border);">
+                    <th style="padding:5px 6px;text-align:left;color:var(--text-sec);">Día</th>
+                    <th style="padding:5px 6px;text-align:left;color:var(--text-sec);">🌿 Fibra</th>
+                    <th style="padding:5px 6px;text-align:left;color:var(--text-sec);">🧂 Sodio</th>
+                    <th style="padding:5px 6px;text-align:left;color:var(--text-sec);">🍬 Azúcar</th>
+                    <th style="padding:5px 6px;text-align:left;color:var(--text-sec);">🧈 G.Sat</th>
                   </tr></thead>
-                  <tbody>${fiberRows}</tbody>
+                  <tbody>${microRows}</tbody>
                 </table>
               </div>
-              <div style="background:rgba(13,148,136,0.06);border-radius:8px;padding:10px 12px;font-size:11px;color:var(--text-sec);line-height:1.6;">
-                <span style="font-weight:600;color:var(--teal);">⚠️ No rastreado aún:</span> Sodio, azúcar simple, grasa saturada — añadir campos en la base de datos para activarlos.
+              <div style="margin-top:10px;font-size:10px;color:var(--text-sec);line-height:1.6;">
+                Obj: fibra ≥25g · sodio ≤2300mg · azúcares ≤50g · g.sat ≤20g/día. Solo se computan alimentos con gramos registrados en base de datos propia.
               </div>
             </div>`;
         })() : ''}
