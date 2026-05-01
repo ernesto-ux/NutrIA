@@ -2553,6 +2553,158 @@
       "timestamp": "2026-04-30T17:00:00",
       "source": "local",
       "user": "ernesto"
+    },
+    {
+      "id": "2026-04-30-A01",
+      "date": "2026-04-30",
+      "meal": "desayuno",
+      "who": "adriana",
+      "items": [
+        {
+          "foodId": "hipro-coco",
+          "name": "HiPro Coco",
+          "grams": 151,
+          "kcal": 84.6,
+          "prot": 14.2,
+          "carbs": 5.7,
+          "fat": 0.6
+        },
+        {
+          "foodId": "siggis-skyr-nature",
+          "name": "Skyr Siggis Nature",
+          "grams": 146,
+          "kcal": 92.0,
+          "prot": 16.1,
+          "carbs": 5.8,
+          "fat": 0.3
+        },
+        {
+          "foodId": "fresas",
+          "name": "Fresas",
+          "grams": 70,
+          "kcal": 23.1,
+          "prot": 0.5,
+          "carbs": 5.4,
+          "fat": 0.2
+        }
+      ],
+      "timestamp": "2026-04-30T08:00:00",
+      "source": "local",
+      "user": "adriana"
+    },
+    {
+      "id": "2026-04-30-A02",
+      "date": "2026-04-30",
+      "meal": "snack",
+      "who": "adriana",
+      "items": [
+        {
+          "foodId": "pain-au-chocolat",
+          "name": "Pain au Chocolat",
+          "grams": 57,
+          "kcal": 236.6,
+          "prot": 4.9,
+          "carbs": 25.2,
+          "fat": 13.8
+        }
+      ],
+      "timestamp": "2026-04-30T11:00:00",
+      "source": "local",
+      "user": "adriana"
+    },
+    {
+      "id": "2026-04-30-A03",
+      "date": "2026-04-30",
+      "meal": "snack",
+      "who": "adriana",
+      "items": [
+        {
+          "foodId": "wasa-original",
+          "name": "Wasa (x2)",
+          "grams": 26,
+          "kcal": 86.8,
+          "prot": 2.3,
+          "carbs": 16.0,
+          "fat": 0.4
+        },
+        {
+          "foodId": "ricotta-casa-azzurra",
+          "name": "Ricotta",
+          "grams": 36,
+          "kcal": 62.7,
+          "prot": 3.9,
+          "carbs": 1.1,
+          "fat": 4.7
+        },
+        {
+          "foodId": "fresas",
+          "name": "Fresas",
+          "grams": 24,
+          "kcal": 7.9,
+          "prot": 0.2,
+          "carbs": 1.8,
+          "fat": 0.1
+        }
+      ],
+      "timestamp": "2026-04-30T16:00:00",
+      "source": "local",
+      "user": "adriana"
+    },
+    {
+      "id": "2026-04-30-A04",
+      "date": "2026-04-30",
+      "meal": "snack",
+      "who": "adriana",
+      "items": [
+        {
+          "foodId": "kefir-lactel-0-bio",
+          "name": "Kéfir Lactel 0%",
+          "grams": 180,
+          "kcal": 79.2,
+          "prot": 6.1,
+          "carbs": 7.6,
+          "fat": 2.9
+        },
+        {
+          "foodId": "eafit-pure-isolate-vainilla",
+          "name": "EAFit Vainilla",
+          "grams": 20,
+          "kcal": 70.8,
+          "prot": 16.2,
+          "carbs": 0.8,
+          "fat": 0.3
+        },
+        {
+          "foodId": "fresas",
+          "name": "Fresas",
+          "grams": 72,
+          "kcal": 23.8,
+          "prot": 0.5,
+          "carbs": 5.5,
+          "fat": 0.2
+        },
+        {
+          "foodId": "hotos-yogurt-grec",
+          "name": "Yogurt Griego Hotos",
+          "grams": 30,
+          "kcal": 39.6,
+          "prot": 2.0,
+          "carbs": 1.2,
+          "fat": 3.0
+        },
+        {
+          "foodId": "pizza-regina-pizzou",
+          "name": "Pizza Regina Pizzou",
+          "grams": 320,
+          "kcal": 550.4,
+          "prot": 29.4,
+          "carbs": 70.4,
+          "fat": 19.2
+        }
+      ],
+      "timestamp": "2026-04-30T19:00:00",
+      "source": "local",
+      "user": "adriana"
     }
   ],
   "overrides": {
