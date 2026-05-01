@@ -1,0 +1,1387 @@
+{
+  "quiche-brocoli-salmon-ricotta": {
+    "price_per_100g": 1.8,
+    "store": "Homemade",
+    "notes": "Saumon ~€15/kg, ricotta €0.88/100g, brocoli €0.50/100g, huevos €0.25/u"
+  },
+  "mantequilla-de-mani-menguys": {
+    "price_per_100g": 1.2,
+    "store": "Homemade",
+    "notes": "Cacahuetes naturales Monoprix ~€3.50/400g"
+  },
+  "pancakes-de-proteina-adri-v2": {
+    "price_per_100g": 1.5,
+    "store": "Homemade",
+    "notes": "Avena + plátano + whey + huevo"
+  },
+  "protein-packed-banana-pb": {
+    "price_per_100g": 1.4,
+    "store": "Homemade",
+    "notes": "Plátano + peanut butter + whey"
+  },
+  "beef-green-beans-pasta-bowl": {
+    "price_per_100g": 1.1,
+    "store": "Homemade",
+    "notes": "Boeuf haché €12/kg, judías verdes €2/kg, pasta €1.50/500g"
+  },
+  "beef-green-beans-meat-bowl": {
+    "price_per_100g": 1.3,
+    "store": "Homemade",
+    "notes": "Carne + ejotes + cebolla, sin pasta"
+  },
+  "cena-de-cracker-con-huevo-ricotta-cottage-pollo-y-salsa-de-aguacate": {
+    "price_per_100g": 1.6,
+    "store": "Homemade",
+    "notes": "Cracker Wasa + huevo + ricotta + cottage + pollo + aguacate"
+  },
+  "frittata-light": {
+    "price_per_100g": 1.0,
+    "store": "Homemade",
+    "notes": "Huevos + espinacas + champiñones"
+  },
+  "pesto-albahaca-light-feta": {
+    "price_per_100g": 1.8,
+    "store": "Homemade",
+    "notes": "Albahaca + feta + ajo + AOVE"
+  },
+  "lentejas-carne-vegetales": {
+    "price_per_100g": 0.9,
+    "store": "Homemade",
+    "notes": "Lentejas €2/kg, carne picada €10/kg, vegetales"
+  },
+  "spanakopita": {
+    "price_per_100g": 1.5,
+    "store": "Homemade",
+    "notes": "Espinacas + feta + pasta filo"
+  },
+  "omelette-ligera-jamon": {
+    "price_per_100g": 1.2,
+    "store": "Homemade",
+    "notes": "Huevos + jamón Fleury Michon + espinacas"
+  },
+  "frittata-ranchera": {
+    "price_per_100g": 1.1,
+    "store": "Homemade",
+    "notes": "Huevos + pimiento + tomate + jalapeño"
+  },
+  "omelette-cottage-salmon": {
+    "price_per_100g": 2.0,
+    "store": "Homemade",
+    "notes": "Salmón ahumado €15/kg, cottage, pimiento, espinacas"
+  },
+  "salsa-mexicana-casera": {
+    "price_per_100g": 0.5,
+    "store": "Homemade",
+    "notes": "Tomate + cebolla + cilantro + jalapeño"
+  },
+  "ensalada-pollo-quinoa-aderezo-cilantro": {
+    "price_per_100g": 1.4,
+    "store": "Homemade",
+    "notes": "Pollo + quinoa + lechuga + aderezo"
+  },
+  "aderezo-fromage-blanc-aguacate-cilantro": {
+    "price_per_100g": 1.2,
+    "store": "Homemade",
+    "notes": "Fromage blanc 0% + aguacate + cilantro"
+  },
+  "oreo-protein-shake": {
+    "price_per_100g": 2.5,
+    "store": "Homemade",
+    "notes": "Whey EAFit + Oreo + leche almendra"
+  },
+  "cheesecake-oreo-beurre": {
+    "price_per_100g": 1.8,
+    "store": "Homemade",
+    "notes": "Philadelphia + Oreo + beurre + huevos, 8 porciones"
+  },
+  "cheesecake-light-oreo-beurre": {
+    "price_per_100g": 1.6,
+    "store": "Homemade",
+    "notes": "Philly Light + Skyr + Oreo + beurre, 8 porciones"
+  },
+  "cookie-dough-adri-choc-oscuro": {
+    "price_per_100g": 1.5,
+    "store": "Homemade",
+    "notes": "Mantequilla + azúcar + harina + chispas Côte d'Or"
+  },
+  "pescado-salsa-limon-alcaparras": {
+    "price_per_100g": 2.2,
+    "store": "Homemade",
+    "notes": "Merluza/cabillaud €12/kg, alcaparras, limón, mantequilla"
+  },
+  "kebab-veau-maison": {
+    "price_per_100g": 2.0,
+    "store": "Homemade",
+    "notes": "Veau haché €18/kg + especias"
+  },
+  "pasta-pollo-espinaca-tomate-adri": {
+    "price_per_100g": 1.0,
+    "store": "Homemade",
+    "notes": "Pasta + pollo + espinacas + tomate triturado"
+  },
+  "carne-mechada-venezolana": {
+    "price_per_100g": 1.8,
+    "store": "Homemade",
+    "notes": "Paleta de res €10/kg + pimiento + tomate + cebolla"
+  },
+  "carne-mechada-netozolana": {
+    "price_per_100g": 1.8,
+    "store": "Homemade",
+    "notes": "Variante mechada venezolana baja en grasa"
+  },
+  "carne-mechada": {
+    "price_per_100g": 1.8,
+    "store": "Homemade",
+    "notes": "Carne mechada genérica"
+  },
+  "guacamole-zucchini-limon": {
+    "price_per_100g": 1.0,
+    "store": "Homemade",
+    "notes": "Aguacate + zucchini + limón + sal"
+  },
+  "salsa-skyr-cilantro": {
+    "price_per_100g": 0.8,
+    "store": "Homemade",
+    "notes": "Skyr nature + cilantro + AOVE + limón"
+  },
+  "cebolla-salteada": {
+    "price_per_100g": 0.2,
+    "store": "Homemade",
+    "notes": "Cebolla amarilla salteada en poco aceite"
+  },
+  "limonada-casera": {
+    "price_per_100g": 0.15,
+    "store": "Homemade",
+    "notes": "Limón + azúcar + agua, costo mínimo"
+  },
+  "arepa-maiz-blanco-casera": {
+    "price_per_100g": 0.6,
+    "store": "Homemade",
+    "notes": "Harina PAN €3.50/1kg (tienda latina Paris)"
+  },
+  "casamiento-arroz-frijoles": {
+    "price_per_100g": 0.5,
+    "store": "Homemade",
+    "notes": "Arroz + frijoles negros, ingredientes baratos"
+  },
+  "pollo-pepiado-zucchini": {
+    "price_per_100g": 1.2,
+    "store": "Homemade",
+    "notes": "Pechuga + zucchini + skyr + cilantro"
+  },
+  "frijoles-negros-licuados": {
+    "price_per_100g": 0.5,
+    "store": "Homemade",
+    "notes": "Frijoles negros secos €2.50/500g, rinde el doble cocidos"
+  },
+  "agua-jamaica-sin-azucar": {
+    "price_per_100g": 0.1,
+    "store": "Épicerie africaine/latina",
+    "notes": "Flor de hibisco seco €8/100g, ~5g por litro = €0.04 por 100ml"
+  },
+  "leche-almendra": {
+    "price_per_100g": 0.25,
+    "store": "Carrefour/Monoprix",
+    "notes": "Lait d'amande Alpro ~€2.50/1L"
+  },
+  "pan-banano-hp-chocolate": {
+    "price_per_100g": 1.2,
+    "store": "Homemade",
+    "notes": "Plátano + avena + whey + chips chocolate"
+  },
+  "huevo-picado-tomate-cebolla": {
+    "price_per_100g": 0.8,
+    "store": "Homemade",
+    "notes": "Huevo + tomate + cebolla"
+  },
+  "tostones-platano-macho": {
+    "price_per_100g": 0.8,
+    "store": "Homemade",
+    "notes": "Plátano macho verde (épicerie africaine) €1.50/u"
+  },
+  "platano-maduro-frito": {
+    "price_per_100g": 0.9,
+    "store": "Homemade",
+    "notes": "Plátano maduro + aceite de fritura"
+  },
+  "sopa-pollo-fideos-vegetales": {
+    "price_per_100g": 0.6,
+    "store": "Homemade",
+    "notes": "Caldo + fideos + vegetales"
+  },
+  "crutones-caseros": {
+    "price_per_100g": 0.5,
+    "store": "Homemade",
+    "notes": "Pan baguette viejo + aceite + especias"
+  },
+  "shake-vanilla-fresas": {
+    "price_per_100g": 1.5,
+    "store": "Homemade",
+    "notes": "Whey vainilla + fresas + leche almendra"
+  },
+  "vegetales-mixtos-tomate-chile-hojas": {
+    "price_per_100g": 0.4,
+    "store": "Marché/Supermarché",
+    "notes": "Tomate + pimiento + hojas verdes"
+  },
+  "caldo-pollo": {
+    "price_per_100g": 0.08,
+    "store": "Homemade",
+    "notes": "Carcasa de pollo + agua + vegetales, costo mínimo"
+  },
+  "eafit-pure-isolate-vanille": {
+    "price_per_100g": 3.32,
+    "store": "Décathlon / EAFit online",
+    "unit_price": 29.9,
+    "unit_size_g": 900,
+    "notes": "EAFit Pure Isolate Whey 900g"
+  },
+  "eafit-pure-isolate-chocolat": {
+    "price_per_100g": 3.32,
+    "store": "Décathlon / EAFit online",
+    "unit_price": 29.9,
+    "unit_size_g": 900,
+    "notes": "EAFit Pure Isolate Whey Chocolat 900g"
+  },
+  "hipro-vanille": {
+    "price_per_100g": 0.95,
+    "store": "Carrefour / Monoprix",
+    "unit_price": 1.89,
+    "unit_size_g": 200,
+    "notes": "Danone HiPro Vanille 200g"
+  },
+  "hipro-coco": {
+    "price_per_100g": 0.95,
+    "store": "Carrefour / Monoprix",
+    "unit_price": 1.89,
+    "unit_size_g": 200,
+    "notes": "Danone HiPro Coco 200g"
+  },
+  "hipro-blueberry": {
+    "price_per_100g": 0.95,
+    "store": "Carrefour / Monoprix",
+    "unit_price": 1.89,
+    "unit_size_g": 200,
+    "notes": "Danone HiPro Myrtille 200g"
+  },
+  "hipro-creme-dessert-choco-noisette": {
+    "price_per_100g": 1.0,
+    "store": "Carrefour / Monoprix",
+    "unit_price": 2.49,
+    "unit_size_g": 250,
+    "notes": "HiPro Crème Dessert Chocolat Noisette"
+  },
+  "hipro-chocolate-drink": {
+    "price_per_100g": 0.85,
+    "store": "Carrefour / Monoprix",
+    "unit_price": 2.49,
+    "unit_size_g": 300,
+    "notes": "Danone HiPro Protein Drink Chocolat 300ml"
+  },
+  "hipro-banana-drink": {
+    "price_per_100g": 0.85,
+    "store": "Carrefour / Monoprix",
+    "unit_price": 2.49,
+    "unit_size_g": 300,
+    "notes": "Danone HiPro Protein Drink Banane 300ml"
+  },
+  "danone-cottage-cheese": {
+    "price_per_100g": 0.44,
+    "store": "Carrefour / Monoprix",
+    "unit_price": 2.2,
+    "unit_size_g": 500,
+    "notes": "Danone Cottage Cheese Nature 500g"
+  },
+  "cottage-cheese-president": {
+    "price_per_100g": 0.46,
+    "store": "Carrefour / Monoprix",
+    "unit_price": 2.29,
+    "unit_size_g": 500,
+    "notes": "Président Cottage Cheese 500g"
+  },
+  "siggis-skyr-nature": {
+    "price_per_100g": 0.78,
+    "store": "Monoprix / Carrefour City",
+    "unit_price": 3.5,
+    "unit_size_g": 450,
+    "notes": "Siggi's Skyr Nature 450g"
+  },
+  "siggis-skyr-raspberry": {
+    "price_per_100g": 0.78,
+    "store": "Monoprix / Carrefour City",
+    "unit_price": 3.5,
+    "unit_size_g": 450,
+    "notes": "Siggi's Skyr Raspberry 450g"
+  },
+  "kefir-lactel-0-bio": {
+    "price_per_100g": 0.27,
+    "store": "Carrefour / Monoprix",
+    "unit_price": 2.69,
+    "unit_size_g": 1000,
+    "notes": "Lactel Kéfir 0% Bio 1L"
+  },
+  "sojasun-nature": {
+    "price_per_100g": 0.39,
+    "store": "Carrefour / Monoprix",
+    "unit_price": 1.95,
+    "unit_size_g": 500,
+    "notes": "Sojasun Dessert Soja Nature 500g"
+  },
+  "alpro-noisette-gourmande": {
+    "price_per_100g": 0.25,
+    "store": "Carrefour / Monoprix",
+    "unit_price": 2.49,
+    "unit_size_g": 1000,
+    "notes": "Alpro Boisson Noisette Gourmande 1L"
+  },
+  "pollo-pechuga-horneada": {
+    "price_per_100g": 1.3,
+    "store": "Carrefour / Boucherie",
+    "notes": "Filet de poulet blanc ~€12-13/kg"
+  },
+  "pollo-salteado": {
+    "price_per_100g": 1.3,
+    "store": "Carrefour / Boucherie",
+    "notes": "Filet de poulet salteado"
+  },
+  "fleury-michon-tendre-poulet-roti": {
+    "price_per_100g": 1.8,
+    "store": "Carrefour / Monoprix",
+    "unit_price": 3.6,
+    "unit_size_g": 200,
+    "notes": "Fleury Michon Tendre Poulet Rôti tranché 200g"
+  },
+  "jamon-porc-fleury-michon": {
+    "price_per_100g": 1.5,
+    "store": "Carrefour / Monoprix",
+    "unit_price": 3.0,
+    "unit_size_g": 200,
+    "notes": "Fleury Michon Jambon Supérieur -25% Sel"
+  },
+  "rumsteck-boeuf-cuit": {
+    "price_per_100g": 2.2,
+    "store": "Boucherie / Carrefour",
+    "notes": "Rumsteck boeuf ~€20/kg cru, cuit pesado"
+  },
+  "bavette-cocida": {
+    "price_per_100g": 0.35,
+    "store": "Carrefour / Monoprix",
+    "notes": "Pasta bavette seca €2/500g, cocida pesa 2x, ~€0.35/100g cocinada"
+  },
+  "lomo-cerdo-horneado": {
+    "price_per_100g": 1.1,
+    "store": "Carrefour / Boucherie",
+    "unit_price": 5.5,
+    "unit_size_g": 500,
+    "notes": "Rôti de porc Carrefour ~€11/kg"
+  },
+  "halloumi-frito": {
+    "price_per_100g": 2.2,
+    "store": "Monoprix / Épicerie grecque",
+    "unit_price": 3.3,
+    "unit_size_g": 150,
+    "notes": "Halloumi 150g"
+  },
+  "charcuterie-variada": {
+    "price_per_100g": 2.5,
+    "store": "Carrefour / Monoprix",
+    "notes": "Plateau charcuterie mixte ~€25/kg"
+  },
+  "odyssee-salade-thon-intermarche": {
+    "price_per_100g": 1.75,
+    "store": "Intermarché",
+    "unit_price": 3.5,
+    "unit_size_g": 200,
+    "notes": "Odyssée Salade au Thon Intermarché 200g"
+  },
+  "fresas-frescas": {
+    "price_per_100g": 0.8,
+    "store": "Carrefour / Marché",
+    "notes": "Fraises fraîches ~€4/500g (temporada primavera)"
+  },
+  "blueberries-frescas": {
+    "price_per_100g": 1.2,
+    "store": "Carrefour / Monoprix",
+    "notes": "Myrtilles ~€6/500g"
+  },
+  "banana-fresca": {
+    "price_per_100g": 0.18,
+    "store": "Carrefour / Franprix",
+    "notes": "Bananes ~€1.80/kg"
+  },
+  "aguacate-fresco": {
+    "price_per_100g": 0.6,
+    "store": "Carrefour / Marché",
+    "notes": "Avocat ~€1.50/u (250g bruto)"
+  },
+  "tomate-fresco": {
+    "price_per_100g": 0.35,
+    "store": "Carrefour / Marché",
+    "notes": "Tomates ronds ~€3.50/kg"
+  },
+  "brocoli-cuit": {
+    "price_per_100g": 0.45,
+    "store": "Carrefour / Marché",
+    "notes": "Brocoli frais ~€2.50/tête (500g bruto), 60% rendimiento"
+  },
+  "patate-cuite": {
+    "price_per_100g": 0.18,
+    "store": "Carrefour / Lidl",
+    "notes": "Pommes de terre ~€1.50/kg"
+  },
+  "patatas-horneadas": {
+    "price_per_100g": 0.18,
+    "store": "Carrefour / Lidl",
+    "notes": "Pommes de terre ~€1.50/kg"
+  },
+  "camote-hervido": {
+    "price_per_100g": 0.22,
+    "store": "Carrefour / Monoprix",
+    "notes": "Patate douce ~€2/kg"
+  },
+  "remolacha-cocida": {
+    "price_per_100g": 0.25,
+    "store": "Carrefour / Lidl",
+    "notes": "Betterave cuite sous vide ~€2.50/kg"
+  },
+  "espinaca-congelada": {
+    "price_per_100g": 0.22,
+    "store": "Carrefour / Picard",
+    "notes": "Épinards hachés surgelés ~€2.20/kg"
+  },
+  "champinones-frescos": {
+    "price_per_100g": 0.45,
+    "store": "Carrefour / Marché",
+    "notes": "Champignons de Paris ~€4/kg"
+  },
+  "arugula-fresca": {
+    "price_per_100g": 0.8,
+    "store": "Carrefour / Monoprix",
+    "notes": "Roquette ~€2.50/sachett 200g (€1.25/100g) + pérdida"
+  },
+  "mache-salade": {
+    "price_per_100g": 1.2,
+    "store": "Carrefour / Marché",
+    "notes": "Mâche ~€3/sachett 250g"
+  },
+  "lechuga-fresca": {
+    "price_per_100g": 0.4,
+    "store": "Carrefour / Franprix",
+    "notes": "Laitue ~€1.50/u (poids net ~300g)"
+  },
+  "cilantro-fresco": {
+    "price_per_100g": 1.2,
+    "store": "Épicerie asiatique / Marché",
+    "notes": "Coriandre fraîche ~€1.50/botte (125g)"
+  },
+  "chile-rojo-fresco": {
+    "price_per_100g": 0.8,
+    "store": "Épicerie asiatique",
+    "notes": "Piment rouge ~€8/kg"
+  },
+  "quinoa-cocida": {
+    "price_per_100g": 0.4,
+    "store": "Carrefour / Monoprix",
+    "notes": "Quinoa sèche €4/500g, cuite pesa 3x = €0.27/100g seco = €0.40/100g cocido"
+  },
+  "arroz-basmati-cocido": {
+    "price_per_100g": 0.15,
+    "store": "Carrefour / Franprix",
+    "notes": "Riz basmati €2/kg sec, cocido pesa 3x"
+  },
+  "pasta-cocida": {
+    "price_per_100g": 0.22,
+    "store": "Carrefour / Lidl",
+    "notes": "Pâtes sèches ~€1.50/500g, cocidas pesan 2.5x"
+  },
+  "rigatoni-cocida": {
+    "price_per_100g": 0.22,
+    "store": "Carrefour / Lidl",
+    "notes": "Rigatoni sèches ~€1.50/500g"
+  },
+  "maicena": {
+    "price_per_100g": 0.25,
+    "store": "Carrefour",
+    "notes": "Maïzena 400g ~€1"
+  },
+  "flax-seed": {
+    "price_per_100g": 0.35,
+    "store": "Carrefour Bio / Monoprix Bio",
+    "notes": "Graines de lin ~€2/500g"
+  },
+  "wasa-leger": {
+    "price_per_100g": 0.91,
+    "store": "Carrefour / Monoprix",
+    "unit_price": 2.5,
+    "unit_size_g": 275,
+    "notes": "Wasa Léger 275g"
+  },
+  "wasa-fibre": {
+    "price_per_100g": 0.91,
+    "store": "Carrefour / Monoprix",
+    "unit_price": 2.5,
+    "unit_size_g": 275,
+    "notes": "Wasa Fibre 275g"
+  },
+  "tastybasics-cracker-protein": {
+    "price_per_100g": 2.0,
+    "store": "Albert Heijn / Amazon FR",
+    "unit_price": 3.0,
+    "unit_size_g": 150,
+    "notes": "TastyBasics Protein Cracker (marca holandesa, importado)"
+  },
+  "pain-baguette": {
+    "price_per_100g": 0.47,
+    "store": "Boulangerie",
+    "unit_price": 1.2,
+    "unit_size_g": 250,
+    "notes": "Baguette tradition artisanale €1.20/u ~250g"
+  },
+  "baguette-croustigraine-ounissi": {
+    "price_per_100g": 0.56,
+    "store": "Boulangerie Ounissi",
+    "unit_price": 1.4,
+    "unit_size_g": 250,
+    "notes": "Baguette multicéréales Ounissi"
+  },
+  "pan-panini-delgado": {
+    "price_per_100g": 0.6,
+    "store": "Boulangerie / Carrefour",
+    "unit_price": 0.6,
+    "unit_size_g": 100,
+    "notes": "Pan panini pequeño ~100g"
+  },
+  "croissant-boulangerie": {
+    "price_per_100g": 1.44,
+    "store": "Les Commères / Boulangerie",
+    "unit_price": 1.3,
+    "unit_size_g": 90,
+    "notes": "Croissant artisanal ~90g"
+  },
+  "chausson-pommes-boulangerie": {
+    "price_per_100g": 1.44,
+    "store": "Les Commères / Boulangerie",
+    "unit_price": 1.5,
+    "unit_size_g": 105,
+    "notes": "Chausson aux pommes artisanal ~105g"
+  },
+  "pain-aux-raisins": {
+    "price_per_100g": 1.5,
+    "store": "Boulangerie",
+    "unit_price": 1.35,
+    "unit_size_g": 90,
+    "notes": "Pain aux raisins artisanal ~90g"
+  },
+  "lu-petit-beurre": {
+    "price_per_100g": 0.65,
+    "store": "Carrefour / Monoprix",
+    "unit_price": 2.6,
+    "unit_size_g": 400,
+    "notes": "LU Véritable Petit Beurre 400g"
+  },
+  "mere-poulard-biscuit-beurre": {
+    "price_per_100g": 2.5,
+    "store": "Monoprix / Épiceries fines",
+    "unit_price": 9.0,
+    "unit_size_g": 360,
+    "notes": "La Mère Poulard Biscuit Pur Beurre 360g"
+  },
+  "gerble-cookie-cacao-pepites-ss": {
+    "price_per_100g": 2.0,
+    "store": "Carrefour / Monoprix",
+    "unit_price": 3.0,
+    "unit_size_g": 150,
+    "notes": "Gerblé Cookie Cacao Pépites Sans Sucres 150g"
+  },
+  "sante-crispy-oat-honey": {
+    "price_per_100g": 1.8,
+    "store": "Monoprix / épicerie belge",
+    "unit_price": 3.6,
+    "unit_size_g": 200,
+    "notes": "Santé Crispy Oat and Honey Cookie 200g"
+  },
+  "klm-macaron-coco": {
+    "price_per_100g": 3.0,
+    "store": "KLM (avión)",
+    "notes": "Galleta KLM, precio referencial aerolínea"
+  },
+  "kinder-chocobon": {
+    "price_per_100g": 2.2,
+    "store": "Carrefour / Monoprix",
+    "unit_price": 3.3,
+    "unit_size_g": 150,
+    "notes": "Kinder Schoko-Bons 150g"
+  },
+  "fideos-chinos-mamee": {
+    "price_per_100g": 1.5,
+    "store": "Épicerie asiatique",
+    "unit_price": 1.05,
+    "unit_size_g": 70,
+    "notes": "Mamee Noodles 70g packet"
+  },
+  "bolletje-pan-amsterdam-semillas": {
+    "price_per_100g": 0.8,
+    "store": "Albert Heijn (Amsterdam)",
+    "notes": "Pan holandés semillas (importado/no disponible París)"
+  },
+  "almendras-enteras": {
+    "price_per_100g": 1.5,
+    "store": "Carrefour / Monoprix",
+    "unit_price": 4.5,
+    "unit_size_g": 300,
+    "notes": "Amandes entières Carrefour/EAFit 300g"
+  },
+  "semillas-maranon": {
+    "price_per_100g": 2.0,
+    "store": "Carrefour / Monoprix",
+    "notes": "Noix de cajou ~€8/400g"
+  },
+  "nueces-enteras": {
+    "price_per_100g": 1.8,
+    "store": "Carrefour / Lidl",
+    "notes": "Noix entières ~€9/500g"
+  },
+  "chispas-chocolate-oscuro": {
+    "price_per_100g": 1.5,
+    "store": "Monoprix / G. Detou",
+    "notes": "Pépites chocolat noir Côte d'Or/Valrhona ~€3/200g"
+  },
+  "tony-chocolonely-dark-70": {
+    "price_per_100g": 1.94,
+    "store": "Monoprix / FNAC / Action",
+    "unit_price": 3.49,
+    "unit_size_g": 180,
+    "notes": "Tony's Chocolonely Dark 70% 180g"
+  },
+  "chocolonely-dark-chocolate": {
+    "price_per_100g": 1.94,
+    "store": "Monoprix / FNAC / Action",
+    "unit_price": 3.49,
+    "unit_size_g": 180,
+    "notes": "Tony's Chocolonely Dark Chocolate 180g"
+  },
+  "jeff-de-bruges-oeuf-paques": {
+    "price_per_100g": 12.0,
+    "store": "Jeff de Bruges",
+    "unit_price": 1.8,
+    "unit_size_g": 15,
+    "notes": "Petit oeuf de Pâques Jeff de Bruges ~15g"
+  },
+  "alfajor-havanna-chocolate-ddl": {
+    "price_per_100g": 4.0,
+    "store": "Tienda latina / importado",
+    "unit_price": 3.0,
+    "unit_size_g": 75,
+    "notes": "Alfajor Havanna (importado, precio París)"
+  },
+  "mermelada-lucien-fraises-sans-sucres": {
+    "price_per_100g": 1.09,
+    "store": "Carrefour / Monoprix",
+    "unit_price": 3.5,
+    "unit_size_g": 320,
+    "notes": "Lucien Georgelin Confiture Fraises Sans Sucres 320g"
+  },
+  "salmorejo-alvalle": {
+    "price_per_100g": 0.8,
+    "store": "Carrefour / Monoprix",
+    "unit_price": 3.2,
+    "unit_size_g": 400,
+    "notes": "Alvalle Salmorejo 400ml"
+  },
+  "bon-vivant-mini-feuilletes-sesame-pavot": {
+    "price_per_100g": 2.0,
+    "store": "Carrefour / Monoprix",
+    "unit_price": 3.0,
+    "unit_size_g": 150,
+    "notes": "Bon Vivant Mini Feuilletés Sésame Pavot apéritif"
+  },
+  "gerble-mini-brownie-sans-sucres": {
+    "price_per_100g": 2.33,
+    "store": "Carrefour / Pharmacie / Monoprix",
+    "unit_price": 3.5,
+    "unit_size_g": 150,
+    "notes": "Gerblé Mini Brownie Sans Sucres 150g"
+  },
+  "coca-cola-zero": {
+    "price_per_100g": 0.1,
+    "store": "Carrefour / Franprix",
+    "unit_price": 0.8,
+    "unit_size_g": 500,
+    "notes": "Coca-Cola Zero 50cl"
+  },
+  "heineken-biere": {
+    "price_per_100g": 0.22,
+    "store": "Carrefour / Monoprix",
+    "unit_price": 0.99,
+    "unit_size_g": 330,
+    "notes": "Heineken 33cl canette €0.99"
+  },
+  "lipton-ice-tea-low-sugar": {
+    "price_per_100g": 0.12,
+    "store": "Carrefour / Franprix",
+    "unit_price": 1.2,
+    "unit_size_g": 1000,
+    "notes": "Lipton Ice Tea Low Sugar 1L"
+  },
+  "fuze-tea-the-vert": {
+    "price_per_100g": 0.1,
+    "store": "Carrefour / Franprix",
+    "unit_price": 1.0,
+    "unit_size_g": 1000,
+    "notes": "Fuze Tea Thé Vert 1L"
+  },
+  "cafe-negro": {
+    "price_per_100g": 0.05,
+    "store": "Carrefour / Monoprix",
+    "notes": "Café moulu/capsule €5/250g → ~250ml = €0.05/100ml (café preparado)"
+  },
+  "vino-blanco-seco": {
+    "price_per_100g": 0.6,
+    "store": "Carrefour / Nicolas",
+    "unit_price": 6.0,
+    "unit_size_g": 750,
+    "notes": "Vin blanc sec entrée de gamme"
+  },
+  "te-verde-menta": {
+    "price_per_100g": 0.04,
+    "store": "Épicerie",
+    "notes": "Thé vert + menthe, infusión, costo mínimo por 100ml"
+  },
+  "pizza-hut-hawaienne": {
+    "price_per_100g": 1.8,
+    "store": "Pizza Hut",
+    "unit_price": 18.0,
+    "unit_size_g": 1000,
+    "notes": "Pizza Hawaïenne Pizza Hut ~€18/pizza ~1kg"
+  },
+  "pizza-regine-pizzou": {
+    "price_per_100g": 4.0,
+    "store": "Pizzou",
+    "unit_price": 16.0,
+    "unit_size_g": 400,
+    "notes": "Pizza Régine Pizzou masa fina ~€16/u ~400g"
+  },
+  "pizza-regina-pizzou": {
+    "price_per_100g": 4.0,
+    "store": "Pizzou",
+    "unit_price": 16.0,
+    "unit_size_g": 400,
+    "notes": "Pizza Régina Pizzou ~€16/u ~400g"
+  },
+  "pizza-jamon-bigorre-louielouie": {
+    "price_per_100g": 5.0,
+    "store": "LouieLouie",
+    "unit_price": 18.0,
+    "unit_size_g": 360,
+    "notes": "Pizza Jamón Noir de Bigorre LouieLouie ~€18"
+  },
+  "profiterole-sorbet-vanille-chocolat": {
+    "price_per_100g": 4.5,
+    "store": "LouieLouie",
+    "unit_price": 9.0,
+    "unit_size_g": 200,
+    "notes": "Profiterole LouieLouie ~€9/porción"
+  },
+  "mcdonalds-mccrispy-chicken": {
+    "price_per_100g": 2.5,
+    "store": "McDonald's",
+    "unit_price": 6.5,
+    "unit_size_g": 260,
+    "notes": "McCrispy Chicken McDonald's ~€6.50"
+  },
+  "mcdonalds-royal-cheese": {
+    "price_per_100g": 2.2,
+    "store": "McDonald's",
+    "unit_price": 5.9,
+    "unit_size_g": 270,
+    "notes": "Royal Cheese McDonald's ~€5.90"
+  },
+  "mcdonalds-papas-large": {
+    "price_per_100g": 1.8,
+    "store": "McDonald's",
+    "unit_price": 4.2,
+    "unit_size_g": 230,
+    "notes": "Papas Fritas Large McDonald's ~€4.20"
+  },
+  "mcdonalds-cheesestick": {
+    "price_per_100g": 4.0,
+    "store": "McDonald's",
+    "unit_price": 4.0,
+    "unit_size_g": 100,
+    "notes": "Cheese Stick Mozzarella McDonald's ~€4"
+  },
+  "mcdonalds-sweet-sour-sauce": {
+    "price_per_100g": 2.0,
+    "store": "McDonald's",
+    "unit_price": 0.5,
+    "unit_size_g": 25,
+    "notes": "Salsa Sweet & Sour McDonald's ~25g"
+  },
+  "mcdonalds-ketchup-sachet": {
+    "price_per_100g": 1.0,
+    "store": "McDonald's",
+    "unit_price": 0.2,
+    "unit_size_g": 20,
+    "notes": "Ketchup sachet McDonald's ~20g"
+  },
+  "sopa-thai-mariscos-picante": {
+    "price_per_100g": 2.5,
+    "store": "Restaurant asiatique",
+    "unit_price": 14.0,
+    "unit_size_g": 560,
+    "notes": "Sopa thai restaurante ~€14/plato"
+  },
+  "ensalada-thai-peanut-mango-satay-oliver-green": {
+    "price_per_100g": 3.5,
+    "store": "Oliver Green Amsterdam",
+    "unit_price": 12.0,
+    "unit_size_g": 340,
+    "notes": "Ensalada Oliver Green Amsterdam ~€12"
+  },
+  "subway-sweet-onion-chicken-teriyaki-15cm": {
+    "price_per_100g": 2.0,
+    "store": "Subway",
+    "unit_price": 8.5,
+    "unit_size_g": 280,
+    "notes": "Subway 15cm Chicken Teriyaki ~€8.50"
+  },
+  "subway-melt-sweet-onion-15cm": {
+    "price_per_100g": 2.1,
+    "store": "Subway",
+    "unit_price": 8.9,
+    "unit_size_g": 280,
+    "notes": "Subway Melt 15cm ~€8.90"
+  },
+  "tres-leches-tiramisu-amsterdam": {
+    "price_per_100g": 5.0,
+    "store": "De Beste Lekkernij (Amsterdam)",
+    "unit_price": 9.0,
+    "unit_size_g": 180,
+    "notes": "Tres Leches Tiramisu Amsterdam ~€9/porción"
+  },
+  "tres-leches-pistacho-amsterdam": {
+    "price_per_100g": 5.0,
+    "store": "De Beste Lekkernij (Amsterdam)",
+    "unit_price": 9.0,
+    "unit_size_g": 180,
+    "notes": "Tres Leches Pistacho Amsterdam ~€9/porción"
+  },
+  "tarta-manzana-amsterdam-crumble": {
+    "price_per_100g": 2.5,
+    "store": "Boulangerie Amsterdam",
+    "unit_price": 7.0,
+    "unit_size_g": 280,
+    "notes": "Tarta de manzana Amsterdam ~€7/porción"
+  },
+  "mini-financier-amandes": {
+    "price_per_100g": 2.0,
+    "store": "Boulangerie",
+    "notes": "Mini financier artisanal ~€1.50/u 75g"
+  },
+  "madeleine-traditionnelle": {
+    "price_per_100g": 1.0,
+    "store": "Carrefour / Boulangerie",
+    "notes": "Madeleine ~€3/300g"
+  },
+  "muffin-blueberry-artesanal": {
+    "price_per_100g": 2.5,
+    "store": "Boulangerie",
+    "unit_price": 3.5,
+    "unit_size_g": 140,
+    "notes": "Muffin myrtilles artisanal ~€3.50"
+  },
+  "muffin-chocolate-artesanal": {
+    "price_per_100g": 2.5,
+    "store": "Boulangerie",
+    "unit_price": 3.5,
+    "unit_size_g": 140,
+    "notes": "Muffin chocolat artisanal ~€3.50"
+  },
+  "poffertjes-mini-dutch": {
+    "price_per_100g": 2.0,
+    "store": "Boulangerie NL / marché",
+    "notes": "Mini poffertjes holandesas €6/300g"
+  },
+  "mostaza-amarilla": {
+    "price_per_100g": 0.3,
+    "store": "Carrefour",
+    "notes": "Moutarde jaune américaine €1.50/500g"
+  },
+  "pesto-generico": {
+    "price_per_100g": 1.2,
+    "store": "Carrefour / Monoprix",
+    "notes": "Pesto basilic bocal ~€3/250g"
+  },
+  "queso-cabra-fresco": {
+    "price_per_100g": 1.8,
+    "store": "Carrefour / Fromagerie",
+    "notes": "Chèvre frais ~€3.60/200g"
+  },
+  "parmesano-rayado": {
+    "price_per_100g": 2.0,
+    "store": "Carrefour / Monoprix",
+    "unit_price": 2.5,
+    "unit_size_g": 125,
+    "notes": "Parmesan râpé 125g"
+  },
+  "aceituna-kalamata": {
+    "price_per_100g": 1.5,
+    "store": "Monoprix / Épicerie grecque",
+    "notes": "Olives Kalamata ~€3/200g"
+  },
+  "nata-chantilly": {
+    "price_per_100g": 0.5,
+    "store": "Carrefour",
+    "notes": "Crème chantilly €2/400g"
+  },
+  "mayo-picante": {
+    "price_per_100g": 0.5,
+    "store": "Carrefour / Monoprix",
+    "notes": "Mayonnaise épicée ~€2/400g"
+  },
+  "mayo-trufa": {
+    "price_per_100g": 1.5,
+    "store": "Monoprix / épiceries fines",
+    "notes": "Mayonnaise à la truffe ~€4.50/300g"
+  },
+  "ketchup-generico": {
+    "price_per_100g": 0.3,
+    "store": "Carrefour / Lidl",
+    "notes": "Ketchup €1.50/500g"
+  },
+  "salsa-trufa-parmesan": {
+    "price_per_100g": 2.0,
+    "store": "Épicerie fine",
+    "notes": "Sauce truffe parmesan artisanale ~€6/300g"
+  },
+  "salsa-pistacho": {
+    "price_per_100g": 3.0,
+    "store": "Épicerie fine",
+    "notes": "Sauce pistache topping premium"
+  },
+  "salsa-kinder-bueno": {
+    "price_per_100g": 2.5,
+    "store": "Épicerie fine / artisan",
+    "notes": "Sauce type Kinder Bueno artisanale"
+  },
+  "girasoli-burrata-basilic-picard": {
+    "price_per_100g": 1.4,
+    "store": "Picard",
+    "unit_price": 4.99,
+    "unit_size_g": 350,
+    "notes": "Picard Girasoli Burrata Basilic 350g"
+  },
+  "cannelloni-ricotta-epinard-picard": {
+    "price_per_100g": 0.8,
+    "store": "Picard",
+    "unit_price": 4.2,
+    "unit_size_g": 525,
+    "notes": "Picard Cannelloni Ricotta Épinard 525g"
+  },
+  "weider-peanut-butter-powder": {
+    "price_per_100g": 1.8,
+    "store": "Décathlon / Amazon FR",
+    "unit_price": 9.0,
+    "unit_size_g": 500,
+    "notes": "Weider Peanut Butter Powder 500g"
+  },
+  "stroopwafel-rudi-chocolate-negro": {
+    "price_per_100g": 2.2,
+    "store": "Amazon FR / épiceries NL",
+    "unit_price": 4.5,
+    "unit_size_g": 204,
+    "notes": "Rudi's Stroopwafel Chocolat Noir (importado NL)"
+  },
+  "van-stapele-cookie": {
+    "price_per_100g": 8.0,
+    "store": "Van Stapele (Amsterdam)",
+    "unit_price": 4.0,
+    "unit_size_g": 50,
+    "notes": "Cookie signature Van Stapele Amsterdam ~€4/u"
+  },
+  "zaanlander-48-cheese": {
+    "price_per_100g": 1.6,
+    "store": "Albert Heijn (Amsterdam)",
+    "notes": "Queso Zaanlander holandés (no disponible París)"
+  },
+  "queso-dutch-oud-amsterdam": {
+    "price_per_100g": 2.0,
+    "store": "Fromagerie / épicerie NL",
+    "notes": "Old Amsterdam cheese, disponible en algunas fromageries París"
+  },
+  "zuivelhoeve-boern-yoghurt": {
+    "price_per_100g": 0.5,
+    "store": "Albert Heijn (Amsterdam)",
+    "notes": "Yogur espeso holandés (no disponible París)"
+  },
+  "zuivelhoeve-stevige-trek": {
+    "price_per_100g": 0.8,
+    "store": "Albert Heijn (Amsterdam)",
+    "notes": "Stevige Trek yogurt granola (no disponible París)"
+  },
+  "papas-ambacht-frites-artesanales": {
+    "price_per_100g": 2.0,
+    "store": "Papa's Ambacht (Amsterdam)",
+    "notes": "Frites artesanales Amsterdam €5/porción ~250g"
+  },
+  "frites-pareltje-amsterdam": {
+    "price_per_100g": 1.8,
+    "store": "'t Pareltje (Amsterdam)",
+    "notes": "Frites Amsterdam ~€4/porción"
+  },
+  "ensalada-ah-linzen-kikkererwten-geitenkaas": {
+    "price_per_100g": 1.2,
+    "store": "Albert Heijn (Amsterdam)",
+    "notes": "Ensalada Albert Heijn lentejas garbanzos chèvre"
+  },
+  "hotel-yogurt-granola-amsterdam": {
+    "price_per_100g": 0.6,
+    "store": "Hotel buffet",
+    "notes": "Yogurt granola buffet hotel Amsterdam"
+  },
+  "frambuesas-fresas": {
+    "price_per_100g": 1.2,
+    "store": "Carrefour / Marché",
+    "notes": "Mix frambuesas + fresas ~€6/500g"
+  },
+  "jugo-manzana-avion": {
+    "price_per_100g": 0.5,
+    "store": "Aerolínea (incluido)",
+    "notes": "Jugo manzana servicio a bordo"
+  },
+  "starbucks-protein-drink-coffee-lowfat": {
+    "price_per_100g": 1.2,
+    "store": "Starbucks",
+    "unit_price": 4.9,
+    "unit_size_g": 330,
+    "notes": "Starbucks Protein Cold Brew Coffee 330ml ~€4.90"
+  },
+  "thai-carne-vegetales-maranon-hongos": {
+    "price_per_100g": 2.0,
+    "store": "Restaurant asiatique",
+    "notes": "Plato thai carne + vegetales restaurante"
+  },
+  "semillas-chia": {
+    "price_per_100g": 0.8,
+    "store": "Carrefour Bio / Monoprix Bio",
+    "unit_price": 4.0,
+    "unit_size_g": 500,
+    "notes": "Graines de chia bio 500g"
+  },
+  "leche-almendra-sin-azucar": {
+    "price_per_100g": 0.25,
+    "store": "Carrefour / Monoprix",
+    "unit_price": 2.5,
+    "unit_size_g": 1000,
+    "notes": "Lait d'amande sans sucre 1L"
+  },
+  "melon-fresco": {
+    "price_per_100g": 0.3,
+    "store": "Carrefour / Marché",
+    "notes": "Melon charentais ~€1.50/u 500g net"
+  },
+  "ricotta-casa-azzurra": {
+    "price_per_100g": 0.88,
+    "store": "Carrefour / Monoprix",
+    "unit_price": 2.2,
+    "unit_size_g": 250,
+    "notes": "Ricotta Casa Azzurra 250g"
+  },
+  "miel-abeja": {
+    "price_per_100g": 0.8,
+    "store": "Carrefour / Monoprix",
+    "notes": "Miel liquide ~€4/500g"
+  },
+  "avellanas": {
+    "price_per_100g": 2.2,
+    "store": "Carrefour / Monoprix",
+    "notes": "Noisettes décortiquées ~€4.40/200g"
+  },
+  "huevo-entero": {
+    "price_per_100g": 0.4,
+    "store": "Carrefour / Franprix",
+    "notes": "Oeuf M ~€0.25/u 60g"
+  },
+  "clara-huevo": {
+    "price_per_100g": 0.35,
+    "store": "Carrefour / Monoprix",
+    "notes": "Blancs d'oeufs liquide ~€3.50/1L"
+  },
+  "aceite-oliva": {
+    "price_per_100g": 0.7,
+    "store": "Carrefour / Monoprix",
+    "notes": "Huile d'olive vierge extra ~€7/1L (920g)"
+  },
+  "queso-maduro-espanol": {
+    "price_per_100g": 2.0,
+    "store": "Monoprix / Fromagerie",
+    "notes": "Manchego / queso curado español ~€20/kg"
+  },
+  "mantequilla-salada": {
+    "price_per_100g": 0.9,
+    "store": "Carrefour / Monoprix",
+    "unit_price": 2.25,
+    "unit_size_g": 250,
+    "notes": "Beurre salé Président/Elle&Vire 250g"
+  },
+  "hipro-banane": {
+    "price_per_100g": 0.95,
+    "store": "Carrefour / Monoprix",
+    "unit_price": 1.89,
+    "unit_size_g": 200,
+    "notes": "Danone HiPro Banane 200g"
+  },
+  "tomate-cherry": {
+    "price_per_100g": 0.55,
+    "store": "Carrefour / Marché",
+    "notes": "Tomates cerise ~€3/500g"
+  },
+  "endive": {
+    "price_per_100g": 0.35,
+    "store": "Carrefour / Marché",
+    "notes": "Endives ~€2.50/kg"
+  },
+  "galleta-oreo-sin-crema": {
+    "price_per_100g": 0.7,
+    "store": "Carrefour / Monoprix",
+    "unit_price": 2.1,
+    "unit_size_g": 300,
+    "notes": "Oreo sans crème 300g"
+  },
+  "mozzarella-mini-billes": {
+    "price_per_100g": 1.2,
+    "store": "Carrefour / Monoprix",
+    "notes": "Mozzarella di bufala mini ~€2.40/200g"
+  },
+  "toast-feuillete-tomate-seche": {
+    "price_per_100g": 1.8,
+    "store": "Monoprix / Picard",
+    "notes": "Toast feuilleté tomate séchée apéritif"
+  },
+  "chips-classiques": {
+    "price_per_100g": 0.8,
+    "store": "Carrefour / Franprix",
+    "notes": "Chips classiques Lay's ~€2/250g"
+  },
+  "vin-blanc-chablis": {
+    "price_per_100g": 1.0,
+    "store": "Nicolas / Carrefour",
+    "unit_price": 12.0,
+    "unit_size_g": 750,
+    "notes": "Chablis AOC ~€12/bouteille"
+  },
+  "champagne-brut": {
+    "price_per_100g": 1.5,
+    "store": "Nicolas / Carrefour",
+    "unit_price": 25.0,
+    "unit_size_g": 750,
+    "notes": "Champagne Brut entrée de gamme ~€25"
+  },
+  "kiwi-fresco": {
+    "price_per_100g": 0.3,
+    "store": "Carrefour / Marché",
+    "notes": "Kiwi Zespri ~€3/kg"
+  },
+  "coulis-fraises-maison": {
+    "price_per_100g": 0.5,
+    "store": "Homemade",
+    "notes": "Fraises mixées avec poco azúcar"
+  },
+  "creme-halva-chocolate-cookie": {
+    "price_per_100g": 3.5,
+    "store": "Épicerie grecque / spécialiste",
+    "notes": "Crème halva chocolat cookie (spécialité)"
+  },
+  "harissa-paste": {
+    "price_per_100g": 0.8,
+    "store": "Carrefour / Épicerie arabe",
+    "notes": "Harissa en tube ~€2.50/90g"
+  },
+  "arroz-bomba-cocido": {
+    "price_per_100g": 0.2,
+    "store": "Carrefour / Épicerie espagnole",
+    "notes": "Arroz bomba seco €4/1kg, cocido pesa 3x"
+  },
+  "tortillarepupusa-ricotta": {
+    "price_per_100g": 1.0,
+    "store": "Homemade",
+    "notes": "Tortilla/pupusa masa de maíz + ricotta"
+  },
+  "baiocchi-pistachio": {
+    "price_per_100g": 1.8,
+    "store": "Carrefour / Monoprix",
+    "unit_price": 3.6,
+    "unit_size_g": 200,
+    "notes": "Baiocchi Pistacchio (Barrilla) 200g"
+  },
+  "beaufort-rape": {
+    "price_per_100g": 3.0,
+    "store": "Fromagerie / Monoprix",
+    "notes": "Beaufort AOP râpé ~€30/kg"
+  },
+  "pimiento-rojo-crudo": {
+    "price_per_100g": 0.35,
+    "store": "Carrefour / Marché",
+    "notes": "Poivron rouge ~€3.50/kg"
+  },
+  "jamon-fm-25-moins-sel": {
+    "price_per_100g": 1.5,
+    "store": "Carrefour / Monoprix",
+    "unit_price": 3.0,
+    "unit_size_g": 200,
+    "notes": "Fleury Michon Jambon -25% Sel 200g"
+  },
+  "mandarina-fresca": {
+    "price_per_100g": 0.25,
+    "store": "Carrefour / Marché",
+    "notes": "Mandarine ~€2.50/kg"
+  },
+  "mango-fresco": {
+    "price_per_100g": 0.5,
+    "store": "Carrefour / Marché",
+    "notes": "Mangue ~€2.50/u ~500g"
+  },
+  "maasdam-queso": {
+    "price_per_100g": 1.5,
+    "store": "Carrefour / Fromagerie",
+    "notes": "Maasdam ~€3/200g"
+  },
+  "queso-curado-hacendado": {
+    "price_per_100g": 1.4,
+    "store": "Mercadona (España) / importado",
+    "notes": "Queso curado Hacendado (marca española)"
+  },
+  "ejote-haricot-vert": {
+    "price_per_100g": 0.3,
+    "store": "Carrefour / Marché",
+    "notes": "Haricots verts frais ~€3/kg"
+  },
+  "cebolla-cruda": {
+    "price_per_100g": 0.15,
+    "store": "Carrefour / Franprix",
+    "notes": "Oignon jaune ~€1.50/kg"
+  },
+  "aceite-sesamo": {
+    "price_per_100g": 1.2,
+    "store": "Épicerie asiatique / Carrefour",
+    "notes": "Huile de sésame ~€3/250ml"
+  },
+  "salsa-soya": {
+    "price_per_100g": 0.4,
+    "store": "Carrefour / Épicerie asiatique",
+    "notes": "Sauce soja Kikkoman ~€2/500ml"
+  },
+  "maizena": {
+    "price_per_100g": 0.25,
+    "store": "Carrefour",
+    "notes": "Maïzena fécule 400g ~€1"
+  },
+  "chocolate-negro-90": {
+    "price_per_100g": 1.8,
+    "store": "Monoprix / Carrefour",
+    "notes": "Chocolat noir 90% ~€3.60/200g (Lindt/Côte d'Or)"
+  },
+  "fruits-rouges-mix": {
+    "price_per_100g": 0.7,
+    "store": "Picard / Carrefour",
+    "notes": "Mix fruits rouges surgelés ~€3.50/500g"
+  },
+  "pp-vanilla-protein": {
+    "price_per_100g": 3.0,
+    "store": "Online / Décathlon",
+    "notes": "Pure Performance Vanilla Protein generic"
+  },
+  "tomate-triturado": {
+    "price_per_100g": 0.18,
+    "store": "Carrefour / Franprix",
+    "notes": "Tomates concassés boite €0.90/500g"
+  },
+  "ciabatta-artesanal": {
+    "price_per_100g": 0.8,
+    "store": "Boulangerie",
+    "notes": "Ciabatta artisanale ~€2/250g"
+  },
+  "arroz-salteado": {
+    "price_per_100g": 0.2,
+    "store": "Homemade",
+    "notes": "Arroz salteado en poco aceite"
+  },
+  "mani-salado": {
+    "price_per_100g": 0.6,
+    "store": "Carrefour / Franprix",
+    "notes": "Cacahuètes salées ~€2.50/400g"
+  },
+  "spanakopita-light": {
+    "price_per_100g": 1.4,
+    "store": "Homemade",
+    "notes": "Spanakopita light (menos mantequilla)"
+  },
+  "cuisse-poulet-cuite": {
+    "price_per_100g": 0.9,
+    "store": "Carrefour / Boucherie",
+    "notes": "Cuisse de poulet rôtie ~€7/kg"
+  },
+  "saumon-benny-kozy": {
+    "price_per_100g": 2.5,
+    "store": "Kozy Paris / Restaurant",
+    "notes": "Saumon Eggs Benedict Kozy Paris"
+  },
+  "avena-cruda": {
+    "price_per_100g": 0.25,
+    "store": "Carrefour / Monoprix",
+    "unit_price": 1.25,
+    "unit_size_g": 500,
+    "notes": "Flocons d'avoine 500g"
+  },
+  "cocoa-en-polvo": {
+    "price_per_100g": 0.8,
+    "store": "Carrefour / Monoprix",
+    "notes": "Cacao en poudre non sucré ~€3/375g"
+  },
+  "pancake-avena-chocolate-hp": {
+    "price_per_100g": 1.2,
+    "store": "Homemade",
+    "notes": "Pancake avena + whey + chispas chocolate"
+  },
+  "shake-strawberry-blueberry-protein": {
+    "price_per_100g": 1.8,
+    "store": "Homemade",
+    "notes": "Shake whey + fresas + arándanos"
+  },
+  "ejotes-cocidos": {
+    "price_per_100g": 0.3,
+    "store": "Carrefour / Marché",
+    "notes": "Haricots verts cuits ~€3/kg frais"
+  },
+  "holy-cookie-pistachio": {
+    "price_per_100g": 5.0,
+    "store": "Holy Cookie Paris",
+    "unit_price": 4.0,
+    "unit_size_g": 80,
+    "notes": "Holy Cookie Pistacho ~€4/u"
+  },
+  "pan-caja-integral": {
+    "price_per_100g": 0.45,
+    "store": "Carrefour / Monoprix",
+    "notes": "Pain de mie complet ~€2.25/500g"
+  },
+  "cote-dor-noir-70": {
+    "price_per_100g": 1.5,
+    "store": "Carrefour / Monoprix",
+    "unit_price": 2.4,
+    "unit_size_g": 160,
+    "notes": "Côte d'Or Noir 70% 160g"
+  },
+  "ricotta-casero": {
+    "price_per_100g": 0.8,
+    "store": "Homemade",
+    "notes": "Ricotta hecho en casa con leche entera"
+  },
+  "pizza-margherite-louielouie": {
+    "price_per_100g": 5.0,
+    "store": "LouieLouie",
+    "unit_price": 16.0,
+    "unit_size_g": 320,
+    "notes": "Pizza Margherita LouieLouie ~€16"
+  }
+}
