@@ -2705,6 +2705,88 @@
       "timestamp": "2026-04-30T19:00:00",
       "source": "local",
       "user": "adriana"
+    },
+    {
+      "id": "2026-05-01-001",
+      "date": "2026-05-01",
+      "meal": "desayuno",
+      "items": [
+        {
+          "foodId": "huevo-entero",
+          "name": "Huevo Entero",
+          "grams": 50,
+          "kcal": 77.5,
+          "prot": 6.5,
+          "carbs": 0.6,
+          "fat": 5.5
+        },
+        {
+          "foodId": "clara-huevo",
+          "name": "Clara de Huevo",
+          "grams": 33,
+          "kcal": 17.2,
+          "prot": 3.6,
+          "carbs": 0.2,
+          "fat": 0.1
+        },
+        {
+          "foodId": "danone-cottage-cheese",
+          "name": "Cottage Cheese",
+          "grams": 55,
+          "kcal": 49.5,
+          "prot": 6.6,
+          "carbs": 0.9,
+          "fat": 2.1
+        },
+        {
+          "foodId": "tastybasics-cracker-protein",
+          "name": "Crackers TastyBasics",
+          "grams": 15,
+          "kcal": 74.7,
+          "prot": 5.4,
+          "carbs": 2.2,
+          "fat": 4.5
+        },
+        {
+          "foodId": "eafit-pure-isolate-chocolat",
+          "name": "EAFit Chocolat",
+          "grams": 40,
+          "kcal": 141.6,
+          "prot": 32.4,
+          "carbs": 1.5,
+          "fat": 0.6
+        },
+        {
+          "foodId": "banana-fresca",
+          "name": "Banana",
+          "grams": 30,
+          "kcal": 26.7,
+          "prot": 0.3,
+          "carbs": 6.8,
+          "fat": 0.1
+        },
+        {
+          "foodId": "weider-peanut-butter-powder",
+          "name": "Peanut Butter Powder",
+          "grams": 6,
+          "kcal": 26.4,
+          "prot": 2.9,
+          "carbs": 1.1,
+          "fat": 0.8
+        },
+        {
+          "foodId": "leche-almendra",
+          "name": "Leche de Almendra Sin Azúcar",
+          "grams": 40,
+          "kcal": 5.2,
+          "prot": 0.2,
+          "carbs": 0.1,
+          "fat": 0.4
+        }
+      ],
+      "timestamp": "2026-05-01T08:00:00",
+      "source": "local",
+      "user": "ernesto"
     }
   ],
   "overrides": {
