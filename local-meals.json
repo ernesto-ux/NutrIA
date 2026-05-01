@@ -2462,10 +2462,10 @@
           "foodId": "pizza-regina-pizzou",
           "name": "Pizza Regina Pizzou",
           "grams": 320,
-          "kcal": 720.0,
-          "prot": 38.4,
-          "carbs": 86.4,
-          "fat": 25.6
+          "kcal": 550.4,
+          "prot": 29.4,
+          "carbs": 70.4,
+          "fat": 19.2
         },
         {
           "foodId": "semillas-chia",
