@@ -4870,35 +4870,58 @@ try {
   }
 
   // ── TREEMAP COSTOS POR CATEGORÍA ──────────────────────────────────────
+  // Canonical category metadata (display label, emoji, color)
+  const CATEGORY_META = {
+    'proteina-animal':    { label: 'Proteína animal', emoji: '🥩', color: '#0F766E' },
+    'lacteo':             { label: 'Lácteo',          emoji: '🥛', color: '#3B82F6' },
+    'cereal-carbs':       { label: 'Cereal/Carbs',    emoji: '🌾', color: '#14B8A6' },
+    'fruta':              { label: 'Fruta',           emoji: '🍎', color: '#EC4899' },
+    'verdura':            { label: 'Verdura',         emoji: '🥦', color: '#22C55E' },
+    'legumbres':          { label: 'Legumbres',       emoji: '🫘', color: '#8B5CF6' },
+    'grasa-frutos-secos': { label: 'Grasa/Frutos secos', emoji: '🌰', color: '#D97706' },
+    'snack-treat':        { label: 'Snack/Treat',     emoji: '🍪', color: '#F59E0B' },
+    'suplemento':         { label: 'Suplemento',      emoji: '💊', color: '#A855F7' },
+    'comer-fuera':        { label: 'Comer fuera',     emoji: '🍽️', color: '#EF4444' },
+    'bebida':             { label: 'Bebida',          emoji: '☕', color: '#6366F1' },
+    'condimento':         { label: 'Condimento',      emoji: '🧂', color: '#64748b' },
+    'otros':              { label: 'Otros',           emoji: '📦', color: '#94a3b8' }
+  };
+
   function categorizeFood(food) {
-    if (!food || !food.per100g) return { cat: 'Otros', emoji: '📦', color: '#94a3b8' };
+    if (!food) return { cat: 'Otros', emoji: '📦', color: '#94a3b8' };
+    // Prefer field if present (post-categorization batch)
+    if (food.category && CATEGORY_META[food.category]) {
+      const m = CATEGORY_META[food.category];
+      return { cat: m.label, emoji: m.emoji, color: m.color, key: food.category };
+    }
+    if (!food.per100g) return { cat: 'Otros', emoji: '📦', color: '#94a3b8', key: 'otros' };
+    // Fallback heuristic (for foods added in-memory via OCR)
     const id = (food.id || '').toLowerCase();
     const name = (food.name || '').toLowerCase();
     const p = food.per100g;
-    // Heuristic categorization based on macros + id patterns
-    if (/cookie|galleta|brownie|chocolat|gerble|oreo|kinder|jeff|paques|stroopwafel|pain.?au|pain.au|brioche|donut|froyo|llao|stapele|treat|sirope|miel|azucar/i.test(id + ' ' + name) || (p.sugar > 25 && p.fat > 10))
-      return { cat: 'Snack/Treat', emoji: '🍪', color: '#F59E0B' };
+    if (/cookie|galleta|brownie|chocolat|gerble|oreo|kinder|jeff|paques|stroopwafel|pain.?au|brioche|donut|froyo|llao|stapele|treat|sirope|miel|azucar/i.test(id + ' ' + name) || (p.sugar > 25 && p.fat > 10))
+      return { ...CATEGORY_META['snack-treat'], cat: CATEGORY_META['snack-treat'].label, key: 'snack-treat' };
     if (/proteina|whey|eafit|isolate|protein|hipro/i.test(id + ' ' + name))
-      return { cat: 'Suplemento', emoji: '💊', color: '#A855F7' };
+      return { ...CATEGORY_META['suplemento'], cat: CATEGORY_META['suplemento'].label, key: 'suplemento' };
     if (/pizza|burger|kebab|subway|mcdonald|hut|biyo|kozy|holy|stapele|llao|froyo|pizzou|hotel|airline|klm|aerolinea|restaurant/i.test(id + ' ' + name))
-      return { cat: 'Comer fuera', emoji: '🍽️', color: '#EF4444' };
+      return { ...CATEGORY_META['comer-fuera'], cat: CATEGORY_META['comer-fuera'].label, key: 'comer-fuera' };
     if (/yogur|skyr|kefir|cottage|ricotta|leche|alpro|queso|feta|mozzarella|cheese|beaufort|crema|butter|mantequilla/i.test(id + ' ' + name) || (p.calcium && p.calcium > 100))
-      return { cat: 'Lácteo', emoji: '🥛', color: '#3B82F6' };
+      return { ...CATEGORY_META['lacteo'], cat: CATEGORY_META['lacteo'].label, key: 'lacteo' };
     if (/pollo|carne|res|cerdo|jamon|salmon|atun|pescado|fish|chicken|beef|pork|huevo|clara|ham|tuna/i.test(id + ' ' + name) || p.prot >= 18)
-      return { cat: 'Proteína animal', emoji: '🥩', color: '#0F766E' };
+      return { ...CATEGORY_META['proteina-animal'], cat: CATEGORY_META['proteina-animal'].label, key: 'proteina-animal' };
     if (/pasta|arroz|rice|fideos|cereal|granola|avena|trigo|pan|bread|biscot|cracker|wasa|tortilla|maizena|harina/i.test(id + ' ' + name) || (p.carbs >= 50 && p.fat < 5))
-      return { cat: 'Cereal/Carbs', emoji: '🌾', color: '#14B8A6' };
+      return { ...CATEGORY_META['cereal-carbs'], cat: CATEGORY_META['cereal-carbs'].label, key: 'cereal-carbs' };
     if (/lentejas?|garbanzos?|frijoles?|beans?|haricots?|tofu|tempeh|seitan|soja/i.test(id + ' ' + name))
-      return { cat: 'Legumbres', emoji: '🫘', color: '#8B5CF6' };
+      return { ...CATEGORY_META['legumbres'], cat: CATEGORY_META['legumbres'].label, key: 'legumbres' };
     if (/banana|manzana|naranja|fresa|frambuesa|mora|kiwi|melon|sandia|uva|fruit|fruta|aguacate|avocado/i.test(id + ' ' + name))
-      return { cat: 'Fruta', emoji: '🍎', color: '#EC4899' };
+      return { ...CATEGORY_META['fruta'], cat: CATEGORY_META['fruta'].label, key: 'fruta' };
     if (/brocoli|espinaca|tomate|pepino|lechuga|zanahoria|cebolla|ajo|pimiento|verdura|veggie|salad|ensalada|ejote|haricot|courgette/i.test(id + ' ' + name) || (p.kcal < 60 && p.carbs < 12))
-      return { cat: 'Verdura', emoji: '🥦', color: '#22C55E' };
+      return { ...CATEGORY_META['verdura'], cat: CATEGORY_META['verdura'].label, key: 'verdura' };
     if (/cafe|té|tea|agua|water|kombucha|coca|zero|bebida|drink|wine|beer|alcohol/i.test(id + ' ' + name))
-      return { cat: 'Bebida', emoji: '☕', color: '#6366F1' };
+      return { ...CATEGORY_META['bebida'], cat: CATEGORY_META['bebida'].label, key: 'bebida' };
     if (/aceite|oil|nuts?|almendra|nuez|cacahuete|peanut|seed|semilla|chia|sesame|mantequilla|butter/i.test(id + ' ' + name) || p.fat > 30)
-      return { cat: 'Grasa/Frutos secos', emoji: '🌰', color: '#D97706' };
-    return { cat: 'Otros', emoji: '📦', color: '#94a3b8' };
+      return { ...CATEGORY_META['grasa-frutos-secos'], cat: CATEGORY_META['grasa-frutos-secos'].label, key: 'grasa-frutos-secos' };
+    return { ...CATEGORY_META['otros'], cat: CATEGORY_META['otros'].label, key: 'otros' };
   }
 
   function renderCostTreemap(rows) {
@@ -5550,6 +5573,38 @@ try {
       ${healthCard}
 
       ${securityCard}
+
+      ${(() => {
+        const sb = window.NutrIASupabase ? window.NutrIASupabase.cfg() : { enabled: false, url: '', anonKey: '' };
+        const status = sb.enabled
+          ? { color: '#059669', text: 'Activado', emoji: '🟢' }
+          : { color: '#94a3b8', text: 'Desactivado', emoji: '⚪' };
+        return `
+        <div class="card" style="margin-bottom:16px;">
+          <div class="card-title" style="display:flex;justify-content:space-between;align-items:center;">
+            <span>☁️ Supabase Backend (Fase E2/E3)</span>
+            <span style="font-size:11px;color:${status.color};font-weight:700;">${status.emoji} ${status.text}</span>
+          </div>
+          <div style="font-size:12px;color:var(--text-sec);margin-bottom:10px;line-height:1.5;">
+            Backend real con Postgres + Auth + Row Level Security. Multi-tenant verdadero (data privada por usuario, sharing opt-in con household).
+            <br><strong>Setup ~30 min</strong> — requiere crear proyecto Supabase. Free tier suficiente.
+          </div>
+          ${sb.enabled ? `
+            <div style="font-size:11px;color:var(--text-sec);background:var(--bg);padding:8px 10px;border-radius:6px;margin-bottom:8px;">URL: <code>${sb.url}</code></div>
+            <div style="display:flex;gap:8px;flex-wrap:wrap;">
+              <button onclick="window.NutrIASupabase.disableConnection();showToast('Supabase desconectado');render();" style="flex:1;padding:8px 14px;background:#fff;color:#EF4444;border:1px solid #EF4444;border-radius:8px;font-size:12px;font-weight:600;cursor:pointer;font-family:inherit;">Desconectar</button>
+            </div>
+          ` : `
+            <div style="display:flex;gap:8px;flex-wrap:wrap;">
+              <button onclick="window.open('https://github.com/ernesto-ux/NutrIA/blob/main/SUPABASE_SETUP.md','_blank')" style="flex:1;padding:8px 14px;background:var(--teal);color:#fff;border:none;border-radius:8px;font-size:12px;font-weight:600;cursor:pointer;font-family:inherit;">📖 Setup guide</button>
+              <button onclick="setupSupabasePrompt()" style="flex:1;padding:8px 14px;background:#6366F1;color:#fff;border:none;border-radius:8px;font-size:12px;font-weight:600;cursor:pointer;font-family:inherit;">🔌 Configurar</button>
+            </div>
+          `}
+          <div style="font-size:10px;color:var(--text-sec);margin-top:8px;">
+            Lo scaffolded ya: módulo cliente + schema SQL + docs. Falta: UI auth completa + auto-sync hooks. Activar via prompt o consola.
+          </div>
+        </div>`;
+      })()}
 
       ${errorsCard}
 
@@ -6924,6 +6979,20 @@ try {
   };
 
   // ── SHOPPING LIST handlers ────────────────────────────────────────────
+  window.setupSupabasePrompt = async function() {
+    const url = prompt('Supabase Project URL (ej. https://xyzabc.supabase.co):');
+    if (!url) return;
+    const key = prompt('Supabase anon public key (NO la service_role):');
+    if (!key) return;
+    try {
+      await window.NutrIASupabase.setupConnection(url.trim(), key.trim());
+      showToast('✓ Supabase configurado. Ahora signUp/signIn desde consola: window.NutrIASupabase.signUp(email, pass)');
+      render();
+    } catch(e) {
+      alert('Error: ' + e.message);
+    }
+  };
+
   window.changePreferredStore = function() {
     const cur = localStorage.getItem('nutria_preferred_store') || 'Franprix';
     const next = prompt('Tienda principal donde compras:', cur);
@@ -7703,6 +7772,7 @@ Soy ${USERS[currentUser].name}. Dame 3 opciones de comida creativas que ajusten 
 <!-- MODULES: Phase 2 -->
 <script src="modules/goals.js"></script>
 <script src="modules/health.js"></script>
+<script src="modules/db-supabase.js"></script>
 
 <script>
 // Suppress Chrome PWA install prompt (the floating diskette button)

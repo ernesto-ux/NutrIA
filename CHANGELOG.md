@@ -1,5 +1,22 @@
 # Changelog - NutrIA
 
+## [M + E2/E3 scaffold] - 02 mayo 2026
+### Agregado — Opción M · Categorización FOOD_DATABASE
+- **250 alimentos categorizados** con tag `category` en nutrition-data.js
+- 13 categorías canónicas: proteina-animal (51) · snack-treat (38) · lacteo (34) · cereal-carbs (26) · verdura (24) · otros (21) · comer-fuera (17) · grasa-frutos-secos (16) · suplemento (8) · fruta (7) · legumbres (3) · condimento (3) · bebida (2)
+- **Treemap (Finanzas) ahora usa el field directo**, no heurística (más preciso)
+- Función `categorizeFood()` extiende prefer-field, fallback heurística para items in-memory (OCR)
+- Constante `CATEGORY_META` con label/emoji/color canónicos
+- **Dónde verlo en app**: tab **Finanzas** → "🗺️ Treemap costo por categoría"
+
+### Agregado — Fase E2/E3 · Supabase backend (scaffold)
+- **`modules/db-supabase.js`**: módulo cliente completo (auth + meals CRUD + migration + setup helpers)
+- **`db-schema.sql`**: schema completo (profiles, meals, activity_entries, weight_entries, households, household_members) + RLS policies + trigger profile-on-signup
+- **`SUPABASE_SETUP.md`**: guía paso a paso (~30 min) — crear proyecto, ejecutar SQL, obtener creds, conectar, signUp, migrar local-meals.json, household sharing E3
+- **Panel en Tools**: status semáforo + botón configurar (prompt URL + anonKey) + link a docs + disconnect
+- **Dónde verlo en app**: tab **Tools** → "☁️ Supabase Backend (Fase E2/E3)"
+- TODO pendiente: UI auth completa + auto-sync hooks (módulo está listo para conectar)
+
 ## [I + L + N + Bulk Franprix] - 02 mayo 2026
 ### Cambiado
 - **Bulk update PRICE_DB → Franprix**: 160 alimentos consolidados a "Franprix" (antes Carrefour/Monoprix/Lidl/Picard/etc). Restaurantes (40) y Homemade (52) sin tocar
