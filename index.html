@@ -974,6 +974,7 @@
       <button class="pill" data-period="informes" onclick="setPeriod('informes')">📊 Informes</button>
       <button class="pill" data-period="finanzas" onclick="setPeriod('finanzas')">💰 Finanzas</button>
       <button class="pill" data-period="nutricion" onclick="setPeriod('nutricion')">🥗 Nutricion</button>
+      <button class="pill" data-period="actividad" onclick="setPeriod('actividad')">🏃 Actividad</button>
       <button class="pill" data-period="salud" onclick="setPeriod('salud')">🏥 Salud</button>
       <button class="pill" data-period="tools" onclick="setPeriod('tools')">🛠️ Tools</button>
     </div>
@@ -1130,7 +1131,24 @@ var tesseractLoaded = false;
   function getDayCost(d) { return window.getDayCost(d); }
 
   async function loadServerData() {
-    // 1) Try GitHub API
+    // 1) Static file with timestamp bust (works without token, always fresh)
+    try {
+      const r = await fetch('local-meals.json?v=' + Date.now(), { cache: 'no-store' });
+      if (r.ok) {
+        const data = await r.json();
+        // Merge with any local-only entries not yet on GitHub
+        const remote = data.meals || [];
+        const local = (_lsLoad().meals || []).filter(m => m._localOnly);
+        const map = new Map();
+        remote.forEach(m => map.set(m.id, m));
+        local.forEach(m => map.set(m.id, m));
+        _serverData = { meals: [...map.values()], overrides: data.overrides || {} };
+        _lsSave();
+        return;
+      }
+    } catch(e) {}
+
+    // 2) GitHub API (needs token in browser)
     _hasServer = false;
     const gh = await _ghRead();
     if (gh) {
@@ -1138,16 +1156,6 @@ var tesseractLoaded = false;
       _lsSave();
       return;
     }
-
-    // 2) Try static local-meals.json (GitHub Pages)
-    try {
-      const r = await fetch('local-meals.json', { cache: 'no-store' });
-      if (r.ok) {
-        _serverData = await r.json();
-        _lsSave();
-        return;
-      }
-    } catch(e) {}
 
     // 3) Fallback: LocalStorage only
     _serverData = _lsLoad();
@@ -3740,81 +3748,79 @@ var tesseractLoaded = false;
 
   function renderSalud() {
     const meta = getMetaProfile() || { age: 34, weight: 89, height: 175, sex: 'M', activity: 1.2, goal: 'cut' };
+    const sorted = [...WEIGHT_LOG].sort((a, b) => a.date.localeCompare(b.date));
+    const last = sorted.length ? sorted[sorted.length - 1] : null;
+
+    // Mini spark line helper
+    const sparkLine = (data, color, h) => {
+      if (data.length < 2) return '';
+      const vals = data.map(d => d.v);
+      const mn = Math.min(...vals), mx = Math.max(...vals), range = mx - mn || 1;
+      const w = 120;
+      const pts = data.map((d, i) => {
+        const x = (i / (data.length - 1)) * w;
+        const y = h - ((d.v - mn) / range) * (h - 6) - 3;
+        return `${x},${y}`;
+      }).join(' ');
+      return `<svg viewBox="0 0 ${w} ${h}" style="width:${w}px;height:${h}px;flex-shrink:0;">
+        <polyline points="${pts}" fill="none" stroke="${color}" stroke-width="1.8" stroke-linejoin="round"/>
+        <circle cx="${(data.length-1)/(data.length-1)*w}" cy="${h-((data[data.length-1].v-mn)/range)*(h-6)-3}" r="3" fill="${color}"/>
+      </svg>`;
+    };
+
+    // Build metric rows
+    const withFat = sorted.filter(w => w.bodyFat != null);
+    const withMuscle = sorted.filter(w => w.muscleMass != null);
+    const withBMI = sorted.filter(w => w.bmi != null);
+
+    const metricCard = (emoji, label, value, unit, trend, sparkData, color) => {
+      const arrow = trend < 0 ? '↓' : trend > 0 ? '↑' : '→';
+      const goodDown = label === 'Grasa' || label === 'IMC' || label === 'Peso';
+      const trendColor = trend === 0 ? 'var(--text-sec)' : (trend < 0) === goodDown ? 'var(--green)' : 'var(--red)';
+      return `
+      <div class="card" style="margin-bottom:10px;padding:14px 16px;">
+        <div style="display:flex;align-items:center;justify-content:space-between;">
+          <div style="flex:1;">
+            <div style="font-size:11px;text-transform:uppercase;letter-spacing:1px;color:var(--text-sec);font-weight:600;margin-bottom:4px;">${emoji} ${label}</div>
+            <div style="display:flex;align-items:baseline;gap:8px;">
+              <span style="font-size:26px;font-weight:700;color:var(--text);">${value}</span>
+              <span style="font-size:13px;color:var(--text-sec);">${unit}</span>
+              ${trend !== null ? `<span style="font-size:13px;font-weight:700;color:${trendColor};">${arrow} ${Math.abs(trend).toFixed(1)}</span>` : ''}
+            </div>
+            ${sparkData.length >= 2 ? `<div style="font-size:10px;color:var(--text-sec);margin-top:2px;">desde ${sparkData[0].date.slice(5)} → ${sparkData[sparkData.length-1].date.slice(5)}</div>` : ''}
+          </div>
+          ${sparkData.length >= 2 ? sparkLine(sparkData, color, 44) : ''}
+        </div>
+      </div>`;
+    };
+
+    const weightTrend = sorted.length >= 2 ? last.weight - sorted[0].weight : null;
+    const fatTrend = withFat.length >= 2 ? withFat[withFat.length-1].bodyFat - withFat[0].bodyFat : null;
+    const muscleTrend = withMuscle.length >= 2 ? withMuscle[withMuscle.length-1].muscleMass - withMuscle[0].muscleMass : null;
+    const bmiTrend = withBMI.length >= 2 ? withBMI[withBMI.length-1].bmi - withBMI[0].bmi : null;
+
     return `
     <div style="padding:0 4px;">
-      <!-- WEIGHT / RENPHO (hidden) -->
-      <div class="card" style="margin-bottom:16px;display:none;">
-        <div class="card-title">⚖️ Registro de Peso (Renpho / Manual)</div>
-        <div style="font-size:12px;color:var(--text-sec);margin-bottom:12px;">Sube screenshot de la app Renpho para importar peso, grasa corporal, IMC, masa muscular y 9 metricas mas. O registra solo peso manualmente.</div>
-
-        <div style="display:flex;gap:8px;margin-bottom:12px;">
-          <div style="flex:1;">
-            <div id="renpho-dropzone" style="border:2px dashed var(--border);border-radius:12px;padding:20px 12px;text-align:center;cursor:pointer;transition:border-color 0.2s;background:var(--bg);"
-              onclick="document.getElementById('renpho-file-input').click()"
-              ondragover="event.preventDefault();this.style.borderColor='var(--teal)';"
-              ondragleave="this.style.borderColor='var(--border)';"
-              ondrop="event.preventDefault();this.style.borderColor='var(--border)';processRenphoOCR(event.dataTransfer.files[0]);">
-              <div style="font-size:24px;margin-bottom:4px;">📷</div>
-              <div style="font-size:12px;font-weight:600;color:var(--text);">Screenshot Renpho</div>
-              <div style="font-size:10px;color:var(--text-sec);margin-top:2px;">drag & drop o click</div>
-              <input type="file" id="renpho-file-input" accept="image/*" style="display:none;" onchange="processRenphoOCR(this.files[0])">
-            </div>
-          </div>
-          <div style="flex:1;">
-            <div style="border:1px solid var(--border);border-radius:12px;padding:20px 12px;text-align:center;background:var(--bg);">
-              <div style="font-size:24px;margin-bottom:4px;">✏️</div>
-              <div style="font-size:12px;font-weight:600;color:var(--text);margin-bottom:6px;">Peso manual</div>
-              <div style="display:flex;gap:6px;align-items:center;justify-content:center;">
-                <input id="manual-weight" type="number" step="0.1" placeholder="89.0" style="width:70px;padding:6px 8px;border:1px solid var(--border);border-radius:6px;font-size:14px;text-align:center;font-family:inherit;color:var(--text);background:var(--card);">
-                <span style="font-size:12px;color:var(--text-sec);">kg</span>
-                <button onclick="saveManualWeight()" style="padding:6px 12px;background:var(--teal);color:#fff;border:none;border-radius:6px;font-size:11px;font-weight:600;cursor:pointer;">OK</button>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div style="margin-top:10px;display:flex;align-items:center;gap:8px;">
-          <label style="font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:1px;color:var(--text-sec);">Fecha:</label>
-          <input type="date" id="renpho-date" value="${currentDate}" style="padding:6px 10px;border:1px solid var(--border);border-radius:8px;font-size:13px;font-family:inherit;color:var(--text);background:var(--bg);">
-        </div>
-
-        ${renphoProcessing ? `
-          <div style="text-align:center;padding:16px;">
-            <div style="font-size:13px;font-weight:600;color:var(--teal);">Procesando Renpho... <span id="renpho-progress">0%</span></div>
-          </div>
-        ` : ''}
-
-        <div id="renpho-parsed"></div>
-
-        ${renphoResult && !renphoProcessing ? `
-          <details style="margin-top:8px;">
-            <summary style="font-size:11px;color:var(--text-sec);cursor:pointer;font-weight:600;">Ver texto OCR</summary>
-            <pre style="margin-top:6px;padding:10px;background:var(--bg);border-radius:8px;font-size:10px;color:var(--text-sec);white-space:pre-wrap;max-height:150px;overflow-y:auto;border:1px solid var(--border);">${renphoResult}</pre>
-          </details>
-        ` : ''}
-      </div>
-
       ${renderWeightHistory()}
+
+      <!-- METRIC CARDS -->
+      ${last ? metricCard('⚖️', 'Peso', last.weight, 'kg', weightTrend, sorted.map(w=>({v:w.weight,date:w.date})), 'var(--teal)') : ''}
+      ${withFat.length ? metricCard('🫀', 'Grasa', withFat[withFat.length-1].bodyFat, '%', fatTrend, withFat.map(w=>({v:w.bodyFat,date:w.date})), '#f59e0b') : ''}
+      ${withMuscle.length ? metricCard('💪', 'Musculo', withMuscle[withMuscle.length-1].muscleMass, 'kg', muscleTrend, withMuscle.map(w=>({v:w.muscleMass,date:w.date})), '#6366f1') : ''}
+      ${withBMI.length ? metricCard('📊', 'IMC', withBMI[withBMI.length-1].bmi, '', bmiTrend, withBMI.map(w=>({v:w.bmi,date:w.date})), '#ec4899') : ''}
+
       ${renderWeightTable()}
 
-      <!-- METABOLIC CALCULATOR -->
-      <div class="card" style="margin-bottom:16px;">
-        <div class="card-title">🧮 Calculadora Metabolica</div>
-        <div style="font-size:12px;color:var(--text-sec);margin-bottom:12px;">Calcula BMR (Mifflin-St Jeor), TDEE y macros recomendados segun tu objetivo.</div>
-
-        <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;">
+      <!-- CALCULADORA METABOLICA -->
+      <div class="card" style="margin-bottom:14px;">
+        <div class="card-title">🧮 Calculadora Metabólica</div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:10px;">
+          ${[['meta-age','Edad','number',meta.age,''],['meta-weight','Peso (kg)','number',meta.weight,'step=0.1'],
+            ['meta-height','Altura (cm)','number',meta.height,'']].map(([id,lbl,type,val,extra])=>`
           <div>
-            <label style="font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:1px;color:var(--text-sec);display:block;margin-bottom:3px;">Edad</label>
-            <input id="meta-age" type="number" value="${meta.age}" style="width:100%;padding:8px 10px;border:1px solid var(--border);border-radius:8px;font-size:14px;font-family:inherit;color:var(--text);background:var(--bg);">
-          </div>
-          <div>
-            <label style="font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:1px;color:var(--text-sec);display:block;margin-bottom:3px;">Peso (kg)</label>
-            <input id="meta-weight" type="number" step="0.1" value="${meta.weight}" style="width:100%;padding:8px 10px;border:1px solid var(--border);border-radius:8px;font-size:14px;font-family:inherit;color:var(--text);background:var(--bg);">
-          </div>
-          <div>
-            <label style="font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:1px;color:var(--text-sec);display:block;margin-bottom:3px;">Altura (cm)</label>
-            <input id="meta-height" type="number" value="${meta.height}" style="width:100%;padding:8px 10px;border:1px solid var(--border);border-radius:8px;font-size:14px;font-family:inherit;color:var(--text);background:var(--bg);">
-          </div>
+            <label style="font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:1px;color:var(--text-sec);display:block;margin-bottom:3px;">${lbl}</label>
+            <input id="${id}" type="${type}" ${extra} value="${val}" style="width:100%;padding:8px 10px;border:1px solid var(--border);border-radius:8px;font-size:14px;font-family:inherit;color:var(--text);background:var(--bg);">
+          </div>`).join('')}
           <div>
             <label style="font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:1px;color:var(--text-sec);display:block;margin-bottom:3px;">Sexo</label>
             <select id="meta-sex" style="width:100%;padding:8px 10px;border:1px solid var(--border);border-radius:8px;font-size:14px;font-family:inherit;color:var(--text);background:var(--bg);">
@@ -3822,34 +3828,126 @@ var tesseractLoaded = false;
               <option value="F" ${meta.sex==='F'?'selected':''}>Mujer</option>
             </select>
           </div>
-          <div>
-            <label style="font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:1px;color:var(--text-sec);display:block;margin-bottom:3px;">Actividad</label>
-            <select id="meta-activity" style="width:100%;padding:8px 10px;border:1px solid var(--border);border-radius:8px;font-size:14px;font-family:inherit;color:var(--text);background:var(--bg);">
-              <option value="1.0" ${meta.activity==1.0?'selected':''}>BMR puro (sin factor)</option>
-              <option value="1.15" ${meta.activity==1.15?'selected':''}>Casi sedentario (1.15)</option>
-              <option value="1.2" ${meta.activity==1.2?'selected':''}>Sedentario (1.2)</option>
-              <option value="1.375" ${meta.activity==1.375?'selected':''}>Ligero 1-3x/sem (1.375)</option>
-              <option value="1.55" ${meta.activity==1.55?'selected':''}>Moderado 3-5x/sem (1.55)</option>
-              <option value="1.725" ${meta.activity==1.725?'selected':''}>Intenso 6-7x/sem (1.725)</option>
-            </select>
-          </div>
-          <div>
-            <label style="font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:1px;color:var(--text-sec);display:block;margin-bottom:3px;">Objetivo</label>
-            <select id="meta-goal" style="width:100%;padding:8px 10px;border:1px solid var(--border);border-radius:8px;font-size:14px;font-family:inherit;color:var(--text);background:var(--bg);">
-              <option value="cut" ${meta.goal==='cut'?'selected':''}>Perder grasa (-500 kcal)</option>
-              <option value="aggro" ${meta.goal==='aggro'?'selected':''}>Corte agresivo (-750 kcal)</option>
-              <option value="maintain" ${meta.goal==='maintain'?'selected':''}>Mantenimiento</option>
-              <option value="bulk" ${meta.goal==='bulk'?'selected':''}>Ganar masa (+300 kcal)</option>
-            </select>
-          </div>
         </div>
-
-        <button onclick="calcMetabolism()" style="margin-top:14px;width:100%;padding:10px;background:var(--teal);color:#fff;border:none;border-radius:8px;font-size:14px;font-weight:600;cursor:pointer;">Calcular</button>
-
+        <div style="margin-bottom:10px;">
+          <label style="font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:1px;color:var(--text-sec);display:block;margin-bottom:3px;">Actividad</label>
+          <select id="meta-activity" style="width:100%;padding:8px 10px;border:1px solid var(--border);border-radius:8px;font-size:14px;font-family:inherit;color:var(--text);background:var(--bg);">
+            <option value="1.2" ${meta.activity==1.2?'selected':''}>Sedentario (1.2)</option>
+            <option value="1.375" ${meta.activity==1.375?'selected':''}>Ligero 1-3x/sem (1.375)</option>
+            <option value="1.55" ${meta.activity==1.55?'selected':''}>Moderado 3-5x/sem (1.55)</option>
+            <option value="1.725" ${meta.activity==1.725?'selected':''}>Intenso 6-7x/sem (1.725)</option>
+          </select>
+        </div>
+        <div style="margin-bottom:10px;">
+          <label style="font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:1px;color:var(--text-sec);display:block;margin-bottom:3px;">Objetivo</label>
+          <select id="meta-goal" style="width:100%;padding:8px 10px;border:1px solid var(--border);border-radius:8px;font-size:14px;font-family:inherit;color:var(--text);background:var(--bg);">
+            <option value="cut" ${meta.goal==='cut'?'selected':''}>Perder grasa (-500 kcal)</option>
+            <option value="aggro" ${meta.goal==='aggro'?'selected':''}>Corte agresivo (-750 kcal)</option>
+            <option value="maintain" ${meta.goal==='maintain'?'selected':''}>Mantenimiento</option>
+            <option value="bulk" ${meta.goal==='bulk'?'selected':''}>Ganar masa (+300 kcal)</option>
+          </select>
+        </div>
+        <button onclick="calcMetabolism()" style="width:100%;padding:10px;background:var(--teal);color:#fff;border:none;border-radius:8px;font-size:14px;font-weight:600;cursor:pointer;">Calcular</button>
         <div id="meta-results"></div>
       </div>
     </div>`;
   }
+
+  function renderActividad() {
+    const acts = [...ACTIVITY_LOG].sort((a, b) => b.date.localeCompare(a.date));
+    if (!acts.length) return `<div style="padding:20px;text-align:center;color:var(--text-sec);">Sin datos de actividad.</div>`;
+
+    // Last 30 days
+    const today = getTodayStr();
+    const days30 = acts.filter(a => a.date >= (() => { const d = new Date(); d.setDate(d.getDate()-29); return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0'); })());
+
+    const totalSteps = days30.reduce((s, a) => s + (a.steps||0), 0);
+    const totalGym = days30.filter(a => a.gym).length;
+    const totalBurn = days30.reduce((s, a) => s + (a.stepsKcal||0) + (a.gymKcal||0), 0);
+    const avgSteps = days30.length ? Math.round(totalSteps / days30.length) : 0;
+
+    // Bar chart: last 14 days steps
+    const last14 = acts.slice(0, 14).reverse();
+    const maxSteps = Math.max(...last14.map(a => a.steps||0), 1);
+    const bW = 18, bGap = 4;
+    const cW = last14.length * (bW + bGap);
+    const cH = 90;
+    const stepBars = last14.map((a, i) => {
+      const bh = Math.max(2, ((a.steps||0) / maxSteps) * (cH - 22));
+      const x = i * (bW + bGap);
+      const hasGym = !!a.gym;
+      const [,mm,dd] = a.date.split('-');
+      return `
+        <rect x="${x}" y="${cH-18-bh}" width="${bW}" height="${bh}" rx="3" fill="${hasGym ? 'var(--teal)' : 'var(--border)'}" opacity="${hasGym?1:0.7}"/>
+        ${hasGym ? `<rect x="${x+3}" y="${cH-20-bh}" width="${bW-6}" height="4" rx="2" fill="#6366f1"/>` : ''}
+        <text x="${x+bW/2}" y="${cH-4}" text-anchor="middle" font-size="8" fill="var(--text-sec)">${dd}/${mm}</text>
+        ${(a.steps||0) > 0 ? `<text x="${x+bW/2}" y="${cH-20-bh}" text-anchor="middle" font-size="7.5" fill="var(--text-sec)">${((a.steps||0)/1000).toFixed(1)}k</text>` : ''}`;
+    }).join('');
+
+    return `
+    <div style="padding:0 4px;">
+      <!-- KPIs -->
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:14px;">
+        <div class="card" style="margin-bottom:0;text-align:center;">
+          <div style="font-size:22px;font-weight:700;color:var(--teal);">${avgSteps.toLocaleString()}</div>
+          <div style="font-size:10px;color:var(--text-sec);text-transform:uppercase;letter-spacing:1px;">Pasos/día promedio</div>
+        </div>
+        <div class="card" style="margin-bottom:0;text-align:center;">
+          <div style="font-size:22px;font-weight:700;color:#6366f1;">${totalGym}</div>
+          <div style="font-size:10px;color:var(--text-sec);text-transform:uppercase;letter-spacing:1px;">Sesiones gym (30d)</div>
+        </div>
+        <div class="card" style="margin-bottom:0;text-align:center;">
+          <div style="font-size:22px;font-weight:700;color:#f59e0b;">${totalBurn.toLocaleString()}</div>
+          <div style="font-size:10px;color:var(--text-sec);text-transform:uppercase;letter-spacing:1px;">kcal activas (30d)</div>
+        </div>
+        <div class="card" style="margin-bottom:0;text-align:center;">
+          <div style="font-size:22px;font-weight:700;color:var(--text);">${totalSteps.toLocaleString()}</div>
+          <div style="font-size:10px;color:var(--text-sec);text-transform:uppercase;letter-spacing:1px;">Pasos totales (30d)</div>
+        </div>
+      </div>
+
+      <!-- Steps chart -->
+      <div class="card" style="margin-bottom:14px;">
+        <div style="display:flex;align-items:center;gap:12px;margin-bottom:10px;">
+          <div class="card-title" style="margin:0;">Pasos — últimos 14 días</div>
+          <div style="display:flex;gap:8px;font-size:10px;color:var(--text-sec);">
+            <span>🟦 + 🟣 = con gym</span>
+            <span>⬜ = sin gym</span>
+          </div>
+        </div>
+        <div style="overflow-x:auto;">
+          <svg viewBox="0 0 ${cW} ${cH}" style="width:100%;min-width:${cW}px;height:${cH}px;display:block;">
+            ${stepBars}
+          </svg>
+        </div>
+      </div>
+
+      <!-- Log table -->
+      <div class="card" style="margin-bottom:14px;">
+        <div class="card-title">Registro de actividad</div>
+        <div style="overflow-x:auto;">
+          <table style="width:100%;border-collapse:collapse;">
+            <tr style="background:var(--teal);color:#fff;">
+              <th style="padding:5px 8px;text-align:left;font-size:10px;">Fecha</th>
+              <th style="padding:5px 8px;text-align:right;font-size:10px;">Pasos</th>
+              <th style="padding:5px 8px;text-align:right;font-size:10px;">+kcal</th>
+              <th style="padding:5px 8px;text-align:left;font-size:10px;">Gym</th>
+              <th style="padding:5px 8px;text-align:right;font-size:10px;">Gym kcal</th>
+            </tr>
+            ${acts.slice(0,30).map(a => `<tr style="border-bottom:1px solid var(--border);">
+              <td style="padding:5px 8px;font-size:12px;">${a.date}</td>
+              <td style="padding:5px 8px;font-size:12px;text-align:right;font-weight:600;">${(a.steps||0).toLocaleString()}</td>
+              <td style="padding:5px 8px;font-size:12px;text-align:right;color:var(--teal);">${a.stepsKcal||0}</td>
+              <td style="padding:5px 8px;font-size:12px;color:#6366f1;">${a.gym || '—'}</td>
+              <td style="padding:5px 8px;font-size:12px;text-align:right;font-weight:600;color:#6366f1;">${a.gymKcal||0}</td>
+            </tr>`).join('')}
+          </table>
+        </div>
+      </div>
+    </div>`;
+  }
+
+
 
 
   // ── RENDER ────────────────────────────────────────────────────────────
@@ -3877,6 +3975,8 @@ var tesseractLoaded = false;
       html = renderInformes();
     } else if (currentPeriod === 'finanzas') {
       html = renderFinanzas();
+    } else if (currentPeriod === 'actividad') {
+      html = renderActividad();
     } else if (currentPeriod === 'nutricion') {
       html = renderNutricion();
     } else if (currentPeriod === 'salud') {
@@ -3886,8 +3986,8 @@ var tesseractLoaded = false;
     } else {
       html = renderHistory(currentPeriod);
     }
-    html += renderFoodDB();
-    html += renderChangelog();
+    if (currentPeriod === 'nutricion') html += renderFoodDB();
+    if (currentPeriod === 'tools') html += renderChangelog();
     mainEl.innerHTML = html;
     if (currentPeriod === 'hoy') { initDragAndDrop(); initCardSelection(); }
   }
