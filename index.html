@@ -1738,6 +1738,25 @@
           </div>
           <span class="health-badge ${badgeClass}">${badgeText}</span>
         </div>
+        ${(() => {
+          if (!Object.keys(PRICE_DB).length) return '';
+          const dayCost = getDayCost(currentDate);
+          const dayItems = getDay(currentDate).flatMap(e => e.items);
+          const missing = dayItems.filter(i => i.foodId && !PRICE_DB[i.foodId]).map(i => i.name);
+          const missingHtml = missing.length
+            ? `<span style="font-size:10px;color:#F59E0B;margin-left:8px;" title="${missing.join(', ')}">⚠️ ${missing.length} sin precio</span>`
+            : '';
+          return dayCost > 0
+            ? `<div style="margin-top:10px;padding:8px 12px;background:#F0FDF4;border-radius:8px;border:1px solid #BBF7D0;display:flex;align-items:center;gap:8px;">
+                <span style="font-size:18px;">💶</span>
+                <div>
+                  <div style="font-size:15px;font-weight:700;color:#059669;">€${dayCost.toFixed(2)}</div>
+                  <div style="font-size:10px;color:#64748B;">Gasto alimentario del día</div>
+                </div>
+                ${missingHtml}
+              </div>`
+            : '';
+        })()}
       </div>
 
       <!-- MEALS -->
@@ -3911,6 +3930,15 @@
         <button class="targets-btn" onclick="openTargetsModal()" title="Ajustar objetivos de dieta" style="flex:1;padding:12px;font-size:14px;font-weight:600;">&#9881;&#65039; Ajustar Meta / Objetivos</button>
         <button class="targets-btn" onclick="setupGHToken()" title="GitHub sync token" style="padding:12px 16px;font-size:14px;">🪙 Token</button>
       </div>
+      <!-- ADRIANA SETUP DOC -->
+      <div class="card" style="margin-bottom:16px;">
+        <div class="card-title" style="margin-bottom:8px;">👤 Guía Adriana — Setup NutrIA con Claude</div>
+        <div style="font-size:12px;color:var(--text-sec);margin-bottom:12px;">Documento para que Adriana configure su propio Claude y pueda registrar comida, actividad y peso en NutrIA.</div>
+        <div style="display:flex;gap:8px;flex-wrap:wrap;">
+          <button onclick="window.open('https://raw.githubusercontent.com/ernesto-ux/NutrIA/main/ADRIANA_NUTRIA_SETUP.md','_blank')" style="padding:8px 16px;background:var(--teal);color:#fff;border:none;border-radius:8px;font-size:12px;font-weight:600;cursor:pointer;font-family:inherit;">📄 Ver guía (Markdown)</button>
+          <button onclick="openAdrianaDoc()" style="padding:8px 16px;background:#6366F1;color:#fff;border:none;border-radius:8px;font-size:12px;font-weight:600;cursor:pointer;font-family:inherit;">🤖 Documento para Claude</button>
+        </div>
+      </div>
       <!-- OCR SCREENSHOT (hidden) -->
       <div class="card" style="margin-bottom:16px;display:none;">
         <div class="card-title">📷 Importar Screenshot (OCR)</div>
@@ -4145,6 +4173,89 @@
     a.click();
     URL.revokeObjectURL(url);
     showToast('CSV descargado');
+  };
+
+  window.openAdrianaDoc = function() {
+    const w = window.open('', '_blank');
+    const raw = `# Documento de configuración NutrIA para Claude (Adriana)
+
+Pega este bloque al inicio de tu sesión con Claude, junto con el token que te dio Ernesto.
+
+---
+
+Eres el asistente de NutrIA para ADRIANA.
+
+## Repo y archivos
+- GitHub repo: ernesto-ux/NutrIA
+- Meals: local-meals.json → campo "meals": [...]
+- Pesos: nutrition-data.js → WEIGHT_LOG
+- Actividad: nutrition-data.js → ACTIVITY_LOG
+- Alimentos: nutrition-data.js → FOOD_DATABASE
+- Precios: local-prices.json
+
+## Tu usuario
+- user: "adriana"
+- TODAS las entradas deben tener "user": "adriana"
+- NUNCA toques entradas de user "ernesto"
+
+## Formato entrada de comida (local-meals.json)
+{
+  "id": "YYYY-MM-DD-adriana-001",
+  "date": "YYYY-MM-DD",
+  "meal": "desayuno|almuerzo|cena|snack",
+  "user": "adriana",
+  "items": [
+    { "foodId": "id-alimento", "name": "Nombre", "grams": 100,
+      "kcal": 0.0, "prot": 0.0, "carbs": 0.0, "fat": 0.0 }
+  ]
+}
+
+## Formato peso (WEIGHT_LOG en nutrition-data.js)
+{ date: "YYYY-MM-DD", weight: 00.0, user: "adriana", notes: "" }
+
+## Formato actividad (ACTIVITY_LOG en nutrition-data.js)
+{ date: "YYYY-MM-DD", steps: 0000, stepsKcal: 0, gym: null, gymKcal: 0, user: "adriana", notes: "" }
+
+## Lookup macros — orden de prioridad
+1. FOOD_DATABASE en nutrition-data.js
+2. OpenFoodFacts: https://world.openfoodfacts.org/cgi/search.pl?search_terms=NOMBRE&json=1
+3. FatSecret France: https://www.fatsecret.fr/calories-nutrition/search?q=NOMBRE
+4. Estimación (indicar "estimated" en notes)
+
+## Escribir al repo
+Siempre obtén el SHA antes de escribir:
+  gh api repos/ernesto-ux/NutrIA/contents/FILENAME --jq '.sha'
+
+Luego escribe:
+  gh api --method PUT repos/ernesto-ux/NutrIA/contents/FILENAME \\
+    --field message="descripción" \\
+    --field content="\$(base64 -i archivo)" \\
+    --field sha="SHA_ACTUAL"
+
+## Token
+El token de GitHub lo provee Ernesto. Configúralo al inicio:
+  gh auth login --with-token <<< TOKEN
+
+## Reglas
+- NUNCA borres entradas existentes
+- NUNCA modifiques datos de user "ernesto"
+- Verifica SHA antes de cada escritura
+- IDs de alimentos: kebab-case, sin tildes (ej: "pollo-plancha-pechuga")
+- IDs de entradas: "YYYY-MM-DD-adriana-001", "002", etc.
+- Si un alimento no está en FOOD_DATABASE, créalo primero`;
+
+    w.document.write('<!DOCTYPE html><html><head><meta charset="UTF-8"><title>NutrIA — Setup Adriana</title>'
+      + '<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">'
+      + '<style>*{box-sizing:border-box;margin:0;padding:0}body{font-family:Inter,sans-serif;background:#F8FAFC;color:#1E293B;padding:24px}'
+      + 'h1{font-size:1.3rem;font-weight:800;color:#6366F1;margin-bottom:16px}'
+      + 'pre{background:#1E293B;color:#E2E8F0;padding:20px;border-radius:12px;font-size:12px;line-height:1.6;white-space:pre-wrap;overflow-x:auto}'
+      + '.copy-btn{margin-bottom:16px;padding:10px 20px;background:#6366F1;color:#fff;border:none;border-radius:8px;font-size:13px;font-weight:600;cursor:pointer;font-family:inherit}'
+      + '.copy-btn:hover{background:#4F46E5}</style></head><body>'
+      + '<h1>🤖 Documento para Claude — Setup NutrIA (Adriana)</h1>'
+      + '<button class="copy-btn" onclick="navigator.clipboard.writeText(document.getElementById(\'doc\').textContent).then(()=>{this.textContent=\'✅ Copiado!\';setTimeout(()=>{this.textContent=\'📋 Copiar al portapapeles\'},2000)})">📋 Copiar al portapapeles</button>'
+      + '<pre id="doc">' + raw.replace(/</g,'&lt;').replace(/>/g,'&gt;') + '</pre>'
+      + '</body></html>');
+    w.document.close();
   };
 
   window.openPricesDoc = function() {
