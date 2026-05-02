@@ -1,5 +1,32 @@
 # Changelog - NutrIA
 
+## [I + L + N + Bulk Franprix] - 02 mayo 2026
+### Cambiado
+- **Bulk update PRICE_DB → Franprix**: 160 alimentos consolidados a "Franprix" (antes Carrefour/Monoprix/Lidl/Picard/etc). Restaurantes (40) y Homemade (52) sin tocar
+- **Distribución actual**: Franprix 160 · Homemade 52 · Albert Heijn (viaje) 5 · 40 restaurantes específicos
+
+### Agregado — Opción L · PIN validación
+- Setup de PIN ahora valida colisión: si Adriana intenta poner el mismo PIN que Ernesto (o viceversa) → bloqueado con mensaje claro
+- Aplica a `enableLock()` y `setupAnotherPin()`
+
+### Agregado — Opción I · Forecast trace + Treemap
+- **Forecast line en chart de peso** (Salud): regresión lineal sobre últimos 14d de MA proyectada hasta 60 días adelante
+  - Línea púrpura punteada
+  - Marcador "hoy" vertical en gris
+  - Label en endpoint con peso proyectado
+  - Solo visible si slope < 0 (tendencia bajando)
+- **Treemap costos por categoría** (Finanzas): clasificación automática heurística
+  - Categorías: Snack/Treat · Suplemento · Comer fuera · Lácteo · Proteína animal · Cereal/Carbs · Legumbres · Fruta · Verdura · Bebida · Grasa/Frutos secos · Otros
+  - Stacked bar de proporciones
+  - Cards por categoría con costo, % del total, top items
+
+### Agregado — Opción N · Catálogo completo de precios
+- **Sección expandible en Finanzas** "📚 Catálogo completo de precios"
+- Muestra los 252 alimentos con precio (no solo consumidos)
+- Búsqueda fulltext + filtro por tienda (top 8)
+- Por fila: nombre+marca+store, kcal/100g, €/unidad (cuando aplica), €/100g
+- Ordenado por €/100g descendente, scrollable
+
 ## [Cierre Fase B/D + Casa-vs-Fuera fix] - 02 mayo 2026
 ### Arreglado
 - **Casa vs Fuera (Finanzas) lógica corregida**: antes Carrefour/Monoprix/Franprix contaban como "Fuera" (incorrecto, son supermercados para cocinar en casa). Ahora:

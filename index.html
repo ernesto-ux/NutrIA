@@ -1299,6 +1299,15 @@
       return;
     }
     const hash = await sha256(pin);
+    // Validate against existing PINs to prevent collision
+    const otherUsers = ['ernesto', 'adriana'].filter(u => u !== user);
+    for (const ou of otherUsers) {
+      const otherHash = localStorage.getItem('nutria_pin_' + ou);
+      if (otherHash === hash) {
+        alert('❌ Ese PIN ya está en uso por ' + ou + '. Elige otro distinto.');
+        return;
+      }
+    }
     localStorage.setItem('nutria_pin_' + user, hash);
     localStorage.setItem('nutria_lock_enabled', 'true');
     setSession(user);
@@ -1314,6 +1323,12 @@
       return;
     }
     const hash = await sha256(pin);
+    // Validate no collision
+    const existingHash = localStorage.getItem('nutria_pin_' + (otherUser === 'ernesto' ? 'adriana' : 'ernesto'));
+    if (existingHash === hash) {
+      alert('❌ Ese PIN ya está en uso por el otro usuario. Elige otro distinto.');
+      return;
+    }
     localStorage.setItem('nutria_pin_' + otherUser, hash);
     alert('PIN configurado para ' + otherUser);
     location.reload();
@@ -4419,6 +4434,10 @@ try {
         </div>
       </div>
 
+      ${renderCostTreemap(rows)}
+
+      ${renderPriceCatalog()}
+
       <!-- Toggle per-item prices in Meals view -->
       <div class="card" style="margin-bottom:14px;display:flex;align-items:center;justify-content:space-between;">
         <div>
@@ -4848,6 +4867,164 @@ try {
         <button onclick="askClaudeForMeal()" style="width:100%;padding:10px;background:linear-gradient(135deg,#0F766E,#A855F7);color:#fff;border:none;border-radius:8px;font-size:13px;font-weight:600;cursor:pointer;font-family:inherit;">Abrir Claude con mis macros pendientes</button>
       </div>
     </div>`;
+  }
+
+  // ── TREEMAP COSTOS POR CATEGORÍA ──────────────────────────────────────
+  function categorizeFood(food) {
+    if (!food || !food.per100g) return { cat: 'Otros', emoji: '📦', color: '#94a3b8' };
+    const id = (food.id || '').toLowerCase();
+    const name = (food.name || '').toLowerCase();
+    const p = food.per100g;
+    // Heuristic categorization based on macros + id patterns
+    if (/cookie|galleta|brownie|chocolat|gerble|oreo|kinder|jeff|paques|stroopwafel|pain.?au|pain.au|brioche|donut|froyo|llao|stapele|treat|sirope|miel|azucar/i.test(id + ' ' + name) || (p.sugar > 25 && p.fat > 10))
+      return { cat: 'Snack/Treat', emoji: '🍪', color: '#F59E0B' };
+    if (/proteina|whey|eafit|isolate|protein|hipro/i.test(id + ' ' + name))
+      return { cat: 'Suplemento', emoji: '💊', color: '#A855F7' };
+    if (/pizza|burger|kebab|subway|mcdonald|hut|biyo|kozy|holy|stapele|llao|froyo|pizzou|hotel|airline|klm|aerolinea|restaurant/i.test(id + ' ' + name))
+      return { cat: 'Comer fuera', emoji: '🍽️', color: '#EF4444' };
+    if (/yogur|skyr|kefir|cottage|ricotta|leche|alpro|queso|feta|mozzarella|cheese|beaufort|crema|butter|mantequilla/i.test(id + ' ' + name) || (p.calcium && p.calcium > 100))
+      return { cat: 'Lácteo', emoji: '🥛', color: '#3B82F6' };
+    if (/pollo|carne|res|cerdo|jamon|salmon|atun|pescado|fish|chicken|beef|pork|huevo|clara|ham|tuna/i.test(id + ' ' + name) || p.prot >= 18)
+      return { cat: 'Proteína animal', emoji: '🥩', color: '#0F766E' };
+    if (/pasta|arroz|rice|fideos|cereal|granola|avena|trigo|pan|bread|biscot|cracker|wasa|tortilla|maizena|harina/i.test(id + ' ' + name) || (p.carbs >= 50 && p.fat < 5))
+      return { cat: 'Cereal/Carbs', emoji: '🌾', color: '#14B8A6' };
+    if (/lentejas?|garbanzos?|frijoles?|beans?|haricots?|tofu|tempeh|seitan|soja/i.test(id + ' ' + name))
+      return { cat: 'Legumbres', emoji: '🫘', color: '#8B5CF6' };
+    if (/banana|manzana|naranja|fresa|frambuesa|mora|kiwi|melon|sandia|uva|fruit|fruta|aguacate|avocado/i.test(id + ' ' + name))
+      return { cat: 'Fruta', emoji: '🍎', color: '#EC4899' };
+    if (/brocoli|espinaca|tomate|pepino|lechuga|zanahoria|cebolla|ajo|pimiento|verdura|veggie|salad|ensalada|ejote|haricot|courgette/i.test(id + ' ' + name) || (p.kcal < 60 && p.carbs < 12))
+      return { cat: 'Verdura', emoji: '🥦', color: '#22C55E' };
+    if (/cafe|té|tea|agua|water|kombucha|coca|zero|bebida|drink|wine|beer|alcohol/i.test(id + ' ' + name))
+      return { cat: 'Bebida', emoji: '☕', color: '#6366F1' };
+    if (/aceite|oil|nuts?|almendra|nuez|cacahuete|peanut|seed|semilla|chia|sesame|mantequilla|butter/i.test(id + ' ' + name) || p.fat > 30)
+      return { cat: 'Grasa/Frutos secos', emoji: '🌰', color: '#D97706' };
+    return { cat: 'Otros', emoji: '📦', color: '#94a3b8' };
+  }
+
+  function renderCostTreemap(rows) {
+    if (!rows || rows.length === 0) return '';
+    // Group by category
+    const byCat = {};
+    rows.forEach(r => {
+      if (r.ppg == null || r.cost <= 0) return;
+      const food = r.foodId ? FOOD_DATABASE.find(f => f.id === r.foodId) : null;
+      const { cat, emoji, color } = categorizeFood(food || { id: r.name, name: r.name, per100g: {} });
+      if (!byCat[cat]) byCat[cat] = { cat, emoji, color, cost: 0, items: [] };
+      byCat[cat].cost += r.cost;
+      byCat[cat].items.push(r);
+    });
+    const cats = Object.values(byCat).sort((a, b) => b.cost - a.cost);
+    const total = cats.reduce((s, c) => s + c.cost, 0);
+    if (total === 0) return '';
+
+    // Render as horizontal stacked bar + per-category cards
+    const stackBar = `
+      <div style="display:flex;height:32px;width:100%;border-radius:8px;overflow:hidden;margin-bottom:14px;">
+        ${cats.map(c => `<div style="background:${c.color};width:${(c.cost/total*100).toFixed(2)}%;display:flex;align-items:center;justify-content:center;color:#fff;font-size:11px;font-weight:700;" title="${c.cat}: €${c.cost.toFixed(2)} (${(c.cost/total*100).toFixed(0)}%)">${c.cost/total > 0.08 ? c.emoji : ''}</div>`).join('')}
+      </div>`;
+
+    return `
+      <div class="card" style="margin-bottom:14px;">
+        <div class="card-title">🗺️ Treemap costo por categoría</div>
+        <div style="font-size:11px;color:var(--text-sec);margin-bottom:10px;">Categorización automática basada en macros + heurística por nombre. Total €${total.toFixed(2)} en ${cats.reduce((s, c) => s + c.items.length, 0)} ítems.</div>
+        ${stackBar}
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:8px;">
+          ${cats.map(c => `
+            <div style="padding:10px;background:rgba(${parseInt(c.color.slice(1,3),16)},${parseInt(c.color.slice(3,5),16)},${parseInt(c.color.slice(5,7),16)},0.06);border-left:3px solid ${c.color};border-radius:6px;">
+              <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:2px;">
+                <span style="font-size:12px;font-weight:700;color:var(--text);">${c.emoji} ${c.cat}</span>
+                <span style="font-size:13px;font-weight:700;color:${c.color};">€${c.cost.toFixed(2)}</span>
+              </div>
+              <div style="font-size:10px;color:var(--text-sec);">${c.items.length} ítem${c.items.length === 1 ? '' : 's'} · ${(c.cost/total*100).toFixed(0)}% del total</div>
+              <div style="font-size:10px;color:var(--text-sec);margin-top:4px;font-style:italic;">Top: ${c.items.slice(0, 2).map(i => i.name).join(', ')}</div>
+            </div>`).join('')}
+        </div>
+      </div>`;
+  }
+
+  // ── CATÁLOGO COMPLETO DE PRECIOS (Opción N) ──────────────────────────
+  let _catalogOpen = false;
+  let _catalogQuery = '';
+  let _catalogStoreFilter = 'all';
+  window.toggleCatalog = function() { _catalogOpen = !_catalogOpen; render(); };
+  window.setCatalogQuery = function(v) { _catalogQuery = v; render(); setTimeout(() => { const el = document.getElementById('catalog-search'); if (el) { el.focus(); el.setSelectionRange(v.length, v.length); } }, 0); };
+  window.setCatalogStore = function(s) { _catalogStoreFilter = s; render(); };
+
+  function renderPriceCatalog() {
+    if (Object.keys(PRICE_DB).length === 0) return '';
+    const total = Object.keys(PRICE_DB).length;
+    if (!_catalogOpen) {
+      return `
+        <div class="card" style="margin-bottom:14px;cursor:pointer;" onclick="toggleCatalog()">
+          <div style="display:flex;justify-content:space-between;align-items:center;">
+            <div>
+              <div style="font-size:13px;font-weight:700;color:var(--text);">📚 Catálogo completo de precios</div>
+              <div style="font-size:11px;color:var(--text-sec);margin-top:2px;">${total} alimentos con precio en DB. Click para expandir.</div>
+            </div>
+            <span style="font-size:18px;color:var(--text-sec);">▼</span>
+          </div>
+        </div>`;
+    }
+
+    // Build entries enriched with food info
+    const entries = Object.entries(PRICE_DB).map(([id, p]) => {
+      const food = FOOD_DATABASE.find(f => f.id === id);
+      return {
+        id,
+        name: food ? food.name : id,
+        brand: food ? food.brand : '',
+        ppg: p.price_per_100g,
+        store: p.store || '—',
+        notes: p.notes || '',
+        unitWeight: food && food.unitWeight,
+        unitLabel: food && food.unitLabel,
+        per100g: food && food.per100g
+      };
+    });
+
+    // Filter
+    const q = (_catalogQuery || '').trim().toLowerCase();
+    const tokens = q.split(/\s+/).filter(t => t.length >= 2);
+    const filtered = entries.filter(e => {
+      if (_catalogStoreFilter !== 'all' && e.store !== _catalogStoreFilter) return false;
+      if (tokens.length === 0) return true;
+      const hay = (e.name + ' ' + e.brand + ' ' + e.id + ' ' + e.notes).toLowerCase();
+      return tokens.every(t => hay.includes(t));
+    }).sort((a, b) => b.ppg - a.ppg);
+
+    // Stores list
+    const stores = {};
+    entries.forEach(e => { stores[e.store] = (stores[e.store] || 0) + 1; });
+    const storeBtns = ['all', ...Object.keys(stores).sort((a, b) => stores[b] - stores[a]).slice(0, 8)];
+
+    return `
+      <div class="card" style="margin-bottom:14px;">
+        <div style="display:flex;justify-content:space-between;align-items:center;cursor:pointer;" onclick="toggleCatalog()">
+          <div style="font-size:13px;font-weight:700;color:var(--text);">📚 Catálogo completo de precios (${total})</div>
+          <span style="font-size:18px;color:var(--text-sec);">▲</span>
+        </div>
+        <div style="margin-top:12px;">
+          <input id="catalog-search" type="text" value="${(_catalogQuery || '').replace(/"/g,'&quot;')}" placeholder="🔍 Buscar alimento, marca, store..." oninput="setCatalogQuery(this.value)" style="width:100%;padding:8px 12px;border:1px solid var(--border);border-radius:8px;font-size:12px;font-family:inherit;color:var(--text);background:var(--bg);outline:none;margin-bottom:8px;">
+          <div style="display:flex;gap:4px;flex-wrap:wrap;margin-bottom:10px;">
+            ${storeBtns.map(s => `
+              <button class="metric-btn ${_catalogStoreFilter === s ? 'active' : ''}" onclick="setCatalogStore('${s.replace(/'/g,'')}')" style="font-size:10px;padding:4px 8px;">${s === 'all' ? 'Todas' : s}${s === 'all' ? '' : ` (${stores[s]})`}</button>`).join('')}
+          </div>
+          <div style="font-size:11px;color:var(--text-sec);margin-bottom:6px;">${filtered.length} resultado${filtered.length === 1 ? '' : 's'} · ordenado por €/100g desc.</div>
+          <div style="max-height:380px;overflow-y:auto;border:1px solid var(--border);border-radius:8px;">
+            ${filtered.length === 0 ? '<div style="padding:20px;text-align:center;color:var(--text-sec);font-size:12px;">Sin resultados.</div>' :
+              filtered.map((e, i) => `
+                <div style="display:grid;grid-template-columns:minmax(0,1.5fr) 0.7fr 0.7fr 0.7fr;gap:8px;align-items:center;padding:8px 10px;border-bottom:1px solid var(--border);${i % 2 ? 'background:rgba(0,0,0,0.02);' : ''}">
+                  <div style="min-width:0;">
+                    <div style="font-size:12px;color:var(--text);font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;" title="${e.name}">${e.name}</div>
+                    <div style="font-size:9.5px;color:var(--text-sec);">${e.brand || ''} ${e.brand && e.store ? '·' : ''} ${e.store}</div>
+                  </div>
+                  <div style="font-size:11px;color:var(--text-sec);text-align:right;">${e.per100g ? `${e.per100g.kcal} kcal` : '—'}</div>
+                  <div style="font-size:11px;color:var(--text-sec);text-align:right;">${e.unitWeight ? `€${(e.ppg * e.unitWeight / 100).toFixed(2)}/${e.unitLabel || 'ud'}` : '—'}</div>
+                  <div style="font-size:13px;font-weight:700;color:#059669;text-align:right;">€${e.ppg.toFixed(2)}<span style="font-size:9px;color:var(--text-sec);font-weight:500;"> /100g</span></div>
+                </div>`).join('')}
+          </div>
+        </div>
+      </div>`;
   }
 
   // ── HOGAR ──────────────────────────────────────────────────────────────
@@ -5466,20 +5643,35 @@ try {
       yTicks.push(v);
     }
 
-    // X axis labels: show every point if ≤6, else pick first/last + evenly spaced
-    const xLabels = sorted.map((w, i) => {
+    // X axis labels: defer until tx() is defined (after forecast computation)
+    let xLabels = '';
+
+    // Recompute X axis to include forecast region (last ~30% of plot width)
+    const dateMS = s => { const [y,m,d]=s.split('-').map(Number); return new Date(y,m-1,d).getTime(); };
+    const lastDateMS = dateMS(sorted[sorted.length - 1].date);
+    const firstDateMS = dateMS(sorted[0].date);
+    const historyDays = Math.max(1, (lastDateMS - firstDateMS) / 86400000);
+    const forecastDays = Math.min(60, Math.max(7, Math.round(historyDays * 0.3)));
+    const totalDays = historyDays + forecastDays;
+    const dateToX = (ts) => padL + ((ts - firstDateMS) / 86400000 / totalDays) * plotW;
+
+    // Recompute toX based on date (not index)
+    const sortedXs = sorted.map(w => dateToX(dateMS(w.date)));
+    const tx = i => sortedXs[i];
+
+    // Build X labels now that tx is defined
+    xLabels = sorted.map((w, i) => {
       const show = sorted.length <= 6 || i === 0 || i === sorted.length - 1 ||
         (sorted.length > 6 && i % Math.ceil(sorted.length / 5) === 0);
       if (!show) return '';
       const [y, m, d] = w.date.split('-');
-      return `<text x="${toX(i)}" y="${H - 6}" text-anchor="middle" font-size="9" fill="var(--text-sec)">${d}/${m}</text>`;
+      return `<text x="${tx(i)}" y="${H - 6}" text-anchor="middle" font-size="9" fill="var(--text-sec)">${d}/${m}</text>`;
     }).join('');
 
-    const linePoints = sorted.map((w, i) => `${toX(i)},${toY(w.weight)}`).join(' ');
-    const areaPoints = `${toX(0)},${padT + plotH} ` + sorted.map((w, i) => `${toX(i)},${toY(w.weight)}`).join(' ') + ` ${toX(sorted.length - 1)},${padT + plotH}`;
+    const linePoints = sorted.map((w, i) => `${tx(i)},${toY(w.weight)}`).join(' ');
+    const areaPoints = `${tx(0)},${padT + plotH} ` + sorted.map((w, i) => `${tx(i)},${toY(w.weight)}`).join(' ') + ` ${tx(sorted.length - 1)},${padT + plotH}`;
 
-    // 7-day moving average (over date axis, not over index)
-    const dateMS = s => { const [y,m,d]=s.split('-').map(Number); return new Date(y,m-1,d).getTime(); };
+    // 7-day moving average (over date axis)
     const movingAvg = sorted.map((w, i) => {
       const ts = dateMS(w.date);
       const window = sorted.filter(x => {
@@ -5487,9 +5679,59 @@ try {
         return dt <= ts && dt > ts - 7 * 86400000;
       });
       const avg = window.reduce((s, x) => s + x.weight, 0) / window.length;
-      return { x: toX(i), y: toY(avg), avg };
+      return { x: tx(i), y: toY(avg), avg, ts };
     });
     const maPoints = movingAvg.map(p => `${p.x},${p.y}`).join(' ');
+
+    // Forecast trace: linear regression on last 14 days of MA, project forward
+    let forecastPoints = '';
+    let forecastEndLabel = '';
+    let todayMarker = '';
+    if (movingAvg.length >= 3) {
+      const recent = movingAvg.slice(-Math.min(14, movingAvg.length));
+      const t0 = recent[0].ts;
+      const xs = recent.map(p => (p.ts - t0) / 86400000);
+      const ys = recent.map(p => p.avg);
+      const n = xs.length;
+      const meanX = xs.reduce((s,v) => s+v, 0) / n;
+      const meanY = ys.reduce((s,v) => s+v, 0) / n;
+      const num = xs.reduce((s, x, i) => s + (x - meanX) * (ys[i] - meanY), 0);
+      const den = xs.reduce((s, x) => s + (x - meanX) ** 2, 0);
+      const slope = den > 0 ? num / den : 0;
+      const intercept = meanY - slope * meanX;
+
+      const lastMA = movingAvg[movingAvg.length - 1];
+      const fpts = [];
+      fpts.push(`${lastMA.x},${lastMA.y}`);
+      for (let d = 1; d <= forecastDays; d++) {
+        const ts = lastDateMS + d * 86400000;
+        const daysFromT0 = (ts - t0) / 86400000;
+        const projWeight = intercept + slope * daysFromT0;
+        const px = dateToX(ts);
+        const py = toY(projWeight);
+        fpts.push(`${px},${py}`);
+      }
+      if (slope < 0) {
+        forecastPoints = `<polyline points="${fpts.join(' ')}" fill="none" stroke="#A855F7" stroke-width="1.5" stroke-linejoin="round" stroke-dasharray="4,3" opacity="0.85" />`;
+        // End label
+        const endX = dateToX(lastDateMS + forecastDays * 86400000);
+        const endTs = lastDateMS + forecastDays * 86400000;
+        const daysFromT0 = (endTs - t0) / 86400000;
+        const endWeight = intercept + slope * daysFromT0;
+        const endY = toY(endWeight);
+        const endDate = new Date(endTs);
+        forecastEndLabel = `
+          <circle cx="${endX}" cy="${endY}" r="3.5" fill="#A855F7" />
+          <text x="${endX - 4}" y="${endY - 6}" text-anchor="end" font-size="9" font-weight="700" fill="#A855F7">${endWeight.toFixed(1)} kg</text>
+          <text x="${endX - 4}" y="${endY + 5}" text-anchor="end" font-size="7" fill="var(--text-sec)">+${forecastDays}d proyect.</text>`;
+      }
+
+      // Today vertical marker
+      const todayX = dateToX(lastDateMS);
+      todayMarker = `
+        <line x1="${todayX}" y1="${padT}" x2="${todayX}" y2="${padT + plotH}" stroke="#94a3b8" stroke-width="0.8" stroke-dasharray="2,2" opacity="0.6" />
+        <text x="${todayX}" y="${padT - 2}" text-anchor="middle" font-size="8" fill="#94a3b8">hoy</text>`;
+    }
 
     return `
     <div class="card" style="margin-bottom:16px;">
@@ -5514,16 +5756,20 @@ try {
         <polyline points="${linePoints}" fill="none" stroke="var(--teal)" stroke-width="1.2" stroke-linejoin="round" opacity="0.5" stroke-dasharray="3,3" />
         <!-- 7-day moving average (solid, primary) -->
         ${movingAvg.length >= 2 ? `<polyline points="${maPoints}" fill="none" stroke="#0F766E" stroke-width="2.5" stroke-linejoin="round" />` : ''}
+        <!-- Forecast trace (purple dashed, projection ahead) -->
+        ${forecastPoints}
+        ${todayMarker}
+        ${forecastEndLabel}
         <!-- Data points (raw) -->
         ${sorted.map((w, i) => `
-          <circle cx="${toX(i)}" cy="${toY(w.weight)}" r="2.5" fill="var(--teal)" opacity="0.6" />
+          <circle cx="${tx(i)}" cy="${toY(w.weight)}" r="2.5" fill="var(--teal)" opacity="0.6" />
         `).join('')}
         <!-- MA endpoint label -->
         ${movingAvg.length >= 2 ? (() => {
-          const last = movingAvg[movingAvg.length-1];
-          return `<circle cx="${last.x}" cy="${last.y}" r="4" fill="#0F766E" />
-                  <text x="${last.x - 6}" y="${last.y - 7}" text-anchor="end" font-size="10" font-weight="700" fill="#0F766E">${last.avg.toFixed(1)} kg</text>
-                  <text x="${last.x - 6}" y="${last.y + 4}" text-anchor="end" font-size="8" fill="var(--text-sec)">avg 7d</text>`;
+          const lastMA = movingAvg[movingAvg.length-1];
+          return `<circle cx="${lastMA.x}" cy="${lastMA.y}" r="4" fill="#0F766E" />
+                  <text x="${lastMA.x - 6}" y="${lastMA.y - 7}" text-anchor="end" font-size="10" font-weight="700" fill="#0F766E">${lastMA.avg.toFixed(1)} kg</text>
+                  <text x="${lastMA.x - 6}" y="${lastMA.y + 4}" text-anchor="end" font-size="8" fill="var(--text-sec)">avg 7d</text>`;
         })() : ''}
         <!-- X axis labels -->
         ${xLabels}
