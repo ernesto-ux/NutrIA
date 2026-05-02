@@ -1969,7 +1969,7 @@ try {
     const bestLabel = bestDay ? parseDate(bestDay.date).toLocaleDateString('es-ES', { day: 'numeric', month: 'short' }) : '—';
     const worstLabel = worstDay ? parseDate(worstDay.date).toLocaleDateString('es-ES', { day: 'numeric', month: 'short' }) : '—';
 
-    return subPills + `
+    return searchInput + searchResults + subPills + `
       <div class="card">
         <div class="card-title">Historial — ${period === '7dias' ? 'Ultimos 7 dias' : period === 'mes' ? 'Este mes' : 'Todo el tiempo'}</div>
         <div class="metric-toggle">${metricBtns}</div>
