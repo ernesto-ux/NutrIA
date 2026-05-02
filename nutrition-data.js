@@ -2207,6 +2207,33 @@ const FOOD_DATABASE = [
     unitWeight: 200, unitLabel: "taza",
     source: "web",
     addedDate: "2026-05-02"
+  },
+  {
+    id: "sopa-pollo-casera-sin-grasa",
+    name: "Sopa de Pollo Casera (sin grasa, brócoli, zanahoria)",
+    brand: "",
+    per100g: { kcal: 25, prot: 3, carbs: 2, fat: 0.3, fiber: 1, sodium: 320, sugar: 1.0, sat_fat: 0.1 },
+    source: "estimate",
+    addedDate: "2026-05-02",
+    notes: "Caldo de pollo desgrasado + pollo hervido deshebrado + brócoli + zanahoria. Sin fideos, sin aceite añadido."
+  },
+  {
+    id: "pollo-pierna-hervida-horneada",
+    name: "Pierna de Pollo Hervida y Horneada",
+    brand: "",
+    per100g: { kcal: 200, prot: 26, carbs: 0, fat: 10, fiber: 0, sodium: 90, sugar: 0.0, sat_fat: 2.8 },
+    unitWeight: 120, unitLabel: "pierna",
+    source: "web",
+    addedDate: "2026-05-02",
+    notes: "Pierna entera con piel, primero hervida (rinde grasa) luego horneada. Edible 120g por pierna grande (raw 150g con hueso)."
+  },
+  {
+    id: "uva-verde-sin-semilla",
+    name: "Uva Verde sin Semilla",
+    brand: "",
+    per100g: { kcal: 67, prot: 0.7, carbs: 17, fat: 0.2, fiber: 0.9, sodium: 2, sugar: 16.0, sat_fat: 0.0 },
+    source: "web",
+    addedDate: "2026-05-02"
   }
 ];
 
