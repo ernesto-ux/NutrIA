@@ -2133,12 +2133,20 @@ const FOOD_DATABASE = [
   },
   {
     id: "durum-biyo-agneau",
-    name: "Dürüm Biyo Agneau (París 12)",
+    name: "Dürüm Biyo Agneau (Biyo Dürüm, París 12)",
     brand: "Biyo Dürüm",
     per100g: { kcal: 200, prot: 13, carbs: 22, fat: 11, fiber: 1.5, sodium: 480, sugar: 1.0, sat_fat: 4.0 },
     source: "estimate",
     addedDate: "2026-05-01",
-    notes: "Dürüm de Biyo (París 12): yufka casero, agneau, salade, tomate, oignon, persil — estimado"
+    recipe: [
+      { ingredient: "Pain Yufka fait maison", role: "wrap" },
+      { ingredient: "Viande d'agneau", role: "protein" },
+      { ingredient: "Salade", role: "vegetal" },
+      { ingredient: "Tomate", role: "vegetal" },
+      { ingredient: "Oignons", role: "vegetal" },
+      { ingredient: "Persil", role: "vegetal" }
+    ],
+    notes: "Dürüm fait maison Biyo Dürüm (París 12): yufka artesanal, agneau, salade, tomate, oignon, persil — macros estimados"
   },
   {
     id: "lahmacun-turco",
