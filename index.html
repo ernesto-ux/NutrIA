@@ -4381,6 +4381,7 @@ var tesseractLoaded = false;
 
   // ── INIT ──────────────────────────────────────────────────────────────
   updateUserAvatars();
+  render(); // render immediately with static MEAL_LOG data so page isn't blank
   Promise.all([loadServerData(), loadPriceDB()]).then(() => render()).catch(() => render());
 })();
 </script>
