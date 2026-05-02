@@ -972,6 +972,7 @@
       <button class="pill active" data-period="hoy" onclick="setPeriod('hoy')">🍽️ Meals</button>
       <button class="pill" data-period="historial" onclick="setPeriod('historial')">📅 Historial</button>
       <button class="pill" data-period="informes" onclick="setPeriod('informes')">📊 Informes</button>
+      <button class="pill" data-period="finanzas" onclick="setPeriod('finanzas')">💰 Finanzas</button>
       <button class="pill" data-period="nutricion" onclick="setPeriod('nutricion')">🥗 Nutricion</button>
       <button class="pill" data-period="salud" onclick="setPeriod('salud')">🏥 Salud</button>
       <button class="pill" data-period="tools" onclick="setPeriod('tools')">🛠️ Tools</button>
@@ -1701,7 +1702,7 @@ var tesseractLoaded = false;
           <div class="card-title" style="margin-bottom:0;">Comidas del dia</div>
           <div class="view-toggle">
             <!-- Health button hidden: <button class="view-btn" onclick="copyForHealth()" title="Copia para Apple Health shortcut">❤️ Health</button> -->
-            ${Object.keys(PRICE_DB).length ? `<button class="view-btn ${showItemPrices ? 'active' : ''}" onclick="toggleItemPrices()" title="Ver precio por item">💶</button>` : ''}
+            <button class="view-btn ${showItemPrices ? 'active' : ''}" onclick="toggleItemPrices()" title="Ver precio por item">💶</button>
           </div>
         </div>
         <div class="list-view">${renderMFPList(mealItems, mealKcal, mealMacros)}</div>
@@ -3461,6 +3462,106 @@ var tesseractLoaded = false;
     }
   }
 
+  function renderFinanzas() {
+    const noPrices = Object.keys(PRICE_DB).length === 0;
+    if (noPrices) return `
+    <div style="padding:0 4px;">
+      <div class="card" style="text-align:center;padding:40px 20px;">
+        <div style="font-size:32px;margin-bottom:12px;">💰</div>
+        <div style="font-size:14px;font-weight:600;color:var(--text);margin-bottom:6px;">Cargando precios...</div>
+        <div style="font-size:12px;color:var(--text-sec);">local-prices.json no ha cargado todavía. Intenta refrescar la página.</div>
+      </div>
+    </div>`;
+
+    // Last 30 days
+    const today = getTodayStr();
+    const days30 = [];
+    for (let i = 0; i < 30; i++) {
+      const d = new Date(); d.setDate(d.getDate() - i);
+      const ds = d.getFullYear() + '-' + String(d.getMonth()+1).padStart(2,'0') + '-' + String(d.getDate()).padStart(2,'0');
+      days30.push(ds);
+    }
+    days30.reverse();
+
+    const costByDay = days30.map(d => ({ date: d, cost: getDayCost(d) }));
+    const daysWithCost = costByDay.filter(d => d.cost > 0);
+    const totalMonth = daysWithCost.reduce((s, d) => s + d.cost, 0);
+    const avgDay = daysWithCost.length > 0 ? totalMonth / daysWithCost.length : 0;
+
+    // Top foods by cost (last 30 days)
+    const foodCost = {};
+    const allMeals = getAllMeals().filter(m => m.date >= days30[0]);
+    allMeals.forEach(m => m.items.forEach(item => {
+      if (!item.foodId || !(item.grams > 0)) return;
+      const p = PRICE_DB[item.foodId];
+      if (!p || !p.price_per_100g) return;
+      const c = p.price_per_100g * item.grams / 100;
+      foodCost[item.name] = (foodCost[item.name] || 0) + c;
+    }));
+    const topFoods = Object.entries(foodCost).sort((a, b) => b[1] - a[1]).slice(0, 8);
+
+    // Bar chart for daily cost (last 14 days)
+    const last14 = costByDay.slice(-14);
+    const maxCost = Math.max(...last14.map(d => d.cost), 1);
+    const barW = 16, barGap = 4, chartW = last14.length * (barW + barGap);
+    const chartH = 80;
+    const bars = last14.map((d, i) => {
+      const bh = d.cost > 0 ? Math.max(4, (d.cost / maxCost) * (chartH - 20)) : 0;
+      const x = i * (barW + barGap);
+      const [,mm,dd] = d.date.split('-');
+      return `
+        <rect x="${x}" y="${chartH - 20 - bh}" width="${barW}" height="${bh}" rx="3" fill="var(--teal)" opacity="0.8" />
+        ${d.cost > 0 ? `<text x="${x + barW/2}" y="${chartH - 22 - bh}" text-anchor="middle" font-size="7.5" fill="var(--teal)" font-weight="600">€${d.cost.toFixed(0)}</text>` : ''}
+        <text x="${x + barW/2}" y="${chartH - 4}" text-anchor="middle" font-size="8" fill="var(--text-sec)">${dd}/${mm}</text>`;
+    }).join('');
+
+    return `
+    <div style="padding:0 4px;">
+      <!-- KPIs -->
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:14px;">
+        <div class="card" style="text-align:center;margin-bottom:0;">
+          <div style="font-size:22px;font-weight:700;color:#059669;">€${totalMonth.toFixed(2)}</div>
+          <div style="font-size:10px;color:var(--text-sec);text-transform:uppercase;letter-spacing:1px;">Últimos 30 días</div>
+        </div>
+        <div class="card" style="text-align:center;margin-bottom:0;">
+          <div style="font-size:22px;font-weight:700;color:var(--teal);">€${avgDay.toFixed(2)}</div>
+          <div style="font-size:10px;color:var(--text-sec);text-transform:uppercase;letter-spacing:1px;">Promedio / día</div>
+        </div>
+      </div>
+
+      <!-- Daily cost bar chart -->
+      <div class="card" style="margin-bottom:14px;">
+        <div class="card-title">Gasto diario — últimos 14 días</div>
+        <div style="overflow-x:auto;">
+          <svg viewBox="0 0 ${chartW} ${chartH}" style="width:100%;min-width:${chartW}px;height:${chartH}px;display:block;">
+            ${bars}
+          </svg>
+        </div>
+      </div>
+
+      <!-- Top foods by cost -->
+      <div class="card" style="margin-bottom:14px;">
+        <div class="card-title">Top alimentos por gasto (30 días)</div>
+        ${topFoods.length === 0 ? '<div style="font-size:12px;color:var(--text-sec);">Sin datos de precios para comidas registradas.</div>' :
+          topFoods.map(([name, cost], i) => `
+          <div style="display:flex;align-items:center;gap:8px;padding:5px 0;border-bottom:1px solid var(--border);">
+            <span style="font-size:11px;color:var(--text-sec);width:16px;">${i+1}</span>
+            <span style="flex:1;font-size:12px;color:var(--text);">${name}</span>
+            <span style="font-size:13px;font-weight:700;color:#059669;">€${cost.toFixed(2)}</span>
+          </div>`).join('')}
+      </div>
+
+      <!-- Toggle per-item prices in Meals view -->
+      <div class="card" style="margin-bottom:14px;display:flex;align-items:center;justify-content:space-between;">
+        <div>
+          <div style="font-size:13px;font-weight:600;color:var(--text);">Ver precio por ítem en Meals</div>
+          <div style="font-size:11px;color:var(--text-sec);">Muestra el costo de cada alimento en la vista de hoy</div>
+        </div>
+        <button class="view-btn ${showItemPrices ? 'active' : ''}" onclick="toggleItemPrices();render();" style="font-size:18px;padding:8px 14px;">💶</button>
+      </div>
+    </div>`;
+  }
+
   function renderTools() {
     const meta = getMetaProfile() || { age: 34, weight: 89, height: 175, sex: 'M', activity: 1.2, goal: 'cut' };
 
@@ -3774,6 +3875,8 @@ var tesseractLoaded = false;
       html = renderHistory(currentHistorialPeriod);
     } else if (currentPeriod === 'informes') {
       html = renderInformes();
+    } else if (currentPeriod === 'finanzas') {
+      html = renderFinanzas();
     } else if (currentPeriod === 'nutricion') {
       html = renderNutricion();
     } else if (currentPeriod === 'salud') {
