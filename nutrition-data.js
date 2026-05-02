@@ -2121,6 +2121,23 @@ const FOOD_DATABASE = [
     addedDate: "2026-04-30",
     notes: "Mini bombón Kinder relleno de leche/avellanas, ~5g cada uno"
   },
+  {
+    id: "froyo-llao-llao-homemade-ninja",
+    name: "Froyo Llao Llao Homemade (Ninja Creami)",
+    brand: "Homemade",
+    per100g: { kcal: 70.5, prot: 13.5, carbs: 4.0, fat: 0.2, fiber: 0, sodium: 55, sugar: 3.5, sat_fat: 0.1 },
+    source: "recipe",
+    addedDate: "2026-05-01",
+    recipe: [
+      { ingredient: "Skyr nature 0%",        grams: 300 },
+      { ingredient: "Yogur griego 0%",        grams: 100 },
+      { ingredient: "Whey vainilla (EAFit)",  grams: 25  },
+      { ingredient: "Leche desnatada",        grams: 50  },
+      { ingredient: "Eritritol",              grams: 12  },
+      { ingredient: "Zumo limón (1 cdta)",    grams: 5   }
+    ],
+    notes: "Versión light proteica estilo Llao Llao. Acidez yogur + frescura limón. Receta total 492g → 70.5 kcal/100g. Ninja Creami."
+  },
   // === PRODUCTOS (added 2026-05-01) ===
   {
     id: "helado-light-vainilla",
