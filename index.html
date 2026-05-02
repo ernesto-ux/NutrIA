@@ -3590,7 +3590,6 @@ var tesseractLoaded = false;
         <td style="padding:4px 6px;font-size:12px;">${w.bodyFat || '-'}</td>
         <td style="padding:4px 6px;font-size:12px;">${w.muscleMass || '-'}</td>
         <td style="padding:4px 6px;font-size:12px;">${w.bmi || '-'}</td>
-        <td style="padding:4px 6px;font-size:10px;color:var(--text-sec);">${w.source === 'renpho-ocr' ? '📷' : '✏️'}</td>
       </tr>`;
     }).join('');
 
@@ -3606,7 +3605,6 @@ var tesseractLoaded = false;
             <th style="padding:5px 6px;text-align:left;font-size:10px;">Grasa%</th>
             <th style="padding:5px 6px;text-align:left;font-size:10px;">Musculo</th>
             <th style="padding:5px 6px;text-align:left;font-size:10px;">IMC</th>
-            <th style="padding:5px 6px;text-align:left;font-size:10px;">Src</th>
           </tr>
           ${rows}
         </table>
