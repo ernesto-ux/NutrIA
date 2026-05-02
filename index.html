@@ -1556,7 +1556,15 @@ try {
     let totalKcal = 0, totalP = 0, totalC = 0, totalF = 0;
     const groups = MEAL_ORDER.map(m => {
       const items = mealItems[m];
-      if (items.length === 0) return '';
+      if (items.length === 0) {
+        return `
+          <div class="mfp-meal-group" style="opacity:0.7;">
+            <div class="mfp-meal-header" style="cursor:pointer;background:var(--card);color:var(--text-sec);" onclick="repeatLastMeal('${m}')" title="Copiar último ${MEAL_LABELS[m]}">
+              <span>${MEAL_ICONS[m]} ${MEAL_LABELS[m]}</span>
+              <span style="font-size:11px;color:var(--teal);font-weight:700;">↩ Repetir última</span>
+            </div>
+          </div>`;
+      }
       const kcal = mealKcal[m];
       totalKcal += kcal;
       totalP += mealMacros[m].prot;
@@ -1653,7 +1661,10 @@ try {
       const items = mealItems[m];
       const kcal = mealKcal[m];
       const itemCards = items.length === 0
-        ? `<div class="empty-meal">Sin registro</div>`
+        ? `<div class="empty-meal" style="cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:6px;padding:14px 8px;" onclick="repeatLastMeal('${m}')" title="Copiar último ${MEAL_LABELS[m]} registrado">
+             <span style="font-size:11px;color:var(--text-sec);">Sin registro</span>
+             <span style="font-size:11px;color:var(--teal);font-weight:700;">↩ Repetir última</span>
+           </div>`
         : items.map((item, cardIdx) => `
           <div class="food-card" draggable="true" data-entry-id="${item._entryId}" data-item-idx="${item._itemIdx}" data-source="${item._source}" data-meal="${m}" data-food-id="${item.foodId || ''}" data-food-name="${item.name}" data-grams="${item.grams}" data-kcal="${item.kcal || 0}" data-prot="${item.prot || 0}" data-carbs="${item.carbs || 0}" data-fat="${item.fat || 0}">
             <div class="food-card-header">
@@ -2240,7 +2251,23 @@ try {
     return dates;
   }
 
+  // local-activity.json (Apple Health Shortcut writes here) is loaded async into _extraActivity
+  // and takes priority over JS ACTIVITY_LOG when same date present
+  let _extraActivity = [];
+  let _appleHealthLastSync = null;
+  async function loadActivityExtra() {
+    try {
+      const r = await fetch('local-activity.json?v=' + Date.now(), { cache: 'no-store' });
+      if (r.ok) {
+        const d = await r.json();
+        _extraActivity = Array.isArray(d.entries) ? d.entries : [];
+        _appleHealthLastSync = d.lastSync || null;
+      }
+    } catch(_) {}
+  }
   function getActivityForDate(dateStr) {
+    const fromExtra = _extraActivity.find(a => a.date === dateStr);
+    if (fromExtra) return fromExtra;
     if (typeof ACTIVITY_LOG === 'undefined') return null;
     return ACTIVITY_LOG.find(a => a.date === dateStr) || null;
   }
@@ -4158,12 +4185,38 @@ try {
           <button onclick="window.__nutriaErrors=[];localStorage.removeItem('nutria_errors');render();" style="margin-top:8px;width:100%;padding:6px;font-size:11px;background:var(--card);color:var(--text);border:1px solid var(--border);border-radius:6px;cursor:pointer;font-family:inherit;">Limpiar log</button>`}
       </div>`;
 
+    // Apple Health sync status
+    const lastSync = _appleHealthLastSync ? new Date(_appleHealthLastSync) : null;
+    const syncAge = lastSync ? Math.round((Date.now() - lastSync.getTime()) / (1000*60*60)) : null;
+    const syncStatus = !lastSync ? { color: '#94a3b8', text: 'Sin configurar', emoji: '⚪' } :
+      syncAge < 30 ? { color: '#059669', text: 'Activo (' + syncAge + 'h)', emoji: '🟢' } :
+      syncAge < 72 ? { color: '#F59E0B', text: 'Retrasado (' + syncAge + 'h)', emoji: '🟡' } :
+      { color: '#EF4444', text: 'Caído (' + Math.round(syncAge/24) + 'd)', emoji: '🔴' };
+    const healthCard = `
+      <div class="card" style="margin-bottom:16px;">
+        <div class="card-title" style="display:flex;justify-content:space-between;align-items:center;">
+          <span>🍎 Apple Health Sync</span>
+          <span style="font-size:11px;color:${syncStatus.color};font-weight:700;">${syncStatus.emoji} ${syncStatus.text}</span>
+        </div>
+        <div style="font-size:12px;color:var(--text-sec);margin-bottom:10px;">
+          Importa pasos, kcal activas, minutos de ejercicio y HR a NutrIA via iOS Shortcut. Última sync:
+          ${lastSync ? lastSync.toLocaleString('es-ES') : '—'}.
+        </div>
+        <div style="display:flex;gap:8px;flex-wrap:wrap;">
+          <button onclick="window.open('https://github.com/ernesto-ux/NutrIA/blob/main/APPLE_HEALTH_SETUP.md','_blank')" style="flex:1;padding:8px 14px;background:var(--teal);color:#fff;border:none;border-radius:8px;font-size:12px;font-weight:600;cursor:pointer;font-family:inherit;">📖 Setup guide</button>
+          <button onclick="window.open('shortcuts://create-shortcut','_blank')" style="padding:8px 14px;background:#6366F1;color:#fff;border:none;border-radius:8px;font-size:12px;font-weight:600;cursor:pointer;font-family:inherit;">📱 Abrir Shortcuts</button>
+        </div>
+        ${_extraActivity.length > 0 ? `<div style="font-size:11px;color:var(--text-sec);margin-top:8px;">${_extraActivity.length} entradas sincronizadas desde Apple Health.</div>` : ''}
+      </div>`;
+
     return `
     <div style="padding:0 4px;">
       <!-- STORIES (week recap) -->
       <div class="card" style="margin-bottom:16px;padding:14px;">
         ${renderStories()}
       </div>
+
+      ${healthCard}
 
       ${errorsCard}
 
@@ -4632,6 +4685,25 @@ try {
   window.setFinanzasSort   = function(s) { finanzasSort   = s; render(); };
   window.setHogarPeriod    = function(n) { hogarPeriod    = n; render(); };
   window.setStoriesPeriod  = function(n) { storiesPeriod  = n; render(); };
+
+  // Repetir última comida del mismo tipo (cualquier fecha previa)
+  window.repeatLastMeal = function(meal) {
+    const prev = getAllMeals()
+      .filter(m => m.meal === meal && m.date < currentDate)
+      .sort((a, b) => b.date.localeCompare(a.date))[0];
+    if (!prev) { showToast('No hay registros previos de ' + (MEAL_LABELS[meal] || meal)); return; }
+    const newId = currentDate + '-' + Math.random().toString(36).slice(2, 6);
+    addLocalMeal({
+      id: newId,
+      date: currentDate,
+      meal: meal,
+      items: JSON.parse(JSON.stringify(prev.items)),
+      timestamp: new Date().toISOString(),
+      source: 'local'
+    });
+    render();
+    showToast('Copiado de ' + prev.date);
+  };
 
   // Stories: copy as plain text + download as image
   window.copyStoriesText = function() {
@@ -5275,7 +5347,7 @@ try {
   // ── INIT ──────────────────────────────────────────────────────────────
   updateUserAvatars();
   render(); // render immediately with static MEAL_LOG data so page isn't blank
-  Promise.all([loadServerData(), loadPriceDB()]).then(() => render()).catch(() => render());
+  Promise.all([loadServerData(), loadPriceDB(), loadActivityExtra()]).then(() => render()).catch(() => render());
 })();
 </script>
 

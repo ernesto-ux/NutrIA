@@ -1,5 +1,14 @@
 # Changelog - NutrIA
 
+## [Top 3 — CI + Repetir + Apple Health] - 02 mayo 2026
+### Agregado
+- **Smoke test CI** (Playwright + GitHub Actions): 4 tests que validan boot sin errores, render de los 9 tabs, integridad del bridge `window.NutrIA`, navegación por teclado. Falla cualquier push que rompa la consola. ~7s de ejecución
+- **Botón "↩ Repetir última"**: en cada comida vacía del día (vista list y kanban), copia los items del último registro previo del mismo tipo (cualquier fecha) como entry de hoy
+- **Apple Health bidireccional** (data layer + setup guide):
+  - `local-activity.json` nuevo archivo, app fetched en cada visita y merged en `getActivityForDate` con prioridad sobre ACTIVITY_LOG
+  - Panel "🍎 Apple Health Sync" en Tools con status (verde <30h / amarillo <72h / rojo >72h) y enlaces a setup
+  - `APPLE_HEALTH_SETUP.md` con instrucciones paso a paso del iOS Shortcut (token, automatización 23h, schema)
+
 ## [Hogar + Stories + Tools] - 02 mayo 2026
 ### Agregado
 - **Tab Hogar** 🏠: vista combinada Ernesto + Adriana (período 7/14/30d) con gasto total, kcal/día hogar, items comunes, KPI cards por usuario (gasto, macros/día, adherencia kcal con barra), top alimentos del hogar con split E/A en barra dual, candidatos a compras a granel

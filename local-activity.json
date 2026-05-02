@@ -1,0 +1,5 @@
+{
+  "_comment": "Activity entries pushed by Apple Health Shortcut. Format per entry: { date: 'YYYY-MM-DD', steps, activeKcal, exerciseMin, hrAvg, hrMax, source: 'apple-health' }. App merges this with ACTIVITY_LOG (this file takes priority).",
+  "lastSync": null,
+  "entries": []
+}

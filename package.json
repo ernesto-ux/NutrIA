@@ -1,0 +1,14 @@
+{
+  "name": "nutria",
+  "version": "1.0.0",
+  "private": true,
+  "description": "NutrIA — personal nutrition tracker (static site)",
+  "scripts": {
+    "test": "playwright test",
+    "serve": "http-server -p 8080 -c-1 ."
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.45.0",
+    "http-server": "^14.1.1"
+  }
+}
