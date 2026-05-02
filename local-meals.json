@@ -2787,6 +2787,112 @@
       "timestamp": "2026-05-01T08:00:00",
       "source": "local",
       "user": "ernesto"
+    },
+    {
+      "id": "2026-05-01-002",
+      "date": "2026-05-01",
+      "meal": "cena",
+      "user": "ernesto",
+      "items": [
+        {
+          "foodId": "helado-light-vainilla",
+          "name": "Helado Light Vainilla",
+          "grams": 250,
+          "kcal": 250.0,
+          "prot": 7.5,
+          "carbs": 42.5,
+          "fat": 7.5
+        },
+        {
+          "foodId": "gerble-mini-brownie-sans-sucres",
+          "name": "Mini Brownie Sans Sucres Gerble",
+          "grams": 25,
+          "kcal": 94.0,
+          "prot": 1.6,
+          "carbs": 13.0,
+          "fat": 5.5
+        },
+        {
+          "foodId": "frambuesas-fresas",
+          "name": "Frambuesas Frescas",
+          "grams": 15,
+          "kcal": 7.8,
+          "prot": 0.2,
+          "carbs": 1.8,
+          "fat": 0.1
+        },
+        {
+          "foodId": "eafit-pure-isolate-vanille",
+          "name": "EAFit Pure Isolate Vanille",
+          "grams": 30,
+          "kcal": 109.8,
+          "prot": 25.8,
+          "carbs": 1.0,
+          "fat": 0.3
+        },
+        {
+          "foodId": "sopa-pollo-fideos-vegetales",
+          "name": "Sopa de Pollo con Fideos",
+          "grams": 100,
+          "kcal": 50.0,
+          "prot": 3.0,
+          "carbs": 6.0,
+          "fat": 1.2
+        },
+        {
+          "foodId": "tastybasics-cracker-protein",
+          "name": "TastyBasics Cracker Proteína (Amsterdam)",
+          "grams": 20,
+          "kcal": 99.6,
+          "prot": 7.2,
+          "carbs": 3.0,
+          "fat": 6.0
+        },
+        {
+          "foodId": "ricotta-casa-azzurra",
+          "name": "Ricotta Casa Azzurra",
+          "grams": 20,
+          "kcal": 30.0,
+          "prot": 1.6,
+          "carbs": 0.2,
+          "fat": 2.4
+        }
+      ]
+    },
+    {
+      "id": "2026-05-01-003",
+      "date": "2026-05-01",
+      "meal": "cena",
+      "user": "ernesto",
+      "items": [
+        {
+          "foodId": "durum-biyo-agneau",
+          "name": "Dürüm Biyo Agneau (París 12)",
+          "grams": 275,
+          "kcal": 550.0,
+          "prot": 35.8,
+          "carbs": 60.5,
+          "fat": 30.2
+        },
+        {
+          "foodId": "lahmacun-turco",
+          "name": "Lahmacun (Biyo Dürüm)",
+          "grams": 250,
+          "kcal": 387.5,
+          "prot": 17.3,
+          "carbs": 55.0,
+          "fat": 10.6
+        },
+        {
+          "foodId": "pogaca-feta-mantequilla",
+          "name": "Poğaça Feta y Mantequilla",
+          "grams": 50,
+          "kcal": 200.0,
+          "prot": 5.0,
+          "carbs": 20.0,
+          "fat": 11.0
+        }
+      ]
     }
   ],
   "overrides": {
