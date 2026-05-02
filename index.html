@@ -874,8 +874,6 @@
 
     /* ── FOOD CARD EDIT/DELETE ── */
     .food-card-header { display: flex; justify-content: space-between; align-items: flex-start; }
-    .food-card-actions { display: flex; gap: 4px; opacity: 0; transition: opacity .2s; }
-    .food-card:hover .food-card-actions { opacity: 1; }
     .food-action {
       cursor: pointer; font-size: 13px; width: 26px; height: 26px;
       display: flex; align-items: center; justify-content: center;
@@ -920,15 +918,6 @@
     .mfp-macro { text-align: center; min-width: 32px; }
     .mfp-macro-val { font-size: 13px; font-weight: 700; color: var(--text); }
     .mfp-macro-lbl { font-size: 9px; color: var(--text-sec); text-transform: uppercase; letter-spacing: .3px; }
-    .mfp-item-actions { display: flex; gap: 4px; align-items: center; margin-left: 6px; opacity: 0; transition: opacity .15s; }
-    .mfp-item:hover .mfp-item-actions { opacity: 1; }
-    .mfp-action { cursor: pointer; font-size: 13px; padding: 2px 4px; border-radius: 4px; }
-    .mfp-action:hover { background: var(--border); }
-    .mfp-move-menu { position: fixed; background: #fff; border: 1px solid var(--border); border-radius: 10px; box-shadow: 0 4px 20px rgba(0,0,0,.15); z-index: 9999; padding: 6px; display: none; }
-    .mfp-move-menu.visible { display: block; }
-    .mfp-move-option { padding: 8px 14px; cursor: pointer; border-radius: 6px; font-size: 13px; white-space: nowrap; }
-    .mfp-move-option:hover { background: #f0fdf4; color: #16A34A; }
-    .mfp-move-option.disabled { opacity: .35; pointer-events: none; }
     .mfp-copy-btn {
       display: flex; align-items: center; justify-content: center; gap: 6px;
       width: 100%; padding: 12px; margin-top: 8px;
@@ -1609,11 +1598,6 @@
             <div class="mfp-macro"><div class="mfp-macro-val" style="color:#3B82F6;">${round1(item.prot||0)}</div><div class="mfp-macro-lbl">P</div></div>
             <div class="mfp-macro"><div class="mfp-macro-val" style="color:#16A34A;">${round1(item.carbs||0)}</div><div class="mfp-macro-lbl">C</div></div>
             <div class="mfp-macro"><div class="mfp-macro-val" style="color:#D97706;">${round1(item.fat||0)}</div><div class="mfp-macro-lbl">F</div></div>
-            <div class="mfp-item-actions">
-              <span class="mfp-action" onclick="editFoodGrams('${item._entryId}', ${item._itemIdx}, '${item._source}', ${item.grams}, '${item.name}')" title="Editar gramos">✏️</span>
-              <span class="mfp-action" onclick="showMoveMenu(event,'${item._entryId}',${item._itemIdx},'${item._source}','${m}')" title="Mover a otra comida">↔️</span>
-              <span class="mfp-action" onclick="deleteFoodItem('${item._entryId}', ${item._itemIdx}, '${item._source}')" title="Eliminar">🗑️</span>
-            </div>
           </div>
         </div>`).join('');
       const isCollapsed = collapsedMeals.has(m);
@@ -1700,10 +1684,6 @@
               <div>
                 <div class="food-name">${item.name}</div>
                 <div class="food-grams">${item.grams}g</div>
-              </div>
-              <div class="food-card-actions">
-                <span class="food-action" onclick="editFoodGrams('${item._entryId}', ${item._itemIdx}, '${item._source}', ${item.grams}, '${item.name}')" title="Editar gramos">✏️</span>
-                <span class="food-action" onclick="deleteFoodItem('${item._entryId}', ${item._itemIdx}, '${item._source}')" title="Eliminar">🗑️</span>
               </div>
             </div>
             <div class="macro-bar">
@@ -4849,142 +4829,6 @@ ${weightHtmlH}
     render();
   };
 
-  window.editFoodGrams = function (entryId, itemIdx, source, currentGrams, foodName) {
-    const newGrams = prompt('Gramos de "' + foodName + '":', currentGrams);
-    if (newGrams === null || isNaN(newGrams) || parseFloat(newGrams) <= 0) return;
-    const g = parseFloat(newGrams);
-
-    function recalcItem(item) {
-      const food = FOOD_DATABASE.find(f => f.id === item.foodId);
-      const oldGrams = item.grams || g;
-      item.grams = g;
-      if (food) {
-        const fd = getFoodData(food);
-        item.kcal = round1(g / 100 * fd.per100g.kcal);
-        item.prot = round1(g / 100 * fd.per100g.prot);
-        item.carbs = round1(g / 100 * fd.per100g.carbs);
-        item.fat = round1(g / 100 * fd.per100g.fat);
-      } else if (oldGrams > 0) {
-        const ratio = g / oldGrams;
-        item.kcal = round1((item.kcal || 0) * ratio);
-        item.prot = round1((item.prot || 0) * ratio);
-        item.carbs = round1((item.carbs || 0) * ratio);
-        item.fat = round1((item.fat || 0) * ratio);
-      }
-    }
-
-    if (source === 'file') {
-      // MEAL_LOG entry: use overrides system
-      const mlEntry = MEAL_LOG.find(e => e.id === entryId);
-      if (!mlEntry) return;
-      const overrides = getOverrides();
-      const items = JSON.parse(JSON.stringify(overrides[entryId] && overrides[entryId] !== 'deleted' ? overrides[entryId] : mlEntry.items));
-      recalcItem(items[itemIdx]);
-      overrides[entryId] = items;
-      saveOverrides(overrides);
-    } else {
-      const meals = getLocalMeals();
-      const entry = meals.find(e => e.id === entryId);
-      if (entry && entry.items[itemIdx]) {
-        recalcItem(entry.items[itemIdx]);
-        saveLocalMeals(meals);
-      }
-    }
-    showToast('✏️ ' + foodName + ' actualizado a ' + g + 'g');
-    render();
-  };
-
-  window.deleteFoodItem = function (entryId, itemIdx, source) {
-    if (!confirm('Eliminar este alimento?')) return;
-
-    if (source === 'file') {
-      // MEAL_LOG entry: use overrides system
-      const mlEntry = MEAL_LOG.find(e => e.id === entryId);
-      if (!mlEntry) return;
-      const overrides = getOverrides();
-      const items = JSON.parse(JSON.stringify(overrides[entryId] && overrides[entryId] !== 'deleted' ? overrides[entryId] : mlEntry.items));
-      items.splice(itemIdx, 1);
-      overrides[entryId] = items.length === 0 ? 'deleted' : items;
-      saveOverrides(overrides);
-    } else {
-      const meals = getLocalMeals();
-      const entryIndex = meals.findIndex(e => e.id === entryId);
-      if (entryIndex >= 0) {
-        meals[entryIndex].items.splice(itemIdx, 1);
-        if (meals[entryIndex].items.length === 0) meals.splice(entryIndex, 1);
-        saveLocalMeals(meals);
-      }
-    }
-    showToast('🗑️ Eliminado');
-    render();
-  };
-
-  // ── DRAG & DROP: move food item between meal columns ──────────────
-  window.showMoveMenu = function (evt, entryId, itemIdx, source, fromMeal) {
-    evt.stopPropagation();
-    const menu = document.getElementById('mfp-move-menu');
-    const labels = { desayuno: '🥣 Desayuno', almuerzo: '🍽️ Almuerzo', cena: '🌙 Cena', snack: '🍎 Snack' };
-    menu.innerHTML = MEAL_ORDER.map(m => `
-      <div class="mfp-move-option ${m === fromMeal ? 'disabled' : ''}"
-           onclick="moveFoodItem('${entryId}',${itemIdx},'${source}','${fromMeal}','${m}');closeMoveMenu()">
-        ${labels[m] || m}
-      </div>`).join('');
-    const r = evt.target.getBoundingClientRect();
-    menu.style.top = (r.bottom + 4 + window.scrollY) + 'px';
-    menu.style.left = Math.min(r.left, window.innerWidth - 160) + 'px';
-    menu.classList.add('visible');
-    setTimeout(() => document.addEventListener('click', closeMoveMenu, { once: true }), 50);
-  };
-  window.closeMoveMenu = function () {
-    const menu = document.getElementById('mfp-move-menu');
-    if (menu) { menu.classList.remove('visible'); menu.innerHTML = ''; }
-  };
-  window.moveFoodItem = function (entryId, itemIdx, source, fromMeal, toMeal) {
-    if (fromMeal === toMeal) return;
-
-    let item, entryDate;
-
-    if (source === 'file') {
-      // MEAL_LOG entry: read from overrides or MEAL_LOG, write to overrides
-      const mlEntry = MEAL_LOG.find(e => e.id === entryId);
-      if (!mlEntry) return;
-      entryDate = mlEntry.date;
-      const overrides = getOverrides();
-      const items = JSON.parse(JSON.stringify(overrides[entryId] && overrides[entryId] !== 'deleted' ? overrides[entryId] : mlEntry.items));
-      item = items.splice(itemIdx, 1)[0];
-      overrides[entryId] = items.length === 0 ? 'deleted' : items;
-      // Add item to local-meals target
-      const meals = getLocalMeals();
-      let target = meals.find(e => e.date === entryDate && e.meal === toMeal);
-      if (target) {
-        target.items.push(item);
-      } else {
-        meals.push({ id: entryDate + '-L' + Date.now(), date: entryDate, meal: toMeal, items: [item], timestamp: new Date().toISOString(), source: 'local', user: currentUser });
-      }
-      saveLocalMeals(meals);
-      saveOverrides(overrides);
-    } else {
-      const meals = getLocalMeals();
-      const entry = meals.find(e => e.id === entryId);
-      if (!entry || !entry.items[itemIdx]) return;
-      entryDate = entry.date;
-      item = entry.items.splice(itemIdx, 1)[0];
-      let target = meals.find(e => e.date === entryDate && e.meal === toMeal);
-      if (target) {
-        target.items.push(item);
-      } else {
-        meals.push({ id: entryDate + '-L' + Date.now(), date: entryDate, meal: toMeal, items: [item], timestamp: new Date().toISOString(), source: 'local', user: currentUser });
-      }
-      if (entry.items.length === 0) {
-        const idx = meals.indexOf(entry);
-        if (idx >= 0) meals.splice(idx, 1);
-      }
-      saveLocalMeals(meals);
-    }
-
-    showToast('↔️ Movido a ' + (MEAL_LABELS[toMeal] || toMeal));
-    render();
-  };
 
   // Attach drag-and-drop listeners after render
   function initDragAndDrop() {
@@ -5023,7 +4867,7 @@ ${weightHtmlH}
         try {
           const data = JSON.parse(e.dataTransfer.getData('text/plain'));
           const toMeal = col.dataset.meal;
-          moveFoodItem(data.entryId, data.itemIdx, data.source, data.meal, toMeal);
+          // drag-and-drop move disabled
         } catch (err) { console.error('Drop error:', err); }
       });
     });
@@ -5043,7 +4887,7 @@ ${weightHtmlH}
       card.addEventListener('click', e => {
         // Don't toggle selection if dragging or clicking action buttons
         if (_wasDragged) { _wasDragged = false; return; }
-        if (e.target.closest('.food-card-actions')) return;
+        if (false) return; // food-card-actions removed
         const key = getCardKey(card);
         if (_selectedCards.has(key)) {
           _selectedCards.delete(key);
