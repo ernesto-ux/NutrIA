@@ -2120,6 +2120,43 @@ const FOOD_DATABASE = [
     source: "web",
     addedDate: "2026-04-30",
     notes: "Mini bombón Kinder relleno de leche/avellanas, ~5g cada uno"
+  },
+  // === PRODUCTOS (added 2026-05-01) ===
+  {
+    id: "helado-light-vainilla",
+    name: "Helado Light Vainilla",
+    brand: "",
+    per100g: { kcal: 100, prot: 3, carbs: 17, fat: 3, fiber: 0, sodium: 60, sugar: 14.0, sat_fat: 1.5 },
+    source: "estimate",
+    addedDate: "2026-05-01",
+    notes: "Helado light tipo vainilla (Francia) ~100 kcal/100g — estimado"
+  },
+  {
+    id: "durum-biyo-agneau",
+    name: "Dürüm Biyo Agneau (París 12)",
+    brand: "Biyo Dürüm",
+    per100g: { kcal: 200, prot: 13, carbs: 22, fat: 11, fiber: 1.5, sodium: 480, sugar: 1.0, sat_fat: 4.0 },
+    source: "estimate",
+    addedDate: "2026-05-01",
+    notes: "Dürüm de Biyo (París 12): yufka casero, agneau, salade, tomate, oignon, persil — estimado"
+  },
+  {
+    id: "lahmacun-turco",
+    name: "Lahmacun (Biyo Dürüm)",
+    brand: "Biyo Dürüm",
+    per100g: { kcal: 155, prot: 6.9, carbs: 22, fat: 4.2, fiber: 1.5, sodium: 350, sugar: 2.0, sat_fat: 1.5 },
+    source: "web",
+    addedDate: "2026-05-01",
+    notes: "Lahmacun turco con viande hachée, poivron rouge, oignon, persil — FatSecret"
+  },
+  {
+    id: "pogaca-feta-mantequilla",
+    name: "Poğaça Feta y Mantequilla",
+    brand: "Biyo Dürüm",
+    per100g: { kcal: 400, prot: 10, carbs: 40, fat: 22, fiber: 1, sodium: 500, sugar: 2.0, sat_fat: 10.0 },
+    source: "estimate",
+    addedDate: "2026-05-01",
+    notes: "Poğaça turca rellena de feta y mantequilla, cubierta de sésamo — estimado"
   }
 ];
 
