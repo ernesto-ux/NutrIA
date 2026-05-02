@@ -5673,20 +5673,20 @@ const WEIGHT_LOG = [
     date: "2026-04-06",
     weight: 87.6,
     bmi: 28.6,
-    bodyFat: null, fatFreeWeight: null, subcutFat: null, visceralFat: null,
-    bodyWater: null, skeletalMuscle: null, muscleMass: null, boneMass: null,
+    bodyFat: 24.1, fatFreeWeight: null, subcutFat: null, visceralFat: null,
+    bodyWater: null, skeletalMuscle: null, muscleMass: 63.2, boneMass: null,
     bmr: null, metabolicAge: null,
-    source: "manual",
+    source: "renpho",
     notes: "AM"
   },
   {
     date: "2026-04-10",
     weight: 87.15,
     bmi: 28.5,
-    bodyFat: null, fatFreeWeight: null, subcutFat: null, visceralFat: null,
-    bodyWater: null, skeletalMuscle: null, muscleMass: null, boneMass: null,
+    bodyFat: 23.9, fatFreeWeight: null, subcutFat: null, visceralFat: null,
+    bodyWater: null, skeletalMuscle: null, muscleMass: 63.0, boneMass: null,
     bmr: null, metabolicAge: null,
-    source: "manual",
+    source: "renpho",
     notes: ""
   },
   {
