@@ -969,12 +969,11 @@
       </div>
     </div>
     <div class="period-pills">
-      <button class="pill active" data-period="hoy" onclick="setPeriod('hoy')">Hoy</button>
-      <button class="pill" data-period="7dias" onclick="setPeriod('7dias')">7 dias</button>
-      <button class="pill" data-period="mes" onclick="setPeriod('mes')">Mes</button>
-      <button class="pill" data-period="todo" onclick="setPeriod('todo')">Todo</button>
+      <button class="pill active" data-period="hoy" onclick="setPeriod('hoy')">🍽️ Meals</button>
+      <button class="pill" data-period="historial" onclick="setPeriod('historial')">📅 Historial</button>
       <button class="pill" data-period="informes" onclick="setPeriod('informes')">📊 Informes</button>
       <button class="pill" data-period="nutricion" onclick="setPeriod('nutricion')">🥗 Nutricion</button>
+      <button class="pill" data-period="salud" onclick="setPeriod('salud')">🏥 Salud</button>
       <button class="pill" data-period="tools" onclick="setPeriod('tools')">🛠️ Tools</button>
     </div>
   </div>
@@ -1018,6 +1017,7 @@ var tesseractLoaded = false;
   // ── STATE ──────────────────────────────────────────────────────────────
   let currentDate = getTodayStr();
   let currentPeriod = 'hoy';
+  let currentHistorialPeriod = '7dias';
   let currentMetric = 'kcal';
   let alertsOpen = true;
   let dbOpen = false;
@@ -1734,10 +1734,15 @@ var tesseractLoaded = false;
 
   // ── HISTORICAL VIEW ───────────────────────────────────────────────────
   function renderHistory(period) {
+    const subPills = `<div class="period-pills" style="margin-bottom:4px;">
+      <button class="pill ${period==='7dias'?'active':''}" onclick="setHistorialPeriod('7dias')">7 días</button>
+      <button class="pill ${period==='mes'?'active':''}" onclick="setHistorialPeriod('mes')">Mes</button>
+      <button class="pill ${period==='todo'?'active':''}" onclick="setHistorialPeriod('todo')">Todo</button>
+    </div>`;
     const data = getPeriodData(period);
 
     if (data.length === 0 || data.every(d => d.totals.kcal === 0 && d.totals.prot === 0)) {
-      return `
+      return subPills + `
         <div class="card">
           <div class="no-data-msg">
             <div class="no-data-icon">📊</div>
@@ -1827,7 +1832,7 @@ var tesseractLoaded = false;
     const bestLabel = bestDay ? parseDate(bestDay.date).toLocaleDateString('es-ES', { day: 'numeric', month: 'short' }) : '—';
     const worstLabel = worstDay ? parseDate(worstDay.date).toLocaleDateString('es-ES', { day: 'numeric', month: 'short' }) : '—';
 
-    return `
+    return subPills + `
       <div class="card">
         <div class="card-title">Historial — ${period === '7dias' ? 'Ultimos 7 dias' : period === 'mes' ? 'Este mes' : 'Todo el tiempo'}</div>
         <div class="metric-toggle">${metricBtns}</div>
@@ -3525,6 +3530,12 @@ var tesseractLoaded = false;
         ` : ''}
       </div>
 
+    </div>`;
+  }
+
+  function renderSalud() {
+    return `
+    <div style="padding:0 4px;">
       <!-- WEIGHT / RENPHO (hidden) -->
       <div class="card" style="margin-bottom:16px;display:none;">
         <div class="card-title">⚖️ Registro de Peso (Renpho / Manual)</div>
@@ -3634,6 +3645,7 @@ var tesseractLoaded = false;
     </div>`;
   }
 
+
   // ── RENDER ────────────────────────────────────────────────────────────
   function render() {
     autoCleanPending();
@@ -3653,10 +3665,14 @@ var tesseractLoaded = false;
     let html = '';
     if (currentPeriod === 'hoy') {
       html = renderDay();
+    } else if (currentPeriod === 'historial') {
+      html = renderHistory(currentHistorialPeriod);
     } else if (currentPeriod === 'informes') {
       html = renderInformes();
     } else if (currentPeriod === 'nutricion') {
       html = renderNutricion();
+    } else if (currentPeriod === 'salud') {
+      html = renderSalud();
     } else if (currentPeriod === 'tools') {
       html = renderTools();
     } else {
@@ -3675,7 +3691,12 @@ var tesseractLoaded = false;
     } else {
       currentDate = addDays(currentDate, offset);
     }
-    if (currentPeriod !== 'hoy') currentPeriod = 'hoy';
+    if (currentPeriod !== 'hoy' && currentPeriod !== 'historial') currentPeriod = 'hoy';
+    render();
+  };
+
+  window.setHistorialPeriod = function(period) {
+    currentHistorialPeriod = period;
     render();
   };
 
