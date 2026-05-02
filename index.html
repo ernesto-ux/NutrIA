@@ -4151,41 +4151,11 @@
     if (!Object.keys(PRICE_DB).length) { alert('Base de precios no cargada todavía.'); return; }
     const entries = Object.entries(PRICE_DB);
     const stores = ['— Todas —', ...new Set(entries.map(([,p]) => p.store || '—').filter(Boolean).sort())];
+    const storeOptions = stores.map(s => `<option>${s}</option>`).join('');
+    const priceData = JSON.stringify(Object.fromEntries(entries));
 
-    const buildRows = (sortKey, sortDir, storeFilter, tierFilter, search) => {
-      let data = entries.filter(([id, p]) => {
-        if (storeFilter && storeFilter !== '— Todas —' && p.store !== storeFilter) return false;
-        if (tierFilter === 'green' && p.price_per_100g >= 1.5) return false;
-        if (tierFilter === 'yellow' && (p.price_per_100g < 1.5 || p.price_per_100g >= 3)) return false;
-        if (tierFilter === 'red' && p.price_per_100g < 3) return false;
-        if (search && !id.toLowerCase().includes(search) && !(p.notes||'').toLowerCase().includes(search)) return false;
-        return true;
-      });
-      data.sort((a, b) => {
-        let va, vb;
-        if (sortKey === 'id') { va = a[0]; vb = b[0]; }
-        else if (sortKey === 'p100') { va = a[1].price_per_100g; vb = b[1].price_per_100g; }
-        else if (sortKey === 'unit') { va = a[1].unit_price || 9999; vb = b[1].unit_price || 9999; }
-        else if (sortKey === 'store') { va = a[1].store||''; vb = b[1].store||''; }
-        const cmp = typeof va === 'string' ? va.localeCompare(vb) : va - vb;
-        return sortDir === 'asc' ? cmp : -cmp;
-      });
-      return data.map(([id, p]) => {
-        const color = p.price_per_100g >= 3 ? '#EF4444' : p.price_per_100g >= 1.5 ? '#F59E0B' : '#059669';
-        const unitStr = p.unit_price ? \`€\${p.unit_price.toFixed(2)} / \${p.unit_size_g||'?'}g\` : '—';
-        return \`<tr>
-          <td style="text-align:left;font-size:11px;color:#1E293B;">\${id}</td>
-          <td style="font-weight:700;color:\${color};">€\${p.price_per_100g.toFixed(2)}</td>
-          <td style="font-size:11px;color:#374151;">\${unitStr}</td>
-          <td style="font-size:10px;color:#64748B;">\${p.store || '—'}</td>
-          <td style="font-size:10px;color:#94A3B8;">\${p.notes || ''}</td>
-        </tr>\`;
-      }).join('');
-    };
-
-    const storeOptions = stores.map(s => \`<option>\${s}</option>\`).join('');
     const w = window.open('', '_blank');
-    w.document.write(\`<!DOCTYPE html><html><head><meta charset="UTF-8">
+    w.document.write(`<!DOCTYPE html><html><head><meta charset="UTF-8">
 <title>NutrIA — Base de Precios</title>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
 <style>
@@ -4200,93 +4170,89 @@
   table { width:100%; border-collapse:collapse; background:#fff; border-radius:10px; overflow:hidden; box-shadow:0 1px 4px rgba(0,0,0,.08); }
   th { background:#0D9488; color:#fff; font-size:10px; text-transform:uppercase; letter-spacing:1px; padding:8px 10px; text-align:left; cursor:pointer; user-select:none; white-space:nowrap; }
   th:hover { background:#0F766E; }
-  th.sorted-asc::after { content:' ↑'; }
-  th.sorted-desc::after { content:' ↓'; }
-  td { padding:6px 10px; border-bottom:1px solid #F1F5F9; }
+  th.asc::after { content:' ↑'; } th.desc::after { content:' ↓'; }
+  td { padding:6px 10px; border-bottom:1px solid #F1F5F9; font-size:11px; }
   tr:hover td { background:#F0FDFA; }
   .legend { display:flex; gap:14px; margin-bottom:12px; font-size:11px; }
   .dot { display:inline-block; width:10px; height:10px; border-radius:50%; vertical-align:middle; margin-right:4px; }
   #count { font-size:11px; color:#64748B; margin-left:auto; }
 </style></head><body>
 <h1>🦦 NutrIA — Base de Precios (París 2026)</h1>
-<p class="subtitle">\${entries.length} productos · actualizado \${new Date().toLocaleDateString('es-ES')}</p>
+<p class="subtitle">${entries.length} productos · actualizado ${new Date().toLocaleDateString('es-ES')}</p>
 <div class="legend">
   <span><span class="dot" style="background:#059669"></span>€0–1.49/100g</span>
   <span><span class="dot" style="background:#F59E0B"></span>€1.50–2.99/100g</span>
   <span><span class="dot" style="background:#EF4444"></span>€3+/100g</span>
 </div>
 <div class="controls">
-  <label>Tienda <select id="f-store">\${storeOptions}</select></label>
+  <label>Tienda <select id="f-store">${storeOptions}</select></label>
   <label>Precio <select id="f-tier">
     <option value="">— Todos —</option>
     <option value="green">🟢 &lt;€1.50</option>
     <option value="yellow">🟡 €1.50–2.99</option>
     <option value="red">🔴 €3+</option>
   </select></label>
-  <input id="f-search" placeholder="🔍 Buscar ID o notas..." style="min-width:200px;">
+  <input id="f-search" placeholder="🔍 Buscar..." style="min-width:180px;">
   <span id="count"></span>
 </div>
-<table id="tbl">
-  <thead><tr>
-    <th data-key="id">ID Alimento</th>
-    <th data-key="p100">€/100g</th>
-    <th data-key="unit">Precio Unidad</th>
-    <th data-key="store">Tienda</th>
-    <th>Notas</th>
-  </tr></thead>
-  <tbody id="tbody"></tbody>
-</table>
+<table><thead><tr>
+  <th data-key="id">ID Alimento</th>
+  <th data-key="p100">€/100g</th>
+  <th data-key="unit">Precio Unidad</th>
+  <th data-key="store">Tienda</th>
+  <th>Notas</th>
+</tr></thead><tbody id="tbody"></tbody></table>
 <script>
-  const PRICE_DB = \${JSON.stringify(Object.fromEntries(entries))};
-  const entries2 = Object.entries(PRICE_DB);
-  let sortKey = 'id', sortDir = 'asc';
-
-  function refresh() {
-    const store = document.getElementById('f-store').value;
-    const tier = document.getElementById('f-tier').value;
-    const search = document.getElementById('f-search').value.toLowerCase().trim();
-    let data = entries2.filter(([id, p]) => {
-      if (store && store !== '— Todas —' && p.store !== store) return false;
-      if (tier === 'green' && p.price_per_100g >= 1.5) return false;
-      if (tier === 'yellow' && (p.price_per_100g < 1.5 || p.price_per_100g >= 3)) return false;
-      if (tier === 'red' && p.price_per_100g < 3) return false;
-      if (search && !id.toLowerCase().includes(search) && !(p.notes||'').toLowerCase().includes(search) && !(p.store||'').toLowerCase().includes(search)) return false;
-      return true;
-    });
-    data.sort((a, b) => {
-      let va, vb;
-      if (sortKey === 'id') { va = a[0]; vb = b[0]; }
-      else if (sortKey === 'p100') { va = a[1].price_per_100g; vb = b[1].price_per_100g; }
-      else if (sortKey === 'unit') { va = a[1].unit_price || 9999; vb = b[1].unit_price || 9999; }
-      else if (sortKey === 'store') { va = a[1].store||''; vb = b[1].store||''; }
-      const cmp = typeof va === 'string' ? va.localeCompare(vb) : va - vb;
-      return sortDir === 'asc' ? cmp : -cmp;
-    });
-    document.getElementById('count').textContent = data.length + ' resultados';
-    document.getElementById('tbody').innerHTML = data.map(([id, p]) => {
-      const color = p.price_per_100g >= 3 ? '#EF4444' : p.price_per_100g >= 1.5 ? '#F59E0B' : '#059669';
-      const unitStr = p.unit_price ? '€' + p.unit_price.toFixed(2) + ' / ' + (p.unit_size_g||'?') + 'g' : '—';
-      return '<tr><td style="font-size:11px">' + id + '</td><td style="font-weight:700;color:' + color + '">€' + p.price_per_100g.toFixed(2) + '</td><td style="font-size:11px">'+unitStr+'</td><td style="font-size:10px;color:#64748B">' + (p.store||'—') + '</td><td style="font-size:10px;color:#94A3B8">' + (p.notes||'') + '</td></tr>';
-    }).join('');
-    document.querySelectorAll('th[data-key]').forEach(th => {
-      th.classList.toggle('sorted-asc', th.dataset.key === sortKey && sortDir === 'asc');
-      th.classList.toggle('sorted-desc', th.dataset.key === sortKey && sortDir === 'desc');
-    });
-  }
-
-  document.querySelectorAll('th[data-key]').forEach(th => {
-    th.addEventListener('click', () => {
-      if (sortKey === th.dataset.key) sortDir = sortDir === 'asc' ? 'desc' : 'asc';
-      else { sortKey = th.dataset.key; sortDir = 'asc'; }
-      refresh();
-    });
+var DB = ${priceData};
+var entries2 = Object.entries(DB);
+var sortKey = 'id', sortDir = 'asc';
+function refresh() {
+  var store = document.getElementById('f-store').value;
+  var tier = document.getElementById('f-tier').value;
+  var search = document.getElementById('f-search').value.toLowerCase().trim();
+  var data = entries2.filter(function(e) {
+    var id = e[0], p = e[1];
+    if (store && store !== '— Todas —' && p.store !== store) return false;
+    if (tier === 'green' && p.price_per_100g >= 1.5) return false;
+    if (tier === 'yellow' && (p.price_per_100g < 1.5 || p.price_per_100g >= 3)) return false;
+    if (tier === 'red' && p.price_per_100g < 3) return false;
+    if (search && !id.toLowerCase().includes(search) && !(p.notes||'').toLowerCase().includes(search) && !(p.store||'').toLowerCase().includes(search)) return false;
+    return true;
   });
-  document.getElementById('f-store').addEventListener('change', refresh);
-  document.getElementById('f-tier').addEventListener('change', refresh);
-  document.getElementById('f-search').addEventListener('input', refresh);
-  refresh();
-<\/script>
-</body></html>\`);
+  data.sort(function(a, b) {
+    var va, vb;
+    if (sortKey === 'id') { va = a[0]; vb = b[0]; }
+    else if (sortKey === 'p100') { va = a[1].price_per_100g; vb = b[1].price_per_100g; }
+    else if (sortKey === 'unit') { va = a[1].unit_price || 9999; vb = b[1].unit_price || 9999; }
+    else if (sortKey === 'store') { va = a[1].store||''; vb = b[1].store||''; }
+    var cmp = typeof va === 'string' ? va.localeCompare(vb) : va - vb;
+    return sortDir === 'asc' ? cmp : -cmp;
+  });
+  document.getElementById('count').textContent = data.length + ' resultados';
+  var html = '';
+  data.forEach(function(e) {
+    var id = e[0], p = e[1];
+    var color = p.price_per_100g >= 3 ? '#EF4444' : p.price_per_100g >= 1.5 ? '#F59E0B' : '#059669';
+    var unitStr = p.unit_price ? ('€' + p.unit_price.toFixed(2) + ' / ' + (p.unit_size_g||'?') + 'g') : '—';
+    html += '<tr><td>' + id + '</td><td style="font-weight:700;color:' + color + '">€' + p.price_per_100g.toFixed(2) + '</td><td>' + unitStr + '</td><td style="color:#64748B">' + (p.store||'—') + '</td><td style="color:#94A3B8">' + (p.notes||'') + '</td></tr>';
+  });
+  document.getElementById('tbody').innerHTML = html;
+  document.querySelectorAll('th[data-key]').forEach(function(th) {
+    th.className = th.dataset.key === sortKey ? sortDir : '';
+  });
+}
+document.querySelectorAll('th[data-key]').forEach(function(th) {
+  th.addEventListener('click', function() {
+    if (sortKey === th.dataset.key) sortDir = sortDir === 'asc' ? 'desc' : 'asc';
+    else { sortKey = th.dataset.key; sortDir = 'asc'; }
+    refresh();
+  });
+});
+document.getElementById('f-store').addEventListener('change', refresh);
+document.getElementById('f-tier').addEventListener('change', refresh);
+document.getElementById('f-search').addEventListener('input', refresh);
+refresh();
+<\/script></body></html>`);
     w.document.close();
   };
 
