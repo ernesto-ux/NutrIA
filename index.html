@@ -3533,7 +3533,89 @@ var tesseractLoaded = false;
     </div>`;
   }
 
+  function renderWeightHistory() {
+    if (WEIGHT_LOG.length === 0) return '';
+    const sorted = [...WEIGHT_LOG].sort((a, b) => a.date.localeCompare(b.date));
+    const last = sorted[sorted.length - 1];
+    const first = sorted[0];
+    const diff = last.weight - first.weight;
+    const diffSign = diff > 0 ? '+' : '';
+
+    const chartW = 280, chartH = 80, padL = 0, padR = 0;
+    const weights = sorted.map(w => w.weight);
+    const minW = Math.min(...weights) - 1;
+    const maxW = Math.max(...weights) + 1;
+    const rangeW = maxW - minW || 1;
+    const points = sorted.map((w, i) => {
+      const x = padL + (i / Math.max(sorted.length - 1, 1)) * (chartW - padL - padR);
+      const y = chartH - ((w.weight - minW) / rangeW) * (chartH - 10) - 5;
+      return `${x},${y}`;
+    }).join(' ');
+
+    return `
+    <div class="card" style="margin-bottom:16px;">
+      <div class="card-title">⚖️ Peso & Composicion</div>
+      <div style="display:flex;align-items:baseline;gap:12px;margin-bottom:8px;">
+        <span style="font-size:28px;font-weight:700;color:var(--text);">${last.weight} kg</span>
+        <span style="font-size:14px;font-weight:600;color:${diff <= 0 ? 'var(--green)' : 'var(--red)'};">${diffSign}${diff.toFixed(1)} kg</span>
+        <span style="font-size:11px;color:var(--text-sec);">desde ${first.date}</span>
+      </div>
+      ${last.bodyFat ? `<div style="font-size:12px;color:var(--text-sec);margin-bottom:4px;">Grasa: ${last.bodyFat}% | IMC: ${last.bmi || '-'} | Musculo: ${last.muscleMass || '-'} kg</div>` : `<div style="font-size:12px;color:var(--text-sec);margin-bottom:4px;">IMC: ${last.bmi || '-'}</div>`}
+      <svg viewBox="0 0 ${chartW} ${chartH}" style="width:100%;height:${chartH}px;margin:8px 0;">
+        <polyline points="${points}" fill="none" stroke="var(--teal)" stroke-width="2" stroke-linejoin="round" />
+        ${sorted.map((w, i) => {
+          const x = padL + (i / Math.max(sorted.length - 1, 1)) * (chartW - padL - padR);
+          const y = chartH - ((w.weight - minW) / rangeW) * (chartH - 10) - 5;
+          return `<circle cx="${x}" cy="${y}" r="3" fill="var(--teal)" />`;
+        }).join('')}
+      </svg>
+      <div style="display:flex;justify-content:space-between;font-size:10px;color:var(--text-sec);">
+        <span>${first.date}</span><span>${last.date}</span>
+      </div>
+    </div>`;
+  }
+
+  function renderWeightTable() {
+    if (WEIGHT_LOG.length <= 1) return '';
+    const sorted = [...WEIGHT_LOG].sort((a, b) => b.date.localeCompare(a.date));
+    const rows = sorted.map((w, i) => {
+      const prev = sorted[i + 1];
+      const diff = prev ? w.weight - prev.weight : 0;
+      const diffStr = prev ? (diff > 0 ? '+' : '') + diff.toFixed(1) : '-';
+      const diffColor = !prev ? 'var(--text-sec)' : diff <= 0 ? 'var(--green)' : 'var(--red)';
+      return `<tr>
+        <td style="padding:4px 6px;font-size:12px;">${w.date}</td>
+        <td style="padding:4px 6px;font-size:12px;font-weight:600;">${w.weight}</td>
+        <td style="padding:4px 6px;font-size:12px;color:${diffColor};">${diffStr}</td>
+        <td style="padding:4px 6px;font-size:12px;">${w.bodyFat || '-'}</td>
+        <td style="padding:4px 6px;font-size:12px;">${w.muscleMass || '-'}</td>
+        <td style="padding:4px 6px;font-size:12px;">${w.bmi || '-'}</td>
+        <td style="padding:4px 6px;font-size:10px;color:var(--text-sec);">${w.source === 'renpho-ocr' ? '📷' : '✏️'}</td>
+      </tr>`;
+    }).join('');
+
+    return `
+    <div class="card" style="margin-bottom:16px;">
+      <div class="card-title">📋 Historial de Peso</div>
+      <div style="overflow-x:auto;">
+        <table style="width:100%;border-collapse:collapse;">
+          <tr style="background:var(--teal);color:#fff;">
+            <th style="padding:5px 6px;text-align:left;font-size:10px;">Fecha</th>
+            <th style="padding:5px 6px;text-align:left;font-size:10px;">Peso</th>
+            <th style="padding:5px 6px;text-align:left;font-size:10px;">Diff</th>
+            <th style="padding:5px 6px;text-align:left;font-size:10px;">Grasa%</th>
+            <th style="padding:5px 6px;text-align:left;font-size:10px;">Musculo</th>
+            <th style="padding:5px 6px;text-align:left;font-size:10px;">IMC</th>
+            <th style="padding:5px 6px;text-align:left;font-size:10px;">Src</th>
+          </tr>
+          ${rows}
+        </table>
+      </div>
+    </div>`;
+  }
+
   function renderSalud() {
+    const meta = getMetaProfile() || { age: 34, weight: 89, height: 175, sex: 'M', activity: 1.2, goal: 'cut' };
     return `
     <div style="padding:0 4px;">
       <!-- WEIGHT / RENPHO (hidden) -->
