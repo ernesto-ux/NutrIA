@@ -1,5 +1,11 @@
 # Changelog - NutrIA
 
+## [Quick wins · A] - 02 mayo 2026
+### Agregado
+- **Budget mensual configurable**: click en "Budget mensual: €600 ✏️" abre prompt para editar (50-5000), persiste en localStorage por usuario (`nutria_budget_<user>`)
+- **Búsqueda fulltext en Historial**: input de search con debounce 250ms, busca por tokens en `name + foodId` de items, agrupa resultados por fecha+meal con kcal y costo, header con total resultados/comidas/gramos/kcal. Restaura focus después del re-render
+- **Mobile responsive Finanzas ledger**: clases `.fin-row`/`.fin-header` con media query <680px → grid 3 columnas (rank/nombre+meta+secondary/cost) en 2 filas. Header oculto en mobile
+
 ## [Top 3 — CI + Repetir + Apple Health] - 02 mayo 2026
 ### Agregado
 - **Smoke test CI** (Playwright + GitHub Actions): 4 tests que validan boot sin errores, render de los 9 tabs, integridad del bridge `window.NutrIA`, navegación por teclado. Falla cualquier push que rompa la consola. ~7s de ejecución

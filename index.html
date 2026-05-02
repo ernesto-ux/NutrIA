@@ -930,12 +930,47 @@
       background: #F0FDFA; font-weight: 700; font-size: 12px; color: var(--teal);
     }
 
+    /* Finanzas ledger row layout */
+    .fin-row, .fin-header {
+      display: grid;
+      grid-template-columns: 24px minmax(0,1.7fr) 0.9fr 0.9fr 0.7fr 1.4fr;
+      gap: 8px;
+      align-items: center;
+    }
+    .fin-row { padding: 8px 10px; border-bottom: 1px solid var(--border); }
+    .fin-header { padding: 6px 10px; border-bottom: 2px solid var(--border); font-size: 9px; text-transform: uppercase; letter-spacing: 0.5px; color: var(--text-sec); font-weight: 600; }
+    .fin-cell-r { text-align: right; }
+    .fin-cell-name { min-width: 0; }
+    .fin-cell-name .fin-name { font-size: 12px; color: var(--text); font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .fin-cell-name .fin-meta { font-size: 10px; color: var(--text-sec); }
+
     /* ── RESPONSIVE ── */
     @media (max-width: 680px) {
       .kanban-grid { grid-template-columns: repeat(2, 1fr); }
       .rings-grid { justify-content: center; }
       .rings-section { flex-direction: column; align-items: flex-start; }
       .header-top { flex-direction: column; align-items: flex-start; }
+
+      /* Finanzas ledger: 2 lines per row */
+      .fin-row {
+        grid-template-columns: 22px 1fr auto;
+        grid-template-rows: auto auto;
+        row-gap: 4px;
+        column-gap: 8px;
+      }
+      .fin-row > .fin-cell-name { grid-row: 1; grid-column: 2; }
+      .fin-row > .fin-cell-rank { grid-row: 1 / span 2; grid-column: 1; align-self: start; padding-top: 2px; }
+      .fin-row > .fin-cell-cost { grid-row: 1; grid-column: 3; }
+      .fin-row > .fin-cell-secondary {
+        grid-row: 2;
+        grid-column: 2 / span 2;
+        display: flex;
+        gap: 12px;
+        font-size: 10.5px;
+        color: var(--text-sec);
+        flex-wrap: wrap;
+      }
+      .fin-header { display: none; }
     }
     @media (max-width: 420px) {
       .kanban-grid { grid-template-columns: 1fr; }
@@ -1057,6 +1092,7 @@ try {
   let finanzasSort = 'cost-desc';
   let hogarPeriod = 7;
   let storiesPeriod = 7;
+  let historialSearch = '';
   const collapsedMeals = new Set();
 
   window.toggleMealAccordion = function(meal) {
@@ -1775,7 +1811,66 @@ try {
   }
 
   // ── HISTORICAL VIEW ───────────────────────────────────────────────────
+  function renderHistorySearch() {
+    const q = (historialSearch || '').trim().toLowerCase();
+    if (!q) return '';
+    const all = getAllMeals();
+    const tokens = q.split(/\s+/).filter(Boolean);
+    const matches = [];
+    all.forEach(m => {
+      m.items.forEach((it, idx) => {
+        const haystack = (it.name || '').toLowerCase() + ' ' + (it.foodId || '').toLowerCase();
+        if (tokens.every(t => haystack.includes(t))) {
+          matches.push({ date: m.date, meal: m.meal, item: it });
+        }
+      });
+    });
+    matches.sort((a, b) => b.date.localeCompare(a.date));
+    if (matches.length === 0) {
+      return `<div class="card" style="margin-bottom:14px;"><div class="card-title">🔍 Búsqueda: "${historialSearch}"</div><div style="font-size:12px;color:var(--text-sec);">Sin resultados.</div></div>`;
+    }
+    const grouped = {};
+    matches.forEach(r => {
+      const k = r.date + '·' + r.meal;
+      grouped[k] = grouped[k] || { date: r.date, meal: r.meal, items: [], totalKcal: 0, totalCost: 0 };
+      grouped[k].items.push(r.item);
+      grouped[k].totalKcal += r.item.kcal || 0;
+      if (r.item.foodId && PRICE_DB[r.item.foodId] && r.item.grams) {
+        grouped[k].totalCost += PRICE_DB[r.item.foodId].price_per_100g * r.item.grams / 100;
+      }
+    });
+    const groupArr = Object.values(grouped).sort((a, b) => b.date.localeCompare(a.date));
+    const totalGrams = matches.reduce((s, r) => s + (r.item.grams || 0), 0);
+    const totalKcal = matches.reduce((s, r) => s + (r.item.kcal || 0), 0);
+    return `
+      <div class="card" style="margin-bottom:14px;">
+        <div class="card-title" style="display:flex;justify-content:space-between;align-items:center;">
+          <span>🔍 "${historialSearch}"</span>
+          <span style="font-size:11px;color:var(--text-sec);font-weight:600;">${matches.length} resultados · ${groupArr.length} comidas · ${totalGrams.toFixed(0)}g · ${totalKcal.toFixed(0)} kcal</span>
+        </div>
+        <div style="max-height:340px;overflow-y:auto;">
+          ${groupArr.map(g => `
+            <div style="padding:8px 4px;border-bottom:1px solid var(--border);">
+              <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:4px;">
+                <span style="font-size:12px;font-weight:600;color:var(--text);">${g.date} · ${MEAL_ICONS[g.meal]} ${MEAL_LABELS[g.meal]}</span>
+                <span style="font-size:11px;color:var(--text-sec);">${g.totalKcal.toFixed(0)} kcal${g.totalCost > 0 ? ' · €' + g.totalCost.toFixed(2) : ''}</span>
+              </div>
+              ${g.items.map(it => `
+                <div style="display:flex;justify-content:space-between;font-size:11px;color:var(--text-sec);padding:2px 8px;">
+                  <span>${it.name} <span style="color:#94a3b8;">${it.grams || 0}g</span></span>
+                  <span>${(it.kcal || 0).toFixed(0)} kcal</span>
+                </div>`).join('')}
+            </div>`).join('')}
+        </div>
+      </div>`;
+  }
+
   function renderHistory(period) {
+    const searchInput = `
+      <div style="margin-bottom:10px;">
+        <input id="historial-search-input" type="text" value="${(historialSearch || '').replace(/"/g,'&quot;')}" placeholder="🔍 Buscar comida (ej. pizza, pollo, ricotta)..." oninput="onHistorialSearch(this.value)" style="width:100%;padding:10px 14px;border:1px solid var(--border);border-radius:10px;font-size:13px;font-family:inherit;color:var(--text);background:var(--card);">
+      </div>`;
+    const searchResults = renderHistorySearch();
     const subPills = `<div class="period-pills" style="margin-bottom:4px;">
       <button class="pill ${period==='7dias'?'active':''}" onclick="setHistorialPeriod('7dias')">7 días</button>
       <button class="pill ${period==='mes'?'active':''}" onclick="setHistorialPeriod('mes')">Mes</button>
@@ -1784,7 +1879,7 @@ try {
     const data = getPeriodData(period);
 
     if (data.length === 0 || data.every(d => d.totals.kcal === 0 && d.totals.prot === 0)) {
-      return subPills + `
+      return searchInput + searchResults + subPills + `
         <div class="card">
           <div class="no-data-msg">
             <div class="no-data-icon">📊</div>
@@ -3638,7 +3733,7 @@ try {
     const lastDayMonth = new Date(new Date().getFullYear(), new Date().getMonth() + 1, 0).getDate();
     const forecastMonth = avgDay * lastDayMonth;
     const forecastYear  = avgDay * 365;
-    const monthBudget = 600; // soft default; could be configurable
+    const monthBudget = parseInt(localStorage.getItem('nutria_budget_' + currentUser) || '600', 10);
     const monthBudgetPct = forecastMonth / monthBudget * 100;
 
     // Bar chart — last 14 days within period (or fewer if period < 14)
@@ -3696,16 +3791,16 @@ try {
           : `${r.grams.toFixed(0)}g`;
         const zebra = i % 2 === 1 ? 'background:rgba(0,0,0,0.02);' : '';
         return `
-          <div style="display:grid;grid-template-columns:24px minmax(0,1.7fr) 0.9fr 0.9fr 0.7fr 1.4fr;gap:8px;align-items:center;padding:8px 10px;border-bottom:1px solid var(--border);${zebra}">
-            <span style="font-size:10px;color:var(--text-sec);text-align:center;">${i + 1}</span>
-            <div style="min-width:0;">
-              <div style="font-size:12px;color:var(--text);font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;" title="${r.name}">${r.name}</div>
-              <div style="font-size:10px;color:var(--text-sec);">${r.store || (r.foodId ? '' : 'Manual')} ${r.occurrences > 1 ? '· ' + r.occurrences + 'x' : ''}</div>
+          <div class="fin-row" style="${zebra}">
+            <span class="fin-cell-rank" style="font-size:10px;color:var(--text-sec);text-align:center;">${i + 1}</span>
+            <div class="fin-cell-name" title="${r.name}">
+              <div class="fin-name">${r.name}</div>
+              <div class="fin-meta">${r.store || (r.foodId ? '' : 'Manual')} ${r.occurrences > 1 ? '· ' + r.occurrences + 'x' : ''}</div>
             </div>
-            <div style="font-size:12px;color:var(--text);text-align:right;">${qtyCell}</div>
-            <div style="text-align:right;">${ppgCell}</div>
-            <div style="font-size:11px;color:var(--text-sec);text-align:right;">${r.prot.toFixed(0)}P · ${r.carbs.toFixed(0)}C · ${r.fat.toFixed(0)}F</div>
-            <div style="text-align:right;font-size:13px;">${costCell}</div>
+            <div class="fin-cell-secondary" style="font-size:12px;color:var(--text);text-align:right;"><span class="fin-mob-label" style="display:none;">Cant:</span>${qtyCell}</div>
+            <div class="fin-cell-secondary" style="text-align:right;"><span class="fin-mob-label" style="display:none;">€/100g:</span>${ppgCell}</div>
+            <div class="fin-cell-secondary" style="font-size:11px;color:var(--text-sec);text-align:right;">${r.prot.toFixed(0)}P · ${r.carbs.toFixed(0)}C · ${r.fat.toFixed(0)}F</div>
+            <div class="fin-cell-cost" style="text-align:right;font-size:13px;">${costCell}</div>
           </div>`;
       }).join('');
 
@@ -3765,8 +3860,8 @@ try {
 
         ${itemsMissingPrice > 0 ? `<div style="font-size:10px;color:#F59E0B;margin-bottom:8px;">⚠️ ${itemsMissingPrice} alimento${itemsMissingPrice > 1 ? 's' : ''} sin precio (no contabilizan en el costo total).</div>` : ''}
 
-        <!-- Header -->
-        <div style="display:grid;grid-template-columns:24px minmax(0,1.7fr) 0.9fr 0.9fr 0.7fr 1.4fr;gap:8px;padding:6px 10px;font-size:9px;text-transform:uppercase;letter-spacing:0.5px;color:var(--text-sec);font-weight:600;border-bottom:2px solid var(--border);">
+        <!-- Header (hidden on mobile) -->
+        <div class="fin-header">
           <span style="text-align:center;">#</span>
           <span>Alimento</span>
           <span style="text-align:right;">Cantidad</span>
@@ -3842,7 +3937,7 @@ try {
         </div>
         <div style="margin-top:10px;">
           <div style="display:flex;justify-content:space-between;font-size:10px;color:var(--text-sec);margin-bottom:4px;">
-            <span>Budget mensual: €${monthBudget}</span>
+            <span style="cursor:pointer;text-decoration:underline dotted;text-underline-offset:2px;" onclick="editBudget()" title="Click para editar">Budget mensual: €${monthBudget} ✏️</span>
             <span style="font-weight:700;color:${monthBudgetPct > 100 ? '#EF4444' : monthBudgetPct > 85 ? '#F59E0B' : '#059669'};">${monthBudgetPct.toFixed(0)}%</span>
           </div>
           <div style="height:8px;background:var(--bg);border-radius:4px;overflow:hidden;">
@@ -4685,6 +4780,35 @@ try {
   window.setFinanzasSort   = function(s) { finanzasSort   = s; render(); };
   window.setHogarPeriod    = function(n) { hogarPeriod    = n; render(); };
   window.setStoriesPeriod  = function(n) { storiesPeriod  = n; render(); };
+
+  // Search debounce
+  let _searchTimer = null;
+  window.onHistorialSearch = function(val) {
+    if (_searchTimer) clearTimeout(_searchTimer);
+    _searchTimer = setTimeout(() => {
+      historialSearch = val;
+      render();
+      // Restore focus + cursor position after re-render
+      setTimeout(() => {
+        const el = document.getElementById('historial-search-input');
+        if (el) { el.focus(); el.setSelectionRange(val.length, val.length); }
+      }, 0);
+    }, 250);
+  };
+
+  window.editBudget = function() {
+    const cur = parseInt(localStorage.getItem('nutria_budget_' + currentUser) || '600', 10);
+    const next = prompt('Budget mensual de comida (€):', cur);
+    if (next === null) return;
+    const parsed = parseInt(next, 10);
+    if (!Number.isFinite(parsed) || parsed < 50 || parsed > 5000) {
+      showToast('Valor inválido (50-5000)');
+      return;
+    }
+    localStorage.setItem('nutria_budget_' + currentUser, String(parsed));
+    showToast('Budget: €' + parsed + '/mes');
+    render();
+  };
 
   // Repetir última comida del mismo tipo (cualquier fecha previa)
   window.repeatLastMeal = function(meal) {
