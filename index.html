@@ -1015,6 +1015,7 @@
   let alertsOpen = true;
   let dbOpen = false;
   let mealView = 'list';
+  let showItemPrices = false;
   const collapsedMeals = new Set();
 
   window.toggleMealAccordion = function(meal) {
@@ -1508,6 +1509,11 @@
     render();
   };
 
+  window.toggleItemPrices = function() {
+    showItemPrices = !showItemPrices;
+    render();
+  };
+
   function renderMFPList(mealItems, mealKcal, mealMacros) {
     let totalKcal = 0, totalP = 0, totalC = 0, totalF = 0;
     const groups = MEAL_ORDER.map(m => {
@@ -1529,6 +1535,7 @@
             <div class="mfp-macro"><div class="mfp-macro-val" style="color:#3B82F6;">${round1(item.prot||0)}</div><div class="mfp-macro-lbl">P</div></div>
             <div class="mfp-macro"><div class="mfp-macro-val" style="color:#16A34A;">${round1(item.carbs||0)}</div><div class="mfp-macro-lbl">C</div></div>
             <div class="mfp-macro"><div class="mfp-macro-val" style="color:#D97706;">${round1(item.fat||0)}</div><div class="mfp-macro-lbl">F</div></div>
+            ${showItemPrices && item.foodId && PRICE_DB[item.foodId] ? `<div class="mfp-macro"><div class="mfp-macro-val" style="color:#059669;">€${(PRICE_DB[item.foodId].price_per_100g * (item.grams||0) / 100).toFixed(2)}</div><div class="mfp-macro-lbl">€</div></div>` : ''}
           </div>
         </div>`).join('');
       const isCollapsed = collapsedMeals.has(m);
@@ -1622,6 +1629,7 @@
               <div class="macro-chip"><span class="macro-chip-label">prot</span><span class="macro-chip-val">${round1(item.prot || 0)}g</span></div>
               <div class="macro-chip"><span class="macro-chip-label">carbs</span><span class="macro-chip-val">${round1(item.carbs || 0)}g</span></div>
               <div class="macro-chip"><span class="macro-chip-label">fat</span><span class="macro-chip-val">${round1(item.fat || 0)}g</span></div>
+              ${showItemPrices && item.foodId && PRICE_DB[item.foodId] ? `<div class="macro-chip" style="color:#059669;font-weight:700;">€${(PRICE_DB[item.foodId].price_per_100g * (item.grams||0) / 100).toFixed(2)}</div>` : ''}
             </div>
           </div>`).join('');
 
@@ -1696,6 +1704,7 @@
           <div class="card-title" style="margin-bottom:0;">Comidas del dia</div>
           <div class="view-toggle">
             <!-- Health button hidden: <button class="view-btn" onclick="copyForHealth()" title="Copia para Apple Health shortcut">❤️ Health</button> -->
+            ${Object.keys(PRICE_DB).length ? `<button class="view-btn ${showItemPrices ? 'active' : ''}" onclick="toggleItemPrices()" title="Ver precio por item">💶</button>` : ''}
           </div>
         </div>
         <div class="list-view">${renderMFPList(mealItems, mealKcal, mealMacros)}</div>
