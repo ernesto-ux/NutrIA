@@ -1408,5 +1408,36 @@
     "price_per_100g": 0.01,
     "store": "Restaurant",
     "notes": "Menú del día restaurante (registrado sin gramos)"
+  },
+  "durum-biyo-agneau": {
+    "price_per_100g": 1.45,
+    "store": "Biyo Dürüm (París 12)",
+    "unit_price": 8.0,
+    "unit_size_g": 550,
+    "notes": "Dürüm agneau ~550g aprox"
+  },
+  "lahmacun-turco": {
+    "price_per_100g": 1.1,
+    "store": "Biyo Dürüm (París 12)",
+    "unit_price": 5.5,
+    "unit_size_g": 500,
+    "notes": "Lahmacun ×2 piezas ~250g c/u"
+  },
+  "pogaca-feta-mantequilla": {
+    "price_per_100g": 2.8,
+    "store": "Biyo Dürüm (París 12)",
+    "unit_price": 2.8,
+    "unit_size_g": 100,
+    "notes": "Poğaça unitaria ~100g"
+  },
+  "froyo-llao-llao-homemade-ninja": {
+    "price_per_100g": 0.38,
+    "store": "Homemade",
+    "notes": "Costo ingredientes: skyr+yogurt griego+EAFit+leche desnatada / 492g receta"
+  },
+  "helado-light-vainilla": {
+    "price_per_100g": 0.6,
+    "store": "Supermarché FR",
+    "notes": "Helado light genérico — estimado"
   }
 }
