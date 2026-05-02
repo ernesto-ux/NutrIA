@@ -1,5 +1,30 @@
 # Changelog - NutrIA
 
+## [Fase B · Inteligencia] - 02 mayo 2026
+### Agregado
+- **🤖 Coach tab nuevo**: Meal Coach rule-based con sugerencias personalizadas
+  - Pendientes hoy: kcal/prot/carbs/grasa restantes con visualización
+  - Próxima comida sugerida según hora (desayuno/almuerzo/snack/cena)
+  - Patrón histórico del día de la semana actual (alerta si tienes tendencia a excederte)
+  - 3 sugerencias generadas: 💪 Alta proteína magra · ⚖️ Balanceado · 🪙 Económico (mejor €/g prot)
+  - Cada sugerencia con items + gramos + macros + costo total
+  - Filtro: excluye recetario completo + items ya consumidos hoy
+  - "Abrir Claude con mis macros pendientes" → bridge a claude.ai con prompt pre-cargado
+- **🎯 Forecast peso → ETA goal** (Salud): regresión lineal sobre 7d MA de peso
+  - Ritmo (kg/sem) basado en últimos 14 días
+  - ETA al goal (75kg para Ernesto) con fecha objetivo
+  - Intervalo de confianza 80% via Monte Carlo 500 sims
+  - Status semáforo: verde (saludable) · amarillo (lento) · rojo (subiendo)
+- **🧠 Patrones detectados** (Informes): análisis automático sobre últimos 30 días
+  - Por día de semana: detecta "los Sab excedes calorías 18%" / grasa 68%
+  - Gym vs descanso: "días con gym +17g prot (bien)" o alertas si menos
+  - Findes vs días de semana: diferencial kcal
+  - Streak detection: días consecutivos en target 85-115%
+  - Severidad: warn (ámbar) / info (teal) / good (verde)
+
+### CI
+- Smoke test ampliado a 10 tabs (incluye coach)
+
 ## [Quick wins · A] - 02 mayo 2026
 ### Agregado
 - **Budget mensual configurable**: click en "Budget mensual: €600 ✏️" abre prompt para editar (50-5000), persiste en localStorage por usuario (`nutria_budget_<user>`)

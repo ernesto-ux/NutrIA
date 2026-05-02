@@ -1009,6 +1009,7 @@
       <button class="pill" data-period="informes" onclick="setPeriod('informes')">📊 Informes</button>
       <button class="pill" data-period="finanzas" onclick="setPeriod('finanzas')">💰 Finanzas</button>
       <button class="pill" data-period="hogar" onclick="setPeriod('hogar')">🏠 Hogar</button>
+      <button class="pill" data-period="coach" onclick="setPeriod('coach')">🤖 Coach</button>
       <button class="pill" data-period="nutricion" onclick="setPeriod('nutricion')">🥗 Nutricion</button>
       <button class="pill" data-period="actividad" onclick="setPeriod('actividad')">🏃 Actividad</button>
       <button class="pill" data-period="salud" onclick="setPeriod('salud')">🏥 Salud</button>
@@ -2953,7 +2954,131 @@ try {
           </div>
         </div>
       </div>
+      ${renderPatternsCard()}
       ${renderWeightStoryline()}`;
+  }
+
+  // ── PATTERN DETECTION (analytics over last 30 days) ──────────────────
+  function renderPatternsCard() {
+    const fmtYMD = d => d.getFullYear() + '-' + String(d.getMonth()+1).padStart(2,'0') + '-' + String(d.getDate()).padStart(2,'0');
+    const last30 = [];
+    for (let i = 0; i < 30; i++) {
+      const d = new Date(); d.setDate(d.getDate() - i);
+      last30.push(fmtYMD(d));
+    }
+    const tgt = TARGETS();
+    const dayNames = ['Dom','Lun','Mar','Mie','Jue','Vie','Sab'];
+
+    // Per-day-of-week stats
+    const byDow = Array(7).fill(0).map(() => ({ kcal: [], prot: [], carbs: [], fat: [], n: 0 }));
+    last30.forEach(date => {
+      const totals = getDayTotals(date);
+      if (totals.kcal === 0) return;
+      const dow = parseDate(date).getDay();
+      byDow[dow].kcal.push(totals.kcal);
+      byDow[dow].prot.push(totals.prot);
+      byDow[dow].carbs.push(totals.carbs);
+      byDow[dow].fat.push(totals.fat);
+      byDow[dow].n += 1;
+    });
+
+    const avg = arr => arr.length === 0 ? 0 : arr.reduce((s,v)=>s+v,0) / arr.length;
+    const insights = [];
+
+    // Detect deviation patterns by day of week
+    byDow.forEach((d, i) => {
+      if (d.n < 2) return;
+      const avgKcal = avg(d.kcal);
+      const avgFat = avg(d.fat);
+      const avgProt = avg(d.prot);
+      const kcalPct = avgKcal / tgt.kcal * 100;
+      const fatPct = avgFat / tgt.fat * 100;
+      const protPct = avgProt / tgt.prot * 100;
+      if (kcalPct > 115) insights.push({ severity: 'warn', msg: `Los <strong>${dayNames[i]}</strong> excedes calorías ${(kcalPct - 100).toFixed(0)}% (${avgKcal.toFixed(0)} avg vs ${tgt.kcal})`, n: d.n });
+      else if (kcalPct < 80) insights.push({ severity: 'info', msg: `Los <strong>${dayNames[i]}</strong> consumes ${(100 - kcalPct).toFixed(0)}% bajo target (${avgKcal.toFixed(0)} avg)`, n: d.n });
+      if (fatPct > 130) insights.push({ severity: 'warn', msg: `Los <strong>${dayNames[i]}</strong> excedes grasa ${(fatPct - 100).toFixed(0)}% (${avgFat.toFixed(0)}g avg)`, n: d.n });
+      if (protPct < 70 && d.n >= 3) insights.push({ severity: 'warn', msg: `Los <strong>${dayNames[i]}</strong> proteína insuficiente (${avgProt.toFixed(0)}g avg, ${(100 - protPct).toFixed(0)}% bajo)`, n: d.n });
+    });
+
+    // Gym vs no-gym day correlation
+    const gymDays = [], nonGymDays = [];
+    last30.forEach(date => {
+      const totals = getDayTotals(date);
+      if (totals.kcal === 0) return;
+      const act = getActivityForDate(date);
+      if (act && (act.gymKcal || 0) > 200) gymDays.push(totals);
+      else nonGymDays.push(totals);
+    });
+    if (gymDays.length >= 3 && nonGymDays.length >= 3) {
+      const gymAvgKcal = avg(gymDays.map(d => d.kcal));
+      const nonGymAvgKcal = avg(nonGymDays.map(d => d.kcal));
+      const gymAvgProt = avg(gymDays.map(d => d.prot));
+      const nonGymAvgProt = avg(nonGymDays.map(d => d.prot));
+      const kcalDiff = gymAvgKcal - nonGymAvgKcal;
+      const protDiff = gymAvgProt - nonGymAvgProt;
+      if (Math.abs(kcalDiff) > 200) {
+        insights.push({ severity: kcalDiff > 0 ? 'info' : 'warn',
+          msg: `Días con gym: ${kcalDiff > 0 ? '+' : ''}${kcalDiff.toFixed(0)} kcal vs días de descanso (${gymAvgKcal.toFixed(0)} vs ${nonGymAvgKcal.toFixed(0)})`,
+          n: gymDays.length });
+      }
+      if (protDiff > 15) {
+        insights.push({ severity: 'good',
+          msg: `Días con gym te alimentas ${protDiff.toFixed(0)}g más de proteína (bien)`,
+          n: gymDays.length });
+      } else if (protDiff < -10 && gymAvgProt < tgt.prot * 0.85) {
+        insights.push({ severity: 'warn',
+          msg: `Días con gym tienes <strong>menos</strong> proteína que días de descanso — recovery comprometido`,
+          n: gymDays.length });
+      }
+    }
+
+    // Weekend vs weekday
+    const wkDays = [], wkndDays = [];
+    last30.forEach(date => {
+      const totals = getDayTotals(date);
+      if (totals.kcal === 0) return;
+      const dow = parseDate(date).getDay();
+      if (dow === 0 || dow === 6) wkndDays.push(totals);
+      else wkDays.push(totals);
+    });
+    if (wkDays.length >= 3 && wkndDays.length >= 2) {
+      const wkAvg = avg(wkDays.map(d => d.kcal));
+      const wkndAvg = avg(wkndDays.map(d => d.kcal));
+      const diff = wkndAvg - wkAvg;
+      if (Math.abs(diff) > 250) {
+        insights.push({ severity: diff > 0 ? 'warn' : 'info',
+          msg: `Findes: ${diff > 0 ? '+' : ''}${diff.toFixed(0)} kcal vs días de semana (${wkndAvg.toFixed(0)} vs ${wkAvg.toFixed(0)})`,
+          n: wkndDays.length });
+      }
+    }
+
+    // Streak detection
+    let streak = 0;
+    for (let i = 0; i < last30.length; i++) {
+      const t = getDayTotals(last30[i]);
+      if (t.kcal === 0) break;
+      if (t.kcal >= tgt.kcal * 0.85 && t.kcal <= tgt.kcal * 1.15) streak++;
+      else break;
+    }
+    if (streak >= 3) insights.push({ severity: 'good', msg: `🔥 Racha actual: <strong>${streak} días</strong> consecutivos en target (85-115%)`, n: streak });
+
+    if (insights.length === 0) {
+      insights.push({ severity: 'info', msg: 'Aún no hay suficientes datos (>30 días con registro consistente) para detectar patrones significativos.', n: 0 });
+    }
+
+    const sevColor = { warn: '#F59E0B', info: '#0F766E', good: '#059669' };
+    const sevEmoji = { warn: '⚠️', info: 'ℹ️', good: '✓' };
+
+    return `
+      <div class="card" style="margin-bottom:16px;">
+        <div class="card-title">🧠 Patrones detectados (últimos 30 días)</div>
+        <div style="font-size:11px;color:var(--text-sec);margin-bottom:10px;">Análisis automático sobre tus datos. Ayuda a detectar fricciones repetitivas y a celebrar consistencia.</div>
+        ${insights.map(p => `
+          <div style="display:flex;align-items:flex-start;gap:10px;padding:10px;background:rgba(0,0,0,0.02);border-radius:8px;margin-bottom:6px;border-left:3px solid ${sevColor[p.severity] || '#94a3b8'};">
+            <span style="font-size:14px;flex-shrink:0;">${sevEmoji[p.severity] || '•'}</span>
+            <div style="flex:1;font-size:12px;line-height:1.5;color:var(--text);">${p.msg}${p.n > 0 ? ` <span style="color:var(--text-sec);font-size:10px;">· n=${p.n}</span>` : ''}</div>
+          </div>`).join('')}
+      </div>`;
   }
 
   // ── WEIGHT STORYLINE (INFORMES) ─────────────────────────────────────
@@ -3960,6 +4085,199 @@ try {
     </div>`;
   }
 
+  // ── MEAL COACH (rule-based suggestions) ───────────────────────────────
+  function renderCoach() {
+    const tgt = TARGETS();
+    const totals = getDayTotals(currentDate);
+    const remain = {
+      kcal:  Math.max(0, tgt.kcal  - totals.kcal),
+      prot:  Math.max(0, tgt.prot  - totals.prot),
+      carbs: Math.max(0, tgt.carbs - totals.carbs),
+      fat:   Math.max(0, tgt.fat   - totals.fat)
+    };
+
+    // Identify "next meal" by current hour
+    const hour = new Date().getHours();
+    const suggestedMeal = hour < 11 ? 'desayuno' : hour < 15 ? 'almuerzo' : hour < 19 ? 'snack' : 'cena';
+
+    // Pattern alerts for today (day of week)
+    const dowName = ['Dom','Lun','Mar','Mié','Jue','Vie','Sáb'][new Date().getDay()];
+    const fmtYMD = d => d.getFullYear() + '-' + String(d.getMonth()+1).padStart(2,'0') + '-' + String(d.getDate()).padStart(2,'0');
+    const last30Same = [];
+    for (let i = 7; i <= 35; i += 7) {
+      const d = new Date(); d.setDate(d.getDate() - i);
+      last30Same.push(fmtYMD(d));
+    }
+    const sameDOW = last30Same.map(d => getDayTotals(d)).filter(t => t.kcal > 0);
+    let dowAlert = '';
+    if (sameDOW.length >= 2) {
+      const avgKcal = sameDOW.reduce((s,t) => s + t.kcal, 0) / sameDOW.length;
+      const avgFat = sameDOW.reduce((s,t) => s + t.fat, 0) / sameDOW.length;
+      const kcalPct = avgKcal / tgt.kcal * 100;
+      const fatPct = avgFat / tgt.fat * 100;
+      if (kcalPct > 115) dowAlert = `Históricamente los ${dowName} excedes calorías ${(kcalPct-100).toFixed(0)}%. Plan defensivo: comidas más ligeras hoy.`;
+      else if (fatPct > 130) dowAlert = `Históricamente los ${dowName} excedes grasa ${(fatPct-100).toFixed(0)}%. Plan defensivo: priorizar prot magra + verdura.`;
+    }
+
+    // Generate 3 meal suggestions from FOOD_DATABASE that fit remaining budget
+    // Strategy: try several portions of high-protein foods that fit kcal/prot remaining
+    const suggestions = [];
+
+    // Helper: build a meal of N items selected from candidates
+    function buildMeal(picks) {
+      let totalKcal = 0, totalProt = 0, totalCarbs = 0, totalFat = 0, totalCost = 0;
+      const items = picks.map(({ food, grams }) => {
+        const kcal  = (food.per100g.kcal  || 0) * grams / 100;
+        const prot  = (food.per100g.prot  || 0) * grams / 100;
+        const carbs = (food.per100g.carbs || 0) * grams / 100;
+        const fat   = (food.per100g.fat   || 0) * grams / 100;
+        const cost  = PRICE_DB[food.id] ? PRICE_DB[food.id].price_per_100g * grams / 100 : null;
+        totalKcal += kcal; totalProt += prot; totalCarbs += carbs; totalFat += fat;
+        if (cost) totalCost += cost;
+        return { name: food.name, grams, kcal, prot, carbs, fat, cost };
+      });
+      return { items, totalKcal, totalProt, totalCarbs, totalFat, totalCost };
+    }
+
+    // Profile candidates by macro role
+    const dbConsumed = new Set();
+    getDay(currentDate).forEach(m => m.items.forEach(it => { if (it.foodId) dbConsumed.add(it.foodId); }));
+    const candidates = FOOD_DATABASE.filter(f =>
+      f.per100g && f.per100g.kcal > 0 && !dbConsumed.has(f.id) &&
+      f.source !== 'recetario' // recetario items are full meals already
+    );
+    const protein = candidates.filter(f => f.per100g.prot >= 15 && f.per100g.fat < 20)
+      .sort((a,b) => (b.per100g.prot / Math.max(b.per100g.kcal, 1)) - (a.per100g.prot / Math.max(a.per100g.kcal, 1)));
+    const carbsRich = candidates.filter(f => f.per100g.carbs >= 15 && f.per100g.fat < 10)
+      .sort((a,b) => b.per100g.carbs - a.per100g.carbs);
+    const veggie = candidates.filter(f => f.per100g.kcal < 60 && f.per100g.carbs < 10)
+      .sort((a,b) => b.per100g.fiber - a.per100g.fiber);
+    const balanced = candidates.filter(f => f.per100g.prot >= 8 && f.per100g.kcal < 200);
+
+    // Suggestion 1: HIGH-PROTEIN LEAN — prioritize protein gap
+    if (protein.length > 0 && remain.prot >= 15) {
+      const protGrams = Math.min(200, Math.max(80, Math.round(remain.prot / (protein[0].per100g.prot / 100))));
+      const picks = [{ food: protein[0], grams: protGrams }];
+      if (veggie.length > 0) picks.push({ food: veggie[0], grams: 100 });
+      const meal = buildMeal(picks);
+      if (meal.totalKcal <= remain.kcal * 1.05) {
+        suggestions.push({ title: '💪 Alta proteína magra', subtitle: 'Prioriza cubrir gap de proteína', meal, color: '#3B82F6' });
+      }
+    }
+
+    // Suggestion 2: BALANCED — fits all macros proportionally
+    if (balanced.length > 0 && remain.kcal >= 200) {
+      const bGrams = Math.round(remain.kcal / 2 / (balanced[0].per100g.kcal / 100));
+      const picks = [{ food: balanced[0], grams: Math.min(250, Math.max(80, bGrams)) }];
+      if (carbsRich.length > 0 && remain.carbs >= 20) picks.push({ food: carbsRich[0], grams: 60 });
+      if (veggie.length > 0) picks.push({ food: veggie[0], grams: 80 });
+      const meal = buildMeal(picks);
+      suggestions.push({ title: '⚖️ Balanceado', subtitle: 'Cubre macros proporcionalmente', meal, color: '#0F766E' });
+    }
+
+    // Suggestion 3: BUDGET — cheapest combo that hits min protein
+    const withPrice = protein.filter(f => PRICE_DB[f.id])
+      .sort((a, b) => (PRICE_DB[a.id].price_per_100g) - (PRICE_DB[b.id].price_per_100g));
+    if (withPrice.length > 0 && remain.kcal >= 150) {
+      const grams = Math.min(180, Math.max(80, Math.round(remain.prot * 0.8 / (withPrice[0].per100g.prot / 100))));
+      const picks = [{ food: withPrice[0], grams }];
+      const cheapCarb = carbsRich.filter(f => PRICE_DB[f.id])[0];
+      if (cheapCarb) picks.push({ food: cheapCarb, grams: 60 });
+      const meal = buildMeal(picks);
+      suggestions.push({ title: '🪙 Económico', subtitle: 'Mejor relación €/g proteína', meal, color: '#059669' });
+    }
+
+    const dowAlertHtml = dowAlert ? `
+      <div class="card" style="margin-bottom:14px;background:rgba(245,158,11,0.06);border-left:4px solid #F59E0B;">
+        <div style="display:flex;gap:8px;align-items:flex-start;">
+          <span style="font-size:18px;">⚠️</span>
+          <div style="flex:1;">
+            <div style="font-size:11px;text-transform:uppercase;letter-spacing:0.5px;color:#F59E0B;font-weight:700;">Patrón histórico — ${dowName}</div>
+            <div style="font-size:13px;color:var(--text);margin-top:4px;line-height:1.5;">${dowAlert}</div>
+          </div>
+        </div>
+      </div>` : '';
+
+    return `
+    <div style="padding:0 4px;">
+      <!-- Header / pending macros -->
+      <div class="card" style="margin-bottom:14px;">
+        <div class="card-title">🤖 Meal Coach — pendientes hoy</div>
+        <div style="font-size:11px;color:var(--text-sec);margin-bottom:12px;">Lo que te queda según tu objetivo. Sugerencias se ajustan automáticamente.</div>
+        <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:10px;">
+          <div style="text-align:center;padding:10px;background:var(--bg);border-radius:10px;">
+            <div style="font-size:9px;color:var(--text-sec);text-transform:uppercase;letter-spacing:0.5px;font-weight:600;">Calorías</div>
+            <div style="font-size:22px;font-weight:700;color:${remain.kcal > 0 ? 'var(--text)' : '#EF4444'};">${remain.kcal.toFixed(0)}</div>
+            <div style="font-size:9px;color:var(--text-sec);">${totals.kcal.toFixed(0)} / ${tgt.kcal}</div>
+          </div>
+          <div style="text-align:center;padding:10px;background:rgba(59,130,246,0.05);border-radius:10px;">
+            <div style="font-size:9px;color:#3B82F6;text-transform:uppercase;letter-spacing:0.5px;font-weight:600;">Prot</div>
+            <div style="font-size:22px;font-weight:700;color:#3B82F6;">${remain.prot.toFixed(0)}<span style="font-size:11px;color:var(--text-sec);">g</span></div>
+            <div style="font-size:9px;color:var(--text-sec);">${totals.prot.toFixed(0)} / ${tgt.prot}</div>
+          </div>
+          <div style="text-align:center;padding:10px;background:rgba(34,197,94,0.05);border-radius:10px;">
+            <div style="font-size:9px;color:#22C55E;text-transform:uppercase;letter-spacing:0.5px;font-weight:600;">Carbs</div>
+            <div style="font-size:22px;font-weight:700;color:#22C55E;">${remain.carbs.toFixed(0)}<span style="font-size:11px;color:var(--text-sec);">g</span></div>
+            <div style="font-size:9px;color:var(--text-sec);">${totals.carbs.toFixed(0)} / ${tgt.carbs}</div>
+          </div>
+          <div style="text-align:center;padding:10px;background:rgba(245,158,11,0.05);border-radius:10px;">
+            <div style="font-size:9px;color:#F59E0B;text-transform:uppercase;letter-spacing:0.5px;font-weight:600;">Grasa</div>
+            <div style="font-size:22px;font-weight:700;color:#F59E0B;">${remain.fat.toFixed(0)}<span style="font-size:11px;color:var(--text-sec);">g</span></div>
+            <div style="font-size:9px;color:var(--text-sec);">${totals.fat.toFixed(0)} / ${tgt.fat}</div>
+          </div>
+        </div>
+        <div style="margin-top:10px;font-size:11px;color:var(--text-sec);text-align:center;">
+          Próxima comida sugerida: <strong style="color:var(--text);text-transform:capitalize;">${suggestedMeal}</strong>
+        </div>
+      </div>
+
+      ${dowAlertHtml}
+
+      <!-- Suggestions -->
+      ${suggestions.length === 0 ? `
+        <div class="card" style="text-align:center;padding:30px;">
+          <div style="font-size:32px;">🎯</div>
+          <div style="font-size:14px;font-weight:600;color:var(--text);margin-top:8px;">Día completo</div>
+          <div style="font-size:12px;color:var(--text-sec);margin-top:4px;">Ya cubriste tu target o no quedan calorías suficientes para sugerir.</div>
+        </div>` :
+        suggestions.map(s => `
+          <div class="card" style="margin-bottom:12px;border-left:4px solid ${s.color};">
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;">
+              <div>
+                <div style="font-size:14px;font-weight:700;color:var(--text);">${s.title}</div>
+                <div style="font-size:11px;color:var(--text-sec);">${s.subtitle}</div>
+              </div>
+              <div style="text-align:right;">
+                <div style="font-size:18px;font-weight:700;color:${s.color};">${s.meal.totalKcal.toFixed(0)} kcal</div>
+                ${s.meal.totalCost > 0 ? `<div style="font-size:11px;color:#059669;font-weight:600;">€${s.meal.totalCost.toFixed(2)}</div>` : ''}
+              </div>
+            </div>
+            <div style="margin-bottom:8px;">
+              ${s.meal.items.map(it => `
+                <div style="display:flex;justify-content:space-between;padding:5px 0;border-bottom:1px solid var(--border);">
+                  <span style="font-size:12px;color:var(--text);"><strong>${it.grams.toFixed(0)}g</strong> ${it.name}</span>
+                  <span style="font-size:11px;color:var(--text-sec);">${it.kcal.toFixed(0)} kcal · P${it.prot.toFixed(0)} · C${it.carbs.toFixed(0)} · F${it.fat.toFixed(0)}</span>
+                </div>`).join('')}
+            </div>
+            <div style="display:flex;gap:6px;font-size:11px;color:var(--text-sec);">
+              <span>P${s.meal.totalProt.toFixed(0)}g</span>
+              <span>·</span>
+              <span>C${s.meal.totalCarbs.toFixed(0)}g</span>
+              <span>·</span>
+              <span>F${s.meal.totalFat.toFixed(0)}g</span>
+            </div>
+          </div>`).join('')
+      }
+
+      <!-- Ask Claude bridge -->
+      <div class="card" style="margin-bottom:14px;background:linear-gradient(135deg,rgba(15,118,110,0.05),rgba(168,85,247,0.05));">
+        <div class="card-title">🧠 ¿Quieres más opciones creativas?</div>
+        <div style="font-size:12px;color:var(--text-sec);margin-bottom:10px;">Estas sugerencias son rule-based sobre tu FOOD_DATABASE. Para opciones más creativas (recetas nuevas, combinaciones inusuales) abre Claude con el contexto pre-cargado.</div>
+        <button onclick="askClaudeForMeal()" style="width:100%;padding:10px;background:linear-gradient(135deg,#0F766E,#A855F7);color:#fff;border:none;border-radius:8px;font-size:13px;font-weight:600;cursor:pointer;font-family:inherit;">Abrir Claude con mis macros pendientes</button>
+      </div>
+    </div>`;
+  }
+
   // ── HOGAR ──────────────────────────────────────────────────────────────
   function renderHogar() {
     const fmtYMD = d => d.getFullYear() + '-' + String(d.getMonth()+1).padStart(2,'0') + '-' + String(d.getDate()).padStart(2,'0');
@@ -4507,6 +4825,108 @@ try {
     </div>`;
   }
 
+  function renderWeightForecast() {
+    if (!WEIGHT_LOG || WEIGHT_LOG.length < 3) return '';
+    const sorted = [...WEIGHT_LOG].sort((a, b) => a.date.localeCompare(b.date));
+    const meta = getMetaProfile() || { weight: 89, goal: 'cut' };
+    // Goal weight: heuristic — if user has meta with goal cut, use 75 (Ernesto canonical); else min weight in log - 5
+    const goalWeight = currentUser === 'ernesto' ? 75 : (meta.goalWeight || (Math.min(...sorted.map(s => s.weight)) - 3));
+
+    // 7-day moving average (over date axis)
+    const dateMS = s => { const [y,m,d]=s.split('-').map(Number); return new Date(y,m-1,d).getTime(); };
+    const ma = sorted.map(w => {
+      const ts = dateMS(w.date);
+      const window = sorted.filter(x => {
+        const dt = dateMS(x.date);
+        return dt <= ts && dt > ts - 7 * 86400000;
+      });
+      const avg = window.reduce((s, x) => s + x.weight, 0) / window.length;
+      return { date: w.date, ts, ma: avg };
+    });
+
+    // Linear regression on last min(14, all) days of MA
+    const recent = ma.slice(-14);
+    if (recent.length < 3) return '';
+    const t0 = recent[0].ts;
+    const xs = recent.map(p => (p.ts - t0) / 86400000); // days since first
+    const ys = recent.map(p => p.ma);
+    const n = xs.length;
+    const meanX = xs.reduce((s,v) => s+v,0) / n;
+    const meanY = ys.reduce((s,v) => s+v,0) / n;
+    const num = xs.reduce((s, x, i) => s + (x - meanX) * (ys[i] - meanY), 0);
+    const den = xs.reduce((s, x) => s + (x - meanX) ** 2, 0);
+    const slope = den > 0 ? num / den : 0; // kg/day
+    const intercept = meanY - slope * meanX;
+
+    // Residuals → estimate variance for confidence interval
+    const residuals = ys.map((y, i) => y - (intercept + slope * xs[i]));
+    const sigma = Math.sqrt(residuals.reduce((s, r) => s + r*r, 0) / Math.max(1, n - 2));
+
+    const currentMA = ma[ma.length - 1].ma;
+    const remaining = currentMA - goalWeight;
+    const isCutting = slope < 0;
+    const goalAchievable = isCutting && remaining > 0;
+
+    // ETA in days (only if cutting and remaining > 0)
+    let etaDays = null, etaDate = null, etaLow = null, etaHigh = null;
+    if (goalAchievable) {
+      etaDays = Math.round(remaining / Math.abs(slope));
+      etaDate = new Date(Date.now() + etaDays * 86400000);
+      // Monte Carlo: simulate slope variability
+      const slopeStd = sigma / Math.sqrt(den);
+      const sims = [];
+      for (let i = 0; i < 500; i++) {
+        const simSlope = slope + (Math.random() - 0.5) * 2 * 1.96 * slopeStd;
+        if (simSlope < -0.001) sims.push(remaining / Math.abs(simSlope));
+      }
+      sims.sort((a, b) => a - b);
+      etaLow = sims[Math.floor(sims.length * 0.1)] || etaDays;
+      etaHigh = sims[Math.floor(sims.length * 0.9)] || etaDays;
+    }
+
+    const fmtDate = d => d.toLocaleDateString('es-ES', { day: 'numeric', month: 'short', year: 'numeric' });
+    const trendKgWeek = slope * 7;
+    const status = !isCutting ? { color:'#EF4444', emoji:'⚠️', text:'Tendencia al alza — ETA imposible con dinámica actual' }
+                : remaining <= 0 ? { color:'#059669', emoji:'🎯', text:'¡Objetivo alcanzado!' }
+                : etaDays > 365 ? { color:'#F59E0B', emoji:'🐢', text:'Ritmo muy lento — considera ajustar dieta' }
+                : etaDays < 30 ? { color:'#059669', emoji:'🚀', text:'Ritmo agresivo — verifica que sea sostenible' }
+                : { color:'#0F766E', emoji:'✓', text:'Ritmo saludable' };
+
+    return `
+      <div class="card" style="margin-bottom:14px;">
+        <div class="card-title" style="display:flex;justify-content:space-between;align-items:center;">
+          <span>🎯 Forecast → ${goalWeight} kg</span>
+          <span style="font-size:11px;color:${status.color};font-weight:700;">${status.emoji} ${status.text}</span>
+        </div>
+
+        <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin-top:10px;">
+          <div style="text-align:center;padding:10px;background:rgba(20,184,166,0.06);border-radius:10px;">
+            <div style="font-size:9px;color:var(--text-sec);text-transform:uppercase;letter-spacing:0.5px;font-weight:600;">Actual (7d MA)</div>
+            <div style="font-size:20px;font-weight:700;color:var(--text);">${currentMA.toFixed(2)}<span style="font-size:11px;color:var(--text-sec);"> kg</span></div>
+            <div style="font-size:10px;color:var(--text-sec);margin-top:2px;">faltan ${Math.abs(remaining).toFixed(1)} kg</div>
+          </div>
+          <div style="text-align:center;padding:10px;background:rgba(${slope < 0 ? '5,150,105' : '239,68,68'},0.06);border-radius:10px;">
+            <div style="font-size:9px;color:var(--text-sec);text-transform:uppercase;letter-spacing:0.5px;font-weight:600;">Ritmo</div>
+            <div style="font-size:20px;font-weight:700;color:${slope < 0 ? '#059669' : '#EF4444'};">${slope < 0 ? '' : '+'}${trendKgWeek.toFixed(2)}<span style="font-size:11px;color:var(--text-sec);"> kg/sem</span></div>
+            <div style="font-size:10px;color:var(--text-sec);margin-top:2px;">últimos ${recent.length} días</div>
+          </div>
+          <div style="text-align:center;padding:10px;background:rgba(168,85,247,0.06);border-radius:10px;">
+            <div style="font-size:9px;color:var(--text-sec);text-transform:uppercase;letter-spacing:0.5px;font-weight:600;">ETA goal</div>
+            <div style="font-size:20px;font-weight:700;color:#A855F7;">${goalAchievable ? etaDays + ' <span style=\"font-size:11px;color:var(--text-sec);\">días</span>' : '—'}</div>
+            <div style="font-size:10px;color:var(--text-sec);margin-top:2px;">${goalAchievable ? fmtDate(etaDate) : 'imposible con ritmo actual'}</div>
+          </div>
+        </div>
+
+        ${goalAchievable ? `
+          <div style="margin-top:12px;padding:10px;background:var(--bg);border-radius:8px;font-size:11px;color:var(--text-sec);">
+            <strong style="color:var(--text);">Intervalo de confianza 80%:</strong> entre ${Math.round(etaLow)} y ${Math.round(etaHigh)} días
+            (Monte Carlo 500 sims sobre la varianza del ritmo).
+            <br>
+            <strong style="color:var(--text);">Si mantienes deficit:</strong> meta entre ${fmtDate(new Date(Date.now() + etaLow*86400000))} y ${fmtDate(new Date(Date.now() + etaHigh*86400000))}.
+          </div>` : ''}
+      </div>`;
+  }
+
   function renderSalud() {
     const meta = getMetaProfile() || { age: 34, weight: 89, height: 175, sex: 'M', activity: 1.2, goal: 'cut' };
     const sorted = [...WEIGHT_LOG].sort((a, b) => a.date.localeCompare(b.date));
@@ -4563,6 +4983,7 @@ try {
     return `
     <div style="padding:0 4px;">
       ${renderWeightHistory()}
+      ${renderWeightForecast()}
 
       <!-- METRIC CARDS -->
       ${last ? metricCard('⚖️', 'Peso', last.weight, 'kg', weightTrend, sorted.map(w=>({v:w.weight,date:w.date})), 'var(--teal)') : ''}
@@ -4738,6 +5159,8 @@ try {
       html = renderFinanzas();
     } else if (currentPeriod === 'hogar') {
       html = renderHogar();
+    } else if (currentPeriod === 'coach') {
+      html = renderCoach();
     } else if (currentPeriod === 'actividad') {
       html = renderActividad();
     } else if (currentPeriod === 'nutricion') {
@@ -4794,6 +5217,26 @@ try {
         if (el) { el.focus(); el.setSelectionRange(val.length, val.length); }
       }, 0);
     }, 250);
+  };
+
+  window.askClaudeForMeal = function() {
+    const tgt = TARGETS();
+    const totals = getDayTotals(currentDate);
+    const remain = {
+      kcal:  Math.max(0, tgt.kcal  - totals.kcal),
+      prot:  Math.max(0, tgt.prot  - totals.prot),
+      carbs: Math.max(0, tgt.carbs - totals.carbs),
+      fat:   Math.max(0, tgt.fat   - totals.fat)
+    };
+    const prompt = `Tengo estos macros pendientes para hoy (${currentDate}):
+- ${remain.kcal.toFixed(0)} kcal
+- ${remain.prot.toFixed(0)}g proteína
+- ${remain.carbs.toFixed(0)}g carbs
+- ${remain.fat.toFixed(0)}g grasa
+
+Soy ${USERS[currentUser].name}. Dame 3 opciones de comida creativas que ajusten estos macros, idealmente combinaciones que no haya pensado. Para cada una indica ingredientes con gramos y macros aprox.`;
+    const url = 'https://claude.ai/new?q=' + encodeURIComponent(prompt);
+    window.open(url, '_blank');
   };
 
   window.editBudget = function() {

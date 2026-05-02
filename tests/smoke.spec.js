@@ -1,7 +1,7 @@
 // @ts-check
 const { test, expect } = require('@playwright/test');
 
-const TABS = ['hoy', 'historial', 'informes', 'finanzas', 'hogar', 'nutricion', 'actividad', 'salud', 'tools'];
+const TABS = ['hoy', 'historial', 'informes', 'finanzas', 'hogar', 'coach', 'nutricion', 'actividad', 'salud', 'tools'];
 
 test.describe('NutrIA smoke', () => {
 
