@@ -1129,17 +1129,7 @@ var tesseractLoaded = false;
   function getDayCost(d) { return window.getDayCost(d); }
 
   async function loadServerData() {
-    // 1) Try local server (home network)
-    try {
-      const r = await fetch('/api/data');
-      if (r.ok) {
-        _serverData = await r.json();
-        _hasServer = true;
-        return;
-      }
-    } catch(e) {}
-
-    // 2) Try GitHub API
+    // 1) Try GitHub API
     _hasServer = false;
     const gh = await _ghRead();
     if (gh) {
@@ -1148,7 +1138,7 @@ var tesseractLoaded = false;
       return;
     }
 
-    // 3) Try static local-meals.json (GitHub Pages fallback)
+    // 2) Try static local-meals.json (GitHub Pages)
     try {
       const r = await fetch('local-meals.json', { cache: 'no-store' });
       if (r.ok) {
@@ -1158,7 +1148,7 @@ var tesseractLoaded = false;
       }
     } catch(e) {}
 
-    // 4) Fallback: LocalStorage only
+    // 3) Fallback: LocalStorage only
     _serverData = _lsLoad();
   }
 
