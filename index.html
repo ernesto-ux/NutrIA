@@ -5522,41 +5522,33 @@ try {
   // ── MICROS PANEL ──────────────────────────────────────────────────────
   function renderMicrosPanel() {
     const fmtYMD = d => d.getFullYear() + '-' + String(d.getMonth()+1).padStart(2,'0') + '-' + String(d.getDate()).padStart(2,'0');
-    // Compute averages over last 7 / 30 days
+    const MICRO_KEYS = ['fiber','sodium','sugar','sat_fat','iron','calcium','b12','vit_d','potassium','magnesium'];
+    // Compute averages over last N days
     function aggOverDays(n) {
-      const acc = { fiber: 0, sodium: 0, sugar: 0, sat_fat: 0, days: 0 };
+      const acc = {}; MICRO_KEYS.forEach(k => acc[k] = 0); acc.days = 0;
       for (let i = 0; i < n; i++) {
         const d = new Date(); d.setDate(d.getDate() - i);
         const date = fmtYMD(d);
         const meals = getDay(date);
         if (meals.length === 0) continue;
-        let dayAcc = { fiber: 0, sodium: 0, sugar: 0, sat_fat: 0 };
+        let dayAcc = {}; MICRO_KEYS.forEach(k => dayAcc[k] = 0);
         meals.forEach(m => m.items.forEach(it => {
           if (!it.foodId) return;
           const food = FOOD_DATABASE.find(f => f.id === it.foodId);
           if (!food || !food.per100g) return;
           const g = it.grams || 0;
-          dayAcc.fiber   += (food.per100g.fiber   || 0) * g / 100;
-          dayAcc.sodium  += (food.per100g.sodium  || 0) * g / 100;
-          dayAcc.sugar   += (food.per100g.sugar   || 0) * g / 100;
-          dayAcc.sat_fat += (food.per100g.sat_fat || 0) * g / 100;
+          MICRO_KEYS.forEach(k => { dayAcc[k] += (food.per100g[k] || 0) * g / 100; });
         }));
-        if (dayAcc.fiber + dayAcc.sodium + dayAcc.sugar + dayAcc.sat_fat > 0) {
-          acc.fiber   += dayAcc.fiber;
-          acc.sodium  += dayAcc.sodium;
-          acc.sugar   += dayAcc.sugar;
-          acc.sat_fat += dayAcc.sat_fat;
+        const total = MICRO_KEYS.reduce((s, k) => s + dayAcc[k], 0);
+        if (total > 0) {
+          MICRO_KEYS.forEach(k => { acc[k] += dayAcc[k]; });
           acc.days += 1;
         }
       }
       if (acc.days === 0) return null;
-      return {
-        fiber:   acc.fiber   / acc.days,
-        sodium:  acc.sodium  / acc.days,
-        sugar:   acc.sugar   / acc.days,
-        sat_fat: acc.sat_fat / acc.days,
-        days: acc.days
-      };
+      const out = { days: acc.days };
+      MICRO_KEYS.forEach(k => { out[k] = acc[k] / acc.days; });
+      return out;
     }
 
     const week = aggOverDays(7);
@@ -5564,10 +5556,16 @@ try {
 
     // Reference values (RDA / WHO targets for adult M, ~75kg goal)
     const refs = {
-      fiber:   { rda: 30, unit: 'g', dir: 'min', label: 'Fibra',          desc: 'Mínimo 30g/día (WHO).' },
-      sodium:  { rda: 2300, unit: 'mg', dir: 'max', label: 'Sodio',       desc: 'Máximo 2300mg/día (WHO). Ideal <1500mg.' },
-      sugar:   { rda: 50, unit: 'g', dir: 'max', label: 'Azúcar añadido', desc: 'Máximo 50g/día (WHO). Ideal <25g.' },
-      sat_fat: { rda: 22, unit: 'g', dir: 'max', label: 'Grasa saturada', desc: 'Máximo 22g/día (≤10% kcal en dieta 2000kcal).' }
+      fiber:   { rda: 30,   unit: 'g',  dir: 'min', label: 'Fibra',          desc: 'Mínimo 30g/día (WHO).' },
+      sodium:  { rda: 2300, unit: 'mg', dir: 'max', label: 'Sodio',          desc: 'Máximo 2300mg/día (WHO). Ideal <1500mg.' },
+      sugar:   { rda: 50,   unit: 'g',  dir: 'max', label: 'Azúcar añadido', desc: 'Máximo 50g/día (WHO). Ideal <25g.' },
+      sat_fat: { rda: 22,   unit: 'g',  dir: 'max', label: 'Grasa saturada', desc: 'Máximo 22g/día (≤10% kcal en dieta 2000kcal).' },
+      iron:      { rda: 8,    unit: 'mg', dir: 'min', label: '🩸 Hierro',     desc: 'RDA hombre adulto 8mg/día. Mujer: 18mg.' },
+      calcium:   { rda: 1000, unit: 'mg', dir: 'min', label: '🦴 Calcio',     desc: 'RDA 1000mg/día (1200 después de 50).' },
+      b12:       { rda: 2.4,  unit: 'μg', dir: 'min', label: '🧬 Vit B12',    desc: 'RDA 2.4μg/día. Críticos vegetarianos.' },
+      vit_d:     { rda: 15,   unit: 'μg', dir: 'min', label: '☀️ Vit D',      desc: 'RDA 15μg (600 IU). Fuentes: pescado graso, huevos, sol.' },
+      potassium: { rda: 3500, unit: 'mg', dir: 'min', label: '🍌 Potasio',    desc: 'RDA 3500mg/día. Frutas, verduras, legumbres.' },
+      magnesium: { rda: 400,  unit: 'mg', dir: 'min', label: '🌰 Magnesio',   desc: 'RDA 400mg/día. Frutos secos, semillas, cereales integrales.' }
     };
 
     const microRow = (key, value, daysWith) => {
@@ -5614,14 +5612,40 @@ try {
         </div>`;
     }
 
+    // Detect deficits (RDA mins not met OR limits exceeded)
+    const deficits = [];
+    Object.entries(refs).forEach(([k, r]) => {
+      const v = week[k] || 0;
+      const pct = (v / r.rda) * 100;
+      if (r.dir === 'min' && pct < 75) deficits.push({ key: k, label: r.label, pct, value: v, rda: r.rda, unit: r.unit });
+      if (r.dir === 'max' && pct > 100) deficits.push({ key: k, label: r.label, pct, value: v, rda: r.rda, unit: r.unit, exceed: true });
+    });
+
     return `
+      ${deficits.length > 0 ? `
+      <div class="card" style="margin-bottom:14px;background:rgba(239,68,68,0.05);border-left:4px solid #EF4444;">
+        <div class="card-title">⚠️ Alertas (${deficits.length})</div>
+        ${deficits.map(d => `
+          <div style="font-size:12px;color:var(--text);padding:6px 0;border-bottom:1px solid rgba(0,0,0,0.05);">
+            <strong>${d.label}</strong>: ${d.exceed ? 'excediendo' : 'bajo'} ${d.pct.toFixed(0)}% RDA (${d.value.toFixed(1)}${d.unit} de ${d.rda}${d.unit}).
+          </div>`).join('')}
+      </div>` : ''}
+
       <div class="card" style="margin-bottom:14px;">
-        <div class="card-title">🔬 Promedio últimos 7 días</div>
+        <div class="card-title">🔬 Macros y micros — promedio últimos 7 días</div>
         <div style="font-size:11px;color:var(--text-sec);margin-bottom:14px;">${week.days} días con datos. RDA = referencia diaria recomendada.</div>
+        <div style="font-size:10px;color:var(--text-sec);text-transform:uppercase;letter-spacing:0.5px;font-weight:700;margin:14px 0 8px;">Macros / WHO limits</div>
         ${microRow('fiber',   week.fiber,   week.days)}
         ${microRow('sodium',  week.sodium,  week.days)}
         ${microRow('sugar',   week.sugar,   week.days)}
         ${microRow('sat_fat', week.sat_fat, week.days)}
+        <div style="font-size:10px;color:var(--text-sec);text-transform:uppercase;letter-spacing:0.5px;font-weight:700;margin:18px 0 8px;">Micros / RDA mínimos</div>
+        ${microRow('iron',      week.iron,      week.days)}
+        ${microRow('calcium',   week.calcium,   week.days)}
+        ${microRow('b12',       week.b12,       week.days)}
+        ${microRow('vit_d',     week.vit_d,     week.days)}
+        ${microRow('potassium', week.potassium, week.days)}
+        ${microRow('magnesium', week.magnesium, week.days)}
       </div>
 
       ${month && month.days >= 7 ? `
@@ -5638,36 +5662,33 @@ try {
             </tr>
           </thead>
           <tbody>
-            ${['fiber','sodium','sugar','sat_fat'].map(k => {
+            ${MICRO_KEYS.map(k => {
               const r = refs[k];
               const w = week[k], mo = month[k];
               const diff = w - mo;
               const better = (r.dir === 'max' && diff < 0) || (r.dir === 'min' && diff > 0);
+              const fmt = (v) => v >= 100 ? v.toFixed(0) : v.toFixed(1);
               return `
                 <tr style="border-bottom:1px solid var(--border);">
                   <td style="padding:8px 4px;color:var(--text);">${r.label}</td>
-                  <td style="text-align:right;padding:8px 4px;color:var(--text);font-weight:600;">${w.toFixed(0)}<span style="opacity:0.6;">${r.unit}</span></td>
-                  <td style="text-align:right;padding:8px 4px;color:var(--text-sec);">${mo.toFixed(0)}<span style="opacity:0.6;">${r.unit}</span></td>
-                  <td style="text-align:right;padding:8px 4px;color:${better ? '#059669' : '#EF4444'};font-weight:600;">${diff > 0 ? '+' : ''}${diff.toFixed(0)}</td>
+                  <td style="text-align:right;padding:8px 4px;color:var(--text);font-weight:600;">${fmt(w)}<span style="opacity:0.6;">${r.unit}</span></td>
+                  <td style="text-align:right;padding:8px 4px;color:var(--text-sec);">${fmt(mo)}<span style="opacity:0.6;">${r.unit}</span></td>
+                  <td style="text-align:right;padding:8px 4px;color:${better ? '#059669' : '#EF4444'};font-weight:600;">${diff > 0 ? '+' : ''}${fmt(diff)}</td>
                 </tr>`;
             }).join('')}
           </tbody>
         </table>
       </div>` : ''}
 
-      <!-- Schema extension placeholder -->
       <div class="card" style="margin-bottom:14px;background:rgba(168,85,247,0.04);">
-        <div class="card-title">🚧 Próximamente · Micros extendidos</div>
-        <div style="font-size:12px;color:var(--text-sec);margin-bottom:8px;">Schema preparado para agregar a cada alimento:</div>
-        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:8px;font-size:11px;">
-          <div style="padding:6px 10px;background:var(--bg);border-radius:6px;">🩸 Hierro (mg)</div>
-          <div style="padding:6px 10px;background:var(--bg);border-radius:6px;">🦴 Calcio (mg)</div>
-          <div style="padding:6px 10px;background:var(--bg);border-radius:6px;">🧬 B12 (μg)</div>
-          <div style="padding:6px 10px;background:var(--bg);border-radius:6px;">☀️ Vit D (μg)</div>
-          <div style="padding:6px 10px;background:var(--bg);border-radius:6px;">🍌 Potasio (mg)</div>
-          <div style="padding:6px 10px;background:var(--bg);border-radius:6px;">🌰 Magnesio (mg)</div>
-        </div>
-        <div style="font-size:11px;color:var(--text-sec);margin-top:10px;font-style:italic;">Auto-fill desde web search por alimento (top 100 consumidos primero) — pendiente de batch.</div>
+        <div class="card-title">📚 Cobertura del DB</div>
+        <div style="font-size:12px;color:var(--text-sec);">${
+          (() => {
+            const total = FOOD_DATABASE.length;
+            const withMicros = FOOD_DATABASE.filter(f => f.per100g && f.per100g.iron != null).length;
+            return `${withMicros} / ${total} alimentos con micros completos (${(withMicros/total*100).toFixed(0)}%). Top consumidos cubiertos primero. Faltantes se sumarán incrementalmente.`;
+          })()
+        }</div>
       </div>`;
   }
 

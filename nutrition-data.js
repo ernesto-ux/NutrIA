@@ -52,7 +52,7 @@ const FOOD_DATABASE = [
     id: "pancakes-de-proteina-adri-v2",
     name: "Pancakes de Proteina Adri V2",
     brand: "Recetario",
-    per100g: { kcal: 156.3, prot: 18.3, carbs: 7.9, fat: 6.1, fiber: 0, sodium: 200, sugar: 5.0, sat_fat: 2.0 },
+    per100g: { kcal: 156.3, prot: 18.3, carbs: 7.9, fat: 6.1, fiber: 0, sodium: 200, sugar: 5.0, sat_fat: 2.0, iron: 1.0, calcium: 80, b12: 0.3, vit_d: 0.5, potassium: 200, magnesium: 30 },
     totalG: 350,
     source: "recetario",
     addedDate: "2026-04-07"
@@ -81,7 +81,7 @@ const FOOD_DATABASE = [
     id: "beef-green-beans-meat-bowl",
     name: "Beef & Green Beans (carne + ejotes + cebolla)",
     brand: "Recetario",
-    per100g: { kcal: 145.9, prot: 12.6, carbs: 5.0, fat: 8.5, fiber: 1.2, sodium: 350, sugar: 3.0, sat_fat: 4.0 },
+    per100g: { kcal: 145.9, prot: 12.6, carbs: 5.0, fat: 8.5, fiber: 1.2, sodium: 350, sugar: 3.0, sat_fat: 4.0, iron: 2.0, calcium: 30, b12: 1.0, vit_d: 0.2, potassium: 250, magnesium: 25 },
     totalG: 700,
     source: "recetario",
     addedDate: "2026-04-06"
@@ -100,7 +100,7 @@ const FOOD_DATABASE = [
     id: "frittata-light",
     name: "Frittata Light",
     brand: "Recetario",
-    per100g: { kcal: 136.6, prot: 11.9, carbs: 2.5, fat: 8.8, fiber: 0.3, sodium: 200, sugar: 0.5, sat_fat: 3.0 },
+    per100g: { kcal: 136.6, prot: 11.9, carbs: 2.5, fat: 8.8, fiber: 0.3, sodium: 200, sugar: 0.5, sat_fat: 3.0, iron: 1.6, calcium: 80, b12: 0.8, vit_d: 1.5, potassium: 200, magnesium: 14 },
     totalG: 350,
     source: "recetario",
     addedDate: "2026-04-01"
@@ -118,7 +118,7 @@ const FOOD_DATABASE = [
     id: "lentejas-carne-vegetales",
     name: "Lentejas con Carne y Vegetales",
     brand: "Recetario",
-    per100g: { kcal: 100.1, prot: 7.6, carbs: 12.1, fat: 2.6, fiber: 1.8, sodium: 280, sugar: 2.5, sat_fat: 2.0 },
+    per100g: { kcal: 100.1, prot: 7.6, carbs: 12.1, fat: 2.6, fiber: 1.8, sodium: 280, sugar: 2.5, sat_fat: 2.0, iron: 3.3, calcium: 35, b12: 0.5, vit_d: 0, potassium: 380, magnesium: 36 },
     totalG: 2500,
     source: "recetario",
     addedDate: "2026-04-01"
@@ -136,7 +136,7 @@ const FOOD_DATABASE = [
     id: "omelette-ligera-jamon",
     name: "Omelette Ligera con Jamon",
     brand: "Recetario",
-    per100g: { kcal: 114.7, prot: 13.3, carbs: 1.3, fat: 6.0, fiber: 0, sodium: 250, sugar: 0.5, sat_fat: 3.0 },
+    per100g: { kcal: 114.7, prot: 13.3, carbs: 1.3, fat: 6.0, fiber: 0, sodium: 250, sugar: 0.5, sat_fat: 3.0, iron: 1.5, calcium: 50, b12: 0.7, vit_d: 1.5, potassium: 180, magnesium: 12 },
     totalG: 109,
     source: "recetario",
     addedDate: "2026-04-01"
@@ -164,7 +164,7 @@ const FOOD_DATABASE = [
     id: "eafit-pure-isolate-vanille",
     name: "Pure Isolate Whey Vanille",
     brand: "EAFit",
-    per100g: { kcal: 366, prot: 86, carbs: 3.3, fat: 0.9, fiber: 0.9, sodium: 120, sugar: 1.2, sat_fat: 0.3 },
+    per100g: { kcal: 366, prot: 86, carbs: 3.3, fat: 0.9, fiber: 0.9, sodium: 120, sugar: 1.2, sat_fat: 0.3, iron: 0.8, calcium: 200, b12: 1.0, vit_d: 1.0, potassium: 200, magnesium: 30 },
     source: "web",
     addedDate: "2026-04-01"
   },
@@ -172,7 +172,7 @@ const FOOD_DATABASE = [
     id: "alpro-noisette-gourmande",
     name: "Boisson Noisette Gourmande",
     brand: "Alpro",
-    per100g: { kcal: 29, prot: 0.4, carbs: 3.2, fat: 1.6, fiber: 0.3, sodium: 70, sugar: 5.0, sat_fat: 0.3 },
+    per100g: { kcal: 29, prot: 0.4, carbs: 3.2, fat: 1.6, fiber: 0.3, sodium: 70, sugar: 5.0, sat_fat: 0.3, iron: 0.4, calcium: 120, b12: 0.38, vit_d: 0.75, potassium: 75, magnesium: 6 },
     source: "web",
     addedDate: "2026-04-01"
   },
@@ -180,7 +180,7 @@ const FOOD_DATABASE = [
     id: "wasa-leger",
     name: "Tartine Croustillante Leger (1 tranche = 9.6g)",
     brand: "Wasa",
-    per100g: { kcal: 338, prot: 9, carbs: 62, fat: 1.5, fiber: 22, sodium: 300, sugar: 3.0, sat_fat: 0.5 },
+    per100g: { kcal: 338, prot: 9, carbs: 62, fat: 1.5, fiber: 22, sodium: 300, sugar: 3.0, sat_fat: 0.5, iron: 1.5, calcium: 30, b12: 0, vit_d: 0, potassium: 240, magnesium: 50 },
     unitWeight: 9.6, unitLabel: "tranche",
     perUnit: { kcal: 32.4, prot: 0.9, carbs: 6.0, fat: 0.1, fiber: 2.1 },
     source: "web",
@@ -190,7 +190,7 @@ const FOOD_DATABASE = [
     id: "danone-cottage-cheese",
     name: "Cottage Cheese Nature",
     brand: "Danone",
-    per100g: { kcal: 90, prot: 12, carbs: 1.6, fat: 3.9, fiber: 0, sodium: 330, sugar: 3.5, sat_fat: 2.5 },
+    per100g: { kcal: 90, prot: 12, carbs: 1.6, fat: 3.9, fiber: 0, sodium: 330, sugar: 3.5, sat_fat: 2.5, iron: 0.07, calcium: 86, b12: 0.43, vit_d: 0.4, potassium: 104, magnesium: 6 },
     source: "web",
     addedDate: "2026-04-01"
   },
@@ -206,7 +206,7 @@ const FOOD_DATABASE = [
     id: "fleury-michon-tendre-poulet-roti",
     name: "Tendre Poulet Roti",
     brand: "Fleury Michon",
-    per100g: { kcal: 108, prot: 20, carbs: 0.5, fat: 2.9, fiber: 0, sodium: 720, sugar: 0.5, sat_fat: 0.5 },
+    per100g: { kcal: 108, prot: 20, carbs: 0.5, fat: 2.9, fiber: 0, sodium: 720, sugar: 0.5, sat_fat: 0.5, iron: 0.9, calcium: 11, b12: 0.3, vit_d: 0.1, potassium: 280, magnesium: 25 },
     source: "web",
     addedDate: "2026-04-01"
   },
@@ -214,7 +214,7 @@ const FOOD_DATABASE = [
     id: "siggis-skyr-nature",
     name: "Skyr Nature",
     brand: "Siggis",
-    per100g: { kcal: 63, prot: 11, carbs: 4.0, fat: 0.2, fiber: 0, sodium: 55, sugar: 4.0, sat_fat: 0.1 },
+    per100g: { kcal: 63, prot: 11, carbs: 4.0, fat: 0.2, fiber: 0, sodium: 55, sugar: 4.0, sat_fat: 0.1, iron: 0.05, calcium: 110, b12: 0.4, vit_d: 0, potassium: 150, magnesium: 12 },
     source: "web",
     addedDate: "2026-04-01"
   },
@@ -222,7 +222,7 @@ const FOOD_DATABASE = [
     id: "fresas-frescas",
     name: "Fresas Frescas",
     brand: "",
-    per100g: { kcal: 32, prot: 0.7, carbs: 7.7, fat: 0.3, fiber: 2.0, sodium: 1, sugar: 4.9, sat_fat: 0.0 },
+    per100g: { kcal: 32, prot: 0.7, carbs: 7.7, fat: 0.3, fiber: 2.0, sodium: 1, sugar: 4.9, sat_fat: 0.0, iron: 0.4, calcium: 16, b12: 0, vit_d: 0, potassium: 153, magnesium: 13 },
     source: "web",
     addedDate: "2026-04-01"
   },
@@ -230,7 +230,7 @@ const FOOD_DATABASE = [
     id: "melon-fresco",
     name: "Melon Fresco",
     brand: "",
-    per100g: { kcal: 34, prot: 0.8, carbs: 8.2, fat: 0.2, fiber: 0.9, sodium: 16, sugar: 7.4, sat_fat: 0.0 },
+    per100g: { kcal: 34, prot: 0.8, carbs: 8.2, fat: 0.2, fiber: 0.9, sodium: 16, sugar: 7.4, sat_fat: 0.0, iron: 0.21, calcium: 9, b12: 0, vit_d: 0, potassium: 267, magnesium: 12 },
     source: "web",
     addedDate: "2026-04-01"
   },
@@ -238,7 +238,7 @@ const FOOD_DATABASE = [
     id: "ricotta-casa-azzurra",
     name: "Ricotta Casa Azzurra",
     brand: "Casa Azzurra",
-    per100g: { kcal: 150, prot: 8, carbs: 1.2, fat: 12, fiber: 0, sodium: 80, sugar: 3.0, sat_fat: 8.0 },
+    per100g: { kcal: 150, prot: 8, carbs: 1.2, fat: 12, fiber: 0, sodium: 80, sugar: 3.0, sat_fat: 8.0, iron: 0.4, calcium: 207, b12: 0.34, vit_d: 0.1, potassium: 105, magnesium: 11 },
     source: "web",
     addedDate: "2026-04-02"
   },
@@ -246,7 +246,7 @@ const FOOD_DATABASE = [
     id: "aguacate-fresco",
     name: "Aguacate Fresco",
     brand: "",
-    per100g: { kcal: 160, prot: 2, carbs: 8.5, fat: 14.7, fiber: 6.7, sodium: 7, sugar: 0.7, sat_fat: 2.1 },
+    per100g: { kcal: 160, prot: 2, carbs: 8.5, fat: 14.7, fiber: 6.7, sodium: 7, sugar: 0.7, sat_fat: 2.1, iron: 0.55, calcium: 12, b12: 0, vit_d: 0, potassium: 485, magnesium: 29 },
     source: "web",
     addedDate: "2026-04-02"
   },
@@ -254,7 +254,7 @@ const FOOD_DATABASE = [
     id: "semillas-chia",
     name: "Semillas de Chia",
     brand: "",
-    per100g: { kcal: 486, prot: 17, carbs: 42, fat: 31, fiber: 34, sodium: 16, sugar: 0.0, sat_fat: 3.3 },
+    per100g: { kcal: 486, prot: 17, carbs: 42, fat: 31, fiber: 34, sodium: 16, sugar: 0.0, sat_fat: 3.3, iron: 7.7, calcium: 631, b12: 0, vit_d: 0, potassium: 407, magnesium: 335 },
     source: "web",
     addedDate: "2026-04-02"
   },
@@ -278,7 +278,7 @@ const FOOD_DATABASE = [
     id: "huevo-entero",
     name: "Huevo Entero",
     brand: "",
-    per100g: { kcal: 155, prot: 13, carbs: 1.1, fat: 11, fiber: 0, sodium: 70, sugar: 0.2, sat_fat: 3.3 },
+    per100g: { kcal: 155, prot: 13, carbs: 1.1, fat: 11, fiber: 0, sodium: 70, sugar: 0.2, sat_fat: 3.3, iron: 1.75, calcium: 56, b12: 0.89, vit_d: 2.0, potassium: 138, magnesium: 12 },
     unitWeight: 50,
     unitLabel: "huevo",
     source: "web",
@@ -288,7 +288,7 @@ const FOOD_DATABASE = [
     id: "clara-huevo",
     name: "Clara de Huevo",
     brand: "",
-    per100g: { kcal: 52, prot: 11, carbs: 0.7, fat: 0.2, fiber: 0, sodium: 166, sugar: 0.2, sat_fat: 0.0 },
+    per100g: { kcal: 52, prot: 11, carbs: 0.7, fat: 0.2, fiber: 0, sodium: 166, sugar: 0.2, sat_fat: 0.0, iron: 0.08, calcium: 7, b12: 0.09, vit_d: 0, potassium: 163, magnesium: 11 },
     unitWeight: 33,
     unitLabel: "clara",
     source: "web",
@@ -298,7 +298,7 @@ const FOOD_DATABASE = [
     id: "aceite-oliva",
     name: "Aceite de Oliva",
     brand: "",
-    per100g: { kcal: 884, prot: 0, carbs: 0, fat: 100, fiber: 0, sodium: 0, sugar: 0.0, sat_fat: 14.0 },
+    per100g: { kcal: 884, prot: 0, carbs: 0, fat: 100, fiber: 0, sodium: 0, sugar: 0.0, sat_fat: 14.0, iron: 0.0, calcium: 0, b12: 0, vit_d: 0, potassium: 0, magnesium: 0 },
     source: "web",
     addedDate: "2026-04-02"
   },
@@ -306,7 +306,7 @@ const FOOD_DATABASE = [
     id: "queso-maduro-espanol",
     name: "Queso Maduro Español",
     brand: "",
-    per100g: { kcal: 400, prot: 25, carbs: 0.5, fat: 33, fiber: 0, sodium: 620, sugar: 0.0, sat_fat: 18.0 },
+    per100g: { kcal: 400, prot: 25, carbs: 0.5, fat: 33, fiber: 0, sodium: 620, sugar: 0.0, sat_fat: 18.0, iron: 0.5, calcium: 700, b12: 1.5, vit_d: 0.5, potassium: 90, magnesium: 28 },
     source: "web",
     addedDate: "2026-04-02"
   },
@@ -346,7 +346,7 @@ const FOOD_DATABASE = [
     id: "hipro-banane",
     name: "HiPro Banane",
     brand: "Danone",
-    per100g: { kcal: 70, prot: 12.4, carbs: 4.0, fat: 0.4, fiber: 0, sodium: 60, sugar: 8.5, sat_fat: 0.5 },
+    per100g: { kcal: 70, prot: 12.4, carbs: 4.0, fat: 0.4, fiber: 0, sodium: 60, sugar: 8.5, sat_fat: 0.5, iron: 0.05, calcium: 110, b12: 0.5, vit_d: 0.7, potassium: 150, magnesium: 12 },
     unitWeight: 160, unitLabel: "pot",
     source: "web",
     addedDate: "2026-04-02"
@@ -355,7 +355,7 @@ const FOOD_DATABASE = [
     id: "hipro-vanille",
     name: "HiPro Vanille",
     brand: "Danone",
-    per100g: { kcal: 77, prot: 10.2, carbs: 5.9, fat: 0.8, fiber: 0, sodium: 60, sugar: 6.0, sat_fat: 0.5 },
+    per100g: { kcal: 77, prot: 10.2, carbs: 5.9, fat: 0.8, fiber: 0, sodium: 60, sugar: 6.0, sat_fat: 0.5, iron: 0.05, calcium: 110, b12: 0.5, vit_d: 0.7, potassium: 150, magnesium: 12 },
     unitWeight: 160, unitLabel: "pot",
     source: "web",
     addedDate: "2026-04-02"
@@ -364,7 +364,7 @@ const FOOD_DATABASE = [
     id: "hipro-coco",
     name: "HiPro Coco",
     brand: "Danone",
-    per100g: { kcal: 56, prot: 9.4, carbs: 3.7, fat: 0.4, fiber: 0, sodium: 60, sugar: 7.5, sat_fat: 1.0 },
+    per100g: { kcal: 56, prot: 9.4, carbs: 3.7, fat: 0.4, fiber: 0, sodium: 60, sugar: 7.5, sat_fat: 1.0, iron: 0.05, calcium: 110, b12: 0.5, vit_d: 0.7, potassium: 150, magnesium: 12 },
     unitWeight: 160, unitLabel: "pot",
     source: "web",
     addedDate: "2026-04-02"
@@ -382,7 +382,7 @@ const FOOD_DATABASE = [
     id: "jeff-de-bruges-oeuf-paques",
     name: "Petit Oeuf de Pâques Fourré",
     brand: "Jeff de Bruges",
-    per100g: { kcal: 538, prot: 6.7, carbs: 52, fat: 33, fiber: 0, sodium: 35, sugar: 52.0, sat_fat: 18.0 },
+    per100g: { kcal: 538, prot: 6.7, carbs: 52, fat: 33, fiber: 0, sodium: 35, sugar: 52.0, sat_fat: 18.0, iron: 2.5, calcium: 50, b12: 0.05, vit_d: 0, potassium: 200, magnesium: 60 },
     unitWeight: 13, unitLabel: "huevo",
     source: "web",
     addedDate: "2026-04-03"
@@ -421,7 +421,7 @@ const FOOD_DATABASE = [
     id: "pollo-pechuga-horneada",
     name: "Pechuga de Pollo Horneada",
     brand: "",
-    per100g: { kcal: 165, prot: 31, carbs: 0, fat: 3.6, fiber: 0, sodium: 75, sugar: 0.0, sat_fat: 1.0 },
+    per100g: { kcal: 165, prot: 31, carbs: 0, fat: 3.6, fiber: 0, sodium: 75, sugar: 0.0, sat_fat: 1.0, iron: 0.7, calcium: 11, b12: 0.3, vit_d: 0.1, potassium: 256, magnesium: 26 },
     source: "web",
     addedDate: "2026-04-03"
   },
@@ -429,7 +429,7 @@ const FOOD_DATABASE = [
     id: "tomate-cherry",
     name: "Tomate Cherry",
     brand: "",
-    per100g: { kcal: 18, prot: 0.9, carbs: 3.9, fat: 0.2, fiber: 1.2, sodium: 5, sugar: 2.6, sat_fat: 0.0 },
+    per100g: { kcal: 18, prot: 0.9, carbs: 3.9, fat: 0.2, fiber: 1.2, sodium: 5, sugar: 2.6, sat_fat: 0.0, iron: 0.27, calcium: 10, b12: 0, vit_d: 0, potassium: 237, magnesium: 11 },
     source: "web",
     addedDate: "2026-04-03"
   },
@@ -453,7 +453,7 @@ const FOOD_DATABASE = [
     id: "galleta-oreo-sin-crema",
     name: "Galleta Oreo (solo wafer, sin crema)",
     brand: "Oreo",
-    per100g: { kcal: 471, prot: 2.9, carbs: 73.5, fat: 20.6, fiber: 3.0, sodium: 450, sugar: 30.0, sat_fat: 2.0 },
+    per100g: { kcal: 471, prot: 2.9, carbs: 73.5, fat: 20.6, fiber: 3.0, sodium: 450, sugar: 30.0, sat_fat: 2.0, iron: 4.0, calcium: 30, b12: 0, vit_d: 0, potassium: 200, magnesium: 50 },
     unitWeight: 7.5, unitLabel: "galleta",
     source: "web",
     addedDate: "2026-04-03"
@@ -463,7 +463,7 @@ const FOOD_DATABASE = [
     id: "oreo-protein-shake",
     name: "Oreo Protein Shake",
     brand: "Recetario",
-    per100g: { kcal: 92.6, prot: 5.9, carbs: 10.6, fat: 3.2, fiber: 0.5, sodium: 120, sugar: 8.0, sat_fat: 3.0 },
+    per100g: { kcal: 92.6, prot: 5.9, carbs: 10.6, fat: 3.2, fiber: 0.5, sodium: 120, sugar: 8.0, sat_fat: 3.0, iron: 0.4, calcium: 120, b12: 0.4, vit_d: 0.5, potassium: 180, magnesium: 20 },
     totalG: 400,
     source: "recetario",
     addedDate: "2026-04-03",
@@ -502,7 +502,7 @@ const FOOD_DATABASE = [
     id: "pizza-regine-pizzou",
     name: "Pizza Régine Pizzou (masa fina, jamon, hongos, mozza ligera)",
     brand: "Pizzou",
-    per100g: { kcal: 155, prot: 10.4, carbs: 19.2, fat: 4.6, fiber: 1.5, sodium: 480, sugar: 3.0, sat_fat: 4.0 },
+    per100g: { kcal: 155, prot: 10.4, carbs: 19.2, fat: 4.6, fiber: 1.5, sodium: 480, sugar: 3.0, sat_fat: 4.0, iron: 1.5, calcium: 200, b12: 0.4, vit_d: 0.2, potassium: 200, magnesium: 20 },
     source: "estimado",
     addedDate: "2026-04-06"
   },
@@ -510,7 +510,7 @@ const FOOD_DATABASE = [
     id: "salmorejo-alvalle",
     name: "Salmorejo",
     brand: "Alvalle",
-    per100g: { kcal: 54, prot: 1.2, carbs: 5.8, fat: 3.0, fiber: 0.5, sodium: 450, sugar: 3.0, sat_fat: 1.0 },
+    per100g: { kcal: 54, prot: 1.2, carbs: 5.8, fat: 3.0, fiber: 0.5, sodium: 450, sugar: 3.0, sat_fat: 1.0, iron: 0.5, calcium: 15, b12: 0, vit_d: 0, potassium: 250, magnesium: 18 },
     source: "web",
     addedDate: "2026-04-06"
   },
@@ -519,7 +519,7 @@ const FOOD_DATABASE = [
     id: "coca-cola-zero",
     name: "Coca-Cola Zero",
     brand: "Coca-Cola",
-    per100g: { kcal: 0.4, prot: 0, carbs: 0, fat: 0, fiber: 0, sodium: 12, sugar: 0.0, sat_fat: 0.0 },
+    per100g: { kcal: 0.4, prot: 0, carbs: 0, fat: 0, fiber: 0, sodium: 12, sugar: 0.0, sat_fat: 0.0, iron: 0.0, calcium: 0, b12: 0, vit_d: 0, potassium: 4, magnesium: 0 },
     source: "web",
     addedDate: "2026-04-05"
   },
@@ -638,7 +638,7 @@ const FOOD_DATABASE = [
     id: "tortillarepupusa-ricotta",
     name: "Tortillarepupusa con Ricotta",
     brand: "Recetario",
-    per100g: { kcal: 307.8, prot: 12.1, carbs: 39.6, fat: 10.6, fiber: 0.3, sodium: 280, sugar: 1.5, sat_fat: 4.0 },
+    per100g: { kcal: 307.8, prot: 12.1, carbs: 39.6, fat: 10.6, fiber: 0.3, sodium: 280, sugar: 1.5, sat_fat: 4.0, iron: 0.8, calcium: 110, b12: 0.4, vit_d: 0.3, potassium: 180, magnesium: 25 },
     totalG: 197.5,
     source: "recetario",
     addedDate: "2026-04-06",
@@ -658,7 +658,7 @@ const FOOD_DATABASE = [
     id: "pescado-salsa-limon-alcaparras",
     name: "Pescado a la Salsa de Limon y Alcaparras",
     brand: "Recetario",
-    per100g: { kcal: 102.8, prot: 15.1, carbs: 1.2, fat: 3.8, fiber: 0.2, sodium: 350, sugar: 1.0, sat_fat: 1.5 },
+    per100g: { kcal: 102.8, prot: 15.1, carbs: 1.2, fat: 3.8, fiber: 0.2, sodium: 350, sugar: 1.0, sat_fat: 1.5, iron: 0.5, calcium: 25, b12: 2.5, vit_d: 8, potassium: 350, magnesium: 30 },
     totalG: 650,
     source: "recetario",
     addedDate: "2026-04-06",
@@ -668,7 +668,7 @@ const FOOD_DATABASE = [
     id: "cafe-negro",
     name: "Café Negro (sin azucar)",
     brand: "",
-    per100g: { kcal: 2, prot: 0.1, carbs: 0, fat: 0, fiber: 0, sodium: 2, sugar: 0.0, sat_fat: 0.0 },
+    per100g: { kcal: 2, prot: 0.1, carbs: 0, fat: 0, fiber: 0, sodium: 2, sugar: 0.0, sat_fat: 0.0, iron: 0.01, calcium: 2, b12: 0, vit_d: 0, potassium: 49, magnesium: 7 },
     unitWeight: 240, unitLabel: "taza",
     source: "web",
     addedDate: "2026-04-07"
@@ -695,7 +695,7 @@ const FOOD_DATABASE = [
     id: "rigatoni-cocida",
     name: "Rigatoni Cocida",
     brand: "",
-    per100g: { kcal: 157, prot: 5.5, carbs: 31, fat: 0.9, fiber: 1.8, sodium: 1, sugar: 0.5, sat_fat: 0.1 },
+    per100g: { kcal: 157, prot: 5.5, carbs: 31, fat: 0.9, fiber: 1.8, sodium: 1, sugar: 0.5, sat_fat: 0.1, iron: 0.5, calcium: 7, b12: 0, vit_d: 0, potassium: 24, magnesium: 18 },
     source: "web",
     addedDate: "2026-04-07"
   },
@@ -703,7 +703,7 @@ const FOOD_DATABASE = [
     id: "beaufort-rape",
     name: "Beaufort Rapé",
     brand: "",
-    per100g: { kcal: 405, prot: 27, carbs: 0, fat: 33, fiber: 0, sodium: 450, sugar: 0.0, sat_fat: 16.0 },
+    per100g: { kcal: 405, prot: 27, carbs: 0, fat: 33, fiber: 0, sodium: 450, sugar: 0.0, sat_fat: 16.0, iron: 0.2, calcium: 1010, b12: 1.6, vit_d: 0.6, potassium: 100, magnesium: 30 },
     source: "web",
     addedDate: "2026-04-07"
   },
@@ -711,7 +711,7 @@ const FOOD_DATABASE = [
     id: "pimiento-rojo-crudo",
     name: "Pimiento Rojo Crudo",
     brand: "",
-    per100g: { kcal: 31, prot: 1, carbs: 6, fat: 0.3, fiber: 2.1, sodium: 3, sugar: 4.2, sat_fat: 0.0 },
+    per100g: { kcal: 31, prot: 1, carbs: 6, fat: 0.3, fiber: 2.1, sodium: 3, sugar: 4.2, sat_fat: 0.0, iron: 0.43, calcium: 7, b12: 0, vit_d: 0, potassium: 211, magnesium: 12 },
     source: "web",
     addedDate: "2026-04-07"
   },
@@ -719,7 +719,7 @@ const FOOD_DATABASE = [
     id: "jamon-fm-25-moins-sel",
     name: "Jambon Le Supérieur -25% Sel",
     brand: "Fleury Michon",
-    per100g: { kcal: 115, prot: 20, carbs: 1, fat: 3.5, fiber: 0, sodium: 820, sugar: 0.5, sat_fat: 2.0 },
+    per100g: { kcal: 115, prot: 20, carbs: 1, fat: 3.5, fiber: 0, sodium: 820, sugar: 0.5, sat_fat: 2.0, iron: 0.9, calcium: 7, b12: 0.7, vit_d: 0, potassium: 280, magnesium: 14 },
     source: "web",
     addedDate: "2026-04-07",
     notes: "Macros identiques au jambon classique FM, seul le sel est réduit de 25%"
@@ -728,7 +728,7 @@ const FOOD_DATABASE = [
     id: "banana-fresca",
     name: "Banana (Plátano) Fresca",
     brand: "",
-    per100g: { kcal: 89, prot: 1.1, carbs: 22.8, fat: 0.3, fiber: 2.6, sodium: 1, sugar: 12.2, sat_fat: 0.1 },
+    per100g: { kcal: 89, prot: 1.1, carbs: 22.8, fat: 0.3, fiber: 2.6, sodium: 1, sugar: 12.2, sat_fat: 0.1, iron: 0.26, calcium: 5, b12: 0, vit_d: 0, potassium: 358, magnesium: 27 },
     unitWeight: 120, unitLabel: "banana",
     source: "web",
     addedDate: "2026-04-07"
@@ -964,7 +964,7 @@ const FOOD_DATABASE = [
     id: "eafit-pure-isolate-chocolat",
     name: "Pure Isolate Whey Chocolat",
     brand: "EAFit",
-    per100g: { kcal: 354, prot: 81, carbs: 3.7, fat: 1.6, fiber: 3.3, sodium: 130, sugar: 2.0, sat_fat: 0.4 },
+    per100g: { kcal: 354, prot: 81, carbs: 3.7, fat: 1.6, fiber: 3.3, sodium: 130, sugar: 2.0, sat_fat: 0.4, iron: 0.8, calcium: 200, b12: 1.0, vit_d: 1.0, potassium: 200, magnesium: 30 },
     source: "web",
     addedDate: "2026-04-11"
   },
@@ -1138,7 +1138,7 @@ const FOOD_DATABASE = [
     id: "kefir-lactel-0-bio",
     name: "Kéfir 0% Bio",
     brand: "Lactel",
-    per100g: { kcal: 44, prot: 3.4, carbs: 4.1, fat: 1.5, fiber: 0, sodium: 55, sugar: 4.5, sat_fat: 0.1 },
+    per100g: { kcal: 44, prot: 3.4, carbs: 4.1, fat: 1.5, fiber: 0, sodium: 55, sugar: 4.5, sat_fat: 0.1, iron: 0.05, calcium: 130, b12: 0.5, vit_d: 0, potassium: 165, magnesium: 12 },
     source: "web",
     addedDate: "2026-04-13"
   },
@@ -1874,7 +1874,7 @@ const FOOD_DATABASE = [
     id: "van-stapele-cookie",
     name: "Cookie Chocolate Negro con Núcleo Chocolate Blanco",
     brand: "Van Stapele Koekmakerij",
-    per100g: { kcal: 406, prot: 5, carbs: 50, fat: 20, fiber: 2, sodium: 150, sugar: 45.0, sat_fat: 11.0 },
+    per100g: { kcal: 406, prot: 5, carbs: 50, fat: 20, fiber: 2, sodium: 150, sugar: 45.0, sat_fat: 11.0, iron: 3.0, calcium: 100, b12: 0.1, vit_d: 0.2, potassium: 280, magnesium: 90 },
     unitWeight: 80, unitLabel: "cookie",
     source: "user",
     addedDate: "2026-04-27",
@@ -1933,7 +1933,7 @@ const FOOD_DATABASE = [
     id: "frambuesas-fresas",
     name: "Frambuesas Frescas",
     brand: "",
-    per100g: { kcal: 52, prot: 1.2, carbs: 11.9, fat: 0.7, fiber: 6.5, sodium: 1, sugar: 5.5, sat_fat: 0.0 },
+    per100g: { kcal: 52, prot: 1.2, carbs: 11.9, fat: 0.7, fiber: 6.5, sodium: 1, sugar: 5.5, sat_fat: 0.0, iron: 0.69, calcium: 25, b12: 0, vit_d: 0, potassium: 151, magnesium: 22 },
     source: "web",
     addedDate: "2026-04-27"
   },
@@ -2032,7 +2032,7 @@ const FOOD_DATABASE = [
     id: "tastybasics-cracker-protein",
     name: "Crackers Less Carbs More Protein",
     brand: "TastyBasics",
-    per100g: { kcal: 498, prot: 36, carbs: 15, fat: 30, fiber: 15, sodium: 290, sugar: 1.0, sat_fat: 1.0 },
+    per100g: { kcal: 498, prot: 36, carbs: 15, fat: 30, fiber: 15, sodium: 290, sugar: 1.0, sat_fat: 1.0, iron: 1.5, calcium: 50, b12: 0, vit_d: 0, potassium: 250, magnesium: 80 },
     source: "web",
     addedDate: "2026-04-27"
   },
@@ -2125,7 +2125,7 @@ const FOOD_DATABASE = [
     id: "froyo-llao-llao-homemade-ninja",
     name: "Froyo Llao Llao Homemade (Ninja Creami)",
     brand: "Homemade",
-    per100g: { kcal: 70.5, prot: 13.5, carbs: 4.0, fat: 0.2, fiber: 0, sodium: 55, sugar: 3.5, sat_fat: 0.1 },
+    per100g: { kcal: 70.5, prot: 13.5, carbs: 4.0, fat: 0.2, fiber: 0, sodium: 55, sugar: 3.5, sat_fat: 0.1, iron: 0.05, calcium: 130, b12: 0.5, vit_d: 0, potassium: 200, magnesium: 12 },
     source: "recipe",
     addedDate: "2026-05-01",
     recipe: [
@@ -2187,7 +2187,7 @@ const FOOD_DATABASE = [
     id: "jamon-iberico-bellota",
     name: "Jamón Ibérico de Bellota",
     brand: "",
-    per100g: { kcal: 375, prot: 43, carbs: 0.5, fat: 22, fiber: 0, sodium: 1100, sugar: 0.0, sat_fat: 7.5 },
+    per100g: { kcal: 375, prot: 43, carbs: 0.5, fat: 22, fiber: 0, sodium: 1100, sugar: 0.0, sat_fat: 7.5, iron: 1.5, calcium: 9, b12: 1.0, vit_d: 0.5, potassium: 380, magnesium: 28 },
     source: "web",
     addedDate: "2026-05-02"
   },
@@ -2195,7 +2195,7 @@ const FOOD_DATABASE = [
     id: "feta-islos",
     name: "Feta Brebis AOP Islos",
     brand: "Islos",
-    per100g: { kcal: 264, prot: 14, carbs: 4, fat: 21, fiber: 0, sodium: 1100, sugar: 4.0, sat_fat: 14.0 },
+    per100g: { kcal: 264, prot: 14, carbs: 4, fat: 21, fiber: 0, sodium: 1100, sugar: 4.0, sat_fat: 14.0, iron: 0.6, calcium: 740, b12: 1.7, vit_d: 0.4, potassium: 60, magnesium: 15 },
     source: "web",
     addedDate: "2026-05-02"
   },
@@ -2203,7 +2203,7 @@ const FOOD_DATABASE = [
     id: "te-rooibos",
     name: "Té Rooibos sin azúcar",
     brand: "",
-    per100g: { kcal: 0, prot: 0, carbs: 0, fat: 0, fiber: 0, sodium: 0, sugar: 0.0, sat_fat: 0.0 },
+    per100g: { kcal: 0, prot: 0, carbs: 0, fat: 0, fiber: 0, sodium: 0, sugar: 0.0, sat_fat: 0.0, iron: 0, calcium: 0, b12: 0, vit_d: 0, potassium: 0, magnesium: 0 },
     unitWeight: 200, unitLabel: "taza",
     source: "web",
     addedDate: "2026-05-02"
@@ -2212,7 +2212,7 @@ const FOOD_DATABASE = [
     id: "sopa-pollo-casera-sin-grasa",
     name: "Sopa de Pollo Casera (sin grasa, brócoli, zanahoria)",
     brand: "",
-    per100g: { kcal: 25, prot: 3, carbs: 2, fat: 0.3, fiber: 1, sodium: 320, sugar: 1.0, sat_fat: 0.1 },
+    per100g: { kcal: 25, prot: 3, carbs: 2, fat: 0.3, fiber: 1, sodium: 320, sugar: 1.0, sat_fat: 0.1, iron: 0.4, calcium: 12, b12: 0.2, vit_d: 0.1, potassium: 180, magnesium: 15 },
     source: "estimate",
     addedDate: "2026-05-02",
     notes: "Caldo de pollo desgrasado + pollo hervido deshebrado + brócoli + zanahoria. Sin fideos, sin aceite añadido."
@@ -2221,7 +2221,7 @@ const FOOD_DATABASE = [
     id: "pollo-carne-sin-piel",
     name: "Pollo (carne sin piel, hervido/horneado)",
     brand: "",
-    per100g: { kcal: 175, prot: 28, carbs: 0, fat: 7, fiber: 0, sodium: 80, sugar: 0.0, sat_fat: 2.0 },
+    per100g: { kcal: 175, prot: 28, carbs: 0, fat: 7, fiber: 0, sodium: 80, sugar: 0.0, sat_fat: 2.0, iron: 0.9, calcium: 11, b12: 0.3, vit_d: 0.1, potassium: 240, magnesium: 25 },
     source: "web",
     addedDate: "2026-05-02",
     notes: "Pollo cocido sin piel (mix muslo + pechuga). Hervido y luego horneado, sin grasa añadida."
@@ -2230,7 +2230,7 @@ const FOOD_DATABASE = [
     id: "uva-verde-sin-semilla",
     name: "Uva Verde sin Semilla",
     brand: "",
-    per100g: { kcal: 67, prot: 0.7, carbs: 17, fat: 0.2, fiber: 0.9, sodium: 2, sugar: 16.0, sat_fat: 0.0 },
+    per100g: { kcal: 67, prot: 0.7, carbs: 17, fat: 0.2, fiber: 0.9, sodium: 2, sugar: 16.0, sat_fat: 0.0, iron: 0.36, calcium: 10, b12: 0, vit_d: 0, potassium: 191, magnesium: 7 },
     source: "web",
     addedDate: "2026-05-02"
   }

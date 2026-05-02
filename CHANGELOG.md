@@ -1,5 +1,30 @@
 # Changelog - NutrIA
 
+## [Opción K · Micros completos] - 02 mayo 2026
+### Agregado
+- **Schema FOOD_DATABASE extendido** con 6 micros nuevos por alimento:
+  - 🩸 Iron (mg) · 🦴 Calcium (mg) · 🧬 B12 (μg) · ☀️ Vit D (μg) · 🍌 Potassium (mg) · 🌰 Magnesium (mg)
+- **51 alimentos top consumidos** rellenados con valores USDA/equivalentes:
+  - Lácteos (ricotta, cottage, skyr, hipro, kefir, beaufort, queso maduro, feta, alpro)
+  - Proteínas (pollo pechuga/carne, huevo, clara, jamón ibérico, salmón, lentejas)
+  - Snacks/Carbs (cookies, oreo, eafit, wasa, tastybasics)
+  - Frutas (fresas, frambuesas, banana, melón, uva, aguacate, tomate cherry, pimiento)
+  - Bebidas (café negro, coca cola zero, té rooibos)
+- **Panel Micros extendido** en Nutricion → 🔬 Micros tab:
+  - Sección Macros/WHO limits (fibra/sodio/azúcar/SF) — ya existía
+  - Nueva sección Micros/RDA mínimos (los 6 nuevos) con adequacy bars
+  - Card de alertas al tope si hay déficits ≥25% bajo RDA o excesos
+  - Cobertura del DB visible: "X/247 alimentos con micros completos (Y%)"
+  - Comparativa semana vs mes ahora incluye los 10 micros
+
+### Referencias RDA
+- Iron: 8mg (hombre), 18mg (mujer)
+- Calcium: 1000mg
+- B12: 2.4μg (crítico vegetarianos)
+- Vit D: 15μg (600 IU)
+- Potassium: 3500mg
+- Magnesium: 400mg
+
 ## [Fixes pos-feedback] - 02 mayo 2026
 ### Cambiado
 - **Auto-lock idle**: default 30 min → **24h** (1440 min). Lock manual sigue disponible
