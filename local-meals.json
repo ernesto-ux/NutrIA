@@ -2838,6 +2838,15 @@
           "prot": 1.6,
           "carbs": 0.2,
           "fat": 2.4
+        },
+        {
+          "foodId": "froyo-llao-llao-homemade-ninja",
+          "name": "Froyo Llao Llao Homemade (Ninja Creami)",
+          "grams": 250,
+          "kcal": 176.2,
+          "prot": 33.8,
+          "carbs": 10.0,
+          "fat": 0.5
         }
       ]
     },
