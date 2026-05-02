@@ -1,5 +1,19 @@
 # Changelog - NutrIA
 
+## [Fase D + E avanzadas] - 02 mayo 2026
+### Agregado — Fase D · UX innovación
+- **📖 Body composition storyteller** (4.5.3) en Salud: narrativa visual generada sobre WEIGHT_LOG
+  - "En X días bajaste Y kg de los cuales Z fueron grasa (W%)"
+  - Detección de patrones: ratio fat-loss vs lean-loss, recomposición vs catabolismo
+  - Cards comparativas grasa kg / magra kg / peso total con delta colored
+  - Estimación de deficit acumulado en kcal
+- **🎤 Voice logging** en Quick add (Web Speech API es-ES): botón micro junto al input, normaliza "doscientos gramos pollo" → "200g pollo". Status visual durante grabación
+
+### Agregado — Fase E · Multi-user mejoras
+- **Auto-lock por inactividad**: configurable 5-240 min (default 30), basado en eventos click/keydown/mousemove/touch. Bumpea timer en cada actividad
+- **Export/Import de datos por usuario**: backup JSON con meta, targets, budget, notas y pending foods. No incluye comidas (esas están en GitHub local-meals.json). Para sincronizar dispositivos o backup pre-cambio
+- **Idle lock min configurable** desde Tools → Seguridad
+
 ## [Fase E + D + E + G] - 02 mayo 2026
 ### Agregado — Fase E · Multi-user lite (PIN gate)
 - **PIN gate de 4 dígitos**: opt-in (no bloquea hasta activar). SHA-256 hash via SubtleCrypto en localStorage. Sesión 24h. Pantalla de login con gradient teal→purple

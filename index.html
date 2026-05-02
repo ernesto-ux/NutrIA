@@ -1031,7 +1031,10 @@
       <button onclick="closeQuickAdd()" style="background:none;border:none;font-size:18px;cursor:pointer;color:var(--text-sec);">×</button>
     </div>
     <div style="font-size:11px;color:var(--text-sec);margin-bottom:8px;">Escribe alimento + gramos. Ej: <code>200g pollo</code> · <code>1 huevo</code> · <code>50g eafit vainilla</code></div>
-    <input id="quick-add-input" type="text" placeholder="200g pollo horneado" oninput="onQuickAddInput()" onkeydown="if(event.key==='Enter')quickAddCommit();if(event.key==='Escape')closeQuickAdd()" style="width:100%;padding:10px 12px;border:2px solid var(--border);border-radius:10px;font-size:14px;font-family:inherit;color:var(--text);background:var(--bg);outline:none;">
+    <div style="display:flex;gap:6px;">
+      <input id="quick-add-input" type="text" placeholder="200g pollo horneado" oninput="onQuickAddInput()" onkeydown="if(event.key==='Enter')quickAddCommit();if(event.key==='Escape')closeQuickAdd()" style="flex:1;padding:10px 12px;border:2px solid var(--border);border-radius:10px;font-size:14px;font-family:inherit;color:var(--text);background:var(--bg);outline:none;">
+      <button id="quick-voice-btn" onclick="startVoiceInput()" title="Dictar (Web Speech API)" style="padding:10px 14px;background:#A855F7;color:#fff;border:none;border-radius:10px;font-size:18px;cursor:pointer;font-family:inherit;">🎤</button>
+    </div>
     <div id="quick-add-suggestions" style="margin-top:8px;max-height:200px;overflow-y:auto;"></div>
     <div style="display:flex;gap:8px;margin-top:12px;">
       <select id="quick-add-meal" style="flex:1;padding:10px;border:1px solid var(--border);border-radius:8px;font-size:13px;font-family:inherit;color:var(--text);background:var(--bg);">
@@ -1158,6 +1161,91 @@
     location.reload();
   };
 
+  // Auto-lock after idle: bumps session ts on activity, locks if 30min idle
+  let _lastActivity = Date.now();
+  let _idleCheckInterval = null;
+  function startIdleWatcher() {
+    if (_idleCheckInterval) return;
+    ['click','keydown','mousemove','touchstart'].forEach(ev =>
+      document.addEventListener(ev, () => { _lastActivity = Date.now(); }, { passive: true }));
+    _idleCheckInterval = setInterval(() => {
+      if (!lockEnabled() || !isSessionValid()) return;
+      const idleMs = Date.now() - _lastActivity;
+      const idleMinutes = parseInt(localStorage.getItem('nutria_idle_lock_min') || '30', 10);
+      if (idleMs > idleMinutes * 60 * 1000) {
+        clearInterval(_idleCheckInterval);
+        _idleCheckInterval = null;
+        localStorage.removeItem(SESSION_KEY);
+        alert('🔒 Lock por inactividad (' + idleMinutes + ' min)');
+        location.reload();
+      }
+    }, 30 * 1000);
+  }
+
+  window.exportUserData = function() {
+    const user = localStorage.getItem('nutria_current_user') || 'ernesto';
+    const data = {
+      schemaVersion: 1,
+      exportedAt: new Date().toISOString(),
+      user: user,
+      meta: JSON.parse(localStorage.getItem('nutria_meta_' + user) || 'null'),
+      targets: JSON.parse(localStorage.getItem('nutria_targets_' + user) || 'null'),
+      budget: localStorage.getItem('nutria_budget_' + user),
+      notes: {},
+      pendingFoods: JSON.parse(localStorage.getItem('nutria_pending_' + user) || '[]')
+    };
+    // Collect all day notes for this user
+    Object.keys(localStorage).forEach(k => {
+      const m = k.match(new RegExp('^nutria_note_' + user + '_(\\d{4}-\\d{2}-\\d{2})$'));
+      if (m) data.notes[m[1]] = localStorage.getItem(k);
+    });
+    const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+    const link = document.createElement('a');
+    link.download = 'nutria-' + user + '-' + new Date().toISOString().slice(0,10) + '.json';
+    link.href = URL.createObjectURL(blob);
+    link.click();
+  };
+
+  window.importUserData = function() {
+    const input = document.createElement('input');
+    input.type = 'file';
+    input.accept = '.json';
+    input.onchange = async (e) => {
+      const file = e.target.files[0];
+      if (!file) return;
+      try {
+        const text = await file.text();
+        const data = JSON.parse(text);
+        if (!data.user || !data.schemaVersion) throw new Error('JSON inválido');
+        if (!confirm('Importar datos para usuario "' + data.user + '"? Sobreescribirá meta/targets/budget/notes locales.')) return;
+        if (data.meta) localStorage.setItem('nutria_meta_' + data.user, JSON.stringify(data.meta));
+        if (data.targets) localStorage.setItem('nutria_targets_' + data.user, JSON.stringify(data.targets));
+        if (data.budget) localStorage.setItem('nutria_budget_' + data.user, data.budget);
+        Object.entries(data.notes || {}).forEach(([date, note]) => {
+          localStorage.setItem('nutria_note_' + data.user + '_' + date, note);
+        });
+        if (Array.isArray(data.pendingFoods)) {
+          localStorage.setItem('nutria_pending_' + data.user, JSON.stringify(data.pendingFoods));
+        }
+        alert('✓ Datos importados para ' + data.user);
+        location.reload();
+      } catch(err) {
+        alert('Error: ' + err.message);
+      }
+    };
+    input.click();
+  };
+
+  window.setIdleLockMin = function() {
+    const cur = localStorage.getItem('nutria_idle_lock_min') || '30';
+    const next = prompt('Auto-lock por inactividad (minutos, 5-240):', cur);
+    if (next === null) return;
+    const n = parseInt(next, 10);
+    if (!Number.isFinite(n) || n < 5 || n > 240) { alert('Valor inválido (5-240)'); return; }
+    localStorage.setItem('nutria_idle_lock_min', String(n));
+    alert('Auto-lock: ' + n + ' min');
+  };
+
   window.resetPin = async function(user) {
     if (!confirm('¿Resetear PIN de ' + user + '? Perderás acceso hasta configurar uno nuevo.')) return;
     localStorage.removeItem('nutria_pin_' + user);
@@ -1222,9 +1310,10 @@
 
   // Run on DOM ready
   if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', bootCheck);
+    document.addEventListener('DOMContentLoaded', () => { bootCheck(); if (lockEnabled()) startIdleWatcher(); });
   } else {
     bootCheck();
+    if (lockEnabled()) startIdleWatcher();
   }
 
   window.__nutriaAuth = { isSessionValid, hasAnyPin, lockApp };
@@ -4876,6 +4965,23 @@ try {
             <button onclick="window.lockApp()" style="padding:8px 14px;background:#6366F1;color:#fff;border:none;border-radius:8px;font-size:12px;font-weight:600;cursor:pointer;font-family:inherit;">🔐 Cerrar sesión ahora</button>
             <button onclick="disableLock()" style="padding:8px 14px;background:#fff;color:#EF4444;border:1px solid #EF4444;border-radius:8px;font-size:12px;font-weight:600;cursor:pointer;font-family:inherit;">Desactivar</button>`}
         </div>
+        ${lockEnabled ? `
+        <div style="margin-top:10px;padding-top:10px;border-top:1px solid var(--border);display:flex;justify-content:space-between;align-items:center;font-size:11px;">
+          <span style="color:var(--text-sec);">Auto-lock por inactividad: <strong>${localStorage.getItem('nutria_idle_lock_min') || '30'} min</strong></span>
+          <button onclick="setIdleLockMin()" style="padding:4px 10px;background:transparent;color:var(--teal);border:1px solid var(--teal);border-radius:6px;font-size:11px;font-weight:600;cursor:pointer;font-family:inherit;">Cambiar</button>
+        </div>` : ''}
+      </div>
+
+      <!-- DATA EXPORT/IMPORT -->
+      <div class="card" style="margin-bottom:16px;">
+        <div class="card-title">📦 Datos personales — backup y restore</div>
+        <div style="font-size:12px;color:var(--text-sec);margin-bottom:10px;">
+          Exporta o importa configuración de usuario (meta, targets, budget, notas, pending foods). Util para sincronizar entre dispositivos o hacer backup antes de cambios. Las comidas no se incluyen — están en local-meals.json (GitHub).
+        </div>
+        <div style="display:flex;gap:8px;flex-wrap:wrap;">
+          <button onclick="exportUserData()" style="flex:1;padding:8px 14px;background:var(--teal);color:#fff;border:none;border-radius:8px;font-size:12px;font-weight:600;cursor:pointer;font-family:inherit;">📥 Exportar</button>
+          <button onclick="importUserData()" style="flex:1;padding:8px 14px;background:#6366F1;color:#fff;border:none;border-radius:8px;font-size:12px;font-weight:600;cursor:pointer;font-family:inherit;">📤 Importar</button>
+        </div>
       </div>`;
 
     return `
@@ -5348,6 +5454,106 @@ try {
       </div>`;
   }
 
+  // ── BODY COMPOSITION STORYTELLER (4.5.3) ─────────────────────────────
+  function renderBodyStoryteller() {
+    if (!WEIGHT_LOG || WEIGHT_LOG.length < 2) return '';
+    const sorted = [...WEIGHT_LOG].sort((a, b) => a.date.localeCompare(b.date));
+    const first = sorted[0];
+    const last = sorted[sorted.length - 1];
+    const dateMS = s => { const [y,m,d]=s.split('-').map(Number); return new Date(y,m-1,d).getTime(); };
+    const days = Math.round((dateMS(last.date) - dateMS(first.date)) / 86400000) || 1;
+
+    const wDelta = last.weight - first.weight;
+    const fatDelta = (last.bodyFat != null && first.bodyFat != null) ? (last.bodyFat - first.bodyFat) : null;
+    const muscleDelta = (last.muscleMass != null && first.muscleMass != null) ? (last.muscleMass - first.muscleMass) : null;
+    const bmiDelta = (last.bmi != null && first.bmi != null) ? (last.bmi - first.bmi) : null;
+
+    // Compute fat mass and lean mass at first/last (if data available)
+    const firstFat = (first.bodyFat != null) ? first.weight * first.bodyFat / 100 : null;
+    const lastFat = (last.bodyFat != null) ? last.weight * last.bodyFat / 100 : null;
+    const fatMassDelta = (firstFat != null && lastFat != null) ? lastFat - firstFat : null;
+    const firstLean = (firstFat != null) ? first.weight - firstFat : null;
+    const lastLean = (lastFat != null) ? last.weight - lastFat : null;
+    const leanDelta = (firstLean != null && lastLean != null) ? lastLean - firstLean : null;
+
+    // Build narrative
+    const phrases = [];
+    if (wDelta < 0) {
+      phrases.push(`En <strong>${days} días</strong> bajaste <strong style="color:#059669;">${Math.abs(wDelta).toFixed(1)} kg</strong> (de ${first.weight} → ${last.weight}).`);
+    } else if (wDelta > 0) {
+      phrases.push(`En <strong>${days} días</strong> subiste <strong style="color:#EF4444;">${wDelta.toFixed(1)} kg</strong> (de ${first.weight} → ${last.weight}).`);
+    } else {
+      phrases.push(`En <strong>${days} días</strong> mantuviste el peso (${last.weight} kg).`);
+    }
+
+    if (fatMassDelta != null && leanDelta != null) {
+      const fatLost = -fatMassDelta;
+      const leanLost = -leanDelta;
+      if (fatLost > 0 && leanLost > 0) {
+        const ratioFat = (fatLost / (fatLost + leanLost)) * 100;
+        phrases.push(`De esos cambios, <strong style="color:#F59E0B;">${fatLost.toFixed(1)} kg fueron grasa</strong> (${ratioFat.toFixed(0)}% del total) y ${leanLost.toFixed(1)} kg fueron masa magra.`);
+        if (ratioFat > 75) phrases.push(`<strong style="color:#059669;">✓ Excelente ratio</strong> — la mayor parte de la pérdida fue grasa, no músculo.`);
+        else if (ratioFat < 50) phrases.push(`<strong style="color:#EF4444;">⚠️ Atención:</strong> perdiste más músculo que grasa. Revisá ingesta de proteína y entrenamiento de fuerza.`);
+        else phrases.push(`Ratio normal en deficit moderado.`);
+      } else if (fatLost > 0 && leanLost <= 0) {
+        phrases.push(`<strong style="color:#059669;">🎯 Recomposición:</strong> perdiste ${fatLost.toFixed(1)} kg de grasa Y ganaste ${(-leanLost).toFixed(1)} kg de masa magra. Resultado óptimo.`);
+      } else if (fatLost <= 0 && leanLost > 0) {
+        phrases.push(`<strong style="color:#EF4444;">⚠️</strong> No perdiste grasa pero sí masa magra. Probable: deficit muy agresivo o poca proteína.`);
+      }
+    }
+
+    if (fatDelta != null) {
+      if (Math.abs(fatDelta) >= 0.3) {
+        phrases.push(`Tu % de grasa cambió de <strong>${first.bodyFat}%</strong> a <strong>${last.bodyFat}%</strong> (${fatDelta > 0 ? '+' : ''}${fatDelta.toFixed(1)} pp).`);
+      }
+    }
+
+    if (muscleDelta != null && Math.abs(muscleDelta) >= 0.2) {
+      const dir = muscleDelta > 0 ? 'ganaste' : 'perdiste';
+      const color = muscleDelta > 0 ? '#0F766E' : '#EF4444';
+      phrases.push(`En músculo esquelético <strong style="color:${color};">${dir} ${Math.abs(muscleDelta).toFixed(1)} kg</strong>.`);
+    }
+
+    if (bmiDelta != null && Math.abs(bmiDelta) >= 0.3) {
+      phrases.push(`IMC pasó de ${first.bmi} a ${last.bmi}.`);
+    }
+
+    // Energy expended/deficit estimate
+    if (wDelta < 0) {
+      const kcalDeficit = Math.abs(wDelta) * 7700;
+      const dailyDeficit = kcalDeficit / days;
+      phrases.push(`Eso implica ~<strong>${kcalDeficit.toFixed(0)} kcal de deficit acumulado</strong>, equivalente a ${dailyDeficit.toFixed(0)} kcal/día.`);
+    }
+
+    return `
+      <div class="card" style="margin-bottom:14px;background:linear-gradient(135deg,rgba(15,118,110,0.04),rgba(168,85,247,0.04));">
+        <div class="card-title">📖 Tu historia</div>
+        <div style="font-size:11px;color:var(--text-sec);margin-bottom:12px;">Narrativa generada sobre tus ${WEIGHT_LOG.length} mediciones.</div>
+        <div style="display:flex;flex-direction:column;gap:8px;font-size:13px;line-height:1.6;color:var(--text);">
+          ${phrases.map(p => `<div style="padding:10px 12px;background:rgba(255,255,255,0.7);border-left:3px solid var(--teal);border-radius:6px;">${p}</div>`).join('')}
+        </div>
+
+        ${(firstFat != null && lastFat != null) ? `
+          <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-top:14px;">
+            <div style="text-align:center;padding:10px;background:#fff;border-radius:8px;">
+              <div style="font-size:9px;color:var(--text-sec);text-transform:uppercase;letter-spacing:0.5px;font-weight:600;">Grasa kg</div>
+              <div style="font-size:11px;color:var(--text-sec);margin-top:4px;">${firstFat.toFixed(1)} → <strong style="color:${fatMassDelta < 0 ? '#059669' : '#EF4444'};">${lastFat.toFixed(1)}</strong></div>
+              <div style="font-size:13px;font-weight:700;color:${fatMassDelta < 0 ? '#059669' : '#EF4444'};margin-top:2px;">${fatMassDelta > 0 ? '+' : ''}${fatMassDelta.toFixed(1)} kg</div>
+            </div>
+            <div style="text-align:center;padding:10px;background:#fff;border-radius:8px;">
+              <div style="font-size:9px;color:var(--text-sec);text-transform:uppercase;letter-spacing:0.5px;font-weight:600;">Magra kg</div>
+              <div style="font-size:11px;color:var(--text-sec);margin-top:4px;">${firstLean.toFixed(1)} → <strong style="color:${leanDelta >= 0 ? '#059669' : '#F59E0B'};">${lastLean.toFixed(1)}</strong></div>
+              <div style="font-size:13px;font-weight:700;color:${leanDelta >= 0 ? '#059669' : '#F59E0B'};margin-top:2px;">${leanDelta > 0 ? '+' : ''}${leanDelta.toFixed(1)} kg</div>
+            </div>
+            <div style="text-align:center;padding:10px;background:#fff;border-radius:8px;">
+              <div style="font-size:9px;color:var(--text-sec);text-transform:uppercase;letter-spacing:0.5px;font-weight:600;">Peso total</div>
+              <div style="font-size:11px;color:var(--text-sec);margin-top:4px;">${first.weight} → <strong style="color:${wDelta < 0 ? '#059669' : '#EF4444'};">${last.weight}</strong></div>
+              <div style="font-size:13px;font-weight:700;color:${wDelta < 0 ? '#059669' : '#EF4444'};margin-top:2px;">${wDelta > 0 ? '+' : ''}${wDelta.toFixed(1)} kg</div>
+            </div>
+          </div>` : ''}
+      </div>`;
+  }
+
   function renderWeightForecast() {
     if (!WEIGHT_LOG || WEIGHT_LOG.length < 3) return '';
     const sorted = [...WEIGHT_LOG].sort((a, b) => a.date.localeCompare(b.date));
@@ -5506,6 +5712,7 @@ try {
     return `
     <div style="padding:0 4px;">
       ${renderWeightHistory()}
+      ${renderBodyStoryteller()}
       ${renderWeightForecast()}
       ${renderHeatmap()}
 
@@ -5867,6 +6074,47 @@ try {
     showToast('✓ ' + grams.toFixed(0) + 'g ' + food.name + ' → ' + MEAL_LABELS[meal]);
     closeQuickAdd();
     render();
+  };
+
+  // Voice input via Web Speech API
+  let _recognition = null;
+  window.startVoiceInput = function() {
+    const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
+    if (!SR) { showToast('Voice no soportado en este browser. Probá Chrome.'); return; }
+    if (_recognition) { try { _recognition.stop(); } catch(_) {} _recognition = null; }
+    const btn = document.getElementById('quick-voice-btn');
+    const input = document.getElementById('quick-add-input');
+    _recognition = new SR();
+    _recognition.lang = 'es-ES';
+    _recognition.interimResults = true;
+    _recognition.continuous = false;
+    if (btn) { btn.style.background = '#EF4444'; btn.textContent = '🔴'; }
+    _recognition.onresult = function(e) {
+      let txt = '';
+      for (let i = 0; i < e.results.length; i++) txt += e.results[i][0].transcript;
+      // Normalize: "doscientos gramos pollo" → "200g pollo"
+      txt = txt.toLowerCase()
+        .replace(/\b(doscientos|dos cientos)\b/g, '200')
+        .replace(/\b(cien|ciento)\b/g, '100')
+        .replace(/\b(ciento cincuenta|cienta cincuenta)\b/g, '150')
+        .replace(/\b(cincuenta)\b/g, '50')
+        .replace(/\b(treinta)\b/g, '30')
+        .replace(/\b(veinte)\b/g, '20')
+        .replace(/\b(diez)\b/g, '10')
+        .replace(/\b(gramos|gramo|gr|grs)\b/g, 'g');
+      input.value = txt;
+      onQuickAddInput();
+    };
+    _recognition.onend = function() {
+      if (btn) { btn.style.background = '#A855F7'; btn.textContent = '🎤'; }
+      _recognition = null;
+    };
+    _recognition.onerror = function(e) {
+      if (btn) { btn.style.background = '#A855F7'; btn.textContent = '🎤'; }
+      showToast('Voice error: ' + e.error);
+      _recognition = null;
+    };
+    try { _recognition.start(); } catch(e) { showToast('Voice ya activo'); }
   };
 
   // Keyboard shortcut: 'q' opens quick add

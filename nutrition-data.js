@@ -2218,14 +2218,13 @@ const FOOD_DATABASE = [
     notes: "Caldo de pollo desgrasado + pollo hervido deshebrado + brócoli + zanahoria. Sin fideos, sin aceite añadido."
   },
   {
-    id: "pollo-pierna-hervida-horneada",
-    name: "Pierna de Pollo Hervida y Horneada",
+    id: "pollo-carne-sin-piel",
+    name: "Pollo (carne sin piel, hervido/horneado)",
     brand: "",
-    per100g: { kcal: 200, prot: 26, carbs: 0, fat: 10, fiber: 0, sodium: 90, sugar: 0.0, sat_fat: 2.8 },
-    unitWeight: 120, unitLabel: "pierna",
+    per100g: { kcal: 175, prot: 28, carbs: 0, fat: 7, fiber: 0, sodium: 80, sugar: 0.0, sat_fat: 2.0 },
     source: "web",
     addedDate: "2026-05-02",
-    notes: "Pierna entera con piel, primero hervida (rinde grasa) luego horneada. Edible 120g por pierna grande (raw 150g con hueso)."
+    notes: "Pollo cocido sin piel (mix muslo + pechuga). Hervido y luego horneado, sin grasa añadida."
   },
   {
     id: "uva-verde-sin-semilla",
