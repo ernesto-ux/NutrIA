@@ -1,5 +1,26 @@
 # Changelog - NutrIA
 
+## [Cierre Fase B/D + Casa-vs-Fuera fix] - 02 mayo 2026
+### Arreglado
+- **Casa vs Fuera (Finanzas) lógica corregida**: antes Carrefour/Monoprix/Franprix contaban como "Fuera" (incorrecto, son supermercados para cocinar en casa). Ahora:
+  - **Casa** = Homemade + supermercados (Carrefour, Franprix, Monoprix, Lidl, Picard, Albert Heijn, Boulangerie, etc.)
+  - **Fuera** = Restaurantes (Pizza Hut, Subway, McDonald's, Pizzou, Biyo, Van Stapele, Hotel, Starbucks, Holy Cookie, Jeff de Bruges, etc.)
+- Card Casa vs Fuera ahora muestra **explicación** + lista de tiendas detectadas en cada categoría
+
+### Agregado — Fase B 4.1.3 (último item)
+- **Modo Casa/Fuera/Delivery** en Coach: 3 botones que filtran las sugerencias según contexto
+  - 🏠 Casa: alimentos del FOOD_DATABASE excluyendo recetas completas y restaurantes
+  - 🍽️ Fuera: items de restaurantes + recetario completo
+  - 🛵 Delivery: subset de restaurantes con delivery viable
+
+### Agregado — Fase D 4.5.1 (último item)
+- **📸 OCR de etiquetas nutricionales** en Quick add: reusa Tesseract.js (ya cargado para Renpho)
+  - Botón captura de cámara o foto local
+  - Extrae kcal/proteína/carbs/grasas/fibra/sodio/azúcar/SF de etiquetas (ES/FR/EN)
+  - Detecta basis "por 100g" automáticamente
+  - Conversión sal→sodio (× 400)
+  - Botón guardar como nuevo alimento (en memoria, persiste al loggear)
+
 ## [Opción K · Micros completos] - 02 mayo 2026
 ### Agregado
 - **Schema FOOD_DATABASE extendido** con 6 micros nuevos por alimento:

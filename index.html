@@ -1053,7 +1053,11 @@
     <div style="display:flex;gap:6px;">
       <input id="quick-add-input" type="text" placeholder="200g pollo horneado" oninput="onQuickAddInput()" onkeydown="if(event.key==='Enter')quickAddCommit();if(event.key==='Escape')closeQuickAdd()" style="flex:1;padding:10px 12px;border:2px solid var(--border);border-radius:10px;font-size:14px;font-family:inherit;color:var(--text);background:var(--bg);outline:none;">
       <button id="quick-voice-btn" onclick="startVoiceInput()" title="Dictar (Web Speech API)" style="padding:10px 14px;background:#A855F7;color:#fff;border:none;border-radius:10px;font-size:18px;cursor:pointer;font-family:inherit;">🎤</button>
+      <button onclick="document.getElementById('quick-label-input').click()" title="OCR etiqueta nutricional" style="padding:10px 14px;background:#0EA5E9;color:#fff;border:none;border-radius:10px;font-size:18px;cursor:pointer;font-family:inherit;">📸</button>
+      <input id="quick-label-input" type="file" accept="image/*" capture="environment" style="display:none;" onchange="processLabelOCR(this.files[0])">
     </div>
+    <div id="quick-label-status" style="margin-top:6px;font-size:11px;color:var(--text-sec);"></div>
+    <div id="quick-label-result" style="margin-top:6px;"></div>
     <div id="quick-add-suggestions" style="margin-top:8px;max-height:200px;overflow-y:auto;"></div>
     <div style="display:flex;gap:8px;margin-top:12px;">
       <select id="quick-add-meal" style="flex:1;padding:10px;border:1px solid var(--border);border-radius:8px;font-size:13px;font-family:inherit;color:var(--text);background:var(--bg);">
@@ -1406,6 +1410,7 @@ try {
   let hogarPeriod = 7;
   let storiesPeriod = 7;
   let historialSearch = '';
+  let coachMode = 'casa'; // casa | fuera | delivery
   const collapsedMeals = new Set();
 
   window.toggleMealAccordion = function(meal) {
@@ -4167,16 +4172,20 @@ try {
       .sort((a, b) => a.perGProt - b.perGProt)
       .slice(0, 5);
 
-    // Comparador casa vs fuera (basado en store)
-    const homeStores = new Set(['Homemade', 'Casa', 'casero', '']);
+    // Comparador casa vs fuera — restaurantes vs supermercado/homemade
+    const RESTAURANT_REGEX_FIN = /(restaurant|mcdonald|subway|pizza\s*hut|pizzou|biyo|kozy|holy|van\s*stapele|louielouie|oliver\s*green|papa.?s|pareltje|beste|aerolínea|aerolinea|klm|hotel|starbucks|jeff\s*de\s*bruges|amsterdam(\)|$)|burger|kebab|sushi)/i;
     let homeCost = 0, homeGrams = 0, homeKcal = 0, homeProt = 0;
     let outCost = 0, outGrams = 0, outKcal = 0, outProt = 0;
+    const homeStoreSet = new Set(), outStoreSet = new Set();
     rows.forEach(r => {
       if (r.ppg == null) return;
-      const isHome = homeStores.has(r.store || '');
-      if (isHome) { homeCost += r.cost; homeGrams += r.grams; homeKcal += r.kcal; homeProt += r.prot; }
-      else        { outCost  += r.cost; outGrams  += r.grams; outKcal  += r.kcal; outProt  += r.prot; }
+      const store = r.store || '';
+      const isFuera = RESTAURANT_REGEX_FIN.test(store);
+      if (isFuera) { outCost += r.cost; outGrams += r.grams; outKcal += r.kcal; outProt += r.prot; outStoreSet.add(store); }
+      else         { homeCost += r.cost; homeGrams += r.grams; homeKcal += r.kcal; homeProt += r.prot; if (store) homeStoreSet.add(store); }
     });
+    const homeStoresList = [...homeStoreSet].slice(0, 4).join(', ') + (homeStoreSet.size > 4 ? ` +${homeStoreSet.size - 4}` : '');
+    const outStoresList = [...outStoreSet].slice(0, 4).join(', ') + (outStoreSet.size > 4 ? ` +${outStoreSet.size - 4}` : '');
     const eurPerKcalHome = homeKcal > 0 ? homeCost / homeKcal * 1000 : 0;
     const eurPerKcalOut  = outKcal  > 0 ? outCost  / outKcal  * 1000 : 0;
     const eurPerProtHome = homeProt > 0 ? homeCost / homeProt : 0;
@@ -4350,6 +4359,11 @@ try {
       ${(homeCost > 0 || outCost > 0) ? `
       <div class="card" style="margin-bottom:14px;">
         <div class="card-title">🏠 Casa vs 🍽️ Fuera</div>
+        <div style="font-size:11px;color:var(--text-sec);margin-bottom:10px;line-height:1.5;">
+          <strong>Casa</strong> = comidas con tag de tienda supermercado/homemade (Carrefour, Franprix, Monoprix, Lidl, Picard, Boulangerie, Homemade, etc.).
+          <strong>Fuera</strong> = items con tag de restaurante/comer fuera (Pizza Hut, Subway, McDonald's, Pizzou, Biyo, Van Stapele, Hotel, Starbucks, etc.).
+          <br>Los datos vienen del campo <code>store</code> de cada precio en local-prices.json.
+        </div>
         <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;">
           <div style="padding:12px;background:rgba(20,184,166,0.06);border-radius:10px;">
             <div style="font-size:10px;color:var(--text-sec);text-transform:uppercase;letter-spacing:0.5px;font-weight:600;margin-bottom:4px;">🏠 Casa</div>
@@ -4357,6 +4371,7 @@ try {
             <div style="font-size:11px;color:var(--text-sec);margin-top:4px;">${(homeGrams/1000).toFixed(1)} kg · ${homeKcal.toFixed(0)} kcal</div>
             <div style="font-size:10px;color:var(--text-sec);margin-top:6px;">€${eurPerKcalHome.toFixed(2)} / 1000 kcal</div>
             <div style="font-size:10px;color:var(--text-sec);">€${eurPerProtHome.toFixed(3)} / g prot</div>
+            ${homeStoresList ? `<div style="font-size:9px;color:var(--text-sec);margin-top:6px;font-style:italic;">${homeStoresList}</div>` : ''}
           </div>
           <div style="padding:12px;background:rgba(245,158,11,0.06);border-radius:10px;">
             <div style="font-size:10px;color:var(--text-sec);text-transform:uppercase;letter-spacing:0.5px;font-weight:600;margin-bottom:4px;">🍽️ Fuera</div>
@@ -4364,6 +4379,7 @@ try {
             <div style="font-size:11px;color:var(--text-sec);margin-top:4px;">${(outGrams/1000).toFixed(1)} kg · ${outKcal.toFixed(0)} kcal</div>
             <div style="font-size:10px;color:var(--text-sec);margin-top:6px;">€${eurPerKcalOut.toFixed(2)} / 1000 kcal</div>
             <div style="font-size:10px;color:var(--text-sec);">€${eurPerProtOut.toFixed(3)} / g prot</div>
+            ${outStoresList ? `<div style="font-size:9px;color:var(--text-sec);margin-top:6px;font-style:italic;">${outStoresList}</div>` : ''}
           </div>
         </div>
         ${(eurPerKcalHome > 0 && eurPerKcalOut > 0) ? `
@@ -4626,11 +4642,37 @@ try {
     getAllMeals().filter(m => m.date >= cutoffDate).forEach(m =>
       m.items.forEach(it => { if (it.foodId) usageCount[it.foodId] = (usageCount[it.foodId] || 0) + 1; }));
 
-    const candidates = FOOD_DATABASE.filter(f =>
+    // Outside-eating restaurant patterns (when modo = fuera)
+    const RESTAURANT_PATTERNS = /(pizza|mcdonald|subway|kebab|burger|biyo|kozy|holy\s*cookie|van\s*stapele|louielouie|oliver\s*green|papa.?s|pareltje|beste|aerolínea|aerolinea|klm|hotel|starbucks|jeff\s*de\s*bruges|froyo|llao|amsterdam|paris)/i;
+    const isOutsideFood = f => {
+      const price = PRICE_DB[f.id];
+      const store = price ? (price.store || '') : '';
+      const brand = (f.brand || '').toLowerCase();
+      const id = f.id.toLowerCase();
+      return RESTAURANT_PATTERNS.test(store) || RESTAURANT_PATTERNS.test(brand) || RESTAURANT_PATTERNS.test(id);
+    };
+    const isHomeFood = f => !isOutsideFood(f);
+
+    let candidates = FOOD_DATABASE.filter(f =>
       f.per100g && f.per100g.kcal > 0 && !dbConsumed.has(f.id) &&
-      f.source !== 'recetario' && // recetario = full meals already
       !isIngredient(f)
     );
+
+    // Apply mode filter
+    if (coachMode === 'casa') {
+      candidates = candidates.filter(f => f.source !== 'recetario' && isHomeFood(f));
+    } else if (coachMode === 'fuera') {
+      // Outside: show restaurant items + recetario (asume cocinas en casa pero "comer fuera" = quitarse cocina)
+      candidates = candidates.filter(f => isOutsideFood(f) || f.source === 'recetario');
+    } else if (coachMode === 'delivery') {
+      // Delivery: subset of restaurant items (excluding hotel/airline)
+      const DELIVERABLE = /(pizza|sushi|burger|kebab|subway|mcdonald|biyo|kozy|holy|llao|froyo|asian|indian|thai)/i;
+      candidates = candidates.filter(f => {
+        const price = PRICE_DB[f.id];
+        const store = price ? (price.store || '') : '';
+        return DELIVERABLE.test(store) || DELIVERABLE.test(f.brand || '') || DELIVERABLE.test(f.id);
+      });
+    }
 
     // Score candidates: usage frequency boosts ranking
     const usageBoost = f => Math.min(5, (usageCount[f.id] || 0) / 2); // 0–5 bonus
@@ -4721,7 +4763,14 @@ try {
 
       <!-- Header / pending macros -->
       <div class="card" style="margin-bottom:14px;">
-        <div class="card-title">🤖 Meal Coach — pendientes hoy</div>
+        <div class="card-title" style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;">
+          <span>🤖 Meal Coach — pendientes hoy</span>
+          <div style="display:flex;gap:4px;">
+            <button onclick="setCoachMode('casa')" class="metric-btn ${coachMode==='casa'?'active':''}" style="padding:6px 10px;font-size:11px;">🏠 Casa</button>
+            <button onclick="setCoachMode('fuera')" class="metric-btn ${coachMode==='fuera'?'active':''}" style="padding:6px 10px;font-size:11px;">🍽️ Fuera</button>
+            <button onclick="setCoachMode('delivery')" class="metric-btn ${coachMode==='delivery'?'active':''}" style="padding:6px 10px;font-size:11px;">🛵 Delivery</button>
+          </div>
+        </div>
         <div style="font-size:11px;color:var(--text-sec);margin-bottom:12px;">Lo que te queda según tu objetivo. Sugerencias se ajustan automáticamente.</div>
         <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:10px;">
           <div style="text-align:center;padding:10px;background:var(--bg);border-radius:10px;">
@@ -6295,6 +6344,7 @@ try {
   window.setFinanzasSort   = function(s) { finanzasSort   = s; render(); };
   window.setHogarPeriod    = function(n) { hogarPeriod    = n; render(); };
   window.setStoriesPeriod  = function(n) { storiesPeriod  = n; render(); };
+  window.setCoachMode      = function(m) { coachMode      = m; render(); };
 
   // Search debounce
   let _searchTimer = null;
@@ -6435,6 +6485,135 @@ try {
     showToast('✓ ' + grams.toFixed(0) + 'g ' + food.name + ' → ' + MEAL_LABELS[meal]);
     closeQuickAdd();
     render();
+  };
+
+  // OCR Etiqueta nutricional — reuses existing Tesseract loader
+  window.processLabelOCR = async function(file) {
+    if (!file) return;
+    const status = document.getElementById('quick-label-status');
+    const result = document.getElementById('quick-label-result');
+    if (typeof loadTesseract !== 'function') { status.textContent = 'Tesseract no disponible'; return; }
+    status.textContent = '⏳ Cargando OCR...';
+    try {
+      await loadTesseract();
+      status.textContent = '🔍 Analizando etiqueta...';
+      const { data: { text } } = await Tesseract.recognize(file, 'eng+fra+spa', {
+        logger: m => {
+          if (m.status === 'recognizing text') {
+            const pct = Math.round((m.progress || 0) * 100);
+            status.textContent = `🔍 OCR: ${pct}%`;
+          }
+        }
+      });
+      const parsed = parseNutritionLabel(text);
+      if (Object.keys(parsed.values).length === 0) {
+        status.textContent = '⚠️ No detecté valores nutricionales en la etiqueta.';
+        result.innerHTML = `<div style="font-size:10px;color:var(--text-sec);max-height:80px;overflow-y:auto;padding:6px;background:var(--bg);border-radius:4px;">Texto OCR: ${text.slice(0,200)}...</div>`;
+        return;
+      }
+      status.textContent = `✓ ${Object.keys(parsed.values).length} valores detectados (${parsed.basis})`;
+      const v = parsed.values;
+      result.innerHTML = `
+        <div style="padding:10px;background:rgba(14,165,233,0.06);border-left:3px solid #0EA5E9;border-radius:6px;">
+          <div style="font-size:11px;color:var(--text-sec);margin-bottom:6px;">Valores detectados <strong>por 100g</strong>:</div>
+          <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:6px;font-size:12px;">
+            ${v.kcal != null ? `<div><strong>${v.kcal}</strong> <span style="color:var(--text-sec);font-size:10px;">kcal</span></div>` : ''}
+            ${v.prot != null ? `<div><strong>${v.prot}g</strong> <span style="color:#3B82F6;font-size:10px;">prot</span></div>` : ''}
+            ${v.carbs != null ? `<div><strong>${v.carbs}g</strong> <span style="color:#22C55E;font-size:10px;">carbs</span></div>` : ''}
+            ${v.fat != null ? `<div><strong>${v.fat}g</strong> <span style="color:#F59E0B;font-size:10px;">fat</span></div>` : ''}
+            ${v.fiber != null ? `<div><strong>${v.fiber}g</strong> <span style="color:var(--text-sec);font-size:10px;">fibra</span></div>` : ''}
+            ${v.sodium != null ? `<div><strong>${v.sodium}mg</strong> <span style="color:var(--text-sec);font-size:10px;">sodio</span></div>` : ''}
+            ${v.sugar != null ? `<div><strong>${v.sugar}g</strong> <span style="color:var(--text-sec);font-size:10px;">azúcar</span></div>` : ''}
+            ${v.sat_fat != null ? `<div><strong>${v.sat_fat}g</strong> <span style="color:var(--text-sec);font-size:10px;">grasa sat</span></div>` : ''}
+          </div>
+          <div style="margin-top:10px;display:flex;gap:6px;">
+            <input id="ocr-food-name" type="text" placeholder="Nombre del alimento" style="flex:1;padding:6px 8px;border:1px solid var(--border);border-radius:6px;font-size:12px;font-family:inherit;color:var(--text);background:var(--card);">
+            <button onclick="saveOCRFood()" style="padding:6px 12px;background:#0EA5E9;color:#fff;border:none;border-radius:6px;font-size:12px;font-weight:600;cursor:pointer;font-family:inherit;">+ Guardar</button>
+          </div>
+        </div>`;
+      window.__ocrParsed = v;
+    } catch (e) {
+      status.textContent = '❌ Error OCR: ' + e.message;
+    }
+  };
+
+  function parseNutritionLabel(text) {
+    const t = text.toLowerCase().replace(/[,]/g, '.');
+    const values = {};
+    // Detect basis: per 100g vs per portion
+    const per100Match = /por\s*100\s*g|per\s*100\s*g|pour\s*100\s*g|p\.?\s*100/i.test(t);
+    const basis = per100Match ? 'por 100g' : 'asumido per 100g';
+
+    // Helper: find first number after a keyword pattern
+    function findVal(patterns, range) {
+      for (const pat of patterns) {
+        const re = new RegExp(pat + '\\s*[:\\s]*\\(?(\\d+(?:\\.\\d+)?)\\s*(?:g|gr|mg|kcal|kj)?', 'i');
+        const m = t.match(re);
+        if (m) {
+          const v = parseFloat(m[1]);
+          if (v >= range[0] && v <= range[1]) return v;
+        }
+      }
+      return null;
+    }
+
+    // kcal: look for "kcal" or "calorías" or "energía"
+    const kcalRaw = findVal(['kcal', 'cal[oó]r[ií]a', 'energ[ií]a', 'energie', 'energy'], [0, 1000]);
+    if (kcalRaw != null) values.kcal = Math.round(kcalRaw);
+    // protein
+    const prot = findVal(['prote[ií]nas?', 'protein', 'prot[eé]ines'], [0, 100]);
+    if (prot != null) values.prot = prot;
+    // carbs (hidratos / glucides / carbs / carbohydrate)
+    const carbs = findVal(['hidratos.*?carbono', 'glucid[eo]s?', 'carb[oh]ydrat', 'carbs', 'carbohydrate', 'total\\s*carb'], [0, 100]);
+    if (carbs != null) values.carbs = carbs;
+    // fat
+    const fat = findVal(['gras[ao]s?\\s*(?:totales)?', 'lipides?', 'fat\\b', 'total\\s*fat', 'mat[ie][èe]res?\\s*grasses'], [0, 100]);
+    if (fat != null) values.fat = fat;
+    // saturated fat
+    const sat = findVal(['saturad[ao]s?', 'saturated', 'satur[eé]es?'], [0, 100]);
+    if (sat != null) values.sat_fat = sat;
+    // sugar
+    const sugar = findVal(['az[uú]cares?', 'sugars?', 'sucres?'], [0, 100]);
+    if (sugar != null) values.sugar = sugar;
+    // fiber
+    const fiber = findVal(['fibras?', 'fibers?', 'fibres?'], [0, 50]);
+    if (fiber != null) values.fiber = fiber;
+    // sodium / salt (convert salt to sodium: salt × 400)
+    const sodium = findVal(['sodio', 'sodium'], [0, 5000]);
+    const salt = findVal(['sal\\b', 'salt\\b', 'sel\\b'], [0, 10]);
+    if (sodium != null) values.sodium = sodium;
+    else if (salt != null) values.sodium = Math.round(salt * 400);
+    return { values, basis };
+  }
+
+  window.saveOCRFood = function() {
+    const name = (document.getElementById('ocr-food-name').value || '').trim();
+    if (!name) { showToast('Nombre requerido'); return; }
+    const v = window.__ocrParsed;
+    if (!v) return;
+    const id = name.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '').slice(0, 60);
+    if (FOOD_DATABASE.find(f => f.id === id)) { showToast('Ya existe un alimento con ese ID'); return; }
+    const entry = {
+      id, name, brand: '',
+      per100g: {
+        kcal: v.kcal || 0,
+        prot: v.prot || 0,
+        carbs: v.carbs || 0,
+        fat: v.fat || 0,
+        fiber: v.fiber || 0,
+        sodium: v.sodium || 0,
+        sugar: v.sugar || 0,
+        sat_fat: v.sat_fat || 0
+      },
+      source: 'user-ocr',
+      addedDate: new Date().toISOString().slice(0, 10)
+    };
+    FOOD_DATABASE.push(entry); // in-memory only; user must commit via /log-food or manual
+    _quickAddSelected = entry;
+    document.getElementById('quick-add-input').value = '100g ' + name.toLowerCase();
+    onQuickAddInput();
+    showToast('✓ Alimento añadido (en memoria). Será persistido al loggear.');
+    document.getElementById('quick-label-result').innerHTML = '';
   };
 
   // Voice input via Web Speech API
