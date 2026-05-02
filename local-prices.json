@@ -230,18 +230,18 @@
     "notes": "Carcasa de pollo + agua + vegetales, costo mínimo"
   },
   "eafit-pure-isolate-vanille": {
-    "price_per_100g": 3.32,
+    "price_per_100g": 3.47,
     "store": "Décathlon / EAFit online",
-    "unit_price": 29.9,
-    "unit_size_g": 900,
-    "notes": "EAFit Pure Isolate Whey 900g"
+    "unit_price": 26.0,
+    "unit_size_g": 750,
+    "notes": "EAFit Pure Isolate Whey 750g"
   },
   "eafit-pure-isolate-chocolat": {
-    "price_per_100g": 3.32,
+    "price_per_100g": 3.47,
     "store": "Décathlon / EAFit online",
-    "unit_price": 29.9,
-    "unit_size_g": 900,
-    "notes": "EAFit Pure Isolate Whey Chocolat 900g"
+    "unit_price": 26.0,
+    "unit_size_g": 750,
+    "notes": "EAFit Pure Isolate Whey Chocolat 750g"
   },
   "hipro-vanille": {
     "price_per_100g": 0.95,
