@@ -4242,7 +4242,6 @@
 
     // ── Build remaining data ─────────────────────────────────────────────
     const rangeLabel = informeRange === 'dia' ? `Dia ${dates[0]}` : informeRange === 'semana' ? `Semana ${dates[0].slice(8)}-${dates[dates.length-1].slice(8)} ${dates[0].slice(5,7)}` : informeRange === 'mes' ? 'Ultimos 30 dias' : `${dates[0]} a ${dates[dates.length-1]}`;
-    const hasPricesLocal = Object.keys(PRICE_DB).length > 0;
     const totalCostH = hasPricesLocal ? daysWithData.reduce((s,d) => s + getDayCost(d.date), 0) : 0;
     const avgCostH = daysWithData.length > 0 ? totalCostH / daysWithData.length : 0;
 
