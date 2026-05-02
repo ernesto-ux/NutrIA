@@ -2789,20 +2789,11 @@
       "user": "ernesto"
     },
     {
-      "id": "2026-05-01-002",
+      "id": "2026-05-01-snack",
       "date": "2026-05-01",
-      "meal": "cena",
+      "meal": "snack",
       "user": "ernesto",
       "items": [
-        {
-          "foodId": "durum-biyo-agneau",
-          "name": "Dürüm Biyo Agneau (Biyo Dürüm, París 12)",
-          "grams": 250,
-          "kcal": 500.0,
-          "prot": 32.5,
-          "carbs": 55.0,
-          "fat": 27.5
-        },
         {
           "foodId": "gerble-mini-brownie-sans-sucres",
           "name": "Mini Brownie Sans Sucres Gerble",
@@ -2831,15 +2822,6 @@
           "fat": 0.3
         },
         {
-          "foodId": "sopa-pollo-fideos-vegetales",
-          "name": "Sopa de Pollo con Fideos",
-          "grams": 100,
-          "kcal": 50.0,
-          "prot": 3.0,
-          "carbs": 6.0,
-          "fat": 1.2
-        },
-        {
           "foodId": "tastybasics-cracker-protein",
           "name": "TastyBasics Cracker Proteína (Amsterdam)",
           "grams": 20,
@@ -2860,20 +2842,37 @@
       ]
     },
     {
-      "id": "2026-05-01-003",
+      "id": "2026-05-01-002",
       "date": "2026-05-01",
       "meal": "cena",
       "user": "ernesto",
       "items": [
         {
           "foodId": "durum-biyo-agneau",
-          "name": "Dürüm Biyo Agneau (París 12)",
-          "grams": 275,
-          "kcal": 550.0,
-          "prot": 35.8,
-          "carbs": 60.5,
-          "fat": 30.2
+          "name": "Dürüm Biyo Agneau (Biyo Dürüm, París 12)",
+          "grams": 250,
+          "kcal": 500.0,
+          "prot": 32.5,
+          "carbs": 55.0,
+          "fat": 27.5
         },
+        {
+          "foodId": "sopa-pollo-fideos-vegetales",
+          "name": "Sopa de Pollo con Fideos",
+          "grams": 100,
+          "kcal": 50.0,
+          "prot": 3.0,
+          "carbs": 6.0,
+          "fat": 1.2
+        }
+      ]
+    },
+    {
+      "id": "2026-05-01-003",
+      "date": "2026-05-01",
+      "meal": "cena",
+      "user": "ernesto",
+      "items": [
         {
           "foodId": "lahmacun-turco",
           "name": "Lahmacun (Biyo Dürüm)",
