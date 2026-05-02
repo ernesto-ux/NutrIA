@@ -6586,6 +6586,7 @@ try {
     }, 50);
   };
 
+  window.render = render; // expose for inline onclicks
   window.setFinanzasPeriod = function(n) { finanzasPeriod = n; render(); };
   window.setFinanzasSort   = function(s) { finanzasSort   = s; render(); };
   window.setHogarPeriod    = function(n) { hogarPeriod    = n; render(); };
