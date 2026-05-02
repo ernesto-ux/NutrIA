@@ -1,5 +1,16 @@
 # Changelog - NutrIA
 
+## [Hogar + Stories + Tools] - 02 mayo 2026
+### Agregado
+- **Tab Hogar** 🏠: vista combinada Ernesto + Adriana (período 7/14/30d) con gasto total, kcal/día hogar, items comunes, KPI cards por usuario (gasto, macros/día, adherencia kcal con barra), top alimentos del hogar con split E/A en barra dual, candidatos a compras a granel
+- **Finanzas — Costo eficiente proteína**: top 5 alimentos con menor €/g proteína (filtro prot ≥ 5g)
+- **Finanzas — Casa vs Fuera**: comparador €/1000kcal y €/g prot por origen (Homemade vs comercio), con factor multiplicador
+- **Finanzas — Proyección mensual**: forecast €/mes basado en avg × días del mes, anual proyectado, barra de progreso vs budget €600 con alertas (verde <85% / amarillo 85-100% / rojo >100%)
+- **NutrIA Stories** (Tools): card semanal exportable con gradiente teal→purple, KPIs (kcal/prot/gasto/días en target), highlights (top food, más caro, mejor día, gym, pasos, peso), botones Descargar PNG (html2canvas) y Copiar texto
+- **Salud técnica** (Tools): captura runtime errors via window.onerror, muestra últimos 10 con stack abreviado, persistente en localStorage. Previene incidentes silenciosos como el de parseRenphoData
+- **Renpho chart**: media móvil 7d (línea sólida teal-dark) sobre raw weight (línea punteada faded), label endpoint "X kg avg 7d"
+- **Keyboard nav**: ← → para días anteriores/siguientes, H para volver a hoy
+
 ## [Finanzas v2] - 02 mayo 2026
 ### Arreglado
 - **Gasto diario chart**: barras 30px (antes 16px) con gap 8px y altura 130px. Etiquetas €X dentro de barras altas (blanco) o encima (teal) según altura. Sin solapamientos €27/€29/€31

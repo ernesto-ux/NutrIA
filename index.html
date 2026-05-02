@@ -973,6 +973,7 @@
       <button class="pill" data-period="historial" onclick="setPeriod('historial')">📅 Historial</button>
       <button class="pill" data-period="informes" onclick="setPeriod('informes')">📊 Informes</button>
       <button class="pill" data-period="finanzas" onclick="setPeriod('finanzas')">💰 Finanzas</button>
+      <button class="pill" data-period="hogar" onclick="setPeriod('hogar')">🏠 Hogar</button>
       <button class="pill" data-period="nutricion" onclick="setPeriod('nutricion')">🥗 Nutricion</button>
       <button class="pill" data-period="actividad" onclick="setPeriod('actividad')">🏃 Actividad</button>
       <button class="pill" data-period="salud" onclick="setPeriod('salud')">🏥 Salud</button>
@@ -1002,6 +1003,33 @@
 var renphoResult = null;
 var renphoProcessing = false;
 var tesseractLoaded = false;
+
+// Observability — capture runtime errors so the next IIFE crash is visible inside Tools tab
+window.__nutriaErrors = [];
+window.addEventListener('error', function(e) {
+  try {
+    window.__nutriaErrors.unshift({
+      ts: new Date().toISOString(),
+      msg: e.message || 'unknown',
+      src: (e.filename || '').split('/').pop(),
+      line: e.lineno || 0,
+      stack: (e.error && e.error.stack || '').split('\n').slice(0,3).join(' | ')
+    });
+    if (window.__nutriaErrors.length > 50) window.__nutriaErrors.length = 50;
+    localStorage.setItem('nutria_errors', JSON.stringify(window.__nutriaErrors.slice(0,20)));
+  } catch(_) {}
+});
+window.addEventListener('unhandledrejection', function(e) {
+  try {
+    const reason = e.reason && (e.reason.message || String(e.reason)) || 'rejection';
+    window.__nutriaErrors.unshift({ ts: new Date().toISOString(), msg: 'PROMISE: ' + reason, src: 'promise', line: 0, stack: '' });
+    if (window.__nutriaErrors.length > 50) window.__nutriaErrors.length = 50;
+  } catch(_) {}
+});
+try {
+  const stored = JSON.parse(localStorage.getItem('nutria_errors') || '[]');
+  if (Array.isArray(stored) && stored.length) window.__nutriaErrors = stored;
+} catch(_) {}
 </script>
 
 <!-- APP -->
@@ -1027,6 +1055,8 @@ var tesseractLoaded = false;
   let showItemPrices = false;
   let finanzasPeriod = 30;
   let finanzasSort = 'cost-desc';
+  let hogarPeriod = 7;
+  let storiesPeriod = 7;
   const collapsedMeals = new Set();
 
   window.toggleMealAccordion = function(meal) {
@@ -3554,6 +3584,36 @@ var tesseractLoaded = false;
     const itemsWithPrice = rows.filter(r => r.ppg != null);
     const itemsMissingPrice = rows.filter(r => r.ppg == null && r.grams > 0).length;
 
+    // Costo por gramo de proteína (Top 5 más eficientes con prot >= 5g consumidos)
+    const protEfficient = rows
+      .filter(r => r.ppg != null && r.prot >= 5 && r.cost > 0)
+      .map(r => ({ ...r, perGProt: r.cost / r.prot }))
+      .sort((a, b) => a.perGProt - b.perGProt)
+      .slice(0, 5);
+
+    // Comparador casa vs fuera (basado en store)
+    const homeStores = new Set(['Homemade', 'Casa', 'casero', '']);
+    let homeCost = 0, homeGrams = 0, homeKcal = 0, homeProt = 0;
+    let outCost = 0, outGrams = 0, outKcal = 0, outProt = 0;
+    rows.forEach(r => {
+      if (r.ppg == null) return;
+      const isHome = homeStores.has(r.store || '');
+      if (isHome) { homeCost += r.cost; homeGrams += r.grams; homeKcal += r.kcal; homeProt += r.prot; }
+      else        { outCost  += r.cost; outGrams  += r.grams; outKcal  += r.kcal; outProt  += r.prot; }
+    });
+    const eurPerKcalHome = homeKcal > 0 ? homeCost / homeKcal * 1000 : 0;
+    const eurPerKcalOut  = outKcal  > 0 ? outCost  / outKcal  * 1000 : 0;
+    const eurPerProtHome = homeProt > 0 ? homeCost / homeProt : 0;
+    const eurPerProtOut  = outProt  > 0 ? outCost  / outProt  : 0;
+
+    // Forecast mensual (basado en avgDay × 30)
+    const todayDay = new Date().getDate();
+    const lastDayMonth = new Date(new Date().getFullYear(), new Date().getMonth() + 1, 0).getDate();
+    const forecastMonth = avgDay * lastDayMonth;
+    const forecastYear  = avgDay * 365;
+    const monthBudget = 600; // soft default; could be configurable
+    const monthBudgetPct = forecastMonth / monthBudget * 100;
+
     // Bar chart — last 14 days within period (or fewer if period < 14)
     const last14 = costByDay.slice(-Math.min(14, N));
     const maxCost = Math.max(...last14.map(d => d.cost), 1);
@@ -3692,6 +3752,81 @@ var tesseractLoaded = false;
         <div style="max-height:520px;overflow-y:auto;">${tableRows}</div>
       </div>
 
+      <!-- Costo eficiente por gramo de proteína -->
+      <div class="card" style="margin-bottom:14px;">
+        <div class="card-title">💪 Top proteína costo-eficiente (€/g prot)</div>
+        ${protEfficient.length === 0 ? `<div style="font-size:12px;color:var(--text-sec);">Sin alimentos con prot ≥5g registrados.</div>` :
+          protEfficient.map((r, i) => `
+            <div style="display:grid;grid-template-columns:24px minmax(0,1.6fr) 0.7fr 0.7fr 0.7fr;gap:8px;align-items:center;padding:6px 4px;border-bottom:1px solid var(--border);">
+              <span style="font-size:11px;color:var(--text-sec);text-align:center;font-weight:700;">${i + 1}</span>
+              <div style="min-width:0;">
+                <div style="font-size:12px;color:var(--text);font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">${r.name}</div>
+                <div style="font-size:10px;color:var(--text-sec);">${r.prot.toFixed(0)}g prot · ${r.grams.toFixed(0)}g consumido</div>
+              </div>
+              <div style="font-size:11px;color:var(--text-sec);text-align:right;">€${r.cost.toFixed(2)}</div>
+              <div style="font-size:11px;color:var(--text-sec);text-align:right;">€${(r.ppg).toFixed(2)}/100g</div>
+              <div style="font-size:13px;color:#3B82F6;font-weight:700;text-align:right;">€${r.perGProt.toFixed(3)}<span style="font-size:9px;color:var(--text-sec);">/g</span></div>
+            </div>`).join('')}
+        <div style="font-size:10px;color:var(--text-sec);margin-top:8px;">Menor €/g = mejor eficiencia. Útil para optimizar dieta-deficit.</div>
+      </div>
+
+      <!-- Casa vs fuera -->
+      ${(homeCost > 0 || outCost > 0) ? `
+      <div class="card" style="margin-bottom:14px;">
+        <div class="card-title">🏠 Casa vs 🍽️ Fuera</div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;">
+          <div style="padding:12px;background:rgba(20,184,166,0.06);border-radius:10px;">
+            <div style="font-size:10px;color:var(--text-sec);text-transform:uppercase;letter-spacing:0.5px;font-weight:600;margin-bottom:4px;">🏠 Casa</div>
+            <div style="font-size:20px;font-weight:700;color:var(--teal);">€${homeCost.toFixed(2)}</div>
+            <div style="font-size:11px;color:var(--text-sec);margin-top:4px;">${(homeGrams/1000).toFixed(1)} kg · ${homeKcal.toFixed(0)} kcal</div>
+            <div style="font-size:10px;color:var(--text-sec);margin-top:6px;">€${eurPerKcalHome.toFixed(2)} / 1000 kcal</div>
+            <div style="font-size:10px;color:var(--text-sec);">€${eurPerProtHome.toFixed(3)} / g prot</div>
+          </div>
+          <div style="padding:12px;background:rgba(245,158,11,0.06);border-radius:10px;">
+            <div style="font-size:10px;color:var(--text-sec);text-transform:uppercase;letter-spacing:0.5px;font-weight:600;margin-bottom:4px;">🍽️ Fuera</div>
+            <div style="font-size:20px;font-weight:700;color:#F59E0B;">€${outCost.toFixed(2)}</div>
+            <div style="font-size:11px;color:var(--text-sec);margin-top:4px;">${(outGrams/1000).toFixed(1)} kg · ${outKcal.toFixed(0)} kcal</div>
+            <div style="font-size:10px;color:var(--text-sec);margin-top:6px;">€${eurPerKcalOut.toFixed(2)} / 1000 kcal</div>
+            <div style="font-size:10px;color:var(--text-sec);">€${eurPerProtOut.toFixed(3)} / g prot</div>
+          </div>
+        </div>
+        ${(eurPerKcalHome > 0 && eurPerKcalOut > 0) ? `
+          <div style="margin-top:10px;padding:8px 10px;background:var(--bg);border-radius:8px;font-size:11px;color:var(--text-sec);">
+            ${eurPerKcalOut > eurPerKcalHome
+              ? `Comer fuera te cuesta <strong style="color:#F59E0B;">${(eurPerKcalOut/eurPerKcalHome).toFixed(1)}× más</strong> por kcal vs cocinar en casa.`
+              : `Cocinar en casa te cuesta <strong style="color:#F59E0B;">${(eurPerKcalHome/eurPerKcalOut).toFixed(1)}× más</strong> por kcal vs comer fuera. Anomalía: revisa precios homemade.`}
+          </div>` : ''}
+      </div>` : ''}
+
+      <!-- Forecast mensual + alerta -->
+      <div class="card" style="margin-bottom:14px;">
+        <div class="card-title">📅 Proyección mensual</div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;">
+          <div style="text-align:center;padding:8px;">
+            <div style="font-size:9px;color:var(--text-sec);text-transform:uppercase;letter-spacing:0.5px;font-weight:600;">Estimado mes</div>
+            <div style="font-size:22px;font-weight:700;color:${monthBudgetPct > 100 ? '#EF4444' : monthBudgetPct > 85 ? '#F59E0B' : '#059669'};">€${forecastMonth.toFixed(0)}</div>
+            <div style="font-size:10px;color:var(--text-sec);margin-top:2px;">avg €${avgDay.toFixed(2)} × ${lastDayMonth} días</div>
+          </div>
+          <div style="text-align:center;padding:8px;border-left:1px solid var(--border);">
+            <div style="font-size:9px;color:var(--text-sec);text-transform:uppercase;letter-spacing:0.5px;font-weight:600;">Anual proyectado</div>
+            <div style="font-size:22px;font-weight:700;color:var(--text);">€${(forecastYear/1000).toFixed(1)}<span style="font-size:13px;color:var(--text-sec);">k</span></div>
+            <div style="font-size:10px;color:var(--text-sec);margin-top:2px;">avg × 365 días</div>
+          </div>
+        </div>
+        <div style="margin-top:10px;">
+          <div style="display:flex;justify-content:space-between;font-size:10px;color:var(--text-sec);margin-bottom:4px;">
+            <span>Budget mensual: €${monthBudget}</span>
+            <span style="font-weight:700;color:${monthBudgetPct > 100 ? '#EF4444' : monthBudgetPct > 85 ? '#F59E0B' : '#059669'};">${monthBudgetPct.toFixed(0)}%</span>
+          </div>
+          <div style="height:8px;background:var(--bg);border-radius:4px;overflow:hidden;">
+            <div style="height:100%;width:${Math.min(100, monthBudgetPct)}%;background:${monthBudgetPct > 100 ? '#EF4444' : monthBudgetPct > 85 ? '#F59E0B' : '#059669'};border-radius:4px;"></div>
+          </div>
+          ${monthBudgetPct > 100 ? `<div style="font-size:11px;color:#EF4444;margin-top:6px;font-weight:600;">⚠️ Excederás budget en €${(forecastMonth - monthBudget).toFixed(0)} este mes</div>`
+            : monthBudgetPct > 85 ? `<div style="font-size:11px;color:#F59E0B;margin-top:6px;">⚠️ Cerca de límite — quedan €${(monthBudget - forecastMonth).toFixed(0)} de margen</div>`
+            : `<div style="font-size:11px;color:#059669;margin-top:6px;">✓ Bajo budget — margen €${(monthBudget - forecastMonth).toFixed(0)}</div>`}
+        </div>
+      </div>
+
       <!-- Toggle per-item prices in Meals view -->
       <div class="card" style="margin-bottom:14px;display:flex;align-items:center;justify-content:space-between;">
         <div>
@@ -3703,11 +3838,335 @@ var tesseractLoaded = false;
     </div>`;
   }
 
-  function renderTools() {
-    const meta = getMetaProfile() || { age: 34, weight: 89, height: 175, sex: 'M', activity: 1.2, goal: 'cut' };
+  // ── HOGAR ──────────────────────────────────────────────────────────────
+  function renderHogar() {
+    const fmtYMD = d => d.getFullYear() + '-' + String(d.getMonth()+1).padStart(2,'0') + '-' + String(d.getDate()).padStart(2,'0');
+    const N = hogarPeriod;
+    const days = [];
+    for (let i = 0; i < N; i++) {
+      const d = new Date(); d.setDate(d.getDate() - i);
+      days.push(fmtYMD(d));
+    }
+    days.reverse();
+    const startDate = days[0];
+
+    // Pull RAW meals from both users (not filtered by currentUser)
+    const allRaw = (typeof getAllLocalMealsRaw === 'function' ? getAllLocalMealsRaw() : (_serverData.meals || []));
+    const periodMeals = allRaw.filter(m => m.date >= startDate);
+
+    // Per-user aggregates
+    const byUser = { ernesto: { kcal:0, prot:0, carbs:0, fat:0, cost:0, days:new Set() },
+                     adriana: { kcal:0, prot:0, carbs:0, fat:0, cost:0, days:new Set() } };
+    periodMeals.forEach(m => {
+      const u = m.user || 'ernesto';
+      if (!byUser[u]) return;
+      byUser[u].days.add(m.date);
+      m.items.forEach(it => {
+        byUser[u].kcal  += it.kcal  || 0;
+        byUser[u].prot  += it.prot  || 0;
+        byUser[u].carbs += it.carbs || 0;
+        byUser[u].fat   += it.fat   || 0;
+        if (it.foodId && PRICE_DB[it.foodId] && it.grams) {
+          byUser[u].cost += PRICE_DB[it.foodId].price_per_100g * it.grams / 100;
+        }
+      });
+    });
+
+    // Combined top foods (both users)
+    const combinedFood = {};
+    periodMeals.forEach(m => m.items.forEach(it => {
+      if (!it.foodId || !it.grams) return;
+      const k = it.foodId;
+      if (!combinedFood[k]) combinedFood[k] = { name: it.name, foodId: k, grams:0, cost:0, byUser:{ernesto:0, adriana:0}, occurrences:0 };
+      combinedFood[k].grams += it.grams;
+      combinedFood[k].occurrences += 1;
+      combinedFood[k].byUser[m.user || 'ernesto'] += it.grams;
+      if (PRICE_DB[k]) combinedFood[k].cost += PRICE_DB[k].price_per_100g * it.grams / 100;
+    }));
+    const topCombined = Object.values(combinedFood).sort((a,b) => b.cost - a.cost).slice(0, 8);
+
+    // Shared items (both users consumed same foodId in this period) → bulk-buy candidates
+    const shared = Object.values(combinedFood)
+      .filter(f => f.byUser.ernesto > 0 && f.byUser.adriana > 0)
+      .sort((a,b) => (b.byUser.ernesto + b.byUser.adriana) - (a.byUser.ernesto + a.byUser.adriana))
+      .slice(0, 6);
+
+    // Days with co-eating (both users logged ≥1 meal same day)
+    const datesErn = new Set([...byUser.ernesto.days]);
+    const datesAdr = new Set([...byUser.adriana.days]);
+    const sharedDays = [...datesErn].filter(d => datesAdr.has(d)).length;
+
+    const totalCost = byUser.ernesto.cost + byUser.adriana.cost;
+    const totalKcal = byUser.ernesto.kcal + byUser.adriana.kcal;
+
+    const periodPills = [7, 14, 30].map(n => `
+      <button class="metric-btn ${hogarPeriod === n ? 'active' : ''}" onclick="setHogarPeriod(${n})">${n}d</button>`).join('');
+
+    const userCard = (uid, color) => {
+      const u = byUser[uid];
+      const target = USERS[uid].targets.kcal * u.days.size;
+      const adherence = target > 0 ? Math.min(120, u.kcal / target * 100) : 0;
+      return `
+        <div class="card" style="margin-bottom:0;padding:14px;">
+          <div style="display:flex;align-items:center;gap:10px;margin-bottom:10px;">
+            <div style="width:32px;height:32px;border-radius:50%;background:${color};color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700;">${USERS[uid].initial}</div>
+            <div style="flex:1;">
+              <div style="font-size:14px;font-weight:700;color:var(--text);">${USERS[uid].name}</div>
+              <div style="font-size:10px;color:var(--text-sec);">${u.days.size} días con datos</div>
+            </div>
+            <div style="text-align:right;">
+              <div style="font-size:18px;font-weight:700;color:#059669;">€${u.cost.toFixed(2)}</div>
+              <div style="font-size:9px;color:var(--text-sec);text-transform:uppercase;letter-spacing:0.5px;">gasto</div>
+            </div>
+          </div>
+          <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:6px;font-size:11px;">
+            <div><div style="font-weight:700;color:var(--text);">${(u.kcal/Math.max(u.days.size,1)).toFixed(0)}</div><div style="font-size:9px;color:var(--text-sec);">kcal/día</div></div>
+            <div><div style="font-weight:700;color:#3B82F6;">${(u.prot/Math.max(u.days.size,1)).toFixed(0)}g</div><div style="font-size:9px;color:var(--text-sec);">prot/día</div></div>
+            <div><div style="font-weight:700;color:#22C55E;">${(u.carbs/Math.max(u.days.size,1)).toFixed(0)}g</div><div style="font-size:9px;color:var(--text-sec);">carbs/día</div></div>
+            <div><div style="font-weight:700;color:#F59E0B;">${(u.fat/Math.max(u.days.size,1)).toFixed(0)}g</div><div style="font-size:9px;color:var(--text-sec);">grasa/día</div></div>
+          </div>
+          <div style="margin-top:10px;">
+            <div style="display:flex;justify-content:space-between;font-size:9px;color:var(--text-sec);text-transform:uppercase;letter-spacing:0.5px;font-weight:600;margin-bottom:3px;">
+              <span>Adherencia kcal</span><span>${adherence.toFixed(0)}%</span>
+            </div>
+            <div style="height:6px;background:var(--bg);border-radius:3px;overflow:hidden;">
+              <div style="height:100%;width:${Math.min(100,adherence)}%;background:${adherence > 110 ? '#EF4444' : adherence > 95 ? '#F59E0B' : adherence > 80 ? '#059669' : '#F59E0B'};border-radius:3px;"></div>
+            </div>
+          </div>
+        </div>`;
+    };
+
+    const sharedHtml = shared.length === 0 ? '' : `
+      <div class="card" style="margin-bottom:14px;">
+        <div class="card-title">🛒 Compras compartidas (candidatos a granel)</div>
+        <div style="font-size:11px;color:var(--text-sec);margin-bottom:8px;">Alimentos que ambos consumen — comprar en formato grande puede ahorrar.</div>
+        ${shared.map(f => `
+          <div style="display:grid;grid-template-columns:minmax(0,1.6fr) 0.6fr 0.6fr 0.6fr;gap:8px;align-items:center;padding:6px 4px;border-bottom:1px solid var(--border);">
+            <div style="font-size:12px;color:var(--text);font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">${f.name}</div>
+            <div style="font-size:11px;text-align:right;color:#3B82F6;">E ${f.byUser.ernesto.toFixed(0)}g</div>
+            <div style="font-size:11px;text-align:right;color:#A855F7;">A ${f.byUser.adriana.toFixed(0)}g</div>
+            <div style="font-size:12px;text-align:right;color:#059669;font-weight:700;">€${f.cost.toFixed(2)}</div>
+          </div>`).join('')}
+      </div>`;
 
     return `
     <div style="padding:0 4px;">
+      <!-- Header -->
+      <div class="card" style="margin-bottom:14px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;">
+        <div>
+          <div style="font-size:18px;font-weight:700;color:var(--text);">🏠 Hogar Otero</div>
+          <div style="font-size:11px;color:var(--text-sec);margin-top:2px;">Vista combinada · ${sharedDays} días con co-comidas</div>
+        </div>
+        <div style="display:flex;gap:6px;">${periodPills}</div>
+      </div>
+
+      <!-- KPIs combinados -->
+      <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin-bottom:14px;">
+        <div class="card" style="text-align:center;margin-bottom:0;padding:14px;">
+          <div style="font-size:24px;font-weight:700;color:#059669;">€${totalCost.toFixed(2)}</div>
+          <div style="font-size:9px;color:var(--text-sec);text-transform:uppercase;letter-spacing:0.5px;">Gasto total</div>
+        </div>
+        <div class="card" style="text-align:center;margin-bottom:0;padding:14px;">
+          <div style="font-size:24px;font-weight:700;color:var(--teal);">${(totalKcal/Math.max(N,1)).toFixed(0)}</div>
+          <div style="font-size:9px;color:var(--text-sec);text-transform:uppercase;letter-spacing:0.5px;">kcal hogar / día</div>
+        </div>
+        <div class="card" style="text-align:center;margin-bottom:0;padding:14px;">
+          <div style="font-size:24px;font-weight:700;color:#A855F7;">${shared.length}</div>
+          <div style="font-size:9px;color:var(--text-sec);text-transform:uppercase;letter-spacing:0.5px;">items comunes</div>
+        </div>
+      </div>
+
+      <!-- User cards -->
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:14px;">
+        ${userCard('ernesto', 'var(--teal)')}
+        ${userCard('adriana', '#A855F7')}
+      </div>
+
+      <!-- Top combined foods -->
+      <div class="card" style="margin-bottom:14px;">
+        <div class="card-title">Top alimentos del hogar</div>
+        ${topCombined.length === 0 ? '<div style="font-size:12px;color:var(--text-sec);">Sin datos del período.</div>' :
+          topCombined.map((f, i) => {
+            const ePct = (f.byUser.ernesto / f.grams * 100) || 0;
+            return `
+            <div style="display:grid;grid-template-columns:24px minmax(0,1.5fr) 1.2fr 0.7fr;gap:8px;align-items:center;padding:6px 4px;border-bottom:1px solid var(--border);">
+              <span style="font-size:10px;color:var(--text-sec);text-align:center;">${i + 1}</span>
+              <div style="min-width:0;">
+                <div style="font-size:12px;color:var(--text);font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">${f.name}</div>
+                <div style="font-size:10px;color:var(--text-sec);">${f.grams.toFixed(0)}g · ${f.occurrences}x</div>
+              </div>
+              <div style="display:flex;align-items:center;gap:4px;font-size:10px;">
+                <div style="flex:1;height:5px;background:var(--bg);border-radius:3px;overflow:hidden;display:flex;">
+                  <div style="height:100%;width:${ePct}%;background:var(--teal);"></div>
+                  <div style="height:100%;width:${100-ePct}%;background:#A855F7;"></div>
+                </div>
+                <span style="color:var(--text-sec);font-size:9px;white-space:nowrap;">E ${ePct.toFixed(0)}%</span>
+              </div>
+              <div style="text-align:right;font-size:12px;font-weight:700;color:${f.cost > 0 ? '#059669' : 'var(--text-sec)'};">${f.cost > 0 ? '€' + f.cost.toFixed(2) : '—'}</div>
+            </div>`;
+          }).join('')}
+      </div>
+
+      ${sharedHtml}
+    </div>`;
+  }
+
+  // ── STORIES (week recap) ───────────────────────────────────────────────
+  function renderStories() {
+    const fmtYMD = d => d.getFullYear() + '-' + String(d.getMonth()+1).padStart(2,'0') + '-' + String(d.getDate()).padStart(2,'0');
+    const N = storiesPeriod;
+    const days = [];
+    for (let i = 0; i < N; i++) {
+      const d = new Date(); d.setDate(d.getDate() - i);
+      days.push(fmtYMD(d));
+    }
+    days.reverse();
+    const startDate = days[0];
+    const tgt = TARGETS();
+
+    const allMeals = getAllMeals().filter(m => m.date >= startDate);
+    let totalKcal = 0, totalProt = 0, totalCarbs = 0, totalFat = 0, totalCost = 0;
+    const foodCount = {};
+    const dayKcal = {};
+    allMeals.forEach(m => {
+      dayKcal[m.date] = dayKcal[m.date] || 0;
+      m.items.forEach(it => {
+        totalKcal += it.kcal || 0;
+        totalProt += it.prot || 0;
+        totalCarbs += it.carbs || 0;
+        totalFat += it.fat || 0;
+        dayKcal[m.date] += it.kcal || 0;
+        if (it.foodId) {
+          foodCount[it.foodId] = foodCount[it.foodId] || { name: it.name, count: 0, grams: 0, cost: 0 };
+          foodCount[it.foodId].count += 1;
+          foodCount[it.foodId].grams += it.grams || 0;
+          if (PRICE_DB[it.foodId] && it.grams) {
+            const c = PRICE_DB[it.foodId].price_per_100g * it.grams / 100;
+            foodCount[it.foodId].cost += c;
+            totalCost += c;
+          }
+        }
+      });
+    });
+
+    const daysWithData = Object.keys(dayKcal);
+    const daysInTarget = daysWithData.filter(d => {
+      const k = dayKcal[d];
+      return k >= tgt.kcal * 0.85 && k <= tgt.kcal * 1.15;
+    }).length;
+    const bestDay = daysWithData.reduce((b, d) => (dayKcal[d] > 0 && (!b || Math.abs(dayKcal[d] - tgt.kcal) < Math.abs(dayKcal[b] - tgt.kcal))) ? d : b, null);
+
+    const topFood = Object.values(foodCount).sort((a, b) => b.count - a.count)[0];
+    const mostExpensive = Object.values(foodCount).sort((a, b) => b.cost - a.cost)[0];
+
+    // Activity within the period
+    const acts = ACTIVITY_LOG.filter(a => a.date >= startDate);
+    const totalSteps = acts.reduce((s, a) => s + (a.steps || 0), 0);
+    const totalGymKcal = acts.reduce((s, a) => s + (a.gymKcal || 0), 0);
+    const gymDays = acts.filter(a => a.gymKcal > 0).length;
+
+    // Weight delta in period
+    const weights = WEIGHT_LOG.filter(w => w.date >= startDate).sort((a,b) => a.date.localeCompare(b.date));
+    const weightDelta = weights.length >= 2 ? weights[weights.length-1].weight - weights[0].weight : null;
+
+    const periodPills = [7, 14, 30].map(n => `
+      <button class="metric-btn ${storiesPeriod === n ? 'active' : ''}" onclick="setStoriesPeriod(${n})">${n}d</button>`).join('');
+
+    return `
+    <div id="stories-card" style="padding:0 4px;">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;flex-wrap:wrap;gap:8px;">
+        <div style="font-size:14px;font-weight:700;color:var(--text);">📖 NutrIA Stories — Week Recap</div>
+        <div style="display:flex;gap:6px;">${periodPills}</div>
+      </div>
+
+      <div id="stories-export" style="background:linear-gradient(135deg,#0f766e 0%,#a855f7 100%);border-radius:16px;padding:24px;color:#fff;box-shadow:0 8px 24px rgba(0,0,0,0.15);">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:18px;">
+          <div>
+            <div style="font-size:11px;text-transform:uppercase;letter-spacing:2px;opacity:0.8;">${USERS[currentUser].name} · últimos ${N} días</div>
+            <div style="font-size:22px;font-weight:800;margin-top:4px;">Tu semana en datos</div>
+          </div>
+          <div style="font-size:28px;">🦦</div>
+        </div>
+
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:18px;">
+          <div style="background:rgba(255,255,255,0.12);border-radius:12px;padding:14px;backdrop-filter:blur(8px);">
+            <div style="font-size:9px;text-transform:uppercase;opacity:0.7;letter-spacing:1px;font-weight:600;">Calorías</div>
+            <div style="font-size:24px;font-weight:800;margin-top:2px;">${totalKcal.toFixed(0)}</div>
+            <div style="font-size:10px;opacity:0.7;">avg ${(totalKcal/Math.max(daysWithData.length,1)).toFixed(0)}/día</div>
+          </div>
+          <div style="background:rgba(255,255,255,0.12);border-radius:12px;padding:14px;backdrop-filter:blur(8px);">
+            <div style="font-size:9px;text-transform:uppercase;opacity:0.7;letter-spacing:1px;font-weight:600;">Proteína</div>
+            <div style="font-size:24px;font-weight:800;margin-top:2px;">${totalProt.toFixed(0)}g</div>
+            <div style="font-size:10px;opacity:0.7;">avg ${(totalProt/Math.max(daysWithData.length,1)).toFixed(0)}g/día</div>
+          </div>
+          <div style="background:rgba(255,255,255,0.12);border-radius:12px;padding:14px;backdrop-filter:blur(8px);">
+            <div style="font-size:9px;text-transform:uppercase;opacity:0.7;letter-spacing:1px;font-weight:600;">Gasto</div>
+            <div style="font-size:24px;font-weight:800;margin-top:2px;">€${totalCost.toFixed(0)}</div>
+            <div style="font-size:10px;opacity:0.7;">${daysWithData.length} días con datos</div>
+          </div>
+          <div style="background:rgba(255,255,255,0.12);border-radius:12px;padding:14px;backdrop-filter:blur(8px);">
+            <div style="font-size:9px;text-transform:uppercase;opacity:0.7;letter-spacing:1px;font-weight:600;">En target</div>
+            <div style="font-size:24px;font-weight:800;margin-top:2px;">${daysInTarget}/${daysWithData.length}</div>
+            <div style="font-size:10px;opacity:0.7;">días dentro 85-115%</div>
+          </div>
+        </div>
+
+        <div style="background:rgba(0,0,0,0.18);border-radius:12px;padding:14px;margin-bottom:14px;">
+          <div style="font-size:10px;text-transform:uppercase;opacity:0.8;letter-spacing:1px;font-weight:600;margin-bottom:6px;">🏆 Highlights</div>
+          ${topFood ? `<div style="font-size:13px;margin-bottom:4px;">🥇 Más comido: <strong>${topFood.name}</strong> (${topFood.count}x · ${topFood.grams.toFixed(0)}g)</div>` : ''}
+          ${mostExpensive && mostExpensive.cost > 0 ? `<div style="font-size:13px;margin-bottom:4px;">💸 Más caro: <strong>${mostExpensive.name}</strong> (€${mostExpensive.cost.toFixed(2)})</div>` : ''}
+          ${bestDay ? `<div style="font-size:13px;margin-bottom:4px;">🎯 Mejor día: <strong>${bestDay}</strong> (${dayKcal[bestDay].toFixed(0)} kcal)</div>` : ''}
+          ${gymDays > 0 ? `<div style="font-size:13px;margin-bottom:4px;">💪 ${gymDays} sesiones gym · ${totalGymKcal.toFixed(0)} kcal quemadas</div>` : ''}
+          ${totalSteps > 0 ? `<div style="font-size:13px;margin-bottom:4px;">🚶 ${totalSteps.toLocaleString()} pasos totales</div>` : ''}
+          ${weightDelta !== null ? `<div style="font-size:13px;">⚖️ Peso: ${weightDelta > 0 ? '+' : ''}${weightDelta.toFixed(1)} kg en el período</div>` : ''}
+        </div>
+
+        <div style="text-align:center;font-size:10px;opacity:0.6;letter-spacing:1px;text-transform:uppercase;">NutrIA · Generado ${new Date().toLocaleDateString('es-ES', {day:'numeric',month:'short',year:'numeric'})}</div>
+      </div>
+
+      <div style="display:flex;gap:8px;margin-top:12px;">
+        <button onclick="exportStoriesPng()" style="flex:1;padding:10px;background:var(--teal);color:#fff;border:none;border-radius:8px;font-size:13px;font-weight:600;cursor:pointer;font-family:inherit;">📥 Descargar PNG</button>
+        <button onclick="copyStoriesText()" style="flex:1;padding:10px;background:var(--card);color:var(--text);border:1px solid var(--border);border-radius:8px;font-size:13px;font-weight:600;cursor:pointer;font-family:inherit;">📋 Copiar texto</button>
+      </div>
+    </div>`;
+  }
+
+  function renderTools() {
+    const meta = getMetaProfile() || { age: 34, weight: 89, height: 175, sex: 'M', activity: 1.2, goal: 'cut' };
+
+    // Errors panel
+    const errs = (window.__nutriaErrors || []).slice(0, 10);
+    const errorsCard = `
+      <div class="card" style="margin-bottom:16px;">
+        <div class="card-title" style="display:flex;justify-content:space-between;align-items:center;">
+          <span>🩺 Salud técnica</span>
+          ${errs.length === 0
+            ? '<span style="font-size:11px;color:#059669;font-weight:700;">✓ 0 errores recientes</span>'
+            : `<span style="font-size:11px;color:#EF4444;font-weight:700;">⚠️ ${errs.length} errores</span>`}
+        </div>
+        ${errs.length === 0
+          ? '<div style="font-size:11px;color:var(--text-sec);">Sin errores capturados. Si la app deja de funcionar, abrí esta sección — los errores quedan registrados aquí incluso si la consola no estaba abierta.</div>'
+          : `
+          <div style="max-height:200px;overflow-y:auto;font-family:'SF Mono','Menlo',monospace;font-size:10.5px;">
+            ${errs.map(e => `
+              <div style="padding:6px 8px;border-bottom:1px solid var(--border);">
+                <div style="color:#EF4444;font-weight:600;">${e.msg}</div>
+                <div style="color:var(--text-sec);margin-top:2px;">${e.src}:${e.line} · ${e.ts.slice(0,19).replace('T',' ')}</div>
+                ${e.stack ? `<div style="color:var(--text-sec);margin-top:2px;font-size:9.5px;">${e.stack}</div>` : ''}
+              </div>`).join('')}
+          </div>
+          <button onclick="window.__nutriaErrors=[];localStorage.removeItem('nutria_errors');render();" style="margin-top:8px;width:100%;padding:6px;font-size:11px;background:var(--card);color:var(--text);border:1px solid var(--border);border-radius:6px;cursor:pointer;font-family:inherit;">Limpiar log</button>`}
+      </div>`;
+
+    return `
+    <div style="padding:0 4px;">
+      <!-- STORIES (week recap) -->
+      <div class="card" style="margin-bottom:16px;padding:14px;">
+        ${renderStories()}
+      </div>
+
+      ${errorsCard}
+
       <!-- META TARGETS + TOKEN -->
       <div class="card" style="margin-bottom:16px;text-align:center;display:flex;gap:8px;">
         <button class="targets-btn" onclick="openTargetsModal()" title="Ajustar objetivos de dieta" style="flex:1;padding:12px;font-size:14px;font-weight:600;">&#9881;&#65039; Ajustar Meta / Objetivos</button>
@@ -3810,6 +4269,19 @@ var tesseractLoaded = false;
     const linePoints = sorted.map((w, i) => `${toX(i)},${toY(w.weight)}`).join(' ');
     const areaPoints = `${toX(0)},${padT + plotH} ` + sorted.map((w, i) => `${toX(i)},${toY(w.weight)}`).join(' ') + ` ${toX(sorted.length - 1)},${padT + plotH}`;
 
+    // 7-day moving average (over date axis, not over index)
+    const dateMS = s => { const [y,m,d]=s.split('-').map(Number); return new Date(y,m-1,d).getTime(); };
+    const movingAvg = sorted.map((w, i) => {
+      const ts = dateMS(w.date);
+      const window = sorted.filter(x => {
+        const dt = dateMS(x.date);
+        return dt <= ts && dt > ts - 7 * 86400000;
+      });
+      const avg = window.reduce((s, x) => s + x.weight, 0) / window.length;
+      return { x: toX(i), y: toY(avg), avg };
+    });
+    const maPoints = movingAvg.map(p => `${p.x},${p.y}`).join(' ');
+
     return `
     <div class="card" style="margin-bottom:16px;">
       <div class="card-title">⚖️ Peso & Composicion</div>
@@ -3829,13 +4301,21 @@ var tesseractLoaded = false;
         <text x="8" y="${padT + plotH / 2}" text-anchor="middle" font-size="8" fill="var(--text-sec)" transform="rotate(-90,8,${padT + plotH / 2})">kg</text>
         <!-- Area fill -->
         <polygon points="${areaPoints}" fill="var(--teal)" opacity="0.08" />
-        <!-- Line -->
-        <polyline points="${linePoints}" fill="none" stroke="var(--teal)" stroke-width="2" stroke-linejoin="round" />
-        <!-- Data points + weight labels -->
+        <!-- Raw weight (faded) -->
+        <polyline points="${linePoints}" fill="none" stroke="var(--teal)" stroke-width="1.2" stroke-linejoin="round" opacity="0.5" stroke-dasharray="3,3" />
+        <!-- 7-day moving average (solid, primary) -->
+        ${movingAvg.length >= 2 ? `<polyline points="${maPoints}" fill="none" stroke="#0F766E" stroke-width="2.5" stroke-linejoin="round" />` : ''}
+        <!-- Data points (raw) -->
         ${sorted.map((w, i) => `
-          <circle cx="${toX(i)}" cy="${toY(w.weight)}" r="3.5" fill="var(--teal)" />
-          <text x="${toX(i)}" y="${toY(w.weight) - 6}" text-anchor="middle" font-size="8.5" font-weight="600" fill="var(--teal)">${w.weight}</text>
+          <circle cx="${toX(i)}" cy="${toY(w.weight)}" r="2.5" fill="var(--teal)" opacity="0.6" />
         `).join('')}
+        <!-- MA endpoint label -->
+        ${movingAvg.length >= 2 ? (() => {
+          const last = movingAvg[movingAvg.length-1];
+          return `<circle cx="${last.x}" cy="${last.y}" r="4" fill="#0F766E" />
+                  <text x="${last.x - 6}" y="${last.y - 7}" text-anchor="end" font-size="10" font-weight="700" fill="#0F766E">${last.avg.toFixed(1)} kg</text>
+                  <text x="${last.x - 6}" y="${last.y + 4}" text-anchor="end" font-size="8" fill="var(--text-sec)">avg 7d</text>`;
+        })() : ''}
         <!-- X axis labels -->
         ${xLabels}
       </svg>
@@ -4108,6 +4588,8 @@ var tesseractLoaded = false;
       html = renderInformes();
     } else if (currentPeriod === 'finanzas') {
       html = renderFinanzas();
+    } else if (currentPeriod === 'hogar') {
+      html = renderHogar();
     } else if (currentPeriod === 'actividad') {
       html = renderActividad();
     } else if (currentPeriod === 'nutricion') {
@@ -4148,6 +4630,53 @@ var tesseractLoaded = false;
 
   window.setFinanzasPeriod = function(n) { finanzasPeriod = n; render(); };
   window.setFinanzasSort   = function(s) { finanzasSort   = s; render(); };
+  window.setHogarPeriod    = function(n) { hogarPeriod    = n; render(); };
+  window.setStoriesPeriod  = function(n) { storiesPeriod  = n; render(); };
+
+  // Stories: copy as plain text + download as image
+  window.copyStoriesText = function() {
+    const card = document.getElementById('stories-export');
+    if (!card) return;
+    const text = card.innerText.replace(/\n{3,}/g, '\n\n');
+    navigator.clipboard.writeText(text).then(
+      () => showToast('Copiado al portapapeles'),
+      () => showToast('Error al copiar')
+    );
+  };
+  window.exportStoriesPng = async function() {
+    const card = document.getElementById('stories-export');
+    if (!card) return;
+    if (typeof html2canvas === 'undefined') {
+      showToast('Cargando librería...');
+      await new Promise((res, rej) => {
+        const s = document.createElement('script');
+        s.src = 'https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js';
+        s.onload = res; s.onerror = rej;
+        document.head.appendChild(s);
+      }).catch(() => { showToast('Error cargando html2canvas'); });
+    }
+    if (typeof html2canvas === 'undefined') return;
+    try {
+      const canvas = await html2canvas(card, { scale: 2, backgroundColor: null });
+      const link = document.createElement('a');
+      link.download = 'nutria-stories-' + new Date().toISOString().slice(0,10) + '.png';
+      link.href = canvas.toDataURL('image/png');
+      link.click();
+      showToast('PNG descargado');
+    } catch(e) {
+      showToast('Error al exportar: ' + e.message);
+    }
+  };
+
+  // Arrow keys for date navigation (only when not typing in inputs)
+  document.addEventListener('keydown', function(e) {
+    const tag = (document.activeElement && document.activeElement.tagName) || '';
+    if (tag === 'INPUT' || tag === 'TEXTAREA' || tag === 'SELECT') return;
+    if (e.metaKey || e.ctrlKey || e.altKey) return;
+    if (e.key === 'ArrowLeft')  { e.preventDefault(); window.navigateDay(-1); }
+    if (e.key === 'ArrowRight') { e.preventDefault(); window.navigateDay(1);  }
+    if (e.key === 'h' || e.key === 'H') { e.preventDefault(); window.navigateDay(0); }
+  });
 
   window.setMetric = function (metric) {
     currentMetric = metric;
