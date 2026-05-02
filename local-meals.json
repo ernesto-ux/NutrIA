@@ -3053,10 +3053,10 @@
           "name": "Cookie Van Stapele",
           "grams": 80,
           "units": 1,
-          "kcal": 400.0,
+          "kcal": 325.0,
           "prot": 4.0,
           "carbs": 40.0,
-          "fat": 22.4
+          "fat": 16.0
         },
         {
           "foodId": "cafe-negro",

@@ -1874,11 +1874,11 @@ const FOOD_DATABASE = [
     id: "van-stapele-cookie",
     name: "Cookie Chocolate Negro con Núcleo Chocolate Blanco",
     brand: "Van Stapele Koekmakerij",
-    per100g: { kcal: 500, prot: 5, carbs: 50, fat: 28, fiber: 2, sodium: 150, sugar: 45.0, sat_fat: 15.0 },
+    per100g: { kcal: 406, prot: 5, carbs: 50, fat: 20, fiber: 2, sodium: 150, sugar: 45.0, sat_fat: 11.0 },
     unitWeight: 80, unitLabel: "cookie",
-    source: "web",
+    source: "user",
     addedDate: "2026-04-27",
-    notes: "Famosa cookie de Amsterdam, 60g de chocolate blanco fundido en el núcleo"
+    notes: "Famosa cookie de Amsterdam, 60g de chocolate blanco fundido en el núcleo. ~325 kcal por unidad (calibrado por usuario 2026-05-02)."
   },
   {
     id: "subway-sweet-onion-chicken-teriyaki-15cm",
