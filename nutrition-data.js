@@ -2182,6 +2182,31 @@ const FOOD_DATABASE = [
     source: "estimate",
     addedDate: "2026-05-01",
     notes: "Poğaça turca rellena de feta y mantequilla, cubierta de sésamo — estimado"
+  },
+  {
+    id: "jamon-iberico-bellota",
+    name: "Jamón Ibérico de Bellota",
+    brand: "",
+    per100g: { kcal: 375, prot: 43, carbs: 0.5, fat: 22, fiber: 0, sodium: 1100, sugar: 0.0, sat_fat: 7.5 },
+    source: "web",
+    addedDate: "2026-05-02"
+  },
+  {
+    id: "feta-islos",
+    name: "Feta Brebis AOP Islos",
+    brand: "Islos",
+    per100g: { kcal: 264, prot: 14, carbs: 4, fat: 21, fiber: 0, sodium: 1100, sugar: 4.0, sat_fat: 14.0 },
+    source: "web",
+    addedDate: "2026-05-02"
+  },
+  {
+    id: "te-rooibos",
+    name: "Té Rooibos sin azúcar",
+    brand: "",
+    per100g: { kcal: 0, prot: 0, carbs: 0, fat: 0, fiber: 0, sodium: 0, sugar: 0.0, sat_fat: 0.0 },
+    unitWeight: 200, unitLabel: "taza",
+    source: "web",
+    addedDate: "2026-05-02"
   }
 ];
 

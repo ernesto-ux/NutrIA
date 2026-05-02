@@ -2901,6 +2901,129 @@
           "fat": 11.0
         }
       ]
+    },
+    {
+      "id": "2026-05-02-001",
+      "date": "2026-05-02",
+      "meal": "desayuno",
+      "items": [
+        {
+          "foodId": "clara-huevo",
+          "name": "Clara de Huevo (x2)",
+          "grams": 66,
+          "units": 2,
+          "kcal": 34.3,
+          "prot": 7.3,
+          "carbs": 0.5,
+          "fat": 0.1
+        },
+        {
+          "foodId": "huevo-entero",
+          "name": "Huevo Entero",
+          "grams": 50,
+          "units": 1,
+          "kcal": 77.5,
+          "prot": 6.5,
+          "carbs": 0.6,
+          "fat": 5.5
+        },
+        {
+          "foodId": "jamon-iberico-bellota",
+          "name": "Jamón Ibérico de Bellota",
+          "grams": 10,
+          "kcal": 37.5,
+          "prot": 4.3,
+          "carbs": 0.1,
+          "fat": 2.2
+        },
+        {
+          "foodId": "danone-cottage-cheese",
+          "name": "Cottage Cheese Danone",
+          "grams": 55,
+          "kcal": 49.5,
+          "prot": 6.6,
+          "carbs": 0.9,
+          "fat": 2.1
+        },
+        {
+          "foodId": "feta-islos",
+          "name": "Feta Brebis Islos",
+          "grams": 20,
+          "kcal": 52.8,
+          "prot": 2.8,
+          "carbs": 0.8,
+          "fat": 4.2
+        },
+        {
+          "foodId": "tastybasics-cracker-protein",
+          "name": "TastyBasics Crackers Protein",
+          "grams": 20,
+          "kcal": 99.6,
+          "prot": 7.2,
+          "carbs": 3.0,
+          "fat": 6.0
+        },
+        {
+          "foodId": "tomate-cherry",
+          "name": "Tomate Cherry (5 ud.)",
+          "grams": 50,
+          "units": 5,
+          "kcal": 9.0,
+          "prot": 0.5,
+          "carbs": 2.0,
+          "fat": 0.1
+        }
+      ],
+      "timestamp": "2026-05-02T08:30:00",
+      "source": "local",
+      "user": "ernesto"
+    },
+    {
+      "id": "2026-05-02-002",
+      "date": "2026-05-02",
+      "meal": "almuerzo",
+      "items": [
+        {
+          "foodId": "froyo-llao-llao-homemade-ninja",
+          "name": "Froyo Llao Llao Homemade",
+          "grams": 90,
+          "kcal": 63.5,
+          "prot": 12.2,
+          "carbs": 3.6,
+          "fat": 0.2
+        },
+        {
+          "foodId": "fresas-frescas",
+          "name": "Fresas Frescas",
+          "grams": 40,
+          "kcal": 12.8,
+          "prot": 0.3,
+          "carbs": 3.1,
+          "fat": 0.1
+        },
+        {
+          "foodId": "frambuesas-fresas",
+          "name": "Frambuesas Frescas",
+          "grams": 40,
+          "kcal": 20.8,
+          "prot": 0.5,
+          "carbs": 4.8,
+          "fat": 0.3
+        },
+        {
+          "foodId": "te-rooibos",
+          "name": "Té Rooibos sin azúcar",
+          "grams": 200,
+          "units": 1,
+          "kcal": 0,
+          "prot": 0,
+          "carbs": 0,
+          "fat": 0
+        }
+      ],
+      "timestamp": "2026-05-02T13:00:00",
+      "source": "local",
+      "user": "ernesto"
     }
   ],
   "overrides": {

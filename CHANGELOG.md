@@ -1,5 +1,15 @@
 # Changelog - NutrIA
 
+## [Hotfix] - 02 mayo 2026
+### Arreglado
+- **App no cargaba (regression Phase 2)**: el bridge `window.NutrIA` referenciaba `parseRenphoData`, función eliminada al modularizar health.js. ReferenceError mataba el IIFE antes de `render()`, dejando todo en blanco (Meals vacío, Informes sin click, Finanzas en "Cargando precios", historial sin datos)
+- **Fix**: `parseRenphoData` reubicado en `modules/health.js` (única función que lo usa); referencia rota eliminada del bridge
+- Verificado en local server con error handler: Meals/Informes/Finanzas/Salud renderizan correctamente
+
+### Agregado
+- 3 alimentos: jamón ibérico de bellota, feta brebis Islos AOP, té rooibos sin azúcar
+- Meals 2026-05-02 Ernesto: desayuno (claras+huevo+jamón ibérico+cottage+feta+cracker+cherry, 360 kcal) + almuerzo (froyo Llao Llao 90g+fresas+frambuesas+rooibos, 97 kcal)
+
 ## [1.7.0] - 08 abril 2026
 ### Cambiado
 - **Vista de comidas**: eliminado modo Kanban, solo vista Lista
