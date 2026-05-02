@@ -1,5 +1,29 @@
 # Changelog - NutrIA
 
+## [Fase E + D + E + G] - 02 mayo 2026
+### Agregado — Fase E · Multi-user lite (PIN gate)
+- **PIN gate de 4 dígitos**: opt-in (no bloquea hasta activar). SHA-256 hash via SubtleCrypto en localStorage. Sesión 24h. Pantalla de login con gradient teal→purple
+- **Profile manager** en Tools → Seguridad: activar/desactivar lock, configurar PIN per usuario, "lock now" button, reset
+- Ergonomía: enter para submeter, focus auto, mensaje de error inline. La data sigue pública en GH Pages (UX-level, no security-level — true multi-tenant en backlog E2/E3 con Supabase)
+
+### Agregado — Opción D · Loops + fricción
+- **⚡ Quick add bar** (FAB flotante + tecla `q`): input "200g pollo" → autocompleta FOOD_DATABASE → click meal type → loggeado en 3 segundos. Soporta unidades (1 huevo) usando `unitWeight` del DB. Append a meal existente del día o crea nuevo
+- **📝 Loggear sugerencia del Coach**: cada card del Coach tiene selector de meal + botón "Loggear" → addLocalMeal → push a GitHub. Cierra el loop coach que estaba abierto
+- **📌 Notas por día**: input al inicio del día con debounce 400ms, persiste en `nutria_note_<user>_<date>`. Para tagear "post-gym", "fuera con Adri", etc.
+
+### Agregado — Opción E · Visualización
+- **📅 Heatmap calendario 365 días** (estilo GitHub contributions) en Salud: color por adherencia kcal del día, ejes con labels meses + días, leyenda de 6 niveles, contador "X días con datos · Y en target (Z%)"
+
+### Agregado — Opción G · Análisis micros (parcial)
+- **Sub-tab Micros** en Nutricion con bars de adequacy:
+  - Fibra: meta mínima 30g/día (WHO)
+  - Sodio: max 2300mg/día
+  - Azúcar añadido: max 50g/día
+  - Grasa saturada: max 22g/día
+- Status semáforo (✓ Bajo / ✓ OK / ⚠️ Cerca / ❌ Excede o Déficit)
+- Comparativa semana vs mes con delta colored
+- Schema extendido placeholder para hierro/calcio/B12/D/potasio/magnesio (auto-fill batch pendiente)
+
 ## [Fase B · Inteligencia] - 02 mayo 2026
 ### Agregado
 - **🤖 Coach tab nuevo**: Meal Coach rule-based con sugerencias personalizadas

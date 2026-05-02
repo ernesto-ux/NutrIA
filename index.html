@@ -1021,9 +1021,215 @@
 <!-- MAIN -->
 <main class="main" id="main-content"></main>
 
+<!-- QUICK ADD FAB -->
+<button id="quick-add-fab" onclick="toggleQuickAdd()" title="Quick add (q)" style="position:fixed;bottom:24px;right:24px;width:56px;height:56px;border-radius:50%;background:var(--teal);color:#fff;border:none;font-size:26px;cursor:pointer;box-shadow:0 6px 20px rgba(15,118,110,0.35);z-index:500;display:flex;align-items:center;justify-content:center;font-family:inherit;">+</button>
+
+<div id="quick-add-modal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.5);z-index:600;align-items:flex-start;justify-content:center;padding-top:80px;" onclick="if(event.target===this)closeQuickAdd()">
+  <div style="background:var(--card);border-radius:14px;padding:20px;max-width:480px;width:90%;box-shadow:0 20px 60px rgba(0,0,0,0.3);">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;">
+      <div style="font-size:16px;font-weight:700;color:var(--text);">⚡ Quick add</div>
+      <button onclick="closeQuickAdd()" style="background:none;border:none;font-size:18px;cursor:pointer;color:var(--text-sec);">×</button>
+    </div>
+    <div style="font-size:11px;color:var(--text-sec);margin-bottom:8px;">Escribe alimento + gramos. Ej: <code>200g pollo</code> · <code>1 huevo</code> · <code>50g eafit vainilla</code></div>
+    <input id="quick-add-input" type="text" placeholder="200g pollo horneado" oninput="onQuickAddInput()" onkeydown="if(event.key==='Enter')quickAddCommit();if(event.key==='Escape')closeQuickAdd()" style="width:100%;padding:10px 12px;border:2px solid var(--border);border-radius:10px;font-size:14px;font-family:inherit;color:var(--text);background:var(--bg);outline:none;">
+    <div id="quick-add-suggestions" style="margin-top:8px;max-height:200px;overflow-y:auto;"></div>
+    <div style="display:flex;gap:8px;margin-top:12px;">
+      <select id="quick-add-meal" style="flex:1;padding:10px;border:1px solid var(--border);border-radius:8px;font-size:13px;font-family:inherit;color:var(--text);background:var(--bg);">
+        <option value="desayuno">🍳 Desayuno</option>
+        <option value="almuerzo" selected>🥗 Almuerzo</option>
+        <option value="snack">🍪 Snack</option>
+        <option value="cena">🍽️ Cena</option>
+      </select>
+      <button onclick="quickAddCommit()" style="flex:1;padding:10px;background:var(--teal);color:#fff;border:none;border-radius:8px;font-size:13px;font-weight:700;cursor:pointer;font-family:inherit;">Loggear</button>
+    </div>
+  </div>
+</div>
+
+<!-- PIN GATE OVERLAY (shown if session not authenticated) -->
+<div id="pin-gate" style="display:none;position:fixed;inset:0;background:linear-gradient(135deg,#0f766e,#a855f7);z-index:9999;align-items:center;justify-content:center;flex-direction:column;font-family:inherit;">
+  <div style="background:rgba(255,255,255,0.96);border-radius:20px;padding:40px 32px;max-width:380px;width:90%;text-align:center;box-shadow:0 20px 60px rgba(0,0,0,0.3);">
+    <div style="font-size:48px;margin-bottom:8px;">🦦</div>
+    <div style="font-size:22px;font-weight:800;color:#0f172a;letter-spacing:-0.5px;">NutrIA</div>
+    <div style="font-size:12px;color:#64748b;text-transform:uppercase;letter-spacing:1px;margin-top:2px;margin-bottom:24px;" id="pin-gate-subtitle">Ingresá tu PIN</div>
+    <div id="pin-display" style="display:flex;justify-content:center;gap:10px;margin-bottom:18px;">
+      ${[0,1,2,3].map(() => '').join('')}
+    </div>
+    <input type="password" inputmode="numeric" pattern="[0-9]*" maxlength="4" id="pin-input" placeholder="••••" style="width:100%;padding:14px;font-size:24px;text-align:center;letter-spacing:8px;border:2px solid #e2e8f0;border-radius:12px;font-family:inherit;color:#0f172a;background:#fff;outline:none;" autocomplete="off">
+    <div id="pin-error" style="font-size:12px;color:#ef4444;height:18px;margin-top:8px;font-weight:600;"></div>
+    <div style="display:flex;gap:8px;margin-top:16px;">
+      <button onclick="submitPin()" style="flex:1;padding:12px;background:#0f766e;color:#fff;border:none;border-radius:10px;font-size:14px;font-weight:700;cursor:pointer;font-family:inherit;">Entrar</button>
+    </div>
+    <div id="pin-setup" style="font-size:11px;color:#64748b;margin-top:18px;display:none;">
+      ¿Primera vez? <a href="#" onclick="setupPinFlow();return false;" style="color:#0f766e;font-weight:600;">Configurar PIN</a>
+    </div>
+  </div>
+</div>
+
 <footer>
   <p>NutrIA por <strong>Ernesto Otero</strong>. Paris, 2026. Data actualizada via Claude Code.</p>
 </footer>
+
+<!-- ─────────── PIN GATE LOGIC ─────────── -->
+<script>
+(function() {
+  const SESSION_KEY = 'nutria_session';
+  const SESSION_HOURS = 24;
+
+  async function sha256(str) {
+    const buf = new TextEncoder().encode(str);
+    const hashBuf = await crypto.subtle.digest('SHA-256', buf);
+    return Array.from(new Uint8Array(hashBuf)).map(b => b.toString(16).padStart(2, '0')).join('');
+  }
+
+  function isSessionValid() {
+    try {
+      const s = JSON.parse(localStorage.getItem(SESSION_KEY) || 'null');
+      if (!s || !s.user || !s.ts) return false;
+      const ageMs = Date.now() - s.ts;
+      return ageMs < SESSION_HOURS * 3600 * 1000;
+    } catch { return false; }
+  }
+
+  function setSession(user) {
+    localStorage.setItem(SESSION_KEY, JSON.stringify({ user, ts: Date.now() }));
+    localStorage.setItem('nutria_current_user', user);
+  }
+
+  // Check if any user has a PIN configured
+  function hasAnyPin() {
+    return !!(localStorage.getItem('nutria_pin_ernesto') || localStorage.getItem('nutria_pin_adriana'));
+  }
+
+  async function tryMatchPin(pin) {
+    const hash = await sha256(pin);
+    const eHash = localStorage.getItem('nutria_pin_ernesto');
+    const aHash = localStorage.getItem('nutria_pin_adriana');
+    if (eHash && eHash === hash) return 'ernesto';
+    if (aHash && aHash === hash) return 'adriana';
+    return null;
+  }
+
+  window.submitPin = async function() {
+    const input = document.getElementById('pin-input');
+    const err = document.getElementById('pin-error');
+    const pin = (input.value || '').trim();
+    if (pin.length !== 4 || !/^\d{4}$/.test(pin)) {
+      err.textContent = 'PIN debe ser 4 dígitos';
+      return;
+    }
+    if (!hasAnyPin()) {
+      err.textContent = 'No hay PINs configurados. Click "Configurar PIN".';
+      document.getElementById('pin-setup').style.display = 'block';
+      return;
+    }
+    const user = await tryMatchPin(pin);
+    if (!user) {
+      err.textContent = 'PIN incorrecto';
+      input.value = '';
+      input.focus();
+      return;
+    }
+    setSession(user);
+    document.getElementById('pin-gate').style.display = 'none';
+    location.reload();
+  };
+
+  window.setupPinFlow = async function() {
+    const user = prompt('¿Para qué usuario? (ernesto / adriana)', 'ernesto');
+    if (!user || (user !== 'ernesto' && user !== 'adriana')) {
+      alert('Usuario inválido');
+      return;
+    }
+    const pin = prompt('Nuevo PIN (4 dígitos):');
+    if (!pin || !/^\d{4}$/.test(pin)) {
+      alert('PIN inválido (4 dígitos)');
+      return;
+    }
+    const hash = await sha256(pin);
+    localStorage.setItem('nutria_pin_' + user, hash);
+    setSession(user);
+    alert('PIN configurado para ' + user + '. Entrando...');
+    document.getElementById('pin-gate').style.display = 'none';
+    location.reload();
+  };
+
+  window.lockApp = function() {
+    localStorage.removeItem(SESSION_KEY);
+    location.reload();
+  };
+
+  window.resetPin = async function(user) {
+    if (!confirm('¿Resetear PIN de ' + user + '? Perderás acceso hasta configurar uno nuevo.')) return;
+    localStorage.removeItem('nutria_pin_' + user);
+    alert('PIN reseteado. Configura uno nuevo desde la pantalla de login.');
+  };
+
+  // Lock is OPT-IN: only enforce gate if user explicitly enabled it
+  function lockEnabled() {
+    return localStorage.getItem('nutria_lock_enabled') === 'true' && hasAnyPin();
+  }
+
+  function bootCheck() {
+    if (!lockEnabled() || isSessionValid()) {
+      document.getElementById('pin-gate').style.display = 'none';
+      return true;
+    }
+    const gate = document.getElementById('pin-gate');
+    gate.style.display = 'flex';
+    const input = document.getElementById('pin-input');
+    setTimeout(() => input && input.focus(), 100);
+    input.addEventListener('keydown', e => { if (e.key === 'Enter') submitPin(); });
+    return false;
+  }
+
+  window.enableLock = async function() {
+    const user = localStorage.getItem('nutria_current_user') || 'ernesto';
+    const pin = prompt(`Configurar PIN para ${user} (4 dígitos):`);
+    if (!pin || !/^\d{4}$/.test(pin)) {
+      alert('PIN inválido (4 dígitos)');
+      return;
+    }
+    const hash = await sha256(pin);
+    localStorage.setItem('nutria_pin_' + user, hash);
+    localStorage.setItem('nutria_lock_enabled', 'true');
+    setSession(user);
+    alert('🔒 Lock activado. PIN guardado para ' + user + '. Otros usuarios deben configurar el suyo desde Tools.');
+    location.reload();
+  };
+
+  window.setupAnotherPin = async function() {
+    const otherUser = localStorage.getItem('nutria_pin_ernesto') ? 'adriana' : 'ernesto';
+    const pin = prompt(`PIN para ${otherUser} (4 dígitos):`);
+    if (!pin || !/^\d{4}$/.test(pin)) {
+      alert('PIN inválido (4 dígitos)');
+      return;
+    }
+    const hash = await sha256(pin);
+    localStorage.setItem('nutria_pin_' + otherUser, hash);
+    alert('PIN configurado para ' + otherUser);
+    location.reload();
+  };
+
+  window.disableLock = function() {
+    if (!confirm('¿Desactivar lock? La app quedará accesible sin PIN.')) return;
+    localStorage.removeItem('nutria_lock_enabled');
+    localStorage.removeItem('nutria_pin_ernesto');
+    localStorage.removeItem('nutria_pin_adriana');
+    localStorage.removeItem(SESSION_KEY);
+    alert('🔓 Lock desactivado.');
+    location.reload();
+  };
+
+  // Run on DOM ready
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', bootCheck);
+  } else {
+    bootCheck();
+  }
+
+  window.__nutriaAuth = { isSessionValid, hasAnyPin, lockApp };
+})();
+</script>
 
 <!-- DATA -->
 <script>
@@ -1746,10 +1952,21 @@ try {
       ? `<span class="alerts-count ok">✓ OK</span>`
       : `<span class="alerts-count">${alerts.length}</span>`;
 
+    // Day notes
+    const noteKey = 'nutria_note_' + currentUser + '_' + currentDate;
+    const dayNote = localStorage.getItem(noteKey) || '';
+
     return `
       <!-- LOG FORM hidden from UI, use /log-food -->
       ${''}
 
+      <!-- DAY NOTE -->
+      <div class="card" style="margin-bottom:14px;padding:12px 16px;">
+        <div style="display:flex;align-items:center;gap:8px;">
+          <span style="font-size:14px;">📝</span>
+          <input type="text" id="day-note-input" value="${dayNote.replace(/"/g,'&quot;')}" placeholder="Nota del día (post-gym, fuera con Adri, jet lag...)" oninput="saveDayNote(this.value)" style="flex:1;padding:6px 10px;border:1px solid transparent;border-radius:6px;font-size:12px;font-family:inherit;color:var(--text);background:transparent;outline:none;">
+        </div>
+      </div>
 
       <!-- SUMMARY RINGS -->
       <div class="card">
@@ -3325,11 +3542,17 @@ try {
     else if (nutriSort === 'prot') filtered.sort((a, b) => b.totalProt - a.totalProt);
 
     // Sub-tab buttons
-    const tabs = `<div style="display:flex;gap:6px;margin-bottom:14px;">
+    const tabs = `<div style="display:flex;gap:6px;margin-bottom:14px;flex-wrap:wrap;">
       <button class="metric-btn ${nutriTab==='comidas'?'active':''}" onclick="setNutriTab('comidas')">🍽️ Comidas</button>
       <button class="metric-btn ${nutriTab==='alimentos'?'active':''}" onclick="setNutriTab('alimentos')">🧪 Alimentos</button>
+      <button class="metric-btn ${nutriTab==='micros'?'active':''}" onclick="setNutriTab('micros')">🔬 Micros</button>
       <button class="metric-btn ${nutriTab==='correlaciones'?'active':''}" onclick="setNutriTab('correlaciones')">🔍 Correlaciones</button>
     </div>`;
+
+    // ===== MICROS TAB =====
+    if (nutriTab === 'micros') {
+      return tabs + renderMicrosPanel();
+    }
 
     // ===== COMIDAS TAB =====
     if (nutriTab === 'comidas') {
@@ -4122,6 +4345,8 @@ try {
     // Generate 3 meal suggestions from FOOD_DATABASE that fit remaining budget
     // Strategy: try several portions of high-protein foods that fit kcal/prot remaining
     const suggestions = [];
+    window.__coachSuggestions = suggestions; // expose for "Loggear esto"
+    window.__coachSuggestedMeal = suggestedMeal;
 
     // Helper: build a meal of N items selected from candidates
     function buildMeal(picks) {
@@ -4134,7 +4359,7 @@ try {
         const cost  = PRICE_DB[food.id] ? PRICE_DB[food.id].price_per_100g * grams / 100 : null;
         totalKcal += kcal; totalProt += prot; totalCarbs += carbs; totalFat += fat;
         if (cost) totalCost += cost;
-        return { name: food.name, grams, kcal, prot, carbs, fat, cost };
+        return { foodId: food.id, name: food.name, grams: Math.round(grams), kcal: round1(kcal), prot: round1(prot), carbs: round1(carbs), fat: round1(fat), cost };
       });
       return { items, totalKcal, totalProt, totalCarbs, totalFat, totalCost };
     }
@@ -4240,7 +4465,7 @@ try {
           <div style="font-size:14px;font-weight:600;color:var(--text);margin-top:8px;">Día completo</div>
           <div style="font-size:12px;color:var(--text-sec);margin-top:4px;">Ya cubriste tu target o no quedan calorías suficientes para sugerir.</div>
         </div>` :
-        suggestions.map(s => `
+        suggestions.map((s, idx) => `
           <div class="card" style="margin-bottom:12px;border-left:4px solid ${s.color};">
             <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;">
               <div>
@@ -4259,12 +4484,16 @@ try {
                   <span style="font-size:11px;color:var(--text-sec);">${it.kcal.toFixed(0)} kcal · P${it.prot.toFixed(0)} · C${it.carbs.toFixed(0)} · F${it.fat.toFixed(0)}</span>
                 </div>`).join('')}
             </div>
-            <div style="display:flex;gap:6px;font-size:11px;color:var(--text-sec);">
-              <span>P${s.meal.totalProt.toFixed(0)}g</span>
-              <span>·</span>
-              <span>C${s.meal.totalCarbs.toFixed(0)}g</span>
-              <span>·</span>
-              <span>F${s.meal.totalFat.toFixed(0)}g</span>
+            <div style="display:flex;justify-content:space-between;align-items:center;gap:8px;">
+              <div style="font-size:11px;color:var(--text-sec);">
+                P${s.meal.totalProt.toFixed(0)}g · C${s.meal.totalCarbs.toFixed(0)}g · F${s.meal.totalFat.toFixed(0)}g
+              </div>
+              <div style="display:flex;gap:6px;align-items:center;">
+                <select id="coach-meal-${idx}" style="padding:6px 8px;border:1px solid var(--border);border-radius:6px;font-size:11px;font-family:inherit;color:var(--text);background:var(--card);">
+                  ${MEAL_ORDER.map(m => `<option value="${m}" ${m === suggestedMeal ? 'selected' : ''}>${MEAL_ICONS[m]} ${MEAL_LABELS[m]}</option>`).join('')}
+                </select>
+                <button onclick="logCoachSuggestion(${idx})" style="padding:7px 14px;background:${s.color};color:#fff;border:none;border-radius:6px;font-size:12px;font-weight:700;cursor:pointer;font-family:inherit;">📝 Loggear</button>
+              </div>
             </div>
           </div>`).join('')
       }
@@ -4622,6 +4851,33 @@ try {
         ${_extraActivity.length > 0 ? `<div style="font-size:11px;color:var(--text-sec);margin-top:8px;">${_extraActivity.length} entradas sincronizadas desde Apple Health.</div>` : ''}
       </div>`;
 
+    // Security / lock panel
+    const lockEnabled = localStorage.getItem('nutria_lock_enabled') === 'true';
+    const hasErnestoPIN = !!localStorage.getItem('nutria_pin_ernesto');
+    const hasAdrianaPIN = !!localStorage.getItem('nutria_pin_adriana');
+    const securityCard = `
+      <div class="card" style="margin-bottom:16px;">
+        <div class="card-title" style="display:flex;justify-content:space-between;align-items:center;">
+          <span>🔒 Seguridad / Lock</span>
+          <span style="font-size:11px;color:${lockEnabled ? '#059669' : '#94a3b8'};font-weight:700;">${lockEnabled ? '🔒 Activo' : '🔓 Desactivado'}</span>
+        </div>
+        <div style="font-size:12px;color:var(--text-sec);margin-bottom:10px;">
+          PIN gate de 4 dígitos. Cada usuario tiene su PIN. Sesión válida 24h. La data permanece pública en GH Pages — esto es UX-level, no security-level.
+        </div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:6px;font-size:11px;color:var(--text-sec);margin-bottom:10px;">
+          <div>Ernesto: ${hasErnestoPIN ? '✓ PIN configurado' : '— sin PIN'}</div>
+          <div>Adriana: ${hasAdrianaPIN ? '✓ PIN configurado' : '— sin PIN'}</div>
+        </div>
+        <div style="display:flex;gap:8px;flex-wrap:wrap;">
+          ${!lockEnabled ?
+            `<button onclick="enableLock()" style="flex:1;padding:8px 14px;background:#0F766E;color:#fff;border:none;border-radius:8px;font-size:12px;font-weight:600;cursor:pointer;font-family:inherit;">🔒 Activar lock</button>`
+            : `
+            <button onclick="setupAnotherPin()" style="flex:1;padding:8px 14px;background:var(--teal);color:#fff;border:none;border-radius:8px;font-size:12px;font-weight:600;cursor:pointer;font-family:inherit;">+ PIN para otro usuario</button>
+            <button onclick="window.lockApp()" style="padding:8px 14px;background:#6366F1;color:#fff;border:none;border-radius:8px;font-size:12px;font-weight:600;cursor:pointer;font-family:inherit;">🔐 Cerrar sesión ahora</button>
+            <button onclick="disableLock()" style="padding:8px 14px;background:#fff;color:#EF4444;border:1px solid #EF4444;border-radius:8px;font-size:12px;font-weight:600;cursor:pointer;font-family:inherit;">Desactivar</button>`}
+        </div>
+      </div>`;
+
     return `
     <div style="padding:0 4px;">
       <!-- STORIES (week recap) -->
@@ -4630,6 +4886,8 @@ try {
       </div>
 
       ${healthCard}
+
+      ${securityCard}
 
       ${errorsCard}
 
@@ -4825,6 +5083,271 @@ try {
     </div>`;
   }
 
+  // ── MICROS PANEL ──────────────────────────────────────────────────────
+  function renderMicrosPanel() {
+    const fmtYMD = d => d.getFullYear() + '-' + String(d.getMonth()+1).padStart(2,'0') + '-' + String(d.getDate()).padStart(2,'0');
+    // Compute averages over last 7 / 30 days
+    function aggOverDays(n) {
+      const acc = { fiber: 0, sodium: 0, sugar: 0, sat_fat: 0, days: 0 };
+      for (let i = 0; i < n; i++) {
+        const d = new Date(); d.setDate(d.getDate() - i);
+        const date = fmtYMD(d);
+        const meals = getDay(date);
+        if (meals.length === 0) continue;
+        let dayAcc = { fiber: 0, sodium: 0, sugar: 0, sat_fat: 0 };
+        meals.forEach(m => m.items.forEach(it => {
+          if (!it.foodId) return;
+          const food = FOOD_DATABASE.find(f => f.id === it.foodId);
+          if (!food || !food.per100g) return;
+          const g = it.grams || 0;
+          dayAcc.fiber   += (food.per100g.fiber   || 0) * g / 100;
+          dayAcc.sodium  += (food.per100g.sodium  || 0) * g / 100;
+          dayAcc.sugar   += (food.per100g.sugar   || 0) * g / 100;
+          dayAcc.sat_fat += (food.per100g.sat_fat || 0) * g / 100;
+        }));
+        if (dayAcc.fiber + dayAcc.sodium + dayAcc.sugar + dayAcc.sat_fat > 0) {
+          acc.fiber   += dayAcc.fiber;
+          acc.sodium  += dayAcc.sodium;
+          acc.sugar   += dayAcc.sugar;
+          acc.sat_fat += dayAcc.sat_fat;
+          acc.days += 1;
+        }
+      }
+      if (acc.days === 0) return null;
+      return {
+        fiber:   acc.fiber   / acc.days,
+        sodium:  acc.sodium  / acc.days,
+        sugar:   acc.sugar   / acc.days,
+        sat_fat: acc.sat_fat / acc.days,
+        days: acc.days
+      };
+    }
+
+    const week = aggOverDays(7);
+    const month = aggOverDays(30);
+
+    // Reference values (RDA / WHO targets for adult M, ~75kg goal)
+    const refs = {
+      fiber:   { rda: 30, unit: 'g', dir: 'min', label: 'Fibra',          desc: 'Mínimo 30g/día (WHO).' },
+      sodium:  { rda: 2300, unit: 'mg', dir: 'max', label: 'Sodio',       desc: 'Máximo 2300mg/día (WHO). Ideal <1500mg.' },
+      sugar:   { rda: 50, unit: 'g', dir: 'max', label: 'Azúcar añadido', desc: 'Máximo 50g/día (WHO). Ideal <25g.' },
+      sat_fat: { rda: 22, unit: 'g', dir: 'max', label: 'Grasa saturada', desc: 'Máximo 22g/día (≤10% kcal en dieta 2000kcal).' }
+    };
+
+    const microRow = (key, value, daysWith) => {
+      const r = refs[key];
+      if (!r) return '';
+      const pct = (value / r.rda) * 100;
+      let color, status, note;
+      if (r.dir === 'max') {
+        if (pct < 50) { color = '#059669'; status = '✓ Bajo'; }
+        else if (pct < 80) { color = '#0F766E'; status = '✓ OK'; }
+        else if (pct < 100) { color = '#F59E0B'; status = '⚠️ Cerca límite'; }
+        else { color = '#EF4444'; status = '❌ Excede'; }
+        note = pct >= 100 ? `Excede ${(value - r.rda).toFixed(0)}${r.unit}` : `${(r.rda - value).toFixed(0)}${r.unit} de margen`;
+      } else { // min
+        if (pct >= 100) { color = '#059669'; status = '✓ Cumple'; }
+        else if (pct >= 75) { color = '#F59E0B'; status = '⚠️ Casi'; }
+        else { color = '#EF4444'; status = '❌ Déficit'; }
+        note = pct >= 100 ? `+${(value - r.rda).toFixed(0)}${r.unit} sobre RDA` : `Faltan ${(r.rda - value).toFixed(0)}${r.unit}`;
+      }
+      const barPct = Math.min(100, pct);
+      return `
+        <div style="margin-bottom:14px;">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:4px;">
+            <span style="font-size:13px;font-weight:600;color:var(--text);">${r.label}</span>
+            <span style="font-size:11px;color:${color};font-weight:700;">${status} · ${pct.toFixed(0)}%</span>
+          </div>
+          <div style="display:flex;gap:8px;align-items:center;">
+            <div style="flex:1;height:8px;background:var(--bg);border-radius:4px;overflow:hidden;position:relative;">
+              <div style="height:100%;width:${barPct}%;background:${color};border-radius:4px;"></div>
+              ${r.dir === 'max' ? `<div style="position:absolute;top:-2px;left:100%;width:1px;height:12px;background:#94a3b8;"></div>` : ''}
+            </div>
+            <span style="font-size:11px;color:var(--text-sec);min-width:90px;text-align:right;">${value.toFixed(0)}/${r.rda}<span style="opacity:0.6;">${r.unit}</span></span>
+          </div>
+          <div style="font-size:10px;color:var(--text-sec);margin-top:3px;">${note} · ${r.desc}</div>
+        </div>`;
+    };
+
+    if (!week) {
+      return `
+        <div class="card" style="text-align:center;padding:30px;">
+          <div style="font-size:32px;">🔬</div>
+          <div style="font-size:14px;font-weight:600;color:var(--text);margin-top:8px;">Sin datos suficientes</div>
+          <div style="font-size:12px;color:var(--text-sec);margin-top:4px;">Necesitás al menos 1 día con comidas registradas en la última semana.</div>
+        </div>`;
+    }
+
+    return `
+      <div class="card" style="margin-bottom:14px;">
+        <div class="card-title">🔬 Promedio últimos 7 días</div>
+        <div style="font-size:11px;color:var(--text-sec);margin-bottom:14px;">${week.days} días con datos. RDA = referencia diaria recomendada.</div>
+        ${microRow('fiber',   week.fiber,   week.days)}
+        ${microRow('sodium',  week.sodium,  week.days)}
+        ${microRow('sugar',   week.sugar,   week.days)}
+        ${microRow('sat_fat', week.sat_fat, week.days)}
+      </div>
+
+      ${month && month.days >= 7 ? `
+      <div class="card" style="margin-bottom:14px;">
+        <div class="card-title">📊 Comparativa semana vs mes</div>
+        <div style="font-size:11px;color:var(--text-sec);margin-bottom:12px;">Cómo se compara tu última semana vs los últimos 30 días.</div>
+        <table style="width:100%;border-collapse:collapse;font-size:12px;">
+          <thead>
+            <tr style="border-bottom:2px solid var(--border);">
+              <th style="text-align:left;padding:6px 4px;font-size:10px;text-transform:uppercase;color:var(--text-sec);font-weight:600;">Micro</th>
+              <th style="text-align:right;padding:6px 4px;font-size:10px;text-transform:uppercase;color:var(--text-sec);font-weight:600;">Semana</th>
+              <th style="text-align:right;padding:6px 4px;font-size:10px;text-transform:uppercase;color:var(--text-sec);font-weight:600;">Mes</th>
+              <th style="text-align:right;padding:6px 4px;font-size:10px;text-transform:uppercase;color:var(--text-sec);font-weight:600;">Δ</th>
+            </tr>
+          </thead>
+          <tbody>
+            ${['fiber','sodium','sugar','sat_fat'].map(k => {
+              const r = refs[k];
+              const w = week[k], mo = month[k];
+              const diff = w - mo;
+              const better = (r.dir === 'max' && diff < 0) || (r.dir === 'min' && diff > 0);
+              return `
+                <tr style="border-bottom:1px solid var(--border);">
+                  <td style="padding:8px 4px;color:var(--text);">${r.label}</td>
+                  <td style="text-align:right;padding:8px 4px;color:var(--text);font-weight:600;">${w.toFixed(0)}<span style="opacity:0.6;">${r.unit}</span></td>
+                  <td style="text-align:right;padding:8px 4px;color:var(--text-sec);">${mo.toFixed(0)}<span style="opacity:0.6;">${r.unit}</span></td>
+                  <td style="text-align:right;padding:8px 4px;color:${better ? '#059669' : '#EF4444'};font-weight:600;">${diff > 0 ? '+' : ''}${diff.toFixed(0)}</td>
+                </tr>`;
+            }).join('')}
+          </tbody>
+        </table>
+      </div>` : ''}
+
+      <!-- Schema extension placeholder -->
+      <div class="card" style="margin-bottom:14px;background:rgba(168,85,247,0.04);">
+        <div class="card-title">🚧 Próximamente · Micros extendidos</div>
+        <div style="font-size:12px;color:var(--text-sec);margin-bottom:8px;">Schema preparado para agregar a cada alimento:</div>
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:8px;font-size:11px;">
+          <div style="padding:6px 10px;background:var(--bg);border-radius:6px;">🩸 Hierro (mg)</div>
+          <div style="padding:6px 10px;background:var(--bg);border-radius:6px;">🦴 Calcio (mg)</div>
+          <div style="padding:6px 10px;background:var(--bg);border-radius:6px;">🧬 B12 (μg)</div>
+          <div style="padding:6px 10px;background:var(--bg);border-radius:6px;">☀️ Vit D (μg)</div>
+          <div style="padding:6px 10px;background:var(--bg);border-radius:6px;">🍌 Potasio (mg)</div>
+          <div style="padding:6px 10px;background:var(--bg);border-radius:6px;">🌰 Magnesio (mg)</div>
+        </div>
+        <div style="font-size:11px;color:var(--text-sec);margin-top:10px;font-style:italic;">Auto-fill desde web search por alimento (top 100 consumidos primero) — pendiente de batch.</div>
+      </div>`;
+  }
+
+  // ── HEATMAP CALENDARIO 365 días (estilo GitHub contributions) ────────
+  function renderHeatmap() {
+    const tgt = TARGETS();
+    const today = new Date();
+    const days = [];
+    // 365 days back
+    for (let i = 364; i >= 0; i--) {
+      const d = new Date(today);
+      d.setDate(d.getDate() - i);
+      days.push(d);
+    }
+    const fmtYMD = d => d.getFullYear() + '-' + String(d.getMonth()+1).padStart(2,'0') + '-' + String(d.getDate()).padStart(2,'0');
+
+    // Build matrix: weeks × days (Sun-Sat)
+    const startDay = days[0].getDay(); // 0 = Sunday
+    // Pad start with empty cells so that week column aligns to dow
+    const cells = [];
+    for (let i = 0; i < startDay; i++) cells.push(null); // pad
+    days.forEach(d => cells.push(d));
+    while (cells.length % 7 !== 0) cells.push(null);
+
+    const numWeeks = cells.length / 7;
+    const cellSize = 11, cellGap = 2;
+    const dayLabels = ['', 'L', '', 'M', '', 'V', '']; // sparse
+    const monthLabelY = 10;
+    const gridYStart = 18;
+    const labelXStart = 20;
+    const W = labelXStart + numWeeks * (cellSize + cellGap) + 4;
+    const H = gridYStart + 7 * (cellSize + cellGap) + 4;
+
+    let countLogged = 0, countOnTarget = 0, totalKcal = 0;
+
+    function colorForDay(d) {
+      if (!d) return 'transparent';
+      const totals = getDayTotals(fmtYMD(d));
+      if (totals.kcal === 0) return '#e2e8f0'; // empty
+      countLogged++;
+      totalKcal += totals.kcal;
+      const ratio = totals.kcal / tgt.kcal;
+      if (ratio < 0.65) return '#a3e635'; // muy bajo (lime — could be cut day)
+      if (ratio >= 0.85 && ratio <= 1.15) { countOnTarget++; return '#0F766E'; } // target
+      if (ratio < 0.85) return '#86efac'; // bajo
+      if (ratio < 1.30) return '#fbbf24'; // exceso leve
+      return '#ef4444'; // exceso
+    }
+
+    // Render cells first to compute counts
+    const cellSvg = cells.map((d, i) => {
+      const week = Math.floor(i / 7);
+      const dow = i % 7;
+      const x = labelXStart + week * (cellSize + cellGap);
+      const y = gridYStart + dow * (cellSize + cellGap);
+      const color = colorForDay(d);
+      const dateStr = d ? fmtYMD(d) : '';
+      const totals = d ? getDayTotals(dateStr) : null;
+      const tooltip = d ? `${dateStr}: ${totals && totals.kcal > 0 ? Math.round(totals.kcal) + ' kcal' : 'sin datos'}` : '';
+      return `<rect x="${x}" y="${y}" width="${cellSize}" height="${cellSize}" rx="2" fill="${color}" opacity="${d ? 1 : 0}"><title>${tooltip}</title></rect>`;
+    }).join('');
+
+    // Month labels: render at top of first week of each month
+    const monthLabels = [];
+    let lastMonth = -1;
+    cells.forEach((d, i) => {
+      if (!d) return;
+      const dow = i % 7;
+      if (dow !== 0 && i !== startDay) return; // only first column (sunday) of each week, except first cell
+      const m = d.getMonth();
+      if (m !== lastMonth) {
+        const week = Math.floor(i / 7);
+        const x = labelXStart + week * (cellSize + cellGap);
+        const monthName = ['Ene','Feb','Mar','Abr','May','Jun','Jul','Ago','Sep','Oct','Nov','Dic'][m];
+        monthLabels.push(`<text x="${x}" y="${monthLabelY}" font-size="9" fill="var(--text-sec)" font-family="Inter,sans-serif">${monthName}</text>`);
+        lastMonth = m;
+      }
+    });
+
+    // Day labels (left side)
+    const dayLabelSvg = ['L', 'M', 'V'].map((lbl, idx) => {
+      const dow = idx === 0 ? 1 : idx === 1 ? 3 : 5;
+      const y = gridYStart + dow * (cellSize + cellGap) + 8;
+      return `<text x="2" y="${y}" font-size="8" fill="var(--text-sec)" font-family="Inter,sans-serif">${lbl}</text>`;
+    }).join('');
+
+    const adherencePct = countLogged > 0 ? (countOnTarget / countLogged * 100) : 0;
+    const avgKcal = countLogged > 0 ? totalKcal / countLogged : 0;
+
+    return `
+      <div class="card" style="margin-bottom:14px;">
+        <div class="card-title" style="display:flex;justify-content:space-between;align-items:center;">
+          <span>📅 Heatmap 365 días</span>
+          <span style="font-size:11px;color:var(--text-sec);font-weight:600;">${countLogged} días con datos · ${countOnTarget} en target (${adherencePct.toFixed(0)}%)</span>
+        </div>
+        <div style="overflow-x:auto;">
+          <svg viewBox="0 0 ${W} ${H}" style="width:100%;min-width:${Math.min(W, 800)}px;height:auto;display:block;">
+            ${monthLabels.join('')}
+            ${dayLabelSvg}
+            ${cellSvg}
+          </svg>
+        </div>
+        <div style="display:flex;align-items:center;gap:8px;font-size:10px;color:var(--text-sec);margin-top:8px;">
+          <span>Menos</span>
+          <div style="width:12px;height:12px;background:#e2e8f0;border-radius:2px;" title="sin datos"></div>
+          <div style="width:12px;height:12px;background:#a3e635;border-radius:2px;" title="<65% target"></div>
+          <div style="width:12px;height:12px;background:#86efac;border-radius:2px;" title="65-85%"></div>
+          <div style="width:12px;height:12px;background:#0F766E;border-radius:2px;" title="85-115% (target)"></div>
+          <div style="width:12px;height:12px;background:#fbbf24;border-radius:2px;" title="115-130%"></div>
+          <div style="width:12px;height:12px;background:#ef4444;border-radius:2px;" title=">130%"></div>
+          <span>Más</span>
+          <span style="margin-left:auto;font-weight:600;">avg ${avgKcal.toFixed(0)} kcal/día</span>
+        </div>
+      </div>`;
+  }
+
   function renderWeightForecast() {
     if (!WEIGHT_LOG || WEIGHT_LOG.length < 3) return '';
     const sorted = [...WEIGHT_LOG].sort((a, b) => a.date.localeCompare(b.date));
@@ -4984,6 +5507,7 @@ try {
     <div style="padding:0 4px;">
       ${renderWeightHistory()}
       ${renderWeightForecast()}
+      ${renderHeatmap()}
 
       <!-- METRIC CARDS -->
       ${last ? metricCard('⚖️', 'Peso', last.weight, 'kg', weightTrend, sorted.map(w=>({v:w.weight,date:w.date})), 'var(--teal)') : ''}
@@ -5217,6 +5741,178 @@ try {
         if (el) { el.focus(); el.setSelectionRange(val.length, val.length); }
       }, 0);
     }, 250);
+  };
+
+  // ── QUICK ADD ────────────────────────────────────────────────────────
+  let _quickAddSelected = null;
+
+  function suggestMealForHour() {
+    const h = new Date().getHours();
+    return h < 11 ? 'desayuno' : h < 15 ? 'almuerzo' : h < 19 ? 'snack' : 'cena';
+  }
+
+  function parseQuickInput(s) {
+    s = s.trim().toLowerCase();
+    // Match: "200g pollo" / "200 gr pollo" / "1 huevo" / "200ml leche"
+    const m = s.match(/^(\d+(?:[.,]\d+)?)\s*(g|gr|gramos|ml|kg)?\s+(.+)$/);
+    if (!m) {
+      // Maybe: "pollo 200g" (reverse)
+      const m2 = s.match(/^(.+?)\s+(\d+(?:[.,]\d+)?)\s*(g|gr|gramos|ml|kg)?$/);
+      if (m2) return { qty: parseFloat(m2[2].replace(',','.')), unit: m2[3] || 'g', name: m2[1].trim() };
+      // Or just name (no qty)
+      return { qty: null, unit: null, name: s };
+    }
+    return { qty: parseFloat(m[1].replace(',','.')), unit: m[2] || 'g', name: m[3].trim() };
+  }
+
+  window.toggleQuickAdd = function() {
+    const modal = document.getElementById('quick-add-modal');
+    const isOpen = modal.style.display !== 'none';
+    if (isOpen) { closeQuickAdd(); return; }
+    modal.style.display = 'flex';
+    document.getElementById('quick-add-meal').value = suggestMealForHour();
+    setTimeout(() => {
+      const input = document.getElementById('quick-add-input');
+      input.value = '';
+      input.focus();
+      document.getElementById('quick-add-suggestions').innerHTML = '';
+    }, 50);
+  };
+  window.closeQuickAdd = function() {
+    document.getElementById('quick-add-modal').style.display = 'none';
+    _quickAddSelected = null;
+  };
+
+  window.onQuickAddInput = function() {
+    const val = document.getElementById('quick-add-input').value;
+    const parsed = parseQuickInput(val);
+    if (!parsed.name || parsed.name.length < 2) {
+      document.getElementById('quick-add-suggestions').innerHTML = '';
+      _quickAddSelected = null;
+      return;
+    }
+    const tokens = parsed.name.split(/\s+/).filter(t => t.length >= 2);
+    const matches = FOOD_DATABASE.filter(f => {
+      const hay = (f.name + ' ' + (f.brand || '') + ' ' + f.id).toLowerCase();
+      return tokens.every(t => hay.includes(t));
+    }).slice(0, 6);
+    if (matches.length === 0) {
+      document.getElementById('quick-add-suggestions').innerHTML = `<div style="padding:10px;font-size:11px;color:var(--text-sec);text-align:center;">Sin coincidencias en la DB. Usa /log-food para crear nuevos alimentos.</div>`;
+      _quickAddSelected = null;
+      return;
+    }
+    if (!_quickAddSelected || !matches.find(m => m.id === _quickAddSelected.id)) {
+      _quickAddSelected = matches[0];
+    }
+    document.getElementById('quick-add-suggestions').innerHTML = matches.map((f, i) => `
+      <div onclick="selectQuickAdd('${f.id}')" style="padding:8px 10px;margin-bottom:3px;border-radius:6px;cursor:pointer;display:flex;justify-content:space-between;align-items:center;background:${_quickAddSelected && _quickAddSelected.id === f.id ? 'rgba(20,184,166,0.1)' : 'transparent'};border:1px solid ${_quickAddSelected && _quickAddSelected.id === f.id ? 'var(--teal)' : 'var(--border)'};">
+        <div style="min-width:0;">
+          <div style="font-size:12px;font-weight:600;color:var(--text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">${f.name}</div>
+          <div style="font-size:10px;color:var(--text-sec);">${f.brand || ''} ${f.unitWeight ? '· ' + f.unitWeight + 'g/' + (f.unitLabel || 'ud') : ''}</div>
+        </div>
+        <div style="font-size:10px;color:var(--text-sec);text-align:right;flex-shrink:0;margin-left:8px;">${f.per100g.kcal}<span style="opacity:0.6;">kcal/100g</span><br>P${f.per100g.prot}·C${f.per100g.carbs}·F${f.per100g.fat}</div>
+      </div>`).join('');
+  };
+
+  window.selectQuickAdd = function(id) {
+    _quickAddSelected = FOOD_DATABASE.find(f => f.id === id);
+    onQuickAddInput(); // re-render highlight
+  };
+
+  window.quickAddCommit = function() {
+    const input = document.getElementById('quick-add-input');
+    const val = input.value;
+    const parsed = parseQuickInput(val);
+    if (!_quickAddSelected) {
+      const tokens = (parsed.name || '').split(/\s+/).filter(t => t.length >= 2);
+      _quickAddSelected = FOOD_DATABASE.find(f => {
+        const hay = (f.name + ' ' + (f.brand || '') + ' ' + f.id).toLowerCase();
+        return tokens.every(t => hay.includes(t));
+      });
+    }
+    if (!_quickAddSelected) { showToast('Selecciona un alimento de la lista'); return; }
+    let grams = parsed.qty;
+    if (!grams) {
+      const ans = prompt('¿Gramos? (default ' + (_quickAddSelected.unitWeight || 100) + ')', String(_quickAddSelected.unitWeight || 100));
+      grams = parseFloat(ans);
+      if (!grams || grams < 1) return;
+    }
+    if (parsed.unit === 'kg') grams *= 1000;
+    // If unit-based input (no g/ml suffix and food has unitWeight), convert
+    if (!parsed.unit && _quickAddSelected.unitWeight) grams = parsed.qty * _quickAddSelected.unitWeight;
+
+    const meal = document.getElementById('quick-add-meal').value;
+    const food = _quickAddSelected;
+    const item = {
+      foodId: food.id, name: food.name, grams: Math.round(grams),
+      kcal: round1((food.per100g.kcal || 0) * grams / 100),
+      prot: round1((food.per100g.prot || 0) * grams / 100),
+      carbs: round1((food.per100g.carbs || 0) * grams / 100),
+      fat: round1((food.per100g.fat || 0) * grams / 100)
+    };
+    // Find existing meal entry for today+meal+user, append, else create
+    const existing = (_serverData.meals || []).find(m => m.date === currentDate && m.meal === meal && (m.user || 'ernesto') === currentUser);
+    if (existing) {
+      existing.items.push(item);
+      _lsSave();
+      _ghPush();
+    } else {
+      addLocalMeal({
+        id: currentDate + '-quick-' + Math.random().toString(36).slice(2, 6),
+        date: currentDate, meal, items: [item],
+        timestamp: new Date().toISOString(),
+        source: 'quick'
+      });
+    }
+    showToast('✓ ' + grams.toFixed(0) + 'g ' + food.name + ' → ' + MEAL_LABELS[meal]);
+    closeQuickAdd();
+    render();
+  };
+
+  // Keyboard shortcut: 'q' opens quick add
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'q' || e.key === 'Q') {
+      const tag = (document.activeElement && document.activeElement.tagName) || '';
+      if (tag === 'INPUT' || tag === 'TEXTAREA' || tag === 'SELECT') return;
+      if (e.metaKey || e.ctrlKey || e.altKey) return;
+      e.preventDefault();
+      window.toggleQuickAdd();
+    }
+  });
+
+  let _noteSaveTimer = null;
+  window.saveDayNote = function(val) {
+    if (_noteSaveTimer) clearTimeout(_noteSaveTimer);
+    const key = 'nutria_note_' + currentUser + '_' + currentDate;
+    _noteSaveTimer = setTimeout(() => {
+      if (val && val.trim()) localStorage.setItem(key, val.trim());
+      else localStorage.removeItem(key);
+    }, 400);
+  };
+
+  window.logCoachSuggestion = function(idx) {
+    const sugs = window.__coachSuggestions || [];
+    const sug = sugs[idx];
+    if (!sug) { showToast('Sugerencia no disponible'); return; }
+    const sel = document.getElementById('coach-meal-' + idx);
+    const meal = (sel && sel.value) || window.__coachSuggestedMeal || 'cena';
+    const id = currentDate + '-coach-' + Math.random().toString(36).slice(2, 6);
+    const items = sug.meal.items.map(it => ({
+      foodId: it.foodId,
+      name: it.name,
+      grams: it.grams,
+      kcal: it.kcal,
+      prot: it.prot,
+      carbs: it.carbs,
+      fat: it.fat
+    }));
+    addLocalMeal({
+      id, date: currentDate, meal, items,
+      timestamp: new Date().toISOString(),
+      source: 'coach'
+    });
+    showToast(`✓ ${sug.title} loggeado en ${MEAL_LABELS[meal]}`);
+    render();
   };
 
   window.askClaudeForMeal = function() {
