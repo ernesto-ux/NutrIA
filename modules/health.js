@@ -46,8 +46,88 @@ window.applyOCRData = function(steps, stepsKcal, gymKcal) {
   render();
 };
 
+function parseRenphoData(text) {
+  const lines = text.split('\n').map(l => l.trim()).filter(Boolean);
+  const data = {};
+
+  function findMetric(keywords, min, max) {
+    for (const line of lines) {
+      const lower = line.toLowerCase().replace(/[éèê]/g, 'e').replace(/[àâ]/g, 'a');
+      for (const kw of keywords) {
+        if (lower.includes(kw)) {
+          const nums = line.match(/(\d+[.,]\d+|\d+)/g);
+          if (nums) {
+            for (const n of nums) {
+              const val = parseFloat(n.replace(',', '.'));
+              if (val >= min && val <= max) return val;
+            }
+          }
+        }
+      }
+    }
+    return null;
+  }
+
+  data.weight = findMetric(['weight', 'poids', 'peso', 'body weight'], 30, 250);
+  data.bmi = findMetric(['bmi', 'imc'], 10, 60);
+  data.bodyFat = findMetric(['body fat', 'grasa corporal', 'graisse corporelle', 'taux de graisse', 'fat %', 'body fat %'], 3, 60);
+  data.fatFreeWeight = findMetric(['fat-free', 'fat free', 'masse maigre', 'masa magra', 'lean'], 20, 150);
+  data.subcutFat = findMetric(['subcutaneous', 'sous-cutan', 'subcutan', 'grasa subcutan'], 1, 50);
+  data.visceralFat = findMetric(['visceral', 'graisse visc'], 1, 30);
+  data.bodyWater = findMetric(['body water', 'eau corporelle', 'agua corporal', 'water %'], 20, 80);
+  data.skeletalMuscle = findMetric(['skeletal muscle', 'muscle squelettique', 'musculo esqueletico'], 10, 60);
+  data.muscleMass = findMetric(['muscle mass', 'masse musculaire', 'masa muscular'], 20, 120);
+  data.boneMass = findMetric(['bone mass', 'masse osseuse', 'masa osea'], 1, 10);
+  data.bmr = findMetric(['bmr', 'basal', 'metabolismo basal', 'metabolisme'], 800, 3500);
+  data.metabolicAge = findMetric(['metabolic age', 'age metabolique', 'edad metabolica'], 10, 90);
+
+  if (!data.weight) {
+    for (const line of lines) {
+      const m = line.match(/^[\s]*(\d{2,3}[.,]\d{1,2})\s*(kg)?[\s]*$/i);
+      if (m) {
+        const v = parseFloat(m[1].replace(',', '.'));
+        if (v >= 40 && v <= 200) { data.weight = v; break; }
+      }
+    }
+  }
+
+  const el = document.getElementById('renpho-parsed');
+  if (el) {
+    const fields = [
+      { key: 'weight', label: 'Peso', unit: 'kg', icon: '⚖️' },
+      { key: 'bmi', label: 'IMC', unit: '', icon: '📊' },
+      { key: 'bodyFat', label: 'Grasa Corporal', unit: '%', icon: '🔴' },
+      { key: 'fatFreeWeight', label: 'Masa Magra', unit: 'kg', icon: '💪' },
+      { key: 'subcutFat', label: 'Grasa Subcutanea', unit: '%', icon: '📉' },
+      { key: 'visceralFat', label: 'Grasa Visceral', unit: '', icon: '🫀' },
+      { key: 'bodyWater', label: 'Agua Corporal', unit: '%', icon: '💧' },
+      { key: 'skeletalMuscle', label: 'Musculo Esqueletico', unit: '%', icon: '🦴' },
+      { key: 'muscleMass', label: 'Masa Muscular', unit: 'kg', icon: '💪' },
+      { key: 'boneMass', label: 'Masa Osea', unit: 'kg', icon: '🦴' },
+      { key: 'bmr', label: 'BMR', unit: 'kcal', icon: '🔥' },
+      { key: 'metabolicAge', label: 'Edad Metabolica', unit: 'anos', icon: '🎂' },
+    ];
+
+    const detected = fields.filter(f => data[f.key] != null);
+    const inputRows = fields.map(f => `
+      <div style="display:flex;align-items:center;gap:8px;padding:4px 0;">
+        <span style="font-size:14px;">${f.icon}</span>
+        <span style="font-size:12px;color:var(--text-sec);width:120px;">${f.label}</span>
+        <input id="renpho-${f.key}" type="number" step="0.1" value="${data[f.key] || ''}" placeholder="-" style="width:80px;padding:6px 8px;border:1px solid ${data[f.key] ? 'var(--teal)' : 'var(--border)'};border-radius:6px;font-size:13px;font-family:inherit;color:var(--text);background:var(--bg);text-align:right;">
+        <span style="font-size:11px;color:var(--text-sec);width:30px;">${f.unit}</span>
+      </div>
+    `).join('');
+
+    el.innerHTML = `
+      <div style="font-weight:600;margin-bottom:8px;color:var(--teal);font-size:13px;">${detected.length} metricas detectadas. Corrige si es necesario:</div>
+      ${inputRows}
+      <button onclick="saveRenphoEntry()" style="margin-top:12px;width:100%;padding:10px;background:var(--teal);color:#fff;border:none;border-radius:8px;font-size:13px;font-weight:600;cursor:pointer;">Guardar en historial</button>
+    `;
+  }
+}
+
 window.processRenphoOCR = async function(file) {
-  const { loadTesseract, parseRenphoData, render } = window.NutrIA;
+  const { loadTesseract, render } = window.NutrIA;
   if (!file || renphoProcessing) return;
   renphoProcessing = true;
   renphoResult = null;
