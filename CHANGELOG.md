@@ -1,5 +1,19 @@
 # Changelog - NutrIA
 
+## [Fase H4 · Gym detail completo] - 02 mayo 2026
+### Agregado
+- **`local-gym.json`**: archivo nuevo para sesiones detalladas de gym (cargado al boot junto a meals/prices/activity)
+- **Schema sesión gym**: id, user, date, type (8 categorías), durationMin, rpe (1-10), hrAvg, hrMax, kcalBurn, exercises[{name, sets, reps, weightKg}], notes, timestamp
+- **Tipos de entreno** (8): 🔼 Push · 🔽 Pull · 🦵 Legs · 💪 Full Body · 🏃 Cardio · 🔥 HIIT · 🏋️ Crossfit · 🧘 Recovery
+- **💪 Gym Detail card** en tab Activity (parte superior):
+  - KPIs últimos 30 días: sesiones, minutos totales, kcal quemadas
+  - Frecuencia por tipo de entreno con conteo + volumen total (sets×reps×kg) cuando aplica
+  - Card de última sesión con ejercicios + RPE + notas
+  - Detalle expandible últimas 10 sesiones
+- **Modal "+ Nueva sesión"**: formulario completo con date, type, duration, RPE, HR, kcal, ejercicios (texto multilínea formato `nombre, sets, reps, peso`), notas
+- **Persistencia**: localStorage `nutria_gym_local` (in-memory + persiste). Al hacer commit/push manual sync con local-gym.json
+- **Dónde verlo en app**: tab **Actividad** → "💪 Gym Detail (últimos 30 días)"
+
 ## [M + E2/E3 scaffold] - 02 mayo 2026
 ### Agregado — Opción M · Categorización FOOD_DATABASE
 - **250 alimentos categorizados** con tag `category` en nutrition-data.js

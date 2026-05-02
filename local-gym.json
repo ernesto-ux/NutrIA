@@ -1,0 +1,5 @@
+{
+  "_comment": "Detailed gym sessions. Schema per entry: { date, type, durationMin, rpe, hrAvg, hrMax, exercises: [{name, sets, reps, weightKg}], kcalBurn, notes }",
+  "lastUpdate": null,
+  "sessions": []
+}
