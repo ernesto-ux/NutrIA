@@ -1025,6 +1025,8 @@ var tesseractLoaded = false;
   let dbOpen = false;
   let mealView = 'list';
   let showItemPrices = false;
+  let finanzasPeriod = 30;
+  let finanzasSort = 'cost-desc';
   const collapsedMeals = new Set();
 
   window.toggleMealAccordion = function(meal) {
@@ -3481,55 +3483,152 @@ var tesseractLoaded = false;
       </div>
     </div>`;
 
-    // Last 30 days
-    const today = getTodayStr();
-    const days30 = [];
-    for (let i = 0; i < 30; i++) {
+    const fmtYMD = d => d.getFullYear() + '-' + String(d.getMonth()+1).padStart(2,'0') + '-' + String(d.getDate()).padStart(2,'0');
+
+    // Period from filter
+    const N = finanzasPeriod;
+    const days = [];
+    for (let i = 0; i < N; i++) {
       const d = new Date(); d.setDate(d.getDate() - i);
-      const ds = d.getFullYear() + '-' + String(d.getMonth()+1).padStart(2,'0') + '-' + String(d.getDate()).padStart(2,'0');
-      days30.push(ds);
+      days.push(fmtYMD(d));
     }
-    days30.reverse();
+    days.reverse();
+    const startDate = days[0];
 
-    const costByDay = days30.map(d => ({ date: d, cost: getDayCost(d) }));
+    const costByDay = days.map(d => ({ date: d, cost: getDayCost(d) }));
     const daysWithCost = costByDay.filter(d => d.cost > 0);
-    const totalMonth = daysWithCost.reduce((s, d) => s + d.cost, 0);
-    const avgDay = daysWithCost.length > 0 ? totalMonth / daysWithCost.length : 0;
+    const totalSpend = daysWithCost.reduce((s, d) => s + d.cost, 0);
+    const avgDay = daysWithCost.length > 0 ? totalSpend / daysWithCost.length : 0;
 
-    // Top foods by cost (last 30 days)
-    const foodCost = {};
-    const allMeals = getAllMeals().filter(m => m.date >= days30[0]);
-    allMeals.forEach(m => m.items.forEach(item => {
-      if (!item.foodId || !(item.grams > 0)) return;
-      const p = PRICE_DB[item.foodId];
-      if (!p || !p.price_per_100g) return;
-      const c = p.price_per_100g * item.grams / 100;
-      foodCost[item.name] = (foodCost[item.name] || 0) + c;
+    // Aggregate by food across the period
+    const byFood = {};
+    const periodMeals = getAllMeals().filter(m => m.date >= startDate);
+    periodMeals.forEach(m => m.items.forEach(item => {
+      const key = item.foodId || ('_name_' + item.name);
+      if (!byFood[key]) {
+        const dbEntry = item.foodId ? FOOD_DATABASE.find(f => f.id === item.foodId) : null;
+        byFood[key] = {
+          name: item.name, foodId: item.foodId,
+          grams: 0, cost: 0, kcal: 0, prot: 0, carbs: 0, fat: 0,
+          ppg: null, unitWeight: dbEntry && dbEntry.unitWeight || null,
+          unitLabel: dbEntry && dbEntry.unitLabel || null,
+          store: '', occurrences: 0
+        };
+      }
+      const o = byFood[key];
+      o.grams += item.grams || 0;
+      o.kcal += item.kcal || 0;
+      o.prot += item.prot || 0;
+      o.carbs += item.carbs || 0;
+      o.fat += item.fat || 0;
+      o.occurrences += 1;
+      const p = item.foodId && PRICE_DB[item.foodId];
+      if (p && p.price_per_100g) {
+        o.ppg = p.price_per_100g;
+        o.store = p.store || '';
+        o.cost += p.price_per_100g * (item.grams || 0) / 100;
+      }
     }));
-    const topFoods = Object.entries(foodCost).sort((a, b) => b[1] - a[1]).slice(0, 8);
 
-    // Bar chart for daily cost (last 14 days)
-    const last14 = costByDay.slice(-14);
+    const rows = Object.values(byFood);
+    const sortFns = {
+      'cost-desc':  (a, b) => b.cost  - a.cost,
+      'cost-asc':   (a, b) => a.cost  - b.cost,
+      'ppg-desc':   (a, b) => (b.ppg || 0) - (a.ppg || 0),
+      'ppg-asc':    (a, b) => (a.ppg == null ? Infinity : a.ppg) - (b.ppg == null ? Infinity : b.ppg),
+      'qty-desc':   (a, b) => b.grams - a.grams,
+      'prot-desc':  (a, b) => b.prot  - a.prot,
+      'name':       (a, b) => a.name.localeCompare(b.name)
+    };
+    rows.sort(sortFns[finanzasSort] || sortFns['cost-desc']);
+
+    // Period totals (only items with prices contribute to cost; macros count for everything)
+    const totals = rows.reduce((s, r) => ({
+      cost:  s.cost  + r.cost,
+      grams: s.grams + r.grams,
+      kcal:  s.kcal  + r.kcal,
+      prot:  s.prot  + r.prot,
+      carbs: s.carbs + r.carbs,
+      fat:   s.fat   + r.fat
+    }), { cost:0, grams:0, kcal:0, prot:0, carbs:0, fat:0 });
+    const itemsWithPrice = rows.filter(r => r.ppg != null);
+    const itemsMissingPrice = rows.filter(r => r.ppg == null && r.grams > 0).length;
+
+    // Bar chart — last 14 days within period (or fewer if period < 14)
+    const last14 = costByDay.slice(-Math.min(14, N));
     const maxCost = Math.max(...last14.map(d => d.cost), 1);
-    const barW = 16, barGap = 4, chartW = last14.length * (barW + barGap);
-    const chartH = 80;
+    const barW = 30, barGap = 8;
+    const topMargin = 22, bottomMargin = 22;
+    const chartH = 130;
+    const plotH = chartH - topMargin - bottomMargin;
+    const chartW = last14.length * (barW + barGap) - barGap;
     const bars = last14.map((d, i) => {
-      const bh = d.cost > 0 ? Math.max(4, (d.cost / maxCost) * (chartH - 20)) : 0;
+      const bh = d.cost > 0 ? Math.max(4, (d.cost / maxCost) * plotH) : 0;
       const x = i * (barW + barGap);
+      const yTop = topMargin + (plotH - bh);
       const [,mm,dd] = d.date.split('-');
+      const labelInside = bh >= 26;
+      const labelY = labelInside ? yTop + 13 : yTop - 5;
+      const labelFill = labelInside ? '#fff' : 'var(--teal)';
       return `
-        <rect x="${x}" y="${chartH - 20 - bh}" width="${barW}" height="${bh}" rx="3" fill="var(--teal)" opacity="0.8" />
-        ${d.cost > 0 ? `<text x="${x + barW/2}" y="${chartH - 22 - bh}" text-anchor="middle" font-size="7.5" fill="var(--teal)" font-weight="600">€${d.cost.toFixed(0)}</text>` : ''}
-        <text x="${x + barW/2}" y="${chartH - 4}" text-anchor="middle" font-size="8" fill="var(--text-sec)">${dd}/${mm}</text>`;
+        <rect x="${x}" y="${yTop}" width="${barW}" height="${bh}" rx="4" fill="var(--teal)" opacity="${d.cost > 0 ? 0.85 : 0.18}" />
+        ${d.cost > 0 ? `<text x="${x + barW/2}" y="${labelY}" text-anchor="middle" font-size="11" font-weight="700" fill="${labelFill}">€${d.cost.toFixed(0)}</text>` : ''}
+        <text x="${x + barW/2}" y="${chartH - 6}" text-anchor="middle" font-size="9" fill="var(--text-sec)">${dd}/${mm}</text>`;
     }).join('');
+
+    // UI helpers
+    const periodPills = [7, 14, 30, 90].map(n => `
+      <button class="metric-btn ${finanzasPeriod === n ? 'active' : ''}" onclick="setFinanzasPeriod(${n})">${n}d</button>`).join('');
+    const sortOpts = [
+      ['cost-desc', '💸 Caros'],
+      ['cost-asc',  '🪙 Baratos'],
+      ['ppg-desc',  '€/100g ↓'],
+      ['ppg-asc',   '€/100g ↑'],
+      ['qty-desc',  '📦 Cantidad'],
+      ['prot-desc', '💪 Proteína'],
+      ['name',      '🔤 A–Z']
+    ];
+    const sortPills = sortOpts.map(([k, label]) => `
+      <button class="metric-btn ${finanzasSort === k ? 'active' : ''}" onclick="setFinanzasSort('${k}')">${label}</button>`).join('');
+
+    // Table rows
+    const tableRows = rows.length === 0 ? `
+      <div style="padding:24px;text-align:center;color:var(--text-sec);font-size:12px;">Sin comidas registradas en este período.</div>` :
+      rows.map((r, i) => {
+        const unitCost = (r.ppg != null && r.unitWeight)
+          ? `<span style="font-size:10px;color:var(--text-sec);">€${(r.ppg * r.unitWeight / 100).toFixed(2)}/${r.unitLabel || 'ud'}</span>`
+          : '';
+        const ppgCell = r.ppg != null
+          ? `<div style="font-weight:600;color:var(--text);">€${r.ppg.toFixed(2)}</div>${unitCost}`
+          : `<div style="color:#F59E0B;font-size:11px;" title="Sin precio en local-prices.json">— sin precio</div>`;
+        const costCell = r.ppg != null
+          ? `<span style="font-weight:700;color:#059669;">€${r.cost.toFixed(2)}</span>`
+          : `<span style="color:var(--text-sec);">—</span>`;
+        const qtyCell = r.unitWeight && r.grams >= r.unitWeight
+          ? `${r.grams.toFixed(0)}g <span style="color:var(--text-sec);font-size:10px;">(${(r.grams / r.unitWeight).toFixed(1)} ${r.unitLabel || 'ud'})</span>`
+          : `${r.grams.toFixed(0)}g`;
+        const zebra = i % 2 === 1 ? 'background:rgba(0,0,0,0.02);' : '';
+        return `
+          <div style="display:grid;grid-template-columns:24px minmax(0,1.7fr) 0.9fr 0.9fr 0.7fr 1.4fr;gap:8px;align-items:center;padding:8px 10px;border-bottom:1px solid var(--border);${zebra}">
+            <span style="font-size:10px;color:var(--text-sec);text-align:center;">${i + 1}</span>
+            <div style="min-width:0;">
+              <div style="font-size:12px;color:var(--text);font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;" title="${r.name}">${r.name}</div>
+              <div style="font-size:10px;color:var(--text-sec);">${r.store || (r.foodId ? '' : 'Manual')} ${r.occurrences > 1 ? '· ' + r.occurrences + 'x' : ''}</div>
+            </div>
+            <div style="font-size:12px;color:var(--text);text-align:right;">${qtyCell}</div>
+            <div style="text-align:right;">${ppgCell}</div>
+            <div style="font-size:11px;color:var(--text-sec);text-align:right;">${r.prot.toFixed(0)}P · ${r.carbs.toFixed(0)}C · ${r.fat.toFixed(0)}F</div>
+            <div style="text-align:right;font-size:13px;">${costCell}</div>
+          </div>`;
+      }).join('');
 
     return `
     <div style="padding:0 4px;">
       <!-- KPIs -->
       <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:14px;">
         <div class="card" style="text-align:center;margin-bottom:0;">
-          <div style="font-size:22px;font-weight:700;color:#059669;">€${totalMonth.toFixed(2)}</div>
-          <div style="font-size:10px;color:var(--text-sec);text-transform:uppercase;letter-spacing:1px;">Últimos 30 días</div>
+          <div style="font-size:22px;font-weight:700;color:#059669;">€${totalSpend.toFixed(2)}</div>
+          <div style="font-size:10px;color:var(--text-sec);text-transform:uppercase;letter-spacing:1px;">Últimos ${N} días</div>
         </div>
         <div class="card" style="text-align:center;margin-bottom:0;">
           <div style="font-size:22px;font-weight:700;color:var(--teal);">€${avgDay.toFixed(2)}</div>
@@ -3539,24 +3638,58 @@ var tesseractLoaded = false;
 
       <!-- Daily cost bar chart -->
       <div class="card" style="margin-bottom:14px;">
-        <div class="card-title">Gasto diario — últimos 14 días</div>
+        <div class="card-title">Gasto diario — últimos ${last14.length} días</div>
         <div style="overflow-x:auto;">
-          <svg viewBox="0 0 ${chartW} ${chartH}" style="width:100%;min-width:${chartW}px;height:${chartH}px;display:block;">
+          <svg viewBox="0 0 ${chartW} ${chartH}" preserveAspectRatio="xMidYMid meet" style="width:100%;min-width:${Math.min(chartW, 520)}px;max-width:${chartW}px;height:auto;display:block;">
             ${bars}
           </svg>
         </div>
       </div>
 
-      <!-- Top foods by cost -->
+      <!-- Period summary + filters -->
       <div class="card" style="margin-bottom:14px;">
-        <div class="card-title">Top alimentos por gasto (30 días)</div>
-        ${topFoods.length === 0 ? '<div style="font-size:12px;color:var(--text-sec);">Sin datos de precios para comidas registradas.</div>' :
-          topFoods.map(([name, cost], i) => `
-          <div style="display:flex;align-items:center;gap:8px;padding:5px 0;border-bottom:1px solid var(--border);">
-            <span style="font-size:11px;color:var(--text-sec);width:16px;">${i+1}</span>
-            <span style="flex:1;font-size:12px;color:var(--text);">${name}</span>
-            <span style="font-size:13px;font-weight:700;color:#059669;">€${cost.toFixed(2)}</span>
-          </div>`).join('')}
+        <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;margin-bottom:10px;">
+          <div class="card-title" style="margin-bottom:0;">Detalle por alimento</div>
+          <div style="display:flex;gap:4px;flex-wrap:wrap;">${periodPills}</div>
+        </div>
+
+        <!-- Period totals -->
+        <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:12px;padding:10px;background:rgba(20,184,166,0.06);border-radius:10px;">
+          <div style="text-align:center;">
+            <div style="font-size:9px;color:var(--text-sec);text-transform:uppercase;letter-spacing:0.5px;">Cantidad</div>
+            <div style="font-size:14px;font-weight:700;color:var(--text);">${(totals.grams/1000).toFixed(1)}<span style="font-size:10px;color:var(--text-sec);">kg</span></div>
+          </div>
+          <div style="text-align:center;border-left:1px solid var(--border);">
+            <div style="font-size:9px;color:#3B82F6;text-transform:uppercase;letter-spacing:0.5px;">Proteína</div>
+            <div style="font-size:14px;font-weight:700;color:#3B82F6;">${totals.prot.toFixed(0)}<span style="font-size:10px;color:var(--text-sec);">g</span></div>
+          </div>
+          <div style="text-align:center;border-left:1px solid var(--border);">
+            <div style="font-size:9px;color:#22C55E;text-transform:uppercase;letter-spacing:0.5px;">Carbs</div>
+            <div style="font-size:14px;font-weight:700;color:#22C55E;">${totals.carbs.toFixed(0)}<span style="font-size:10px;color:var(--text-sec);">g</span></div>
+          </div>
+          <div style="text-align:center;border-left:1px solid var(--border);">
+            <div style="font-size:9px;color:#F59E0B;text-transform:uppercase;letter-spacing:0.5px;">Grasas</div>
+            <div style="font-size:14px;font-weight:700;color:#F59E0B;">${totals.fat.toFixed(0)}<span style="font-size:10px;color:var(--text-sec);">g</span></div>
+          </div>
+        </div>
+
+        <!-- Sort pills -->
+        <div style="display:flex;gap:4px;flex-wrap:wrap;margin-bottom:10px;">${sortPills}</div>
+
+        ${itemsMissingPrice > 0 ? `<div style="font-size:10px;color:#F59E0B;margin-bottom:8px;">⚠️ ${itemsMissingPrice} alimento${itemsMissingPrice > 1 ? 's' : ''} sin precio (no contabilizan en el costo total).</div>` : ''}
+
+        <!-- Header -->
+        <div style="display:grid;grid-template-columns:24px minmax(0,1.7fr) 0.9fr 0.9fr 0.7fr 1.4fr;gap:8px;padding:6px 10px;font-size:9px;text-transform:uppercase;letter-spacing:0.5px;color:var(--text-sec);font-weight:600;border-bottom:2px solid var(--border);">
+          <span style="text-align:center;">#</span>
+          <span>Alimento</span>
+          <span style="text-align:right;">Cantidad</span>
+          <span style="text-align:right;">€/100g</span>
+          <span style="text-align:right;">Macros</span>
+          <span style="text-align:right;">Costo total</span>
+        </div>
+
+        <!-- Rows -->
+        <div style="max-height:520px;overflow-y:auto;">${tableRows}</div>
       </div>
 
       <!-- Toggle per-item prices in Meals view -->
@@ -4012,6 +4145,9 @@ var tesseractLoaded = false;
     currentPeriod = period;
     render();
   };
+
+  window.setFinanzasPeriod = function(n) { finanzasPeriod = n; render(); };
+  window.setFinanzasSort   = function(s) { finanzasSort   = s; render(); };
 
   window.setMetric = function (metric) {
     currentMetric = metric;

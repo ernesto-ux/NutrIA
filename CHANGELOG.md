@@ -1,5 +1,18 @@
 # Changelog - NutrIA
 
+## [Finanzas v2] - 02 mayo 2026
+### Arreglado
+- **Gasto diario chart**: barras 30px (antes 16px) con gap 8px y altura 130px. Etiquetas €X dentro de barras altas (blanco) o encima (teal) según altura. Sin solapamientos €27/€29/€31
+
+### Agregado
+- **Detalle por alimento** (en Finanzas): tabla filtrable con
+  - Filtros de período: 7d / 14d / 30d / 90d
+  - Sorts: 💸 Caros / 🪙 Baratos / €/100g ↑↓ / 📦 Cantidad / 💪 Proteína / 🔤 A–Z
+  - Resumen del período: total kg consumidos, proteína, carbs, grasas (acumulados)
+  - Por fila: cantidad total (con conversión a unidades si aplica), €/100g, costo unitario (€/pot, €/cookie, etc), macros consumidos (P/C/F), costo total
+  - Indicador de alimentos sin precio + número de ocurrencias en el período (ej. "35x")
+  - Tienda/origen debajo del nombre (Décathlon, Carrefour, Homemade, etc.)
+
 ## [Hotfix] - 02 mayo 2026
 ### Arreglado
 - **App no cargaba (regression Phase 2)**: el bridge `window.NutrIA` referenciaba `parseRenphoData`, función eliminada al modularizar health.js. ReferenceError mataba el IIFE antes de `render()`, dejando todo en blanco (Meals vacío, Informes sin click, Finanzas en "Cargando precios", historial sin datos)
