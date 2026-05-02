@@ -1,5 +1,37 @@
 # Changelog - NutrIA
 
+## [Fase H · Coach refinement + Q&A + Lista compras + Nav fix] - 02 mayo 2026
+### Arreglado
+- **PIN gate**: texto roto `${[0,1,2,3].map(...)}` se mostraba como literal. Eliminado, simplificado a "Elige usuario y PIN" con sub-texto explicativo
+- **Nav overflow**: 10 tabs desbordaban en compu y mobile. Fix:
+  - Scroll horizontal con masking gradient a la derecha (indica más contenido)
+  - Padding reducido (12px → 8px en mobile)
+  - Font-size escalado por viewport (0.78rem → 0.7rem en 420px)
+  - Auto-scroll del tab activo al centro al cambiar (smooth, inline:center)
+
+### Agregado — Coach refinement (Opción H parte 1)
+- **Filtro de ingredientes inappropriados** en sugerencias: maizena, harina, aceite, mantequilla, sal, especias, levadura, vinagre, ajo/cebolla solos, agua, azucar, sirope, polvos, salsas, gelatina, items con `*-base` o `base-*`, items con fat > 60g/100g (aceites puros)
+- **Boost por uso reciente**: items consumidos en los últimos 60 días tienen ranking más alto (sugiere lo que ya comes habitualmente)
+- **Carbs filter mejorado**: requiere prot ≥ 2g O fiber ≥ 1g (excluye almidones puros)
+- **Balanced más estricto**: prot ≥ 10 + kcal 80-250 + carbs < 50 (excluye pastas/cereales como "balanceado")
+- **🤔 ¿Puedo comer X?** Q&A: input al tope del Coach que evalúa cualquier alimento contra macros pendientes
+  - Parsea: "pizza", "200g pollo", "1 galleta", "1 cookie", "carne"
+  - Calcula porción: explícita → unitWeight × count → default por densidad calórica
+  - Verdict semáforo: ❌ Excede / ⚠️ Ajustado / ✓ Sí cabe / ✓ Buena elección (alta prot)
+  - Muestra macros con % del gap pendiente
+  - Sugerencia de porción alternativa si excede
+  - Lista otras coincidencias en DB
+
+### Agregado — Lista compras predictiva (Opción H parte 2)
+- **🛒 Lista compras estimada** en Hogar tab:
+  - Predicción basada en consumo de últimas 4 semanas + buffer 10%
+  - Agrupada por tienda (Carrefour, Monoprix, Homemade, etc.)
+  - Por item: cantidad proyectada (con conversión a unidades), gramos/sem promedio, ocurrencias, costo estimado
+  - Indicador 👫 cuando ambos usuarios consumen el item (compras compartidas)
+  - Total estimado del periodo
+  - Click en item → marca como comprado (persistente en localStorage `nutria_shopping_checked`)
+  - Botones "Copiar lista" y "Reset"
+
 ## [Fase D + E avanzadas] - 02 mayo 2026
 ### Agregado — Fase D · UX innovación
 - **📖 Body composition storyteller** (4.5.3) en Salud: narrativa visual generada sobre WEIGHT_LOG

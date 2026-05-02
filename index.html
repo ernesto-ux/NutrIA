@@ -116,12 +116,22 @@
     .date-label:hover { border-color: var(--teal); color: var(--teal); }
     .period-pills {
       display: flex;
-      gap: 4px;
+      gap: 2px;
       padding-bottom: 0;
+      overflow-x: auto;
+      overflow-y: hidden;
+      flex-wrap: nowrap;
+      scrollbar-width: thin;
+      scrollbar-color: var(--border) transparent;
+      -webkit-overflow-scrolling: touch;
+      mask-image: linear-gradient(to right, black calc(100% - 24px), transparent);
+      -webkit-mask-image: linear-gradient(to right, black calc(100% - 24px), transparent);
     }
+    .period-pills::-webkit-scrollbar { height: 2px; }
+    .period-pills::-webkit-scrollbar-thumb { background: var(--border); border-radius: 1px; }
     .pill {
-      padding: 8px 18px;
-      font-size: 0.8rem;
+      padding: 8px 12px;
+      font-size: 0.78rem;
       font-weight: 600;
       border: none;
       background: none;
@@ -131,9 +141,18 @@
       transition: all .15s;
       border-radius: 0;
       white-space: nowrap;
+      flex-shrink: 0;
+      font-family: inherit;
     }
     .pill:hover { color: var(--teal); }
     .pill.active { color: var(--teal); border-bottom-color: var(--teal); }
+    @media (max-width: 680px) {
+      .pill { padding: 8px 10px; font-size: 0.72rem; }
+      .period-pills { gap: 0; }
+    }
+    @media (max-width: 420px) {
+      .pill { padding: 8px 8px; font-size: 0.7rem; }
+    }
 
     /* ── MAIN ── */
     .main {
@@ -1053,10 +1072,8 @@
   <div style="background:rgba(255,255,255,0.96);border-radius:20px;padding:40px 32px;max-width:380px;width:90%;text-align:center;box-shadow:0 20px 60px rgba(0,0,0,0.3);">
     <div style="font-size:48px;margin-bottom:8px;">🦦</div>
     <div style="font-size:22px;font-weight:800;color:#0f172a;letter-spacing:-0.5px;">NutrIA</div>
-    <div style="font-size:12px;color:#64748b;text-transform:uppercase;letter-spacing:1px;margin-top:2px;margin-bottom:24px;" id="pin-gate-subtitle">Ingresá tu PIN</div>
-    <div id="pin-display" style="display:flex;justify-content:center;gap:10px;margin-bottom:18px;">
-      ${[0,1,2,3].map(() => '').join('')}
-    </div>
+    <div style="font-size:12px;color:#64748b;text-transform:uppercase;letter-spacing:1px;margin-top:2px;margin-bottom:8px;" id="pin-gate-subtitle">Elige usuario y PIN</div>
+    <div style="font-size:11px;color:#94a3b8;margin-bottom:18px;">Sistema identifica a Ernesto o Adriana automáticamente.</div>
     <input type="password" inputmode="numeric" pattern="[0-9]*" maxlength="4" id="pin-input" placeholder="••••" style="width:100%;padding:14px;font-size:24px;text-align:center;letter-spacing:8px;border:2px solid #e2e8f0;border-radius:12px;font-family:inherit;color:#0f172a;background:#fff;outline:none;" autocomplete="off">
     <div id="pin-error" style="font-size:12px;color:#ef4444;height:18px;margin-top:8px;font-weight:600;"></div>
     <div style="display:flex;gap:8px;margin-top:16px;">
@@ -4397,6 +4414,119 @@ try {
     </div>`;
   }
 
+  // ── Q&A: evaluar si una comida cabe en macros pendientes ──────────────
+  function evaluateMealQuestion(query, remain, tgt) {
+    const q = query.trim().toLowerCase();
+    if (!q) return null;
+    // Parse quantity if present
+    const qtyMatch = q.match(/(\d+(?:[.,]\d+)?)\s*(g|gr|gramos|kg|ml)?/);
+    const explicitGrams = qtyMatch ? (qtyMatch[2] === 'kg' ? parseFloat(qtyMatch[1].replace(',','.')) * 1000 : parseFloat(qtyMatch[1].replace(',','.'))) : null;
+    const unitMatch = q.match(/^(\d+)\s+(galleta|cookie|huevo|pieza|porcion|porción|taza)/);
+    const unitCount = unitMatch ? parseInt(unitMatch[1], 10) : null;
+    // Search FOOD_DATABASE: tokenize, fuzzy match
+    const tokens = q.replace(/(\d+(?:[.,]\d+)?\s*(g|gr|gramos|kg|ml)?)|(galleta|cookie|huevo|pieza|porcion|porción|taza)/g, '').trim().split(/\s+/).filter(t => t.length >= 3);
+    if (tokens.length === 0) return `<div style="padding:10px;background:rgba(245,158,11,0.08);border-radius:8px;font-size:12px;color:var(--text);">Especifica un alimento. Ej: "pizza", "carne", "200g pollo".</div>`;
+
+    const candidates = FOOD_DATABASE.filter(f => {
+      const hay = (f.name + ' ' + (f.brand || '') + ' ' + f.id).toLowerCase();
+      return tokens.every(t => hay.includes(t)) || tokens.every(t => f.id.includes(t));
+    }).sort((a, b) => {
+      // Prefer items with longer matches and lower kcal (when ambiguous)
+      const aScore = (a.name.toLowerCase().includes(tokens[0]) ? 2 : 0) + (a.source === 'recetario' ? 1 : 0);
+      const bScore = (b.name.toLowerCase().includes(tokens[0]) ? 2 : 0) + (b.source === 'recetario' ? 1 : 0);
+      return bScore - aScore;
+    });
+
+    if (candidates.length === 0) {
+      return `<div style="padding:10px;background:rgba(239,68,68,0.08);border-radius:8px;font-size:12px;color:var(--text);">No encontré "<strong>${q}</strong>" en tu DB (247 alimentos). Prueba con otro nombre o usá /log-food para crear el alimento.</div>`;
+    }
+
+    const food = candidates[0];
+    // Determine portion
+    let grams;
+    if (explicitGrams) grams = explicitGrams;
+    else if (unitCount && food.unitWeight) grams = unitCount * food.unitWeight;
+    else if (food.unitWeight) grams = food.unitWeight;
+    else if (food.per100g.kcal > 300) grams = 80;  // dense food → smaller default
+    else if (food.per100g.kcal > 100) grams = 150;
+    else grams = 200; // light food
+
+    const kcal  = food.per100g.kcal  * grams / 100;
+    const prot  = food.per100g.prot  * grams / 100;
+    const carbs = food.per100g.carbs * grams / 100;
+    const fat   = food.per100g.fat   * grams / 100;
+    const cost  = (PRICE_DB[food.id] && PRICE_DB[food.id].price_per_100g) ? PRICE_DB[food.id].price_per_100g * grams / 100 : null;
+
+    // Evaluate fit
+    const kcalPct  = remain.kcal  > 0 ? (kcal  / remain.kcal)  * 100 : Infinity;
+    const protPct  = remain.prot  > 0 ? (prot  / remain.prot)  * 100 : 0;
+    const carbsPct = remain.carbs > 0 ? (carbs / remain.carbs) * 100 : Infinity;
+    const fatPct   = remain.fat   > 0 ? (fat   / remain.fat)   * 100 : Infinity;
+
+    // Verdict logic
+    const exceeds = (kcalPct > 110) || (fatPct > 110 && remain.fat > 0) || (carbsPct > 110 && remain.carbs > 0);
+    const tightFit = (kcalPct > 80) || (fatPct > 80) || (carbsPct > 80);
+    const goodForProt = prot >= 15 && fat / Math.max(1, kcal/100) < 0.5; // protein-dense
+
+    let verdict, color, emoji, advice;
+    if (remain.kcal <= 100) {
+      verdict = '❌ Día completo'; color = '#EF4444'; emoji = '🚫';
+      advice = `Ya cubriste tu target diario. Si comes esto vas a excederlo en ${(kcal - remain.kcal).toFixed(0)} kcal.`;
+    } else if (exceeds) {
+      verdict = '❌ Excede tus pendientes'; color = '#EF4444'; emoji = '🚫';
+      const offenders = [];
+      if (kcalPct > 110)  offenders.push(`kcal ${kcalPct.toFixed(0)}%`);
+      if (fatPct > 110)   offenders.push(`grasa ${fatPct.toFixed(0)}%`);
+      if (carbsPct > 110) offenders.push(`carbs ${carbsPct.toFixed(0)}%`);
+      advice = `Con ${grams}g excederías: ${offenders.join(', ')}. Prueba una porción menor o cambia de elección.`;
+    } else if (tightFit) {
+      verdict = '⚠️ Posible pero ajustado'; color = '#F59E0B'; emoji = '⚠️';
+      advice = `Cabe pero deja poco margen para el resto del día. Considera una porción más pequeña si tienes más comidas planeadas.`;
+    } else if (goodForProt) {
+      verdict = '✓ Sí, buena elección'; color = '#059669'; emoji = '✅';
+      advice = `Aporta ${prot.toFixed(0)}g de proteína (${protPct.toFixed(0)}% de tu gap) sin saturar otros macros. Recomendado.`;
+    } else {
+      verdict = '✓ Sí, cabe'; color = '#0F766E'; emoji = '✅';
+      advice = `${grams}g representan ${kcalPct.toFixed(0)}% de tus calorías pendientes. Sin alertas.`;
+    }
+
+    // Suggest smaller portion if exceeds
+    let altSuggest = '';
+    if (exceeds && remain.kcal > 50) {
+      const safeGrams = Math.floor(remain.kcal * 0.85 / (food.per100g.kcal / 100) / 10) * 10;
+      if (safeGrams >= 20 && safeGrams < grams) {
+        const altKcal  = food.per100g.kcal  * safeGrams / 100;
+        const altProt  = food.per100g.prot  * safeGrams / 100;
+        altSuggest = `<div style="margin-top:8px;padding:8px;background:rgba(20,184,166,0.06);border-radius:6px;font-size:12px;"><strong>Alternativa segura:</strong> ${safeGrams}g = ${altKcal.toFixed(0)} kcal · ${altProt.toFixed(0)}g prot.</div>`;
+      }
+    }
+
+    const altCandidates = candidates.length > 1 ? candidates.slice(1, 4).map(c => c.name).join(' · ') : '';
+
+    return `
+      <div style="padding:14px;background:linear-gradient(135deg,rgba(${color === '#EF4444' ? '239,68,68' : color === '#F59E0B' ? '245,158,11' : '15,118,110'},0.08),transparent);border-left:4px solid ${color};border-radius:8px;">
+        <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:10px;margin-bottom:8px;">
+          <div>
+            <div style="font-size:14px;font-weight:700;color:${color};">${emoji} ${verdict}</div>
+            <div style="font-size:12px;color:var(--text-sec);margin-top:2px;">${food.name} · ${grams}g${food.brand ? ' · ' + food.brand : ''}</div>
+          </div>
+          <div style="text-align:right;">
+            <div style="font-size:18px;font-weight:700;color:var(--text);">${kcal.toFixed(0)}<span style="font-size:11px;color:var(--text-sec);"> kcal</span></div>
+            ${cost ? `<div style="font-size:11px;color:#059669;font-weight:600;">€${cost.toFixed(2)}</div>` : ''}
+          </div>
+        </div>
+        <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:4px;font-size:10.5px;text-align:center;margin-bottom:8px;">
+          <div><div style="font-weight:700;color:#3B82F6;">${prot.toFixed(0)}g</div><div style="color:var(--text-sec);">prot · ${protPct > 0 ? protPct.toFixed(0) + '%' : '—'}</div></div>
+          <div><div style="font-weight:700;color:#22C55E;">${carbs.toFixed(0)}g</div><div style="color:var(--text-sec);">carbs · ${carbsPct === Infinity ? '—' : carbsPct.toFixed(0) + '%'}</div></div>
+          <div><div style="font-weight:700;color:#F59E0B;">${fat.toFixed(0)}g</div><div style="color:var(--text-sec);">grasa · ${fatPct === Infinity ? '—' : fatPct.toFixed(0) + '%'}</div></div>
+          <div><div style="font-weight:700;color:var(--text);">${kcalPct === Infinity ? '—' : kcalPct.toFixed(0) + '%'}</div><div style="color:var(--text-sec);">del gap</div></div>
+        </div>
+        <div style="font-size:12px;color:var(--text);line-height:1.5;">${advice}</div>
+        ${altSuggest}
+        ${altCandidates ? `<div style="margin-top:8px;font-size:10px;color:var(--text-sec);">Otras coincidencias: ${altCandidates}</div>` : ''}
+      </div>`;
+  }
+
   // ── MEAL COACH (rule-based suggestions) ───────────────────────────────
   function renderCoach() {
     const tgt = TARGETS();
@@ -4453,20 +4583,57 @@ try {
       return { items, totalKcal, totalProt, totalCarbs, totalFat, totalCost };
     }
 
-    // Profile candidates by macro role
+    // Profile candidates by macro role — exclude raw ingredients & components
     const dbConsumed = new Set();
     getDay(currentDate).forEach(m => m.items.forEach(it => { if (it.foodId) dbConsumed.add(it.foodId); }));
+
+    // Hard exclude: ingredients / raw / standalone-inappropriate
+    const EXCLUDE_PATTERNS = /(maizena|harina|aceite|mantequilla|vinagre|sal-|levadura|especias|polvo-(?!proteina)|sirope|miel-|agua|azucar|cruda|cruda$|salsa-|stock|caldo-|gelatina|coco-rallado|cacao-puro|hierbas|jengibre|ajo$|cebolla$|extracto|esencia|colorante|brioche-pasta|crema-pastelera-base|confitura)/i;
+
+    // Soft "ingredient-like" — never appear as solo
+    const isIngredient = f =>
+      EXCLUDE_PATTERNS.test(f.id) ||
+      f.id.endsWith('-base') ||
+      f.id.startsWith('base-') ||
+      (f.per100g.fat > 60); // pure fat (oils, butter)
+
+    // Compute "used recently" signal: how many times in last 60 days
+    const usageCount = {};
+    const cutoffDate = (() => { const d = new Date(); d.setDate(d.getDate() - 60); return fmtYMD(d); })();
+    getAllMeals().filter(m => m.date >= cutoffDate).forEach(m =>
+      m.items.forEach(it => { if (it.foodId) usageCount[it.foodId] = (usageCount[it.foodId] || 0) + 1; }));
+
     const candidates = FOOD_DATABASE.filter(f =>
       f.per100g && f.per100g.kcal > 0 && !dbConsumed.has(f.id) &&
-      f.source !== 'recetario' // recetario items are full meals already
+      f.source !== 'recetario' && // recetario = full meals already
+      !isIngredient(f)
     );
+
+    // Score candidates: usage frequency boosts ranking
+    const usageBoost = f => Math.min(5, (usageCount[f.id] || 0) / 2); // 0–5 bonus
+
     const protein = candidates.filter(f => f.per100g.prot >= 15 && f.per100g.fat < 20)
-      .sort((a,b) => (b.per100g.prot / Math.max(b.per100g.kcal, 1)) - (a.per100g.prot / Math.max(a.per100g.kcal, 1)));
-    const carbsRich = candidates.filter(f => f.per100g.carbs >= 15 && f.per100g.fat < 10)
-      .sort((a,b) => b.per100g.carbs - a.per100g.carbs);
-    const veggie = candidates.filter(f => f.per100g.kcal < 60 && f.per100g.carbs < 10)
-      .sort((a,b) => b.per100g.fiber - a.per100g.fiber);
-    const balanced = candidates.filter(f => f.per100g.prot >= 8 && f.per100g.kcal < 200);
+      .sort((a, b) => {
+        const aScore = (b.per100g.prot / Math.max(b.per100g.kcal, 1)) - (a.per100g.prot / Math.max(a.per100g.kcal, 1));
+        return aScore + (usageBoost(b) - usageBoost(a)) * 0.05;
+      });
+
+    // Carbs-rich: real foods (not pure starch). Filter out "almidón", "harina"-like by requiring prot ≥ 2 OR fiber ≥ 1
+    const carbsRich = candidates.filter(f =>
+      f.per100g.carbs >= 15 && f.per100g.fat < 12 &&
+      (f.per100g.prot >= 2 || (f.per100g.fiber || 0) >= 1)
+    ).sort((a, b) => b.per100g.carbs - a.per100g.carbs - (usageBoost(b) - usageBoost(a)));
+
+    // Veggie: low kcal, low carbs, with fiber
+    const veggie = candidates.filter(f =>
+      f.per100g.kcal < 60 && f.per100g.carbs < 12 && (f.per100g.fiber || 0) >= 1
+    ).sort((a, b) => (b.per100g.fiber || 0) - (a.per100g.fiber || 0) + (usageBoost(b) - usageBoost(a)));
+
+    // Balanced: prot moderate + reasonable kcal — NOT pure starches
+    const balanced = candidates.filter(f =>
+      f.per100g.prot >= 10 && f.per100g.kcal >= 80 && f.per100g.kcal < 250 &&
+      f.per100g.carbs < 50 // exclude pasta/cereal as "balanced"
+    ).sort((a, b) => usageBoost(b) - usageBoost(a));
 
     // Suggestion 1: HIGH-PROTEIN LEAN — prioritize protein gap
     if (protein.length > 0 && remain.prot >= 15) {
@@ -4512,8 +4679,23 @@ try {
         </div>
       </div>` : '';
 
+    // Q&A — restaurar query previa si existe (persiste durante sesión)
+    const qaQuery = (window.__coachQAQuery || '');
+    const qaAnswer = qaQuery ? evaluateMealQuestion(qaQuery, remain, tgt) : null;
+
     return `
     <div style="padding:0 4px;">
+      <!-- Q&A: ¿Puedo comer X? -->
+      <div class="card" style="margin-bottom:14px;">
+        <div class="card-title">🤔 ¿Puedo comer...?</div>
+        <div style="font-size:11px;color:var(--text-sec);margin-bottom:8px;">Pregunta sobre cualquier alimento. Ej: "pizza", "200g pollo", "1 galleta", "carne".</div>
+        <div style="display:flex;gap:6px;">
+          <input id="coach-qa-input" type="text" value="${qaQuery.replace(/"/g,'&quot;')}" placeholder='Ej: "pizza", "150g salmon", "1 cookie"' onkeydown="if(event.key==='Enter')askCoachQA()" style="flex:1;padding:10px 12px;border:1px solid var(--border);border-radius:8px;font-size:13px;font-family:inherit;color:var(--text);background:var(--bg);outline:none;">
+          <button onclick="askCoachQA()" style="padding:10px 16px;background:var(--teal);color:#fff;border:none;border-radius:8px;font-size:13px;font-weight:700;cursor:pointer;font-family:inherit;">Evaluar</button>
+        </div>
+        ${qaAnswer ? `<div style="margin-top:12px;">${qaAnswer}</div>` : ''}
+      </div>
+
       <!-- Header / pending macros -->
       <div class="card" style="margin-bottom:14px;">
         <div class="card-title">🤖 Meal Coach — pendientes hoy</div>
@@ -4766,7 +4948,114 @@ try {
       </div>
 
       ${sharedHtml}
+      ${renderShoppingList(allRaw, N)}
     </div>`;
+  }
+
+  // ── LISTA COMPRAS PREDICTIVA (basada en patrones últimas 4 semanas) ───
+  function renderShoppingList(allRaw, periodDays) {
+    const fmtYMD = d => d.getFullYear() + '-' + String(d.getMonth()+1).padStart(2,'0') + '-' + String(d.getDate()).padStart(2,'0');
+    // Window: últimas 4 semanas (28 días) for prediction baseline
+    const cutoff = (() => { const d = new Date(); d.setDate(d.getDate() - 28); return fmtYMD(d); })();
+    const baseline = allRaw.filter(m => m.date >= cutoff);
+    if (baseline.length === 0) return '';
+
+    // Aggregate grams per foodId per WEEK (avg over weeks observed)
+    const byFood = {};
+    baseline.forEach(m => m.items.forEach(it => {
+      if (!it.foodId || !it.grams) return;
+      if (!byFood[it.foodId]) byFood[it.foodId] = { name: it.name, foodId: it.foodId, totalGrams: 0, occurrences: 0, cost: 0, byUser: { ernesto:0, adriana:0 } };
+      byFood[it.foodId].totalGrams += it.grams;
+      byFood[it.foodId].occurrences += 1;
+      byFood[it.foodId].byUser[m.user || 'ernesto'] += it.grams;
+    }));
+
+    // Project: average weekly consumption + add 10% buffer
+    const weeks = 4;
+    const items = Object.values(byFood).map(f => {
+      const weekly = f.totalGrams / weeks;
+      const projected = Math.round(weekly * 1.1); // 10% buffer
+      const food = FOOD_DATABASE.find(x => x.id === f.foodId);
+      const price = PRICE_DB[f.foodId];
+      const projCost = price ? (price.price_per_100g * projected / 100) : null;
+      const store = price ? (price.store || '—') : '—';
+      return {
+        ...f,
+        weekly: Math.round(weekly),
+        projected,
+        cost: projCost,
+        store,
+        unitWeight: food && food.unitWeight,
+        unitLabel: food && food.unitLabel,
+        bothUsers: f.byUser.ernesto > 0 && f.byUser.adriana > 0
+      };
+    })
+    .filter(i => i.projected >= 30) // skip < 30g/week (negligible)
+    .sort((a, b) => (b.cost || 0) - (a.cost || 0));
+
+    if (items.length === 0) return '';
+
+    // Group by store
+    const byStore = {};
+    items.forEach(i => {
+      const k = i.store || '—';
+      byStore[k] = byStore[k] || [];
+      byStore[k].push(i);
+    });
+
+    const totalEstimate = items.reduce((s, i) => s + (i.cost || 0), 0);
+
+    // Persist checked state
+    const checkedKey = 'nutria_shopping_checked';
+    const checked = (() => { try { return new Set(JSON.parse(localStorage.getItem(checkedKey) || '[]')); } catch { return new Set(); } })();
+    const isChecked = id => checked.has(id);
+
+    return `
+      <div class="card" style="margin-bottom:14px;">
+        <div class="card-title" style="display:flex;justify-content:space-between;align-items:center;">
+          <span>🛒 Lista compras estimada (próx. semana)</span>
+          <span style="font-size:11px;color:#059669;font-weight:700;">~€${totalEstimate.toFixed(2)}</span>
+        </div>
+        <div style="font-size:11px;color:var(--text-sec);margin-bottom:12px;">
+          Predicción basada en consumo de las últimas 4 semanas + buffer 10%. Click en un item para marcarlo como comprado.
+        </div>
+
+        ${Object.entries(byStore).sort((a, b) => {
+          const totA = a[1].reduce((s, i) => s + (i.cost || 0), 0);
+          const totB = b[1].reduce((s, i) => s + (i.cost || 0), 0);
+          return totB - totA;
+        }).map(([store, list]) => {
+          const storeTotal = list.reduce((s, i) => s + (i.cost || 0), 0);
+          return `
+            <div style="margin-bottom:14px;">
+              <div style="display:flex;justify-content:space-between;font-size:11px;color:var(--text-sec);text-transform:uppercase;letter-spacing:0.5px;font-weight:700;margin-bottom:6px;padding-bottom:4px;border-bottom:1px solid var(--border);">
+                <span>📍 ${store}</span>
+                <span>€${storeTotal.toFixed(2)}</span>
+              </div>
+              ${list.map(i => {
+                const ck = isChecked(i.foodId);
+                const qtyDisplay = i.unitWeight && i.projected >= i.unitWeight
+                  ? `${i.projected}g (~${(i.projected / i.unitWeight).toFixed(1)} ${i.unitLabel || 'ud'})`
+                  : `${i.projected}g`;
+                return `
+                  <div onclick="toggleShoppingItem('${i.foodId}')" style="display:grid;grid-template-columns:24px 1fr auto auto;gap:8px;align-items:center;padding:8px 6px;border-bottom:1px solid var(--border);cursor:pointer;${ck ? 'opacity:0.5;' : ''}">
+                    <span style="font-size:14px;color:${ck ? '#059669' : '#94a3b8'};">${ck ? '✓' : '○'}</span>
+                    <div style="min-width:0;">
+                      <div style="font-size:12px;color:var(--text);font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;${ck ? 'text-decoration:line-through;' : ''}">${i.name}${i.bothUsers ? ' <span style="font-size:9px;color:#A855F7;">👫</span>' : ''}</div>
+                      <div style="font-size:10px;color:var(--text-sec);">${qtyDisplay} · ${i.weekly}g/sem promedio</div>
+                    </div>
+                    <div style="font-size:11px;color:var(--text-sec);text-align:right;">${i.occurrences}x</div>
+                    <div style="font-size:13px;font-weight:700;color:${i.cost ? '#059669' : 'var(--text-sec)'};">${i.cost ? '€' + i.cost.toFixed(2) : '—'}</div>
+                  </div>`;
+              }).join('')}
+            </div>`;
+        }).join('')}
+
+        <div style="display:flex;gap:8px;margin-top:10px;">
+          <button onclick="copyShoppingList()" style="flex:1;padding:8px;background:var(--teal);color:#fff;border:none;border-radius:8px;font-size:12px;font-weight:600;cursor:pointer;font-family:inherit;">📋 Copiar lista</button>
+          <button onclick="resetShoppingList()" style="padding:8px 14px;background:#fff;color:var(--text-sec);border:1px solid var(--border);border-radius:8px;font-size:12px;font-weight:600;cursor:pointer;font-family:inherit;">↻ Reset</button>
+        </div>
+      </div>`;
   }
 
   // ── STORIES (week recap) ───────────────────────────────────────────────
@@ -5928,6 +6217,13 @@ try {
   window.setPeriod = function (period) {
     currentPeriod = period;
     render();
+    // Scroll active tab into view (helpful when navbar overflows)
+    setTimeout(() => {
+      const active = document.querySelector(`.pill[data-period="${period}"]`);
+      if (active && active.scrollIntoView) {
+        active.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+      }
+    }, 50);
   };
 
   window.setFinanzasPeriod = function(n) { finanzasPeriod = n; render(); };
@@ -6127,6 +6423,46 @@ try {
       window.toggleQuickAdd();
     }
   });
+
+  // ── COACH Q&A handler ──────────────────────────────────────────────────
+  window.askCoachQA = function() {
+    const input = document.getElementById('coach-qa-input');
+    if (!input) return;
+    window.__coachQAQuery = (input.value || '').trim();
+    render();
+  };
+
+  // ── SHOPPING LIST handlers ────────────────────────────────────────────
+  window.toggleShoppingItem = function(foodId) {
+    const key = 'nutria_shopping_checked';
+    let arr = [];
+    try { arr = JSON.parse(localStorage.getItem(key) || '[]'); } catch {}
+    const set = new Set(arr);
+    if (set.has(foodId)) set.delete(foodId);
+    else set.add(foodId);
+    localStorage.setItem(key, JSON.stringify([...set]));
+    render();
+  };
+  window.resetShoppingList = function() {
+    if (!confirm('¿Desmarcar todos los items?')) return;
+    localStorage.removeItem('nutria_shopping_checked');
+    render();
+  };
+  window.copyShoppingList = function() {
+    const card = document.querySelector('[data-period="hogar"].active') ? document.querySelector('.card .card-title') : null;
+    // Build text from current rendered list
+    const items = [];
+    document.querySelectorAll('[onclick^="toggleShoppingItem"]').forEach(el => {
+      const txt = el.querySelector('div.fin-name, [style*="font-weight:600"]');
+      const qty = el.querySelector('[style*="font-size:10px"][style*="text-sec"]');
+      if (txt && qty) items.push(`☐ ${qty.textContent.split('·')[0].trim()} ${txt.textContent.trim()}`);
+    });
+    if (items.length === 0) { showToast('No hay items'); return; }
+    navigator.clipboard.writeText(items.join('\n')).then(
+      () => showToast('Lista copiada (' + items.length + ' items)'),
+      () => showToast('Error al copiar')
+    );
+  };
 
   let _noteSaveTimer = null;
   window.saveDayNote = function(val) {
