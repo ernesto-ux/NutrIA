@@ -1,5 +1,15 @@
 # Changelog - NutrIA
 
+## [Fixes pos-feedback] - 02 mayo 2026
+### Cambiado
+- **Auto-lock idle**: default 30 min → **24h** (1440 min). Lock manual sigue disponible
+- **Quick add FAB**: ahora **solo visible en tab Meals** (no estorba en otros)
+- **Lista compras**:
+  - Restaurantes excluidos (RegEx: McDonald, Subway, Pizza Hut, Pizzou, Biyo, KLM, Hotel, Starbucks, Holy Cookie, Van Stapele, etc.)
+  - Items consumidos ≥2 veces ahora aparecen aunque sean <30g/sem (ricotta, cottage, huevos)
+  - **Tienda principal configurable**: default `Franprix`, cambiable desde la card. Items de Carrefour/Monoprix/Picard/Lidl/etc. se reagrupan bajo tu tienda principal. Homemade aparte
+- **Coach Q&A**: además del verdict, ahora muestra **3 opciones de porción** (Mínima / Solicitada / Máx. segura) con macros y verdict ✓ cabe / ✗ excede para cada una
+
 ## [Fase H · Coach refinement + Q&A + Lista compras + Nav fix] - 02 mayo 2026
 ### Arreglado
 - **PIN gate**: texto roto `${[0,1,2,3].map(...)}` se mostraba como literal. Eliminado, simplificado a "Elige usuario y PIN" con sub-texto explicativo
