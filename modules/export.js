@@ -61,7 +61,8 @@ window.exportInformeCSV = function() {
   const dates = getInformeDates();
   const allMeals = getAllMeals();
   const userName = USERS[currentUser].name;
-  const rows = [['Fecha','Dia','Comida','Alimento','Gramos','Kcal','Proteina','Carbs','Grasa']];
+  const hasPricesCSV = Object.keys(PRICE_DB).length > 0;
+  const rows = [['Fecha','Dia','Comida','Alimento','Gramos','Kcal','Proteina','Carbs','Grasa', ...(hasPricesCSV ? ['Costo (€)'] : [])]];
   const dayNames = ['Dom','Lun','Mar','Mie','Jue','Vie','Sab'];
 
   dates.forEach(date => {
@@ -70,6 +71,9 @@ window.exportInformeCSV = function() {
     const dayName = dayNames[d.getDay()];
     dayMeals.forEach(m => {
       (m.items || []).forEach(item => {
+        const itemCost = hasPricesCSV && item.foodId && PRICE_DB[item.foodId]
+          ? (PRICE_DB[item.foodId].price_per_100g * (item.grams || 0) / 100).toFixed(2)
+          : '';
         rows.push([
           date, dayName, m.meal || '',
           (item.name || item.foodId || '').replace(/,/g, ';'),
@@ -77,7 +81,8 @@ window.exportInformeCSV = function() {
           round1(item.kcal || 0),
           round1(item.prot || 0),
           round1(item.carbs || 0),
-          round1(item.fat || 0)
+          round1(item.fat || 0),
+          ...(hasPricesCSV ? [itemCost] : [])
         ]);
       });
     });
@@ -412,6 +417,38 @@ window.exportInformeHTML = function() {
     </section>`;
   }
 
+  // Build food cost breakdown (top items by total spend)
+  let gastoPorAlimentoHtml = '';
+  if (hasPricesLocal) {
+    const foodTotals = {};
+    const { getAllMeals } = window.NutrIA;
+    const allMealsForPeriod = getAllMeals().filter(m => dates.includes(m.date));
+    allMealsForPeriod.forEach(m => {
+      (m.items || []).forEach(item => {
+        if (!item.foodId) return;
+        const p = PRICE_DB[item.foodId];
+        const itemCost = p ? p.price_per_100g * (item.grams || 0) / 100 : 0;
+        if (!foodTotals[item.foodId]) foodTotals[item.foodId] = { name: item.name, grams: 0, cost: 0, p100: p ? p.price_per_100g : null };
+        foodTotals[item.foodId].grams += item.grams || 0;
+        foodTotals[item.foodId].cost += itemCost;
+      });
+    });
+    const foodRows = Object.values(foodTotals)
+      .filter(f => f.cost > 0)
+      .sort((a, b) => b.cost - a.cost)
+      .slice(0, 20)
+      .map(f => {
+        const color = f.p100 >= 3 ? '#EF4444' : f.p100 >= 1.5 ? '#F59E0B' : '#059669';
+        return `<tr><td style="text-align:left;">${f.name}</td><td>${Math.round(f.grams)}g</td><td style="color:${color};">€${f.p100 ? f.p100.toFixed(2) : '—'}</td><td style="font-weight:700;color:#059669;">€${f.cost.toFixed(2)}</td></tr>`;
+      }).join('');
+    if (foodRows) {
+      gastoPorAlimentoHtml = `<section><h2>💶 Gasto por Alimento</h2>
+        <table><thead><tr><th style="text-align:left;">Alimento</th><th>Total g</th><th>€/100g</th><th>Gasto</th></tr></thead>
+        <tbody>${foodRows}</tbody></table>
+      </section>`;
+    }
+  }
+
   const wFL = (Math.abs(totalDeficit)/Math.max(daysWithData.length,1)*7)/7700;
   const cW = 89 - fatLost;
   const wG = wFL > 0 ? Math.ceil((cW-75)/wFL) : 999;
@@ -448,6 +485,7 @@ window.exportInformeHTML = function() {
   <tbody>${macroRowsH}</tbody></table>
 </section>
 ${weightHtmlH}
+${gastoPorAlimentoHtml}
 <section><h2>🎯 Proyección</h2><div class="proj">
   <div class="proj-box" style="background:#CCFBF1;"><div style="font-size:10px;text-transform:uppercase;color:#0D9488;font-weight:700;margin-bottom:4px;">Peso Actual Est.</div>
     <div style="font-size:2rem;font-weight:800;color:#0D9488;">${cW.toFixed(1)} kg</div>
