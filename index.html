@@ -996,6 +996,13 @@
 <!-- MODULES: financials (before IIFE — provides global PRICE_DB + window.getDayCost) -->
 <script src="modules/financials.js"></script>
 
+<!-- GLOBALS for health module state (must be outside IIFE) -->
+<script>
+var renphoResult = null;
+var renphoProcessing = false;
+var tesseractLoaded = false;
+</script>
+
 <!-- APP -->
 <script>
 (function () {
@@ -3350,7 +3357,7 @@
 
   let ocrResult = null;
   let ocrProcessing = false;
-  let tesseractLoaded = false;
+  // tesseractLoaded, renphoResult, renphoProcessing are globals (declared before IIFE for health module access)
 
   function loadTesseract() {
     if (tesseractLoaded) return Promise.resolve();
@@ -3458,407 +3465,6 @@
         : '<div style="color:var(--text-sec);">No se detectaron datos de actividad. Revisa el texto OCR debajo.</div>';
     }
   }
-
-  window.applyOCRData = function(steps, stepsKcal, gymKcal) {
-    const dateEl = document.getElementById('ocr-date');
-    const dateStr = dateEl ? dateEl.value : currentDate;
-    const finalStepsKcal = stepsKcal || (steps ? Math.round(steps * 0.03) : 0);
-
-    // Update in-memory ACTIVITY_LOG
-    let found = false;
-    for (let i = 0; i < ACTIVITY_LOG.length; i++) {
-      if (ACTIVITY_LOG[i].date === dateStr) {
-        if (steps) { ACTIVITY_LOG[i].steps = steps; ACTIVITY_LOG[i].stepsKcal = finalStepsKcal; }
-        if (gymKcal) { ACTIVITY_LOG[i].gymKcal = gymKcal; ACTIVITY_LOG[i].gym = 'gym'; }
-        found = true;
-        break;
-      }
-    }
-    if (!found) {
-      ACTIVITY_LOG.push({
-        date: dateStr, steps: steps || 0, stepsKcal: finalStepsKcal,
-        gym: gymKcal ? 'gym' : null, gymKcal: gymKcal || 0, notes: 'OCR import'
-      });
-    }
-    // Update in-memory DAILY_BALANCE
-    for (let i = 0; i < DAILY_BALANCE.length; i++) {
-      if (DAILY_BALANCE[i].date === dateStr) {
-        if (steps) DAILY_BALANCE[i].stepsKcal = finalStepsKcal;
-        if (gymKcal) DAILY_BALANCE[i].gymKcal = gymKcal;
-        DAILY_BALANCE[i].balance = DAILY_BALANCE[i].intake - DAILY_BALANCE[i].tdee - DAILY_BALANCE[i].stepsKcal - DAILY_BALANCE[i].gymKcal;
-        break;
-      }
-    }
-    // Persist to server (nutrition-data.js)
-    fetch('/api/activity', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        date: dateStr, steps: steps || 0, stepsKcal: finalStepsKcal,
-        gym: gymKcal ? 'gym' : null, gymKcal: gymKcal || 0, notes: 'OCR import'
-      })
-    }).then(r => r.json()).then(d => {
-      if (d.ok) showToast(`Guardado en ${dateStr}: ${steps ? steps.toLocaleString() + ' pasos' : ''}${gymKcal ? ' + ' + gymKcal + ' kcal gym' : ''}`);
-      else showToast('Error guardando actividad');
-    }).catch(() => showToast('Guardado local (server offline)'));
-    render();
-  };
-
-  // ── WEIGHT / RENPHO OCR ──────────────────────────────────────────────
-
-  let renphoResult = null;
-  let renphoProcessing = false;
-
-  window.processRenphoOCR = async function(file) {
-    if (!file || renphoProcessing) return;
-    renphoProcessing = true;
-    renphoResult = null;
-    render();
-
-    try {
-      await loadTesseract();
-      const { data: { text } } = await Tesseract.recognize(file, 'eng+fra+spa', {
-        logger: m => {
-          if (m.status === 'recognizing text') {
-            const pct = Math.round((m.progress || 0) * 100);
-            const el = document.getElementById('renpho-progress');
-            if (el) el.textContent = pct + '%';
-          }
-        }
-      });
-      renphoResult = text;
-    } catch (e) {
-      renphoResult = 'Error OCR: ' + e.message;
-    }
-    renphoProcessing = false;
-    render();
-    setTimeout(() => { if (renphoResult) parseRenphoData(renphoResult); }, 100);
-  };
-
-  function parseRenphoData(text) {
-    const lines = text.split('\n').map(l => l.trim()).filter(Boolean);
-    const allText = lines.join(' ');
-    const data = {};
-
-    // Helper: find number near a keyword
-    function findMetric(keywords, min, max, unit) {
-      for (const line of lines) {
-        const lower = line.toLowerCase().replace(/[éèê]/g, 'e').replace(/[àâ]/g, 'a');
-        for (const kw of keywords) {
-          if (lower.includes(kw)) {
-            const nums = line.match(/(\d+[.,]\d+|\d+)/g);
-            if (nums) {
-              for (const n of nums) {
-                const val = parseFloat(n.replace(',', '.'));
-                if (val >= min && val <= max) return val;
-              }
-            }
-          }
-        }
-      }
-      // Fallback: scan all text
-      return null;
-    }
-
-    data.weight = findMetric(['weight', 'poids', 'peso', 'body weight'], 30, 250);
-    data.bmi = findMetric(['bmi', 'imc'], 10, 60);
-    data.bodyFat = findMetric(['body fat', 'grasa corporal', 'graisse corporelle', 'taux de graisse', 'fat %', 'body fat %'], 3, 60);
-    data.fatFreeWeight = findMetric(['fat-free', 'fat free', 'masse maigre', 'masa magra', 'lean'], 20, 150);
-    data.subcutFat = findMetric(['subcutaneous', 'sous-cutan', 'subcutan', 'grasa subcutan'], 1, 50);
-    data.visceralFat = findMetric(['visceral', 'graisse visc'], 1, 30);
-    data.bodyWater = findMetric(['body water', 'eau corporelle', 'agua corporal', 'water %'], 20, 80);
-    data.skeletalMuscle = findMetric(['skeletal muscle', 'muscle squelettique', 'musculo esqueletico'], 10, 60);
-    data.muscleMass = findMetric(['muscle mass', 'masse musculaire', 'masa muscular'], 20, 120);
-    data.boneMass = findMetric(['bone mass', 'masse osseuse', 'masa osea'], 1, 10);
-    data.bmr = findMetric(['bmr', 'basal', 'metabolismo basal', 'metabolisme'], 800, 3500);
-    data.metabolicAge = findMetric(['metabolic age', 'age metabolique', 'edad metabolica'], 10, 90);
-
-    // If no weight found via keywords, look for a standalone number between 50-150 (likely kg)
-    if (!data.weight) {
-      for (const line of lines) {
-        const m = line.match(/^[\s]*(\d{2,3}[.,]\d{1,2})\s*(kg)?[\s]*$/i);
-        if (m) {
-          const v = parseFloat(m[1].replace(',', '.'));
-          if (v >= 40 && v <= 200) { data.weight = v; break; }
-        }
-      }
-    }
-
-    const el = document.getElementById('renpho-parsed');
-    if (el) {
-      const fields = [
-        { key: 'weight', label: 'Peso', unit: 'kg', icon: '⚖️' },
-        { key: 'bmi', label: 'IMC', unit: '', icon: '📊' },
-        { key: 'bodyFat', label: 'Grasa Corporal', unit: '%', icon: '🔴' },
-        { key: 'fatFreeWeight', label: 'Masa Magra', unit: 'kg', icon: '💪' },
-        { key: 'subcutFat', label: 'Grasa Subcutanea', unit: '%', icon: '📉' },
-        { key: 'visceralFat', label: 'Grasa Visceral', unit: '', icon: '🫀' },
-        { key: 'bodyWater', label: 'Agua Corporal', unit: '%', icon: '💧' },
-        { key: 'skeletalMuscle', label: 'Musculo Esqueletico', unit: '%', icon: '🦴' },
-        { key: 'muscleMass', label: 'Masa Muscular', unit: 'kg', icon: '💪' },
-        { key: 'boneMass', label: 'Masa Osea', unit: 'kg', icon: '🦴' },
-        { key: 'bmr', label: 'BMR', unit: 'kcal', icon: '🔥' },
-        { key: 'metabolicAge', label: 'Edad Metabolica', unit: 'anos', icon: '🎂' },
-      ];
-
-      const detected = fields.filter(f => data[f.key] != null);
-      const inputRows = fields.map(f => `
-        <div style="display:flex;align-items:center;gap:8px;padding:4px 0;">
-          <span style="font-size:14px;">${f.icon}</span>
-          <span style="font-size:12px;color:var(--text-sec);width:120px;">${f.label}</span>
-          <input id="renpho-${f.key}" type="number" step="0.1" value="${data[f.key] || ''}" placeholder="-" style="width:80px;padding:6px 8px;border:1px solid ${data[f.key] ? 'var(--teal)' : 'var(--border)'};border-radius:6px;font-size:13px;font-family:inherit;color:var(--text);background:var(--bg);text-align:right;">
-          <span style="font-size:11px;color:var(--text-sec);width:30px;">${f.unit}</span>
-        </div>
-      `).join('');
-
-      el.innerHTML = `
-        <div style="font-weight:600;margin-bottom:8px;color:var(--teal);font-size:13px;">${detected.length} metricas detectadas. Corrige si es necesario:</div>
-        ${inputRows}
-        <button onclick="saveRenphoEntry()" style="margin-top:12px;width:100%;padding:10px;background:var(--teal);color:#fff;border:none;border-radius:8px;font-size:13px;font-weight:600;cursor:pointer;">Guardar en historial</button>
-      `;
-    }
-  }
-
-  window.saveRenphoEntry = function() {
-    const dateEl = document.getElementById('renpho-date');
-    const dateStr = dateEl ? dateEl.value : currentDate;
-    const entry = { date: dateStr, source: 'renpho-ocr' };
-    const keys = ['weight','bmi','bodyFat','fatFreeWeight','subcutFat','visceralFat','bodyWater','skeletalMuscle','muscleMass','boneMass','bmr','metabolicAge'];
-    keys.forEach(k => {
-      const el = document.getElementById('renpho-' + k);
-      if (el && el.value) entry[k] = parseFloat(el.value);
-      else entry[k] = null;
-    });
-    if (!entry.weight) { showToast('Peso es obligatorio'); return; }
-
-    // Calculate BMI if missing
-    if (!entry.bmi && entry.weight) {
-      const h = 1.75; // Ernesto height in meters
-      entry.bmi = Math.round(entry.weight / (h * h) * 10) / 10;
-    }
-
-    // Update or add to WEIGHT_LOG
-    const idx = WEIGHT_LOG.findIndex(w => w.date === currentDate);
-    if (idx >= 0) {
-      WEIGHT_LOG[idx] = entry;
-    } else {
-      WEIGHT_LOG.push(entry);
-      WEIGHT_LOG.sort((a, b) => a.date.localeCompare(b.date));
-    }
-
-    // Update metabolic calculator profile weight
-    const meta = getMetaProfile();
-    if (meta) { meta.weight = entry.weight; saveMetaProfile(meta); }
-
-    // Persist to server
-    fetch('/api/weight', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(entry)
-    }).then(r => r.json()).then(d => {
-      if (d.ok) showToast(`Peso guardado (${dateStr}): ${entry.weight} kg` + (entry.bodyFat ? ` | ${entry.bodyFat}% grasa` : ''));
-      else showToast('Error guardando peso');
-    }).catch(() => showToast('Guardado local (server offline)'));
-    renphoResult = null;
-    render();
-  };
-
-  window.saveManualWeight = function() {
-    const w = parseFloat(document.getElementById('manual-weight').value);
-    if (!w || w < 30 || w > 300) { showToast('Peso invalido'); return; }
-    const dateEl = document.getElementById('renpho-date');
-    const dateStr = dateEl ? dateEl.value : currentDate;
-
-    const entry = {
-      date: dateStr,
-      weight: w,
-      bmi: Math.round(w / (1.75 * 1.75) * 10) / 10,
-      bodyFat: null, fatFreeWeight: null, subcutFat: null, visceralFat: null,
-      bodyWater: null, skeletalMuscle: null, muscleMass: null, boneMass: null,
-      bmr: null, metabolicAge: null,
-      source: 'manual'
-    };
-
-    const idx = WEIGHT_LOG.findIndex(e => e.date === dateStr);
-    if (idx >= 0) WEIGHT_LOG[idx] = entry;
-    else { WEIGHT_LOG.push(entry); WEIGHT_LOG.sort((a, b) => a.date.localeCompare(b.date)); }
-
-    fetch('/api/weight', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(entry)
-    }).then(r => r.json()).then(d => {
-      if (d.ok) showToast(`Peso guardado (${dateStr}): ${w} kg (IMC ${entry.bmi})`);
-    }).catch(() => showToast('Guardado local (server offline)'));
-    render();
-  };
-
-  function renderWeightHistory() {
-    if (WEIGHT_LOG.length === 0) return '';
-    const sorted = [...WEIGHT_LOG].sort((a, b) => a.date.localeCompare(b.date));
-    const last = sorted[sorted.length - 1];
-    const first = sorted[0];
-    const diff = last.weight - first.weight;
-    const diffSign = diff > 0 ? '+' : '';
-
-    // Mini chart (SVG)
-    const chartW = 280, chartH = 80, padL = 0, padR = 0;
-    const weights = sorted.map(w => w.weight);
-    const minW = Math.min(...weights) - 1;
-    const maxW = Math.max(...weights) + 1;
-    const rangeW = maxW - minW || 1;
-    const points = sorted.map((w, i) => {
-      const x = padL + (i / Math.max(sorted.length - 1, 1)) * (chartW - padL - padR);
-      const y = chartH - ((w.weight - minW) / rangeW) * (chartH - 10) - 5;
-      return `${x},${y}`;
-    }).join(' ');
-
-    return `
-    <div class="card" style="margin-bottom:16px;">
-      <div class="card-title">⚖️ Peso & Composicion</div>
-      <div style="display:flex;align-items:baseline;gap:12px;margin-bottom:8px;">
-        <span style="font-size:28px;font-weight:700;color:var(--text);">${last.weight} kg</span>
-        <span style="font-size:14px;font-weight:600;color:${diff <= 0 ? 'var(--green)' : 'var(--red)'};">${diffSign}${diff.toFixed(1)} kg</span>
-        <span style="font-size:11px;color:var(--text-sec);">desde ${first.date}</span>
-      </div>
-      ${last.bodyFat ? `<div style="font-size:12px;color:var(--text-sec);margin-bottom:4px;">Grasa: ${last.bodyFat}% | IMC: ${last.bmi || '-'} | Musculo: ${last.muscleMass || '-'} kg</div>` : `<div style="font-size:12px;color:var(--text-sec);margin-bottom:4px;">IMC: ${last.bmi || '-'}</div>`}
-      <svg viewBox="0 0 ${chartW} ${chartH}" style="width:100%;height:${chartH}px;margin:8px 0;">
-        <polyline points="${points}" fill="none" stroke="var(--teal)" stroke-width="2" stroke-linejoin="round" />
-        ${sorted.map((w, i) => {
-          const x = padL + (i / Math.max(sorted.length - 1, 1)) * (chartW - padL - padR);
-          const y = chartH - ((w.weight - minW) / rangeW) * (chartH - 10) - 5;
-          return `<circle cx="${x}" cy="${y}" r="3" fill="var(--teal)" />`;
-        }).join('')}
-      </svg>
-      <div style="display:flex;justify-content:space-between;font-size:10px;color:var(--text-sec);">
-        <span>${first.date}</span><span>${last.date}</span>
-      </div>
-    </div>`;
-  }
-
-  function renderWeightTable() {
-    if (WEIGHT_LOG.length <= 1) return '';
-    const sorted = [...WEIGHT_LOG].sort((a, b) => b.date.localeCompare(a.date));
-    const rows = sorted.map((w, i) => {
-      const prev = sorted[i + 1];
-      const diff = prev ? w.weight - prev.weight : 0;
-      const diffStr = prev ? (diff > 0 ? '+' : '') + diff.toFixed(1) : '-';
-      const diffColor = !prev ? 'var(--text-sec)' : diff <= 0 ? 'var(--green)' : 'var(--red)';
-      return `<tr>
-        <td style="padding:4px 6px;font-size:12px;">${w.date}</td>
-        <td style="padding:4px 6px;font-size:12px;font-weight:600;">${w.weight}</td>
-        <td style="padding:4px 6px;font-size:12px;color:${diffColor};">${diffStr}</td>
-        <td style="padding:4px 6px;font-size:12px;">${w.bodyFat || '-'}</td>
-        <td style="padding:4px 6px;font-size:12px;">${w.muscleMass || '-'}</td>
-        <td style="padding:4px 6px;font-size:12px;">${w.bmi || '-'}</td>
-        <td style="padding:4px 6px;font-size:10px;color:var(--text-sec);">${w.source === 'renpho-ocr' ? '📷' : '✏️'}</td>
-      </tr>`;
-    }).join('');
-
-    return `
-    <div class="card" style="margin-bottom:16px;">
-      <div class="card-title">📋 Historial de Peso</div>
-      <div style="overflow-x:auto;">
-        <table style="width:100%;border-collapse:collapse;">
-          <tr style="background:var(--teal);color:#fff;">
-            <th style="padding:5px 6px;text-align:left;font-size:10px;">Fecha</th>
-            <th style="padding:5px 6px;text-align:left;font-size:10px;">Peso</th>
-            <th style="padding:5px 6px;text-align:left;font-size:10px;">Diff</th>
-            <th style="padding:5px 6px;text-align:left;font-size:10px;">Grasa%</th>
-            <th style="padding:5px 6px;text-align:left;font-size:10px;">Musculo</th>
-            <th style="padding:5px 6px;text-align:left;font-size:10px;">IMC</th>
-            <th style="padding:5px 6px;text-align:left;font-size:10px;">Src</th>
-          </tr>
-          ${rows}
-        </table>
-      </div>
-    </div>`;
-  }
-
-  window.calcMetabolism = function() {
-    const age = parseInt(document.getElementById('meta-age').value) || 0;
-    const weight = parseFloat(document.getElementById('meta-weight').value) || 0;
-    const height = parseFloat(document.getElementById('meta-height').value) || 0;
-    const sex = document.getElementById('meta-sex').value;
-    const activity = parseFloat(document.getElementById('meta-activity').value) || 1.2;
-    const goal = document.getElementById('meta-goal').value;
-
-    if (!age || !weight || !height) return;
-
-    // Mifflin-St Jeor
-    let bmr;
-    if (sex === 'M') {
-      bmr = 10 * weight + 6.25 * height - 5 * age + 5;
-    } else {
-      bmr = 10 * weight + 6.25 * height - 5 * age - 161;
-    }
-
-    const tdee = bmr * activity;
-
-    // Goal adjustments
-    let targetKcal, protGkg, note;
-    if (goal === 'cut') {
-      targetKcal = tdee - 500;
-      protGkg = 2.0;
-      note = 'Deficit de 500 kcal/dia (~0.45 kg/semana)';
-    } else if (goal === 'aggro') {
-      targetKcal = tdee - 750;
-      protGkg = 2.2;
-      note = 'Deficit agresivo de 750 kcal/dia (~0.7 kg/semana). Riesgo de perder musculo si no entrenas.';
-    } else if (goal === 'bulk') {
-      targetKcal = tdee + 300;
-      protGkg = 1.8;
-      note = 'Superavit de 300 kcal/dia para ganar masa';
-    } else {
-      targetKcal = tdee;
-      protGkg = 1.6;
-      note = 'Mantenimiento';
-    }
-
-    const prot = Math.round(weight * protGkg);
-    const fat = Math.round(weight * 0.8);
-    const protKcal = prot * 4;
-    const fatKcal = fat * 9;
-    const carbsKcal = targetKcal - protKcal - fatKcal;
-    const carbs = Math.max(50, Math.round(carbsKcal / 4));
-
-    // Save profile
-    saveMetaProfile({ age, weight, height, sex, activity, goal, bmr: Math.round(bmr), tdee: Math.round(tdee) });
-
-    const el = document.getElementById('meta-results');
-    if (el) {
-      el.innerHTML = `
-        <div style="background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:16px;margin-top:16px;">
-          <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:16px;">
-            <div style="text-align:center;padding:12px;background:var(--bg);border-radius:8px;">
-              <div style="font-size:24px;font-weight:700;color:var(--teal);">${Math.round(bmr)}</div>
-              <div style="font-size:10px;color:var(--text-sec);text-transform:uppercase;letter-spacing:1px;font-weight:600;">BMR (kcal)</div>
-            </div>
-            <div style="text-align:center;padding:12px;background:var(--bg);border-radius:8px;">
-              <div style="font-size:24px;font-weight:700;color:var(--teal);">${Math.round(tdee)}</div>
-              <div style="font-size:10px;color:var(--text-sec);text-transform:uppercase;letter-spacing:1px;font-weight:600;">TDEE (kcal)</div>
-            </div>
-          </div>
-          <div style="font-size:12px;color:var(--text-sec);margin-bottom:12px;font-style:italic;">${note}</div>
-          <div style="font-size:11px;font-weight:600;letter-spacing:1px;text-transform:uppercase;color:var(--teal);margin-bottom:8px;">Macros recomendados</div>
-          <table style="width:100%;border-collapse:collapse;font-size:13px;">
-            <tr style="background:var(--teal);color:#fff;"><th style="padding:6px 8px;text-align:left;">Macro</th><th style="padding:6px 8px;text-align:right;">Diario</th><th style="padding:6px 8px;text-align:right;">g/kg</th></tr>
-            <tr><td style="padding:5px 8px;">Calorias</td><td style="padding:5px 8px;text-align:right;font-weight:600;">${Math.round(targetKcal)} kcal</td><td style="padding:5px 8px;text-align:right;">-</td></tr>
-            <tr style="background:var(--bg);"><td style="padding:5px 8px;">Proteina</td><td style="padding:5px 8px;text-align:right;font-weight:600;">${prot} g</td><td style="padding:5px 8px;text-align:right;">${protGkg}</td></tr>
-            <tr><td style="padding:5px 8px;">Carbohidratos</td><td style="padding:5px 8px;text-align:right;font-weight:600;">${carbs} g</td><td style="padding:5px 8px;text-align:right;">${(carbs/weight).toFixed(1)}</td></tr>
-            <tr style="background:var(--bg);"><td style="padding:5px 8px;">Grasas</td><td style="padding:5px 8px;text-align:right;font-weight:600;">${fat} g</td><td style="padding:5px 8px;text-align:right;">0.8</td></tr>
-          </table>
-          <button onclick="applyMetaTargets(${Math.round(targetKcal)},${prot},${carbs},${fat})" style="margin-top:12px;width:100%;padding:10px;background:var(--teal);color:#fff;border:none;border-radius:8px;font-size:13px;font-weight:600;cursor:pointer;">Aplicar como objetivos</button>
-        </div>`;
-    }
-  };
-
-  window.applyMetaTargets = function(kcal, prot, carbs, fat) {
-    USERS[currentUser].targets = { kcal, prot, carbs, fat };
-    localStorage.setItem('nutria_targets_' + currentUser, JSON.stringify({ kcal, prot, carbs, fat }));
-    showToast('Objetivos actualizados: ' + kcal + ' kcal | ' + prot + 'g prot');
-    render();
-  };
 
   function renderTools() {
     const meta = getMetaProfile() || { age: 34, weight: 89, height: 175, sex: 'M', activity: 1.2, goal: 'cut' };
@@ -4120,59 +3726,6 @@
       a.classList.toggle('active', a.dataset.user === currentUser);
     });
   }
-
-  // ── TARGETS MODAL ──────────────────────────────────────────────────
-  window.openTargetsModal = function () {
-    const t = TARGETS();
-    const overlay = document.createElement('div');
-    overlay.className = 'modal-overlay';
-    overlay.id = 'targets-modal';
-    overlay.onclick = function (e) { if (e.target === overlay) closeTargetsModal(); };
-    overlay.innerHTML = `
-      <div class="modal-box">
-        <div class="modal-title">Ajustar objetivos</div>
-        <div class="modal-sub">Dieta de ${USERS[currentUser].name}. Los cambios se guardan en este dispositivo.</div>
-        <div class="modal-field">
-          <span class="modal-label">Calorias (kcal)</span>
-          <input class="modal-input" id="target-kcal" type="number" value="${t.kcal}" />
-        </div>
-        <div class="modal-field">
-          <span class="modal-label">Proteina (g)</span>
-          <input class="modal-input" id="target-prot" type="number" value="${t.prot}" />
-        </div>
-        <div class="modal-field">
-          <span class="modal-label">Carbs (g)</span>
-          <input class="modal-input" id="target-carbs" type="number" value="${t.carbs}" />
-        </div>
-        <div class="modal-field">
-          <span class="modal-label">Grasas (g)</span>
-          <input class="modal-input" id="target-fat" type="number" value="${t.fat}" />
-        </div>
-        <div class="modal-actions">
-          <button class="modal-btn modal-btn-cancel" onclick="closeTargetsModal()">Cancelar</button>
-          <button class="modal-btn modal-btn-save" onclick="saveTargets()">Guardar</button>
-        </div>
-      </div>`;
-    document.body.appendChild(overlay);
-  };
-
-  window.closeTargetsModal = function () {
-    const el = document.getElementById('targets-modal');
-    if (el) el.remove();
-  };
-
-  window.saveTargets = function () {
-    const kcal = parseInt(document.getElementById('target-kcal').value) || 0;
-    const prot = parseInt(document.getElementById('target-prot').value) || 0;
-    const carbs = parseInt(document.getElementById('target-carbs').value) || 0;
-    const fat = parseInt(document.getElementById('target-fat').value) || 0;
-    if (kcal <= 0) return;
-    USERS[currentUser].targets = { kcal, prot, carbs, fat };
-    localStorage.setItem('nutria_targets_' + currentUser, JSON.stringify({ kcal, prot, carbs, fat }));
-    closeTargetsModal();
-    showToast('Objetivos actualizados: ' + kcal + ' kcal');
-    render();
-  };
 
   // Load saved targets from LocalStorage on init
   Object.keys(USERS).forEach(uid => {
@@ -4454,97 +4007,6 @@
     });
   };
 
-  // ── UPLOAD DISH (manual entry) ──────────────────────────────────────
-  window.openUploadDish = function () {
-    const authorName = USERS[currentUser].name;
-    const overlay = document.createElement('div');
-    overlay.className = 'upload-modal-overlay';
-    overlay.id = 'upload-modal-overlay';
-    overlay.onclick = function (e) { if (e.target === overlay) closeUploadDish(); };
-    overlay.innerHTML = `
-      <div class="upload-modal">
-        <h3>Subir plato</h3>
-        <label>Nombre del plato</label>
-        <input id="upload-name" type="text" placeholder="Ej: Pasta carbonara" />
-        <label>Porcion (gramos)</label>
-        <input id="upload-portion" type="number" min="1" step="1" placeholder="Ej: 350" />
-        <div class="upload-macros-grid">
-          <div><label>Calorias (kcal)</label><input id="upload-kcal" type="number" min="0" step="1" placeholder="0" /></div>
-          <div><label>Proteina (g)</label><input id="upload-prot" type="number" min="0" step="0.1" placeholder="0" /></div>
-          <div><label>Carbos (g)</label><input id="upload-carbs" type="number" min="0" step="0.1" placeholder="0" /></div>
-          <div><label>Grasa (g)</label><input id="upload-fat" type="number" min="0" step="0.1" placeholder="0" /></div>
-        </div>
-        <label>Autor</label>
-        <select id="upload-author">
-          ${Object.entries(USERS).map(([k, v]) => `<option value="${v.name}" ${k === currentUser ? 'selected' : ''}>${v.name}</option>`).join('')}
-        </select>
-        <div class="upload-actions">
-          <button class="upload-btn-cancel" onclick="closeUploadDish()">Cancelar</button>
-          <button class="upload-btn-save" onclick="saveUploadDish()">Guardar</button>
-        </div>
-      </div>`;
-    document.body.appendChild(overlay);
-    document.getElementById('upload-name').focus();
-  };
-
-  window.closeUploadDish = function () {
-    const overlay = document.getElementById('upload-modal-overlay');
-    if (overlay) overlay.remove();
-  };
-
-  window.saveUploadDish = function () {
-    const name = document.getElementById('upload-name').value.trim();
-    const portion = parseFloat(document.getElementById('upload-portion').value);
-    const kcal = parseFloat(document.getElementById('upload-kcal').value) || 0;
-    const prot = parseFloat(document.getElementById('upload-prot').value) || 0;
-    const carbs = parseFloat(document.getElementById('upload-carbs').value) || 0;
-    const fat = parseFloat(document.getElementById('upload-fat').value) || 0;
-    const author = document.getElementById('upload-author').value;
-
-    if (!name) { alert('Ingresa el nombre del plato.'); return; }
-    if (!portion || portion <= 0) { alert('Ingresa los gramos de la porcion.'); return; }
-
-    // Convert from per-portion to per-100g
-    const per100g = {
-      kcal: round1(kcal / portion * 100),
-      prot: round1(prot / portion * 100),
-      carbs: round1(carbs / portion * 100),
-      fat: round1(fat / portion * 100),
-      fiber: 0
-    };
-
-    const id = name.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '')
-      .replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
-
-    if (FOOD_DATABASE.find(f => f.id === id)) {
-      alert('Ya existe un alimento con ID "' + id + '". Usa otro nombre.');
-      return;
-    }
-
-    const newFood = {
-      id,
-      name,
-      brand: author,
-      per100g,
-      totalG: portion,
-      source: 'manual',
-      author: author,
-      addedDate: getTodayStr()
-    };
-
-    FOOD_DATABASE.unshift(newFood);
-
-    fetch('/api/add-food', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(newFood)
-    }).catch(() => {});
-
-    closeUploadDish();
-    showToast('🍽️ "' + name + '" subido por ' + author + ' (' + portion + 'g)');
-    render();
-  };
-
 
   // Attach drag-and-drop listeners after render
   function initDragAndDrop() {
@@ -4808,6 +4270,9 @@
     getInformeDates, parseDate, round1,
     TARGETS, getAllMeals, getLocalMeals, showToast,
     USERS, MEAL_ORDER, MEAL_LABELS,
+    render, getTodayStr,
+    loadTesseract, parseRenphoData,
+    getMetaProfile, saveMetaProfile,
     get currentUser() { return currentUser; },
     get currentDate() { return currentDate; },
     get informeRange() { return informeRange; }
@@ -4821,6 +4286,10 @@
 
 <!-- MODULES: export (after IIFE — uses window.NutrIA bridge) -->
 <script src="modules/export.js"></script>
+
+<!-- MODULES: Phase 2 -->
+<script src="modules/goals.js"></script>
+<script src="modules/health.js"></script>
 
 <script>
 // Suppress Chrome PWA install prompt (the floating diskette button)
