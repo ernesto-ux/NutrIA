@@ -2795,13 +2795,13 @@
       "user": "ernesto",
       "items": [
         {
-          "foodId": "helado-light-vainilla",
-          "name": "Helado Light Vainilla",
+          "foodId": "durum-biyo-agneau",
+          "name": "Dürüm Biyo Agneau (Biyo Dürüm, París 12)",
           "grams": 250,
-          "kcal": 250.0,
-          "prot": 7.5,
-          "carbs": 42.5,
-          "fat": 7.5
+          "kcal": 500.0,
+          "prot": 32.5,
+          "carbs": 55.0,
+          "fat": 27.5
         },
         {
           "foodId": "gerble-mini-brownie-sans-sucres",
