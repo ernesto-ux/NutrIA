@@ -6010,11 +6010,19 @@ const MEAL_LOG = [
       { foodId: "pescado-cocido-ceviche", name: "Pescado Licuado en Leche de Tigre", grams: 50, kcal: 50.0, prot: 11.0, carbs: 0, fat: 0.8 },
       { foodId: "tostones-platano-macho", name: "Tostones Caseros", grams: 60, kcal: 168.0, prot: 0.8, carbs: 26.4, fat: 6.6 },
       { foodId: "tostada-platano-chip", name: "Tostadas de Plátano (chips)", grams: 50, kcal: 255.0, prot: 1.2, carbs: 32.0, fat: 14.0 },
-      { foodId: "tony-chocolonely-dark-70", name: "Chocolat Noir Chocolonely 70%", grams: 15, kcal: 86.3, prot: 1.4, carbs: 5.1, fat: 6.2 },
-      { foodId: "frambuesas-fresas", name: "Frambuesas Frescas", grams: 80, kcal: 41.6, prot: 1.0, carbs: 9.5, fat: 0.6 },
       { foodId: "coca-cola-zero", name: "Coca-Cola Zero", grams: 330, units: 1, kcal: 1.3, prot: 0, carbs: 0, fat: 0 }
     ],
     timestamp: "2026-05-03T21:00:00"
+  },
+  {
+    id: "2026-05-03-E04",
+    date: "2026-05-03",
+    meal: "snack",
+    items: [
+      { foodId: "tony-chocolonely-dark-70", name: "Chocolat Noir Chocolonely 70%", grams: 15, kcal: 86.3, prot: 1.4, carbs: 5.1, fat: 6.2 },
+      { foodId: "frambuesas-fresas", name: "Frambuesas Frescas", grams: 80, kcal: 41.6, prot: 1.0, carbs: 9.5, fat: 0.6 }
+    ],
+    timestamp: "2026-05-03T22:30:00"
   }
 
 ];
@@ -6055,7 +6063,8 @@ const ACTIVITY_LOG = [
   { date: "2026-04-28", steps: 800,   stepsKcal: 0,   gym: null,  gymKcal: 0,   notes: "" },
   { date: "2026-04-29", steps: 5065,  stepsKcal: 125, gym: null,  gymKcal: 0,   notes: "" },
   { date: "2026-04-30", steps: 600,   stepsKcal: 0,   gym: null,  gymKcal: 0,   notes: "" },
-  { date: "2026-05-01", steps: 5413,  stepsKcal: 125, gym: "gym", gymKcal: 617, notes: "" }
+  { date: "2026-05-01", steps: 5413,  stepsKcal: 125, gym: "gym", gymKcal: 617, notes: "" },
+  { date: "2026-05-03", steps: 3972,  stepsKcal: 100, gym: "gym", gymKcal: 428, notes: "" }
 ];
 
 // Daily energy balance (sabado a sabado: 29 mar - 4 abr + dom 5)
