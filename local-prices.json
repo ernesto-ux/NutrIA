@@ -1444,5 +1444,45 @@
     "price_per_100g": 0.5,
     "store": "Franprix",
     "notes": "Kiwi ~€0.50/100g estimado"
+  },
+  "jamon-iberico-bellota": {
+    "price_per_100g": 8.0,
+    "store": "Carrefour/Monoprix",
+    "notes": "Jamón ibérico bellota premium ~€80/kg. Producto ocasional, no semanal."
+  },
+  "feta-islos": {
+    "price_per_100g": 2.2,
+    "store": "Franprix",
+    "notes": "Feta Islos AOP brebis ~€2.20/100g (tarro 150g ~€3.30)"
+  },
+  "te-rooibos": {
+    "price_per_100g": 0.1,
+    "store": "Franprix",
+    "notes": "Bolsita rooibos ~€0.10/uso (caja 20 bolsitas ~€2). Costo negligible."
+  },
+  "sopa-pollo-casera-sin-grasa": {
+    "price_per_100g": 0.5,
+    "store": "Homemade",
+    "notes": "Pollo + vegetales + agua, sin grasa. Más densa en proteína que caldo."
+  },
+  "pollo-carne-sin-piel": {
+    "price_per_100g": 1.1,
+    "store": "Franprix",
+    "notes": "Mix muslo + pechuga sin piel. Promedio ~€11/kg."
+  },
+  "uva-verde-sin-semilla": {
+    "price_per_100g": 0.5,
+    "store": "Franprix",
+    "notes": "Raisin blanc sans pépins ~€5/kg fuera de temporada, €3-4/kg en verano."
+  },
+  "lardons-allumette-cocido": {
+    "price_per_100g": 1.3,
+    "store": "Franprix",
+    "notes": "Lardons fumés allumettes Herta/Marque Repère ~€2.60/200g. Precio sobre crudo, no cocido drenado."
+  },
+  "pain-campagne-francais": {
+    "price_per_100g": 0.55,
+    "store": "Boulangerie",
+    "notes": "Pain de campagne tradition ~€3.30/600g hogaza. Más nutritivo que baguette."
   }
 }
