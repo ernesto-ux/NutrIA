@@ -3091,6 +3091,53 @@
       "timestamp": "2026-05-02T17:00:00",
       "source": "local",
       "user": "ernesto"
+    },
+    {
+      "id": "2026-05-02-004",
+      "date": "2026-05-02",
+      "meal": "almuerzo",
+      "items": [
+        {
+          "foodId": "pasta-cocida",
+          "name": "Fideos Hervidos",
+          "grams": 80,
+          "kcal": 104.8,
+          "prot": 4.0,
+          "carbs": 20.0,
+          "fat": 0.9
+        }
+      ],
+      "timestamp": "2026-05-02T14:45:00",
+      "source": "local",
+      "user": "ernesto"
+    },
+    {
+      "id": "2026-05-02-cena",
+      "date": "2026-05-02",
+      "meal": "cena",
+      "items": [
+        {
+          "foodId": "pizza-margherite-louielouie",
+          "name": "Pizza Margherite LouieLouie",
+          "grams": 300,
+          "kcal": 630.0,
+          "prot": 21.0,
+          "carbs": 93.0,
+          "fat": 18.0
+        },
+        {
+          "foodId": "froyo-llao-llao-homemade-ninja",
+          "name": "Froyo Llao Llao Homemade",
+          "grams": 100,
+          "kcal": 70.5,
+          "prot": 13.5,
+          "carbs": 4.0,
+          "fat": 0.2
+        }
+      ],
+      "timestamp": "2026-05-02T20:30:00",
+      "source": "local",
+      "user": "ernesto"
     }
   ],
   "overrides": {
