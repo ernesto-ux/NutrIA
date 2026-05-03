@@ -6006,7 +6006,8 @@ const MEAL_LOG = [
     items: [
       { foodId: "pescado-cocido-ceviche", name: "Pescado Cocido en Limón (ceviche)", grams: 100, kcal: 100.0, prot: 22.0, carbs: 0, fat: 1.5 },
       { foodId: "camote-hervido", name: "Camote Hervido", grams: 100, kcal: 76.0, prot: 1.4, carbs: 17.7, fat: 0.1 },
-      { foodId: "leche-de-tigre-casera", name: "Leche de Tigre Casera", grams: 150, kcal: 45.0, prot: 2.3, carbs: 6.0, fat: 0.5 },
+      { foodId: "leche-de-tigre-casera", name: "Leche de Tigre Casera (base)", grams: 100, kcal: 30.0, prot: 1.5, carbs: 4.0, fat: 0.3 },
+      { foodId: "pescado-cocido-ceviche", name: "Pescado Licuado en Leche de Tigre", grams: 50, kcal: 50.0, prot: 11.0, carbs: 0, fat: 0.8 },
       { foodId: "tostones-platano-macho", name: "Tostones Caseros", grams: 60, kcal: 168.0, prot: 0.8, carbs: 26.4, fat: 6.6 },
       { foodId: "tostada-platano-chip", name: "Tostadas de Plátano (chips)", grams: 50, kcal: 255.0, prot: 1.2, carbs: 32.0, fat: 14.0 },
       { foodId: "tony-chocolonely-dark-70", name: "Chocolat Noir Chocolonely 70%", grams: 15, kcal: 86.3, prot: 1.4, carbs: 5.1, fat: 6.2 },
