@@ -2,7 +2,7 @@
 // Updated by Claude Code via /log-food skill
 // DO NOT EDIT MANUALLY - use /log-food to add meals
 
-const DATA_TIMESTAMP = "2026-05-03T09:05:00 Europe/Paris";
+const DATA_TIMESTAMP = "2026-05-04T10:00:00 Europe/Paris";
 
 const NUTRITION_CONFIG = {
   targets: { kcal: 1770, prot: 190, carbs: 140, fat: 50 },
@@ -2483,6 +2483,48 @@ const FOOD_DATABASE = [
     per100g: { kcal: 67, prot: 0.7, carbs: 17, fat: 0.2, fiber: 0.9, sodium: 2, sugar: 16.0, sat_fat: 0.0, iron: 0.36, calcium: 10, b12: 0, vit_d: 0, potassium: 191, magnesium: 7 },
     source: "web",
     addedDate: "2026-05-02"
+  },
+  // === PRODUCTOS (added 2026-05-04) ===
+  {
+    id: "pescado-cocido-ceviche",
+    category: "proteina-animal",
+    name: "Pescado Blanco Cocido en Limón (ceviche)",
+    brand: "Homemade",
+    per100g: { kcal: 100, prot: 22, carbs: 0, fat: 1.5, fiber: 0, sodium: 80, sugar: 0.0, sat_fat: 0.3, iron: 0.4, calcium: 25, b12: 1.5, vit_d: 1.0, potassium: 380, magnesium: 28 },
+    source: "web",
+    addedDate: "2026-05-04",
+    notes: "Pescado blanco magro (merluza/dorada/corvina) cocido en limón estilo ceviche peruano."
+  },
+  {
+    id: "leche-de-tigre-casera",
+    category: "salsa-aderezo",
+    name: "Leche de Tigre Casera (peruana)",
+    brand: "Homemade",
+    per100g: { kcal: 30, prot: 1.5, carbs: 4.0, fat: 0.3, fiber: 0.5, sodium: 350, sugar: 1.5, sat_fat: 0.1 },
+    source: "web",
+    addedDate: "2026-05-04",
+    notes: "Limón + caldo de pescado + cilantro + cebolla + ají amarillo. Sin crema."
+  },
+  {
+    id: "tostada-platano-chip",
+    category: "snack-treat",
+    name: "Tostadas de Plátano (banana chips fritos)",
+    brand: "Homemade",
+    per100g: { kcal: 510, prot: 2.3, carbs: 64, fat: 28, fiber: 4.5, sodium: 100, sugar: 35.0, sat_fat: 12.0 },
+    source: "web",
+    addedDate: "2026-05-04",
+    notes: "Plátano frito en rodajas finas tipo chip. Alto en kcal y grasa."
+  },
+  {
+    id: "crepe-nutella-artisanale",
+    category: "snack-treat",
+    name: "Crepe Artisanale au Nutella",
+    brand: "",
+    per100g: { kcal: 270, prot: 4.2, carbs: 40, fat: 10, fiber: 1.0, sodium: 180, sugar: 18.0, sat_fat: 4.0 },
+    unitWeight: 120, unitLabel: "crepe",
+    source: "web",
+    addedDate: "2026-05-04",
+    notes: "Crepe artisanal ~120g con ~25g Nutella. ~325 kcal por crepe estándar street."
   },
   // === PRODUCTOS (added 2026-05-03) ===
   {
@@ -5945,6 +5987,33 @@ const MEAL_LOG = [
       { foodId: "danone-cottage-cheese", name: "Cottage Cheese Danone", grams: 37, kcal: 33.3, prot: 4.4, carbs: 0.6, fat: 1.4 }
     ],
     timestamp: "2026-05-03T09:00:00"
+  },
+  {
+    id: "2026-05-03-E02",
+    date: "2026-05-03",
+    meal: "snack",
+    items: [
+      { foodId: "eafit-pure-isolate-vanille", name: "Proteina EAFit Vanille", grams: 30, kcal: 109.8, prot: 25.8, carbs: 1.0, fat: 0.3 },
+      { foodId: "leche-almendra", name: "Lait Amande Sans Sucres", grams: 100, kcal: 13.0, prot: 0.4, carbs: 0.2, fat: 1.1 },
+      { foodId: "crepe-nutella-artisanale", name: "Crepe Artisanale au Nutella", grams: 120, units: 1, kcal: 324.0, prot: 5.0, carbs: 48.0, fat: 12.0 }
+    ],
+    timestamp: "2026-05-03T17:00:00"
+  },
+  {
+    id: "2026-05-03-E03",
+    date: "2026-05-03",
+    meal: "cena",
+    items: [
+      { foodId: "pescado-cocido-ceviche", name: "Pescado Cocido en Limón (ceviche)", grams: 100, kcal: 100.0, prot: 22.0, carbs: 0, fat: 1.5 },
+      { foodId: "camote-hervido", name: "Camote Hervido", grams: 100, kcal: 76.0, prot: 1.4, carbs: 17.7, fat: 0.1 },
+      { foodId: "leche-de-tigre-casera", name: "Leche de Tigre Casera", grams: 150, kcal: 45.0, prot: 2.3, carbs: 6.0, fat: 0.5 },
+      { foodId: "tostones-platano-macho", name: "Tostones Caseros", grams: 60, kcal: 168.0, prot: 0.8, carbs: 26.4, fat: 6.6 },
+      { foodId: "tostada-platano-chip", name: "Tostadas de Plátano (chips)", grams: 100, kcal: 510.0, prot: 2.3, carbs: 64.0, fat: 28.0 },
+      { foodId: "tony-chocolonely-dark-70", name: "Chocolat Noir Chocolonely 70%", grams: 15, kcal: 86.3, prot: 1.4, carbs: 5.1, fat: 6.2 },
+      { foodId: "frambuesas-fresas", name: "Frambuesas Frescas", grams: 80, kcal: 41.6, prot: 1.0, carbs: 9.5, fat: 0.6 },
+      { foodId: "coca-cola-zero", name: "Coca-Cola Zero", grams: 330, units: 1, kcal: 1.3, prot: 0, carbs: 0, fat: 0 }
+    ],
+    timestamp: "2026-05-03T21:00:00"
   }
 
 ];

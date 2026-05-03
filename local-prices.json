@@ -1484,5 +1484,26 @@
     "price_per_100g": 0.55,
     "store": "Boulangerie",
     "notes": "Pain de campagne tradition ~€3.30/600g hogaza. Más nutritivo que baguette."
+  },
+  "pescado-cocido-ceviche": {
+    "price_per_100g": 2.0,
+    "store": "Franprix",
+    "notes": "Filete pescado blanco fresco (merluza/dorada) ~€18-22/kg. Crudo cocido en limón."
+  },
+  "leche-de-tigre-casera": {
+    "price_per_100g": 0.3,
+    "store": "Homemade",
+    "notes": "Limón + caldo + cilantro + cebolla + ají. Costo dominado por limones."
+  },
+  "tostada-platano-chip": {
+    "price_per_100g": 1.4,
+    "store": "Homemade",
+    "notes": "Plátano frito en aceite. Costo plátano + aceite. Si comprado paquete ~€2/100g."
+  },
+  "crepe-nutella-artisanale": {
+    "price_per_100g": 4.0,
+    "store": "Crêperie",
+    "unit_price": 4.8,
+    "notes": "Crepe artisanale au Nutella ~€4.50-5.50 unidad street/crêperie."
   }
 }
