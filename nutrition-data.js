@@ -6004,7 +6004,7 @@ const MEAL_LOG = [
     date: "2026-05-03",
     meal: "cena",
     items: [
-      { foodId: "pescado-cocido-ceviche", name: "Pescado Cocido en Limón (ceviche)", grams: 100, kcal: 100.0, prot: 22.0, carbs: 0, fat: 1.5 },
+      { foodId: "pescado-cocido-ceviche", name: "Pescado Cocido en Limón (ceviche)", grams: 140, kcal: 140.0, prot: 30.8, carbs: 0, fat: 2.1 },
       { foodId: "camote-hervido", name: "Camote Hervido", grams: 100, kcal: 76.0, prot: 1.4, carbs: 17.7, fat: 0.1 },
       { foodId: "leche-de-tigre-casera", name: "Leche de Tigre Casera (base)", grams: 100, kcal: 30.0, prot: 1.5, carbs: 4.0, fat: 0.3 },
       { foodId: "pescado-cocido-ceviche", name: "Pescado Licuado en Leche de Tigre", grams: 50, kcal: 50.0, prot: 11.0, carbs: 0, fat: 0.8 },
