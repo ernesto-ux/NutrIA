@@ -2,7 +2,7 @@
 // Updated by Claude Code via /log-food skill
 // DO NOT EDIT MANUALLY - use /log-food to add meals
 
-const DATA_TIMESTAMP = "2026-04-30T16:05:00 Europe/Paris";
+const DATA_TIMESTAMP = "2026-05-03T09:05:00 Europe/Paris";
 
 const NUTRITION_CONFIG = {
   targets: { kcal: 1770, prot: 190, carbs: 140, fat: 50 },
@@ -2483,6 +2483,26 @@ const FOOD_DATABASE = [
     per100g: { kcal: 67, prot: 0.7, carbs: 17, fat: 0.2, fiber: 0.9, sodium: 2, sugar: 16.0, sat_fat: 0.0, iron: 0.36, calcium: 10, b12: 0, vit_d: 0, potassium: 191, magnesium: 7 },
     source: "web",
     addedDate: "2026-05-02"
+  },
+  // === PRODUCTOS (added 2026-05-03) ===
+  {
+    id: "lardons-allumette-cocido",
+    category: "proteina-animal",
+    name: "Lardons Allumette Cocidos (drained)",
+    brand: "",
+    per100g: { kcal: 290, prot: 23, carbs: 1.0, fat: 22, fiber: 0, sodium: 1200, sugar: 0.5, sat_fat: 8.0, iron: 0.9, calcium: 8, b12: 0.7, vit_d: 0.3, potassium: 280, magnesium: 18 },
+    source: "web",
+    addedDate: "2026-05-03",
+    notes: "Lardons fumés allumettes cuits (drained). Values approximate cooked + drained state."
+  },
+  {
+    id: "pain-campagne-francais",
+    category: "cereal-carbs",
+    name: "Pain de Campagne (Pan Campesino Francés)",
+    brand: "",
+    per100g: { kcal: 244, prot: 9.0, carbs: 50, fat: 1.2, fiber: 3.0, sodium: 480, sugar: 1.5, sat_fat: 0.3, iron: 1.6, calcium: 18, b12: 0, vit_d: 0, potassium: 130, magnesium: 25 },
+    source: "web",
+    addedDate: "2026-05-03"
   }
 ];
 
@@ -5896,6 +5916,35 @@ const MEAL_LOG = [
       { foodId: "kinder-chocobon", name: "Kinder Chocobon x1", grams: 5, units: 1, kcal: 28.3, prot: 0.4, carbs: 2.8, fat: 1.7 }
     ],
     timestamp: "2026-04-30T16:00:00"
+  },
+  {
+    id: "2026-05-03-E01",
+    date: "2026-05-03",
+    meal: "desayuno",
+    items: [
+      { foodId: "clara-huevo", name: "Clara de Huevo (x2)", grams: 66, units: 2, kcal: 34.3, prot: 7.3, carbs: 0.5, fat: 0.1 },
+      { foodId: "huevo-entero", name: "Huevo Entero", grams: 50, units: 1, kcal: 77.5, prot: 6.5, carbs: 0.6, fat: 5.5 },
+      { foodId: "lardons-allumette-cocido", name: "Lardons Allumette Cocidos", grams: 22, kcal: 63.8, prot: 5.1, carbs: 0.2, fat: 4.8 },
+      { foodId: "danone-cottage-cheese", name: "Cottage Cheese Danone", grams: 60, kcal: 54.0, prot: 7.2, carbs: 1.0, fat: 2.3 },
+      { foodId: "pain-campagne-francais", name: "Pan Campesino Francés", grams: 124, kcal: 302.6, prot: 11.2, carbs: 62.0, fat: 1.5 },
+      { foodId: "eafit-pure-isolate-vanille", name: "Proteina EAFit Vanille", grams: 30, kcal: 109.8, prot: 25.8, carbs: 1.0, fat: 0.3 },
+      { foodId: "leche-almendra", name: "Lait Amande Sans Sucres", grams: 70, kcal: 9.1, prot: 0.3, carbs: 0.1, fat: 0.8 },
+      { foodId: "siggis-skyr-nature", name: "Skyr Siggis Nature", grams: 30, kcal: 18.9, prot: 3.3, carbs: 1.2, fat: 0.1 }
+    ],
+    timestamp: "2026-05-03T09:00:00"
+  },
+  {
+    id: "2026-05-03-A01",
+    date: "2026-05-03",
+    meal: "desayuno", who: "adriana",
+    items: [
+      { foodId: "clara-huevo", name: "Clara de Huevo", grams: 33, units: 1, kcal: 17.2, prot: 3.6, carbs: 0.2, fat: 0.1 },
+      { foodId: "huevo-entero", name: "Huevo Entero", grams: 50, units: 1, kcal: 77.5, prot: 6.5, carbs: 0.6, fat: 5.5 },
+      { foodId: "lardons-allumette-cocido", name: "Lardons Allumette Cocidos", grams: 14, kcal: 40.6, prot: 3.2, carbs: 0.1, fat: 3.1 },
+      { foodId: "pain-campagne-francais", name: "Pan Campesino Francés", grams: 36, kcal: 87.8, prot: 3.2, carbs: 18.0, fat: 0.4 },
+      { foodId: "danone-cottage-cheese", name: "Cottage Cheese Danone", grams: 37, kcal: 33.3, prot: 4.4, carbs: 0.6, fat: 1.4 }
+    ],
+    timestamp: "2026-05-03T09:00:00"
   }
 
 ];
