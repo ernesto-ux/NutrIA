@@ -2550,13 +2550,13 @@ const FOOD_DATABASE = [
   {
     id: "happy-basil-kiwi-juice",
     category: "comer-fuera",
-    name: "Kiwi Detox Juice (Happy Basil)",
+    name: "Kiwi Juice (Happy Basil)",
     brand: "Happy Basil",
-    per100g: { kcal: 40, prot: 0.5, carbs: 9.0, fat: 0.2, fiber: 0.8, sodium: 5, sugar: 7.5, sat_fat: 0.0 },
+    per100g: { kcal: 38, prot: 0.4, carbs: 9.0, fat: 0.2, fiber: 0.5, sodium: 5, sugar: 8.9, sat_fat: 0.0 },
     unitWeight: 280, unitLabel: "vaso",
-    source: "estimate",
+    source: "label",
     addedDate: "2026-05-05",
-    notes: "Estimación jugo detox kiwi/manzana/menta/pepino tipo Happy Basil ~280ml"
+    notes: "Etiqueta nutricional Happy Basil: 38 kcal/100ml, sucres 8.9g, lipides 0.2g per 100ml"
   },
   {
     id: "carne-res-horneada",
@@ -2579,14 +2579,14 @@ const FOOD_DATABASE = [
     notes: "Mezcla 50/50 zanahoria cocida + brócoli cocido, sin grasa añadida"
   },
   {
-    id: "quaker-extraterrestres-marshmallow",
+    id: "quaker-honey-monster-stars",
     category: "cereal-carbs",
-    name: "Cereal Extraterrestres con Malvaviscos",
-    brand: "Quaker",
-    per100g: { kcal: 390, prot: 5.0, carbs: 82.0, fat: 4.0, fiber: 2.5, sodium: 350, sugar: 30.0, sat_fat: 1.0 },
-    source: "estimate",
+    name: "Honey Monster Marshmallow Stars",
+    brand: "Honey Monster (Quaker)",
+    per100g: { kcal: 407, prot: 6.7, carbs: 80.0, fat: 6.8, fiber: 2.5, sodium: 350, sugar: 46.7, sat_fat: 2.0 },
+    source: "web",
     addedDate: "2026-05-05",
-    notes: "Cereal estilo Quaker con marshmallows tipo Lucky Charms, ~30g por porción típica"
+    notes: "Per 30g serving: 122 kcal, 2g prot, 14g sugar (Nutritionix). Cereal con malvaviscos en forma de estrella"
   },
   {
     id: "sopa-vegetales-con-fideos",
@@ -6090,7 +6090,7 @@ const MEAL_LOG = [
     date: "2026-05-04",
     meal: "almuerzo",
     items: [
-      { foodId: "happy-basil-kiwi-juice", name: "Happy Basil Kiwi Juice", grams: 280, units: 1, kcal: 112.0, prot: 1.4, carbs: 25.2, fat: 0.6 },
+      { foodId: "happy-basil-kiwi-juice", name: "Happy Basil Kiwi Juice", grams: 280, units: 1, kcal: 106.4, prot: 1.1, carbs: 25.2, fat: 0.6 },
       { foodId: "arroz-salteado", name: "Arroz con Vegetales", grams: 150, kcal: 225.0, prot: 4.8, carbs: 45.0, fat: 2.3 },
       { foodId: "verduras-mixtas-zanahoria-brocoli", name: "Vegetales Zanahoria y Brócoli", grams: 120, kcal: 42.0, prot: 2.3, carbs: 7.3, fat: 0.4 },
       { foodId: "carne-res-horneada", name: "Carne de Res Horneada", grams: 160, kcal: 344.0, prot: 43.2, carbs: 0, fat: 17.6 }
@@ -6119,7 +6119,7 @@ const MEAL_LOG = [
       { foodId: "pollo-carne-sin-piel", name: "Pierna de Pollo Magra (sin piel)", grams: 100, kcal: 175.0, prot: 28.0, carbs: 0, fat: 7.0 },
       { foodId: "sopa-vegetales-con-fideos", name: "Sopa de Vegetales con 50g Fideos Cocidos", grams: 250, kcal: 105.0, prot: 3.5, carbs: 18.5, fat: 1.0 },
       { foodId: "leche-almendra", name: "Leche de Almendra sin azúcar", grams: 80, kcal: 10.4, prot: 0.3, carbs: 0.2, fat: 0.9 },
-      { foodId: "quaker-extraterrestres-marshmallow", name: "Cereal Extraterrestres Quaker con Marshmallows", grams: 30, kcal: 117.0, prot: 1.5, carbs: 24.6, fat: 1.2 }
+      { foodId: "quaker-honey-monster-stars", name: "Honey Monster Marshmallow Stars", grams: 30, kcal: 122.1, prot: 2.0, carbs: 24.0, fat: 2.0 }
     ],
     timestamp: "2026-05-04T21:00:00"
   }
