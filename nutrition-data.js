@@ -2,7 +2,7 @@
 // Updated by Claude Code via /log-food skill
 // DO NOT EDIT MANUALLY - use /log-food to add meals
 
-const DATA_TIMESTAMP = "2026-05-04T10:00:00 Europe/Paris";
+const DATA_TIMESTAMP = "2026-05-05T10:00:00 Europe/Paris";
 
 const NUTRITION_CONFIG = {
   targets: { kcal: 1770, prot: 190, carbs: 140, fat: 50 },
@@ -2545,6 +2545,58 @@ const FOOD_DATABASE = [
     per100g: { kcal: 244, prot: 9.0, carbs: 50, fat: 1.2, fiber: 3.0, sodium: 480, sugar: 1.5, sat_fat: 0.3, iron: 1.6, calcium: 18, b12: 0, vit_d: 0, potassium: 130, magnesium: 25 },
     source: "web",
     addedDate: "2026-05-03"
+  },
+  // === PRODUCTOS (added 2026-05-05) ===
+  {
+    id: "happy-basil-kiwi-juice",
+    category: "comer-fuera",
+    name: "Kiwi Detox Juice (Happy Basil)",
+    brand: "Happy Basil",
+    per100g: { kcal: 40, prot: 0.5, carbs: 9.0, fat: 0.2, fiber: 0.8, sodium: 5, sugar: 7.5, sat_fat: 0.0 },
+    unitWeight: 280, unitLabel: "vaso",
+    source: "estimate",
+    addedDate: "2026-05-05",
+    notes: "Estimación jugo detox kiwi/manzana/menta/pepino tipo Happy Basil ~280ml"
+  },
+  {
+    id: "carne-res-horneada",
+    category: "proteina-animal",
+    name: "Carne de Res Horneada (lean roast beef)",
+    brand: "",
+    per100g: { kcal: 215, prot: 27.0, carbs: 0, fat: 11.0, fiber: 0, sodium: 60, sugar: 0.0, sat_fat: 4.0, iron: 2.5, calcium: 12, b12: 2.5, vit_d: 0.1, potassium: 320, magnesium: 22 },
+    source: "web",
+    addedDate: "2026-05-05",
+    notes: "Lean roast beef (cuts magros como round/sirloin), horneado sin aceite añadido. USDA reference"
+  },
+  {
+    id: "verduras-mixtas-zanahoria-brocoli",
+    category: "verdura",
+    name: "Verduras Mixtas (Zanahoria + Brócoli cocidos)",
+    brand: "",
+    per100g: { kcal: 35, prot: 1.9, carbs: 6.1, fat: 0.3, fiber: 2.3, sodium: 25, sugar: 3.3, sat_fat: 0.0 },
+    source: "estimate",
+    addedDate: "2026-05-05",
+    notes: "Mezcla 50/50 zanahoria cocida + brócoli cocido, sin grasa añadida"
+  },
+  {
+    id: "quaker-extraterrestres-marshmallow",
+    category: "cereal-carbs",
+    name: "Cereal Extraterrestres con Malvaviscos",
+    brand: "Quaker",
+    per100g: { kcal: 390, prot: 5.0, carbs: 82.0, fat: 4.0, fiber: 2.5, sodium: 350, sugar: 30.0, sat_fat: 1.0 },
+    source: "estimate",
+    addedDate: "2026-05-05",
+    notes: "Cereal estilo Quaker con marshmallows tipo Lucky Charms, ~30g por porción típica"
+  },
+  {
+    id: "sopa-vegetales-con-fideos",
+    category: "verdura",
+    name: "Sopa de Vegetales con Fideos Cocidos",
+    brand: "",
+    per100g: { kcal: 42, prot: 1.4, carbs: 7.4, fat: 0.4, fiber: 0.6, sodium: 350, sugar: 1.5, sat_fat: 0.1 },
+    source: "estimate",
+    addedDate: "2026-05-05",
+    notes: "Sopa casera vegetales + 50g fideos cocidos. Por 250g aprox. (broth + veggies + fideos)"
   }
 ];
 
@@ -6023,6 +6075,53 @@ const MEAL_LOG = [
       { foodId: "frambuesas-fresas", name: "Frambuesas Frescas", grams: 80, kcal: 41.6, prot: 1.0, carbs: 9.5, fat: 0.6 }
     ],
     timestamp: "2026-05-03T22:30:00"
+  },
+  {
+    id: "2026-05-04-E01",
+    date: "2026-05-04",
+    meal: "desayuno",
+    items: [
+      { foodId: "eafit-pure-isolate-vanille", name: "Proteina EAFit Vanille", grams: 35, kcal: 128.1, prot: 30.1, carbs: 1.2, fat: 0.3 }
+    ],
+    timestamp: "2026-05-04T09:00:00"
+  },
+  {
+    id: "2026-05-04-E02",
+    date: "2026-05-04",
+    meal: "almuerzo",
+    items: [
+      { foodId: "happy-basil-kiwi-juice", name: "Happy Basil Kiwi Juice", grams: 280, units: 1, kcal: 112.0, prot: 1.4, carbs: 25.2, fat: 0.6 },
+      { foodId: "arroz-salteado", name: "Arroz con Vegetales", grams: 150, kcal: 225.0, prot: 4.8, carbs: 45.0, fat: 2.3 },
+      { foodId: "verduras-mixtas-zanahoria-brocoli", name: "Vegetales Zanahoria y Brócoli", grams: 120, kcal: 42.0, prot: 2.3, carbs: 7.3, fat: 0.4 },
+      { foodId: "carne-res-horneada", name: "Carne de Res Horneada", grams: 160, kcal: 344.0, prot: 43.2, carbs: 0, fat: 17.6 }
+    ],
+    timestamp: "2026-05-04T13:00:00"
+  },
+  {
+    id: "2026-05-04-E03",
+    date: "2026-05-04",
+    meal: "snack",
+    items: [
+      { foodId: "tony-chocolonely-dark-70", name: "Chocolate Negro Chocolonely 70%", grams: 18, kcal: 103.5, prot: 1.6, carbs: 6.1, fat: 7.4 },
+      { foodId: "eafit-pure-isolate-vanille", name: "Proteina EAFit Vainilla", grams: 25, kcal: 91.5, prot: 21.5, carbs: 0.8, fat: 0.2 },
+      { foodId: "leche-almendra", name: "Leche de Almendra sin azúcar", grams: 50, kcal: 6.5, prot: 0.2, carbs: 0.1, fat: 0.6 },
+      { foodId: "eafit-pure-isolate-vanille", name: "Proteina EAFit Vainilla", grams: 30, kcal: 109.8, prot: 25.8, carbs: 1.0, fat: 0.3 },
+      { foodId: "stroopwafel-rudi-chocolate-negro", name: "Stroopwafel", grams: 35, kcal: 168.0, prot: 2.1, carbs: 22.8, fat: 7.7 },
+      { foodId: "fresas-frescas", name: "Fresas Frescas", grams: 100, kcal: 32.0, prot: 0.7, carbs: 7.7, fat: 0.3 }
+    ],
+    timestamp: "2026-05-04T17:00:00"
+  },
+  {
+    id: "2026-05-04-E04",
+    date: "2026-05-04",
+    meal: "cena",
+    items: [
+      { foodId: "pollo-carne-sin-piel", name: "Pierna de Pollo Magra (sin piel)", grams: 100, kcal: 175.0, prot: 28.0, carbs: 0, fat: 7.0 },
+      { foodId: "sopa-vegetales-con-fideos", name: "Sopa de Vegetales con 50g Fideos Cocidos", grams: 250, kcal: 105.0, prot: 3.5, carbs: 18.5, fat: 1.0 },
+      { foodId: "leche-almendra", name: "Leche de Almendra sin azúcar", grams: 80, kcal: 10.4, prot: 0.3, carbs: 0.2, fat: 0.9 },
+      { foodId: "quaker-extraterrestres-marshmallow", name: "Cereal Extraterrestres Quaker con Marshmallows", grams: 30, kcal: 117.0, prot: 1.5, carbs: 24.6, fat: 1.2 }
+    ],
+    timestamp: "2026-05-04T21:00:00"
   }
 
 ];
