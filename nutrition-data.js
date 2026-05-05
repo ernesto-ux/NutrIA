@@ -2,7 +2,7 @@
 // Updated by Claude Code via /log-food skill
 // DO NOT EDIT MANUALLY - use /log-food to add meals
 
-const DATA_TIMESTAMP = "2026-05-05T10:00:00 Europe/Paris";
+const DATA_TIMESTAMP = "2026-05-05T09:00:00 Europe/Paris";
 
 const NUTRITION_CONFIG = {
   targets: { kcal: 1770, prot: 190, carbs: 140, fat: 50 },
@@ -2597,6 +2597,17 @@ const FOOD_DATABASE = [
     source: "estimate",
     addedDate: "2026-05-05",
     notes: "Sopa casera vegetales + 50g fideos cocidos. Por 250g aprox. (broth + veggies + fideos)"
+  },
+  {
+    id: "babybel-proteine",
+    category: "lacteo",
+    name: "Babybel Protéine",
+    brand: "Bel",
+    per100g: { kcal: 240, prot: 26.0, carbs: 0.5, fat: 15.0, fiber: 0, sodium: 800, sugar: 0.5, sat_fat: 11.0, calcium: 700 },
+    unitWeight: 22, unitLabel: "babybel",
+    source: "web",
+    addedDate: "2026-05-05",
+    notes: "Babybel Protéine 22g/unité — 53 kcal, 5.7g prot, 3.3g fat por unidad"
   }
 ];
 
@@ -6122,6 +6133,22 @@ const MEAL_LOG = [
       { foodId: "quaker-honey-monster-stars", name: "Honey Monster Marshmallow Stars", grams: 30, kcal: 122.1, prot: 2.0, carbs: 24.0, fat: 2.0 }
     ],
     timestamp: "2026-05-04T21:00:00"
+  },
+  {
+    id: "2026-05-05-E01",
+    date: "2026-05-05",
+    meal: "desayuno",
+    items: [
+      { foodId: "clara-huevo", name: "Clara de Huevo x2", grams: 66, units: 2, kcal: 34.3, prot: 7.3, carbs: 0.5, fat: 0.1 },
+      { foodId: "huevo-entero", name: "Huevo Entero x1", grams: 50, units: 1, kcal: 77.5, prot: 6.5, carbs: 0.6, fat: 5.5 },
+      { foodId: "jamon-porc-fleury-michon", name: "Jambon Porc FM (1 tranche)", grams: 28, units: 1, kcal: 32.2, prot: 5.6, carbs: 0.3, fat: 1.0 },
+      { foodId: "babybel-proteine", name: "Babybel Protéine x1", grams: 22, units: 1, kcal: 52.8, prot: 5.7, carbs: 0.1, fat: 3.3 },
+      { foodId: "cottage-cheese-president", name: "Cottage Cheese President", grams: 60, kcal: 59.4, prot: 7.2, carbs: 1.5, fat: 2.7 },
+      { foodId: "pain-baguette", name: "Pain Baguette", grams: 30, kcal: 82.2, prot: 2.6, carbs: 16.5, fat: 0.4 },
+      { foodId: "hipro-vanille", name: "HiPro Vanille (1 pot)", grams: 160, units: 1, kcal: 123.2, prot: 16.3, carbs: 9.4, fat: 1.3 },
+      { foodId: "cafe-negro", name: "Café Negro (sin azucar)", grams: 240, units: 1, kcal: 4.8, prot: 0.2, carbs: 0, fat: 0 }
+    ],
+    timestamp: "2026-05-05T09:00:00"
   }
 
 ];
