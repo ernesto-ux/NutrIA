@@ -2,7 +2,7 @@
 // Updated by Claude Code via /log-food skill
 // DO NOT EDIT MANUALLY - use /log-food to add meals
 
-const DATA_TIMESTAMP = "2026-05-05T09:00:00 Europe/Paris";
+const DATA_TIMESTAMP = "2026-05-05T17:00:00 Europe/Paris";
 
 const NUTRITION_CONFIG = {
   targets: { kcal: 1770, prot: 190, carbs: 140, fat: 50 },
@@ -6149,6 +6149,18 @@ const MEAL_LOG = [
       { foodId: "cafe-negro", name: "Café Negro (sin azucar)", grams: 240, units: 1, kcal: 4.8, prot: 0.2, carbs: 0, fat: 0 }
     ],
     timestamp: "2026-05-05T09:00:00"
+  },
+  {
+    id: "2026-05-05-E02",
+    date: "2026-05-05",
+    meal: "snack",
+    items: [
+      { foodId: "mere-poulard-biscuit-beurre", name: "Sablé Mère Poulard x6 (paquetito)", grams: 93.6, units: 6, kcal: 468.9, prot: 6.4, carbs: 65.5, fat: 20.5 },
+      { foodId: "eafit-pure-isolate-chocolat", name: "EAFit Pure Isolate Chocolat", grams: 30, kcal: 106.2, prot: 24.3, carbs: 1.1, fat: 0.5 },
+      { foodId: "siggis-skyr-nature", name: "Skyr Siggis Nature", grams: 30, kcal: 18.9, prot: 3.3, carbs: 1.2, fat: 0.1 },
+      { foodId: "banana-fresca", name: "Banana Fresca", grams: 30, kcal: 26.7, prot: 0.3, carbs: 6.8, fat: 0.1 }
+    ],
+    timestamp: "2026-05-05T17:00:00"
   }
 
 ];
