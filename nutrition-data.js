@@ -2,7 +2,7 @@
 // Updated by Claude Code via /log-food skill
 // DO NOT EDIT MANUALLY - use /log-food to add meals
 
-const DATA_TIMESTAMP = "2026-04-30T16:05:00 Europe/Paris";
+const DATA_TIMESTAMP = "2026-05-07T12:00:00 Europe/Paris";
 
 const NUTRITION_CONFIG = {
   targets: { kcal: 1770, prot: 190, carbs: 140, fat: 50 },
@@ -2220,6 +2220,102 @@ const FOOD_DATABASE = [
     addedDate: "2026-05-05",
     notes: "Mix wok generico: brócoli, zanahoria, col, pimiento"
   }
+
+  // === AGREGADOS 2026-05-07 ===
+  {
+    id: "couscous-cuit",
+    name: "Couscous Cocido",
+    brand: "Genérico",
+    per100g: { kcal: 112, prot: 3.8, carbs: 23, fat: 0.2, fiber: 0.6, sodium: 5, sugar: 0.0, sat_fat: 0.0 },
+    source: "usda",
+    addedDate: "2026-05-07"
+  },
+  {
+    id: "skyr-danone-stracciatella",
+    name: "Skyr Danone Stracciatella",
+    brand: "Danone",
+    per100g: { kcal: 80, prot: 10, carbs: 8, fat: 2, fiber: 0, sodium: 58, sugar: 7.5, sat_fat: 1.3 },
+    source: "openfoodfacts",
+    addedDate: "2026-05-07"
+  },
+  {
+    id: "too-good-snack-poivre",
+    name: "Too Good Snack Poivre",
+    brand: "Too Good",
+    per100g: { kcal: 400, prot: 1, carbs: 56.5, fat: 9.6, fiber: 5, sodium: 650, sugar: 3.0, sat_fat: 1.0 },
+    source: "openfoodfacts",
+    addedDate: "2026-05-07",
+    notes: "macros pendientes verificación"
+  },
+  {
+    id: "cereal-monstruo-quaker",
+    name: "Cereal Monstruo Quaker",
+    brand: "Quaker",
+    per100g: { kcal: 380, prot: 7, carbs: 78, fat: 4, fiber: 3, sodium: 320, sugar: 35.0, sat_fat: 1.0 },
+    source: "estimated",
+    addedDate: "2026-05-07",
+    notes: "estimated - no encontrado en OpenFoodFacts"
+  },
+  {
+    id: "cereal-monstruo-rockstar",
+    name: "Cereal Monstruo Rockstar",
+    brand: "Genérico",
+    per100g: { kcal: 380, prot: 7, carbs: 78, fat: 4, fiber: 3, sodium: 320, sugar: 35.0, sat_fat: 1.0 },
+    source: "estimated",
+    addedDate: "2026-05-07",
+    notes: "estimated - no encontrado en OpenFoodFacts"
+  },
+  {
+    id: "hipro-fresa",
+    name: "HiPro Fresa Danone",
+    brand: "Danone",
+    per100g: { kcal: 54, prot: 9.4, carbs: 3.9, fat: 0.1, fiber: 0, sodium: 60, sugar: 3.9, sat_fat: 0.0 },
+    source: "openfoodfacts",
+    addedDate: "2026-05-07"
+  },
+  {
+    id: "lindt-excellence-fleur-de-sel",
+    name: "Lindt Excellence Pointe de Fleur de Sel",
+    brand: "Lindt",
+    per100g: { kcal: 537, prot: 5.7, carbs: 52, fat: 32, fiber: 4, sodium: 250, sugar: 44.0, sat_fat: 19.0 },
+    source: "openfoodfacts",
+    addedDate: "2026-05-07"
+  },
+  {
+    id: "yogurt-hotos",
+    name: "Yogurt Hotos 0%",
+    brand: "Hotos",
+    per100g: { kcal: 52, prot: 7.9, carbs: 5, fat: 0, fiber: 0, sodium: 48, sugar: 5.0, sat_fat: 0.0 },
+    source: "openfoodfacts",
+    addedDate: "2026-05-07"
+  },
+  {
+    id: "yogurt-griego-natural",
+    name: "Yogurt Griego Natural 0%",
+    brand: "Genérico",
+    per100g: { kcal: 57, prot: 10, carbs: 3.6, fat: 0.4, fiber: 0, sodium: 35, sugar: 3.6, sat_fat: 0.1 },
+    source: "usda",
+    addedDate: "2026-05-07"
+  },
+  // Sorbete Pistacho — 52g yogurt griego 0% + 134g Skyr Siggis Nature + 40g EAFit Vanille. Total 226g. Per100g calculado.
+  {
+    id: "sorbete-pistacho-ernesto-adri",
+    name: "Sorbete Pistacho (Recetario Ernesto/Adriana)",
+    brand: "Recetario",
+    per100g: { kcal: 115.2, prot: 24.0, carbs: 3.8, fat: 0.4, fiber: 0, sodium: 75, sugar: 2.0, sat_fat: 0.0 },
+    totalG: 226,
+    source: "recetario",
+    addedDate: "2026-05-07",
+    notes: "52g yogurt griego 0% + 134g Skyr Siggis Nature + 40g EAFit Pure Isolate Vanille. Total crudo 226g."
+  },
+  {
+    id: "pistacho-picado",
+    name: "Pistacho Picado (crudo)",
+    brand: "Genérico",
+    per100g: { kcal: 562, prot: 20, carbs: 28, fat: 45, fiber: 10, sodium: 5, sugar: 7.0, sat_fat: 5.5 },
+    source: "usda",
+    addedDate: "2026-05-07"
+  },
 
 ];
 
@@ -5674,6 +5770,11 @@ const ACTIVITY_LOG = [
   { date: "2026-04-29", steps: 5065,  stepsKcal: 125, gym: null,  gymKcal: 0,   notes: "" },
   { date: "2026-04-30", steps: 600,   stepsKcal: 0,   gym: null,  gymKcal: 0,   notes: "" },
   { date: "2026-05-01", steps: 5413,  stepsKcal: 125, gym: "gym", gymKcal: 617, notes: "" }
+  { date: "2026-05-02", steps: 1475, stepsKcal: 25,  gym: null, gymKcal: 0,   user: "adriana", notes: "" },
+  { date: "2026-05-03", steps: 3972, stepsKcal: 75,  gym: "gym", gymKcal: 428, user: "adriana", notes: "" },
+  { date: "2026-05-04", steps: 3273, stepsKcal: 65,  gym: null, gymKcal: 0,   user: "adriana", notes: "" },
+  { date: "2026-05-05", steps: 500,  stepsKcal: 0,   gym: null, gymKcal: 0,   user: "adriana", notes: "" },
+  { date: "2026-05-06", steps: 3284, stepsKcal: 65,  gym: "gym", gymKcal: 482, user: "adriana", notes: "" },
 ];
 
 // Daily energy balance (sabado a sabado: 29 mar - 4 abr + dom 5)
