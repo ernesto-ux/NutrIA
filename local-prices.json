@@ -1520,5 +1520,65 @@
     "price_per_100g": 0.7,
     "store": "Picard/Carrefour",
     "notes": "Mix wok légumes congelés 600g ~€4.20"
+  },
+  "eafit-pure-isolate-vainilla": {
+    "price_per_100g": 3.47,
+    "store": "Franprix",
+    "notes": "Alias de eafit-pure-isolate-vanille — EAFit Pure Isolate Whey 750g"
+  },
+  "fresas": {
+    "price_per_100g": 0.8,
+    "store": "Franprix",
+    "notes": "Alias de fresas-frescas — Fraises fraîches ~€4/500g"
+  },
+  "kiwi-grande": {
+    "price_per_100g": 0.4,
+    "store": "Franprix",
+    "notes": "Kiwi grande ~€0.40/100g (avg de kiwi-fresco €0.30 y kiwi €0.50)"
+  },
+  "sopa-vegetales-con-fideos": {
+    "price_per_100g": 0.5,
+    "store": "Homemade",
+    "notes": "Caldo + fideos + verduras (sin pollo)"
+  },
+  "wasa-original": {
+    "price_per_100g": 0.91,
+    "store": "Franprix",
+    "notes": "Wasa Original 275g ~€2.50 (mismo precio que Léger/Fibre)"
+  },
+  "babybel-proteine": {
+    "price_per_100g": 1.8,
+    "store": "Franprix",
+    "notes": "Babybel Protéine 6×22g ~€2.40 (~€1.80/100g)"
+  },
+  "carne-res-horneada": {
+    "price_per_100g": 1.6,
+    "store": "Franprix",
+    "notes": "Rosbif/roti boeuf ~€16/kg"
+  },
+  "happy-basil-kiwi-juice": {
+    "price_per_100g": 2.2,
+    "store": "Happy Basil (Paris)",
+    "notes": "Jugo de kiwi restaurante thai ~€5.50 vaso 250ml"
+  },
+  "hotos-yogurt-grec": {
+    "price_per_100g": 0.45,
+    "store": "Franprix",
+    "notes": "Hotos yogurt grec ~€2.20/500g"
+  },
+  "pain-au-chocolat": {
+    "price_per_100g": 2.7,
+    "store": "Boulangerie Paris",
+    "notes": "Pain au chocolat artisanal ~€1.60/60g"
+  },
+  "quaker-honey-monster-stars": {
+    "price_per_100g": 1.0,
+    "store": "Franprix",
+    "notes": "Quaker Honey Monster Stars 375g ~€3.80"
+  },
+  "verduras-mixtas-zanahoria-brocoli": {
+    "price_per_100g": 0.4,
+    "store": "Picard/Carrefour",
+    "notes": "Mix zanahoria + brócoli congelado ~€2.40/600g"
   }
 }
