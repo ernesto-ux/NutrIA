@@ -3916,6 +3916,501 @@
           "fat": 0.6
         }
       ]
+    },
+    {
+      "id": "2026-05-06-E03",
+      "date": "2026-05-06",
+      "meal": "almuerzo",
+      "user": "ernesto",
+      "items": [
+        {
+          "foodId": "pollo-pechuga-horneada",
+          "name": "Pollo Horneado",
+          "grams": 120,
+          "kcal": 198.0,
+          "prot": 37.2,
+          "carbs": 0.0,
+          "fat": 4.3
+        },
+        {
+          "foodId": "couscous-cuit",
+          "name": "Couscous Cocido",
+          "grams": 80,
+          "kcal": 89.6,
+          "prot": 3.0,
+          "carbs": 18.4,
+          "fat": 0.2
+        },
+        {
+          "foodId": "brocoli-cuit",
+          "name": "Brócoli Cocido",
+          "grams": 71,
+          "kcal": 24.9,
+          "prot": 2.1,
+          "carbs": 2.8,
+          "fat": 0.3
+        },
+        {
+          "foodId": "arroz-salteado",
+          "name": "Arroz con Vegetales",
+          "grams": 113,
+          "kcal": 169.5,
+          "prot": 3.6,
+          "carbs": 33.9,
+          "fat": 1.7
+        }
+      ]
+    },
+    {
+      "id": "2026-05-06-E04",
+      "date": "2026-05-06",
+      "meal": "snack",
+      "user": "ernesto",
+      "items": [
+        {
+          "foodId": "skyr-danone-stracciatella",
+          "name": "Skyr Danone Stracciatella",
+          "grams": 125,
+          "kcal": 100.0,
+          "prot": 12.5,
+          "carbs": 10.0,
+          "fat": 2.5
+        },
+        {
+          "foodId": "too-good-snack-poivre",
+          "name": "Too Good Snack Poivre",
+          "grams": 40,
+          "kcal": 160.0,
+          "prot": 0.4,
+          "carbs": 22.6,
+          "fat": 3.8
+        },
+        {
+          "foodId": "eafit-pure-isolate-vanille",
+          "name": "EAFit Pure Isolate Vanille",
+          "grams": 40,
+          "kcal": 146.4,
+          "prot": 34.4,
+          "carbs": 1.3,
+          "fat": 0.4
+        },
+        {
+          "foodId": "stroopwafel-rudi-chocolate-negro",
+          "name": "Stroopwafel",
+          "grams": 19,
+          "kcal": 91.2,
+          "prot": 1.1,
+          "carbs": 12.4,
+          "fat": 4.2
+        }
+      ]
+    },
+    {
+      "id": "2026-05-06-E05",
+      "date": "2026-05-06",
+      "meal": "cena",
+      "user": "ernesto",
+      "items": [
+        {
+          "foodId": "lasagna-pollo-pesto",
+          "name": "Lasagna de Pollo y Pesto",
+          "grams": 500,
+          "kcal": 770.0,
+          "prot": 59.0,
+          "carbs": 43.5,
+          "fat": 41.0
+        },
+        {
+          "foodId": "sorbete-pistacho-ernesto-adri",
+          "name": "Sorbete Pistacho",
+          "grams": 160,
+          "kcal": 184.3,
+          "prot": 38.4,
+          "carbs": 6.1,
+          "fat": 0.6
+        },
+        {
+          "foodId": "pistacho-picado",
+          "name": "Pistacho Picado",
+          "grams": 4,
+          "kcal": 22.5,
+          "prot": 0.8,
+          "carbs": 1.1,
+          "fat": 1.8
+        },
+        {
+          "foodId": "coca-cola-zero",
+          "name": "Coca Cola Zero",
+          "grams": 330,
+          "kcal": 1.3,
+          "prot": 0.0,
+          "carbs": 0.0,
+          "fat": 0.0
+        }
+      ]
+    },
+    {
+      "id": "2026-05-05-A01",
+      "date": "2026-05-05",
+      "meal": "desayuno",
+      "user": "adriana",
+      "items": [
+        {
+          "foodId": "kefir-lactel-0-bio",
+          "name": "Kéfir Lactel 0% Bio",
+          "grams": 70,
+          "kcal": 30.8,
+          "prot": 2.4,
+          "carbs": 2.9,
+          "fat": 1.1
+        },
+        {
+          "foodId": "siggis-skyr-nature",
+          "name": "Skyr Siggis Nature",
+          "grams": 110,
+          "kcal": 69.3,
+          "prot": 12.1,
+          "carbs": 4.4,
+          "fat": 0.2
+        },
+        {
+          "foodId": "eafit-pure-isolate-vanille",
+          "name": "EAFit Pure Isolate Vanille",
+          "grams": 30,
+          "kcal": 109.8,
+          "prot": 25.8,
+          "carbs": 1.0,
+          "fat": 0.3
+        },
+        {
+          "foodId": "cereal-monstruo-quaker",
+          "name": "Cereal Monstruo Quaker",
+          "grams": 20,
+          "kcal": 76.0,
+          "prot": 1.4,
+          "carbs": 15.6,
+          "fat": 0.8,
+          "notes": "estimated"
+        }
+      ]
+    },
+    {
+      "id": "2026-05-05-A02",
+      "date": "2026-05-05",
+      "meal": "almuerzo",
+      "user": "adriana",
+      "items": [
+        {
+          "foodId": "arroz-basmati-cocido",
+          "name": "Arroz Cocido",
+          "grams": 110,
+          "kcal": 143.0,
+          "prot": 3.0,
+          "carbs": 30.8,
+          "fat": 0.3
+        },
+        {
+          "foodId": "vegetales-wok",
+          "name": "Vegetales Salteados",
+          "grams": 100,
+          "kcal": 35.0,
+          "prot": 2.0,
+          "carbs": 6.0,
+          "fat": 0.5
+        },
+        {
+          "foodId": "rumsteck-boeuf-cuit",
+          "name": "Carne de Res",
+          "grams": 115,
+          "kcal": 138.0,
+          "prot": 28.8,
+          "carbs": 0.0,
+          "fat": 2.3
+        }
+      ]
+    },
+    {
+      "id": "2026-05-05-A03",
+      "date": "2026-05-05",
+      "meal": "snack",
+      "user": "adriana",
+      "items": [
+        {
+          "foodId": "cottage-cheese-president",
+          "name": "Cottage Cheese President",
+          "grams": 46,
+          "kcal": 45.5,
+          "prot": 5.5,
+          "carbs": 1.2,
+          "fat": 2.1,
+          "notes": "3 tsp ~15g + 31g añadidos"
+        },
+        {
+          "foodId": "yogurt-hotos",
+          "name": "Yogurt Hotos 0%",
+          "grams": 124,
+          "kcal": 64.5,
+          "prot": 9.8,
+          "carbs": 6.2,
+          "fat": 0.0
+        },
+        {
+          "foodId": "eafit-pure-isolate-vanille",
+          "name": "EAFit Pure Isolate Vanille",
+          "grams": 25,
+          "kcal": 91.5,
+          "prot": 21.5,
+          "carbs": 0.8,
+          "fat": 0.2
+        },
+        {
+          "foodId": "wasa-fibre",
+          "name": "Wasa Fibra (x2)",
+          "grams": 28,
+          "kcal": 93.2,
+          "prot": 3.6,
+          "carbs": 12.9,
+          "fat": 1.4
+        },
+        {
+          "foodId": "mermelada-lucien-fraises-sans-sucres",
+          "name": "Jalea de Fresa",
+          "grams": 12,
+          "kcal": 10.7,
+          "prot": 0.1,
+          "carbs": 2.6,
+          "fat": 0.1
+        },
+        {
+          "foodId": "cereal-monstruo-rockstar",
+          "name": "Cereal Monstruo Rockstar",
+          "grams": 12,
+          "kcal": 45.6,
+          "prot": 0.8,
+          "carbs": 9.4,
+          "fat": 0.5,
+          "notes": "estimated"
+        }
+      ]
+    },
+    {
+      "id": "2026-05-05-A04",
+      "date": "2026-05-05",
+      "meal": "cena",
+      "user": "adriana",
+      "items": [
+        {
+          "foodId": "tomate-fresco",
+          "name": "Tomate Fresco",
+          "grams": 80,
+          "kcal": 14.4,
+          "prot": 0.7,
+          "carbs": 3.1,
+          "fat": 0.2
+        },
+        {
+          "foodId": "mozzarella-barilla-maxi",
+          "name": "Mozzarella Barilla Maxi",
+          "grams": 90,
+          "kcal": 217.8,
+          "prot": 15.4,
+          "carbs": 1.6,
+          "fat": 17.1
+        }
+      ]
+    },
+    {
+      "id": "2026-05-05-A05",
+      "date": "2026-05-05",
+      "meal": "snack",
+      "user": "adriana",
+      "notes": "Milkshake",
+      "items": [
+        {
+          "foodId": "eafit-pure-isolate-vanille",
+          "name": "EAFit Pure Isolate Vanille",
+          "grams": 20,
+          "kcal": 73.2,
+          "prot": 17.2,
+          "carbs": 0.7,
+          "fat": 0.2
+        },
+        {
+          "foodId": "kefir-lactel-0-bio",
+          "name": "Kéfir Lactel 0% Bio",
+          "grams": 100,
+          "kcal": 44.0,
+          "prot": 3.4,
+          "carbs": 4.1,
+          "fat": 1.5
+        },
+        {
+          "foodId": "siggis-skyr-nature",
+          "name": "Skyr Siggis Nature",
+          "grams": 44,
+          "kcal": 27.7,
+          "prot": 4.8,
+          "carbs": 1.8,
+          "fat": 0.1
+        }
+      ]
+    },
+    {
+      "id": "2026-05-06-A01",
+      "date": "2026-05-06",
+      "meal": "desayuno",
+      "user": "adriana",
+      "items": [
+        {
+          "foodId": "kefir-lactel-0-bio",
+          "name": "Kéfir Lactel 0% Bio",
+          "grams": 218,
+          "kcal": 95.9,
+          "prot": 7.4,
+          "carbs": 8.9,
+          "fat": 3.3
+        },
+        {
+          "foodId": "siggis-skyr-nature",
+          "name": "Skyr Siggis Nature",
+          "grams": 50,
+          "kcal": 31.5,
+          "prot": 5.5,
+          "carbs": 2.0,
+          "fat": 0.1
+        },
+        {
+          "foodId": "eafit-pure-isolate-vanille",
+          "name": "EAFit Pure Isolate Vanille",
+          "grams": 25,
+          "kcal": 91.5,
+          "prot": 21.5,
+          "carbs": 0.8,
+          "fat": 0.2
+        },
+        {
+          "foodId": "lu-petit-beurre",
+          "name": "Petit Beurre LU (x2)",
+          "grams": 16,
+          "kcal": 69.6,
+          "prot": 1.2,
+          "carbs": 12.0,
+          "fat": 1.8
+        }
+      ]
+    },
+    {
+      "id": "2026-05-06-A02",
+      "date": "2026-05-06",
+      "meal": "almuerzo",
+      "user": "adriana",
+      "items": [
+        {
+          "foodId": "pollo-pechuga-horneada",
+          "name": "Pollo Horneado",
+          "grams": 100,
+          "kcal": 165.0,
+          "prot": 31.0,
+          "carbs": 0.0,
+          "fat": 3.6
+        },
+        {
+          "foodId": "brocoli-cuit",
+          "name": "Brócoli Cocido",
+          "grams": 65,
+          "kcal": 22.8,
+          "prot": 2.0,
+          "carbs": 2.6,
+          "fat": 0.3
+        },
+        {
+          "foodId": "arroz-salteado",
+          "name": "Arroz con Vegetales",
+          "grams": 40,
+          "kcal": 60.0,
+          "prot": 1.3,
+          "carbs": 12.0,
+          "fat": 0.6
+        }
+      ]
+    },
+    {
+      "id": "2026-05-06-A03",
+      "date": "2026-05-06",
+      "meal": "snack",
+      "user": "adriana",
+      "items": [
+        {
+          "foodId": "hipro-fresa",
+          "name": "HiPro Fresa Danone",
+          "grams": 160,
+          "kcal": 86.4,
+          "prot": 15.0,
+          "carbs": 6.2,
+          "fat": 0.2
+        },
+        {
+          "foodId": "lindt-excellence-fleur-de-sel",
+          "name": "Lindt Excellence Pointe de Fleur de Sel",
+          "grams": 30,
+          "kcal": 161.1,
+          "prot": 1.7,
+          "carbs": 15.6,
+          "fat": 9.6
+        }
+      ]
+    },
+    {
+      "id": "2026-05-06-A04",
+      "date": "2026-05-06",
+      "meal": "snack",
+      "user": "adriana",
+      "items": [
+        {
+          "foodId": "too-good-snack-poivre",
+          "name": "Too Good Snack Poivre",
+          "grams": 35,
+          "kcal": 140.0,
+          "prot": 0.4,
+          "carbs": 19.8,
+          "fat": 3.4
+        },
+        {
+          "foodId": "stroopwafel-rudi-chocolate-negro",
+          "name": "Stroopwafel",
+          "grams": 16,
+          "kcal": 76.8,
+          "prot": 1.0,
+          "carbs": 10.4,
+          "fat": 3.5
+        }
+      ]
+    },
+    {
+      "id": "2026-05-06-A05",
+      "date": "2026-05-06",
+      "meal": "cena",
+      "user": "adriana",
+      "items": [
+        {
+          "foodId": "lasagna-pollo-pesto",
+          "name": "Lasagna de Pollo y Pesto",
+          "grams": 330,
+          "kcal": 508.2,
+          "prot": 38.9,
+          "carbs": 28.7,
+          "fat": 27.1
+        },
+        {
+          "foodId": "sorbete-pistacho-ernesto-adri",
+          "name": "Sorbete Pistacho",
+          "grams": 120,
+          "kcal": 138.2,
+          "prot": 28.8,
+          "carbs": 4.6,
+          "fat": 0.4
+        }
+      ]
     }
   ],
   "overrides": {
