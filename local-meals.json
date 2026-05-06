@@ -3794,16 +3794,6 @@
       "source": "local",
       "items": [
         {
-          "foodId": "mere-poulard-biscuit-beurre",
-          "name": "Sablé Mère Poulard x6 (paquetito)",
-          "grams": 93.6,
-          "units": 6,
-          "kcal": 468.9,
-          "prot": 6.4,
-          "carbs": 65.5,
-          "fat": 20.5
-        },
-        {
           "foodId": "eafit-pure-isolate-chocolat",
           "name": "EAFit Pure Isolate Chocolat",
           "grams": 30,
