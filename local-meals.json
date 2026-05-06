@@ -3228,6 +3228,15 @@
           "prot": 0.6,
           "carbs": 9.6,
           "fat": 0.2
+        },
+        {
+          "foodId": "mere-poulard-biscuit-beurre",
+          "name": "Sablé Mère Poulard x6 (paquetito)",
+          "grams": 62.5,
+          "kcal": 313.1,
+          "prot": 4.3,
+          "carbs": 43.8,
+          "fat": 13.7
         }
       ]
     },
