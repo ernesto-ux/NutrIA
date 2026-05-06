@@ -3138,6 +3138,135 @@
       "timestamp": "2026-05-02T20:30:00",
       "source": "local",
       "user": "ernesto"
+    },
+    {
+      "id": "2026-05-05-cena",
+      "date": "2026-05-05",
+      "meal": "cena",
+      "user": "ernesto",
+      "timestamp": "2026-05-05T20:00:00",
+      "source": "manual",
+      "items": [
+        {
+          "foodId": "tomate-fresco",
+          "name": "Tomate Fresco",
+          "grams": 120,
+          "kcal": 21.6,
+          "prot": 1.1,
+          "carbs": 4.7,
+          "fat": 0.2
+        },
+        {
+          "foodId": "mozzarella-barilla-maxi",
+          "name": "Mozzarella Barilla Maxi",
+          "grams": 160,
+          "kcal": 387.2,
+          "prot": 27.4,
+          "carbs": 2.9,
+          "fat": 30.4
+        },
+        {
+          "foodId": "aceite-oliva",
+          "name": "AOVE",
+          "grams": 15,
+          "kcal": 132.6,
+          "prot": 0.0,
+          "carbs": 0.0,
+          "fat": 15.0
+        }
+      ]
+    },
+    {
+      "id": "2026-05-05-snack",
+      "date": "2026-05-05",
+      "meal": "snack",
+      "user": "ernesto",
+      "timestamp": "2026-05-05T17:00:00",
+      "source": "manual",
+      "items": [
+        {
+          "foodId": "eafit-pure-isolate-vanille",
+          "name": "EAFit Pure Isolate Vanille",
+          "grams": 30,
+          "kcal": 109.8,
+          "prot": 25.8,
+          "carbs": 1.0,
+          "fat": 0.3
+        },
+        {
+          "foodId": "kefir-lactel-0-bio",
+          "name": "Kéfir",
+          "grams": 50,
+          "kcal": 22.0,
+          "prot": 1.7,
+          "carbs": 2.0,
+          "fat": 0.8
+        },
+        {
+          "foodId": "siggis-skyr-nature",
+          "name": "Skyr Siggis Nature",
+          "grams": 36,
+          "kcal": 22.7,
+          "prot": 4.0,
+          "carbs": 1.4,
+          "fat": 0.1
+        },
+        {
+          "foodId": "uvas-blancas",
+          "name": "Uvas Blancas (4 uvas)",
+          "grams": 40,
+          "kcal": 26.8,
+          "prot": 0.2,
+          "carbs": 6.8,
+          "fat": 0.2
+        },
+        {
+          "foodId": "mandarina-fresca",
+          "name": "Mandarina",
+          "grams": 80,
+          "kcal": 37.6,
+          "prot": 0.6,
+          "carbs": 9.6,
+          "fat": 0.2
+        }
+      ]
+    },
+    {
+      "id": "2026-05-05-lunch",
+      "date": "2026-05-05",
+      "meal": "almuerzo",
+      "user": "ernesto",
+      "timestamp": "2026-05-05T13:00:00",
+      "source": "manual",
+      "items": [
+        {
+          "foodId": "arroz-basmati-cocido",
+          "name": "Arroz Basmati Cocido",
+          "grams": 180,
+          "kcal": 234.0,
+          "prot": 4.9,
+          "carbs": 50.4,
+          "fat": 0.5
+        },
+        {
+          "foodId": "vegetales-wok",
+          "name": "Vegetales Salteados",
+          "grams": 80,
+          "kcal": 28.0,
+          "prot": 1.6,
+          "carbs": 4.8,
+          "fat": 0.4
+        },
+        {
+          "foodId": "rumsteck-boeuf-cuit",
+          "name": "Carne de Res",
+          "grams": 130,
+          "kcal": 156.0,
+          "prot": 32.5,
+          "carbs": 0.0,
+          "fat": 2.6
+        }
+      ]
     }
   ],
   "overrides": {
