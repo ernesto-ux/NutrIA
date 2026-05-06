@@ -3168,11 +3168,11 @@
         {
           "foodId": "aceite-oliva",
           "name": "AOVE",
-          "grams": 15,
-          "kcal": 132.6,
-          "prot": 0.0,
-          "carbs": 0.0,
-          "fat": 15.0
+          "grams": 10,
+          "kcal": 88.4,
+          "prot": 0,
+          "carbs": 0,
+          "fat": 10.0
         }
       ]
     },
@@ -3250,30 +3250,30 @@
       "items": [
         {
           "foodId": "arroz-basmati-cocido",
-          "name": "Arroz Basmati Cocido",
-          "grams": 180,
-          "kcal": 234.0,
-          "prot": 4.9,
-          "carbs": 50.4,
-          "fat": 0.5
+          "name": "Arroz con Vegetales",
+          "grams": 150,
+          "kcal": 225,
+          "prot": 4.8,
+          "carbs": 45.0,
+          "fat": 2.3
         },
         {
           "foodId": "vegetales-wok",
-          "name": "Vegetales Salteados",
-          "grams": 80,
-          "kcal": 28.0,
-          "prot": 1.6,
-          "carbs": 4.8,
+          "name": "Vegetales Zanahoria y Brócoli",
+          "grams": 120,
+          "kcal": 42,
+          "prot": 2.3,
+          "carbs": 7.3,
           "fat": 0.4
         },
         {
           "foodId": "rumsteck-boeuf-cuit",
-          "name": "Carne de Res",
-          "grams": 130,
-          "kcal": 156.0,
-          "prot": 32.5,
+          "name": "Carne de Res Horneada",
+          "grams": 160,
+          "kcal": 344,
+          "prot": 43.2,
           "carbs": 0.0,
-          "fat": 2.6
+          "fat": 17.6
         }
       ]
     }
