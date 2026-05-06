@@ -1505,5 +1505,20 @@
     "store": "Crêperie",
     "unit_price": 4.8,
     "notes": "Crepe artisanale au Nutella ~€4.50-5.50 unidad street/crêperie."
+  },
+  "mozzarella-barilla-maxi": {
+    "price_per_100g": 1.3,
+    "store": "Franprix/Carrefour",
+    "notes": "Barilla Mozzarella Fresca Maxi 200g ~€2.60"
+  },
+  "uvas-blancas": {
+    "price_per_100g": 0.5,
+    "store": "Franprix",
+    "notes": "Uvas blancas sin semilla ~€5/kg"
+  },
+  "vegetales-wok": {
+    "price_per_100g": 0.7,
+    "store": "Picard/Carrefour",
+    "notes": "Mix wok légumes congelés 600g ~€4.20"
   }
 }
