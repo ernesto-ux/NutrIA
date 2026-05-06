@@ -1580,5 +1580,10 @@
     "price_per_100g": 0.4,
     "store": "Picard/Carrefour",
     "notes": "Mix zanahoria + brócoli congelado ~€2.40/600g"
+  },
+  "lasagna-pollo-pesto": {
+    "price_per_100g": 1.4,
+    "store": "Homemade",
+    "notes": "Lasagna Barilla €2/box, mozzarella Barilla €2.60, faisselle €0.50/pot, pollo €10/kg, parmesano €3/100g, AOVE+albahaca+champiñones"
   }
 }
