@@ -3894,34 +3894,6 @@
       "date": "2026-05-06",
       "meal": "almuerzo",
       "user": "ernesto",
-      "timestamp": "2026-05-06T13:30:00",
-      "source": "manual",
-      "items": [
-        {
-          "foodId": "pollo-pechuga-horneada",
-          "name": "Pollo Horneado",
-          "grams": 40,
-          "kcal": 66.0,
-          "prot": 12.4,
-          "carbs": 0,
-          "fat": 1.4
-        },
-        {
-          "foodId": "arroz-salteado",
-          "name": "Arroz Salteado con Vegetales",
-          "grams": 40,
-          "kcal": 60.0,
-          "prot": 1.3,
-          "carbs": 12.0,
-          "fat": 0.6
-        }
-      ]
-    },
-    {
-      "id": "2026-05-06-E03",
-      "date": "2026-05-06",
-      "meal": "almuerzo",
-      "user": "ernesto",
       "items": [
         {
           "foodId": "pollo-pechuga-horneada",
@@ -3933,15 +3905,6 @@
           "fat": 4.3
         },
         {
-          "foodId": "couscous-cuit",
-          "name": "Couscous Cocido",
-          "grams": 80,
-          "kcal": 89.6,
-          "prot": 3.0,
-          "carbs": 18.4,
-          "fat": 0.2
-        },
-        {
           "foodId": "brocoli-cuit",
           "name": "Brócoli Cocido",
           "grams": 71,
@@ -3951,18 +3914,18 @@
           "fat": 0.3
         },
         {
-          "foodId": "arroz-salteado",
-          "name": "Arroz con Vegetales",
-          "grams": 113,
-          "kcal": 169.5,
-          "prot": 3.6,
-          "carbs": 33.9,
-          "fat": 1.7
+          "foodId": "arroz-bomba-cocido",
+          "name": "Arroz con Vegetales (150g)",
+          "grams": 150,
+          "kcal": 195.0,
+          "prot": 4.0,
+          "carbs": 42.0,
+          "fat": 0.5
         }
       ]
     },
     {
-      "id": "2026-05-06-E04",
+      "id": "2026-05-06-E03",
       "date": "2026-05-06",
       "meal": "snack",
       "user": "ernesto",
@@ -4006,7 +3969,7 @@
       ]
     },
     {
-      "id": "2026-05-06-E05",
+      "id": "2026-05-06-E04",
       "date": "2026-05-06",
       "meal": "cena",
       "user": "ernesto",
