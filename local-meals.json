@@ -3978,10 +3978,10 @@
           "foodId": "lasagna-pollo-pesto",
           "name": "Lasagna de Pollo y Pesto",
           "grams": 500,
-          "kcal": 892.0,
-          "prot": 63.0,
-          "carbs": 63.5,
-          "fat": 43.0
+          "kcal": 823.5,
+          "prot": 62.5,
+          "carbs": 43.5,
+          "fat": 45.0
         },
         {
           "foodId": "sorbete-pistacho-ernesto-adri",
@@ -4359,10 +4359,10 @@
           "foodId": "lasagna-pollo-pesto",
           "name": "Lasagna de Pollo y Pesto",
           "grams": 330,
-          "kcal": 588.7,
-          "prot": 41.6,
-          "carbs": 41.9,
-          "fat": 28.4
+          "kcal": 543.5,
+          "prot": 41.2,
+          "carbs": 28.7,
+          "fat": 29.7
         },
         {
           "foodId": "sorbete-pistacho-ernesto-adri",
