@@ -2219,7 +2219,7 @@ const FOOD_DATABASE = [
     source: "estimate",
     addedDate: "2026-05-05",
     notes: "Mix wok generico: brócoli, zanahoria, col, pimiento"
-  }
+  },
 
   // === AGREGADOS 2026-05-07 ===
   {
@@ -5769,7 +5769,7 @@ const ACTIVITY_LOG = [
   { date: "2026-04-28", steps: 800,   stepsKcal: 0,   gym: null,  gymKcal: 0,   notes: "" },
   { date: "2026-04-29", steps: 5065,  stepsKcal: 125, gym: null,  gymKcal: 0,   notes: "" },
   { date: "2026-04-30", steps: 600,   stepsKcal: 0,   gym: null,  gymKcal: 0,   notes: "" },
-  { date: "2026-05-01", steps: 5413,  stepsKcal: 125, gym: "gym", gymKcal: 617, notes: "" }
+  { date: "2026-05-01", steps: 5413,  stepsKcal: 125, gym: "gym", gymKcal: 617, notes: "" },
   { date: "2026-05-02", steps: 1475, stepsKcal: 25,  gym: null, gymKcal: 0,   user: "adriana", notes: "" },
   { date: "2026-05-03", steps: 3972, stepsKcal: 75,  gym: "gym", gymKcal: 428, user: "adriana", notes: "" },
   { date: "2026-05-04", steps: 3273, stepsKcal: 65,  gym: null, gymKcal: 0,   user: "adriana", notes: "" },
