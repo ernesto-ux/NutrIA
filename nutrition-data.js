@@ -39,17 +39,17 @@ const FOOD_DATABASE = [
     source: "recetario",
     addedDate: "2026-04-13"
   },
-  // Lasagna de Pollo y Pesto — 9 hojas Barilla, mozzarella maxi, 3 faisselle 125g, pesto casero (40g AOVE+60g parm+albahaca+ajo+4 avellanas), 6 champiñones, 300g pollo, bechamel 1L leche demi-écrémée. Total crudo 2587g, cocido ~2070g, 6 porciones de ~345g.
+  // Lasagna de Pollo y Pesto — 8 hojas Barilla all'uovo (28g/u), mozzarella maxi, 3 faisselle 125g, pesto casero (40g AOVE+60g parm+albahaca+ajo+4 avellanas), 200g champignons, 300g pollo, bechamel 1L leche demi-écrémée. Total crudo 2484g, cocido ~1990g, 6 porciones de ~332g.
   {
     id: "lasagna-pollo-pesto",
     name: "Lasagna de Pollo y Pesto",
     brand: "Recetario",
-    per100g: { kcal: 154.0, prot: 11.8, carbs: 8.7, fat: 8.2, fiber: 0.8, sodium: 380, sugar: 4.0, sat_fat: 4.5 },
-    totalG: 2070,
+    per100g: { kcal: 178.4, prot: 12.6, carbs: 12.7, fat: 8.6, fiber: 0.7, sodium: 380, sugar: 4.0, sat_fat: 4.7 },
+    totalG: 1990,
     portions: 6,
     source: "recetario",
     addedDate: "2026-05-07",
-    notes: "9 hojas lasagna Barilla precocida + 200g mozzarella maxi + 3 faisselle 125g + pesto (40g AOVE, 60g parmesano, 4 avellanas, albahaca, ajo) + 420g champiñones + 300g pechuga pollo + bechamel (1L leche demi-écrémée, 20g harina, 20g mantequilla salada, cúrcuma, pimentón) + 20g parmesano rapé topping. Crudo 2587g → cocido ~2070g (-20% agua)."
+    notes: "8 hojas Barilla all'uovo 28g/hoja (224g) + 200g mozzarella maxi + 3 faisselle 125g (375g) + pesto (40g AOVE, 60g parmesano, 4 avellanas, albahaca, ajo) + 200g champignons de Paris + 300g pechuga pollo + bechamel (1L leche demi-écrémée, 20g harina, 20g mantequilla salada, cúrcuma, pimentón) + 20g parmesano rapé topping. Crudo 2484g → cocido ~1990g (-20% agua). Bechamel: 688 kcal, 34.4 prot, 63.6 carbs, 32.5 fat."
   },
   {
     id: "mantequilla-de-mani-menguys",
