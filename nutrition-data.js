@@ -2,7 +2,7 @@
 // Updated by Claude Code via /log-food skill
 // DO NOT EDIT MANUALLY - use /log-food to add meals
 
-const DATA_TIMESTAMP = "2026-05-09T12:00:00 Europe/Paris";
+const DATA_TIMESTAMP = "2026-05-08T12:00:00 Europe/Paris";
 
 const NUTRITION_CONFIG = {
   targets: { kcal: 1770, prot: 190, carbs: 140, fat: 50 },
@@ -5830,7 +5830,7 @@ const ACTIVITY_LOG = [
   { date: "2026-05-04", steps: 3273, stepsKcal: 65,  gym: null, gymKcal: 0,   user: "adriana", notes: "" },
   { date: "2026-05-05", steps: 500,  stepsKcal: 0,   gym: null, gymKcal: 0,   user: "adriana", notes: "" },
   { date: "2026-05-06", steps: 3284, stepsKcal: 65,  gym: "gym", gymKcal: 482, user: "adriana", notes: "" },
-  { date: "2026-05-08", steps: 0,    stepsKcal: 0,   gym: "gym", gymKcal: 500, user: "ernesto", notes: "ayer entrené 500kcal" },
+  { date: "2026-05-07", steps: 0,    stepsKcal: 0,   gym: "gym", gymKcal: 500, user: "ernesto", notes: "entrené 500kcal" },
 ];
 
 // Daily energy balance (sabado a sabado: 29 mar - 4 abr + dom 5)
