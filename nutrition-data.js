@@ -2,7 +2,7 @@
 // Updated by Claude Code via /log-food skill
 // DO NOT EDIT MANUALLY - use /log-food to add meals
 
-const DATA_TIMESTAMP = "2026-05-07T12:00:00 Europe/Paris";
+const DATA_TIMESTAMP = "2026-05-09T12:00:00 Europe/Paris";
 
 const NUTRITION_CONFIG = {
   targets: { kcal: 1770, prot: 190, carbs: 140, fat: 50 },
@@ -2315,6 +2315,61 @@ const FOOD_DATABASE = [
     per100g: { kcal: 562, prot: 20, carbs: 28, fat: 45, fiber: 10, sodium: 5, sugar: 7.0, sat_fat: 5.5 },
     source: "usda",
     addedDate: "2026-05-07"
+  },
+  {
+    id: "kinder-postre-naranja-chocolat",
+    name: "Kinder Barra Postre Naranja Chocolate",
+    brand: "Kinder",
+    per100g: { kcal: 568, prot: 8.8, carbs: 53.6, fat: 35.2, fiber: 1, sodium: 65, sugar: 50.0, sat_fat: 18.0 },
+    unitWeight: 25, unitLabel: "barra",
+    source: "web",
+    addedDate: "2026-05-08",
+    notes: "Variante naranja-chocolate; macros estimadas con valores estándar Kinder bar"
+  },
+  {
+    id: "falafel-generic",
+    name: "Falafel (cuit/frit)",
+    brand: "Generic",
+    per100g: { kcal: 330, prot: 13, carbs: 31, fat: 17, fiber: 8, sodium: 400, sugar: 4.0, sat_fat: 2.0 },
+    unitWeight: 35, unitLabel: "falafel",
+    source: "web",
+    addedDate: "2026-05-08"
+  },
+  {
+    id: "empanada-halloumi",
+    name: "Empanada de Halloumi",
+    brand: "Generic",
+    per100g: { kcal: 280, prot: 9, carbs: 24, fat: 14, fiber: 1.5, sodium: 600, sugar: 1.5, sat_fat: 6.0 },
+    unitWeight: 60, unitLabel: "empanada",
+    source: "web",
+    addedDate: "2026-05-08",
+    notes: "Estimación basada en empanada de queso genérica con halloumi"
+  },
+  {
+    id: "galette-sarrasin-nature",
+    name: "Galette de Sarrasin Nature",
+    brand: "Generic",
+    per100g: { kcal: 152, prot: 4.9, carbs: 30.2, fat: 1.3, fiber: 2.0, sodium: 200, sugar: 1.0, sat_fat: 0.2 },
+    unitWeight: 80, unitLabel: "galette",
+    source: "web",
+    addedDate: "2026-05-08"
+  },
+  {
+    id: "hipro-creme-dessert-vanille",
+    name: "Crème Dessert Vanille",
+    brand: "HiPro",
+    per100g: { kcal: 77, prot: 10.2, carbs: 5.9, fat: 0.8, fiber: 0, sodium: 70, sugar: 4.5, sat_fat: 0.5 },
+    unitWeight: 180, unitLabel: "pot",
+    source: "web",
+    addedDate: "2026-05-08"
+  },
+  {
+    id: "chocolate-negro-80",
+    name: "Chocolate Negro 80% Cacao",
+    brand: "",
+    per100g: { kcal: 600, prot: 7, carbs: 39, fat: 53.6, fiber: 10, sodium: 14, sugar: 22.0, sat_fat: 32.0 },
+    source: "web",
+    addedDate: "2026-05-08"
   },
 
 ];
@@ -5775,6 +5830,7 @@ const ACTIVITY_LOG = [
   { date: "2026-05-04", steps: 3273, stepsKcal: 65,  gym: null, gymKcal: 0,   user: "adriana", notes: "" },
   { date: "2026-05-05", steps: 500,  stepsKcal: 0,   gym: null, gymKcal: 0,   user: "adriana", notes: "" },
   { date: "2026-05-06", steps: 3284, stepsKcal: 65,  gym: "gym", gymKcal: 482, user: "adriana", notes: "" },
+  { date: "2026-05-08", steps: 0,    stepsKcal: 0,   gym: "gym", gymKcal: 500, user: "ernesto", notes: "ayer entrené 500kcal" },
 ];
 
 // Daily energy balance (sabado a sabado: 29 mar - 4 abr + dom 5)
