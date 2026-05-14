@@ -2395,6 +2395,72 @@ const FOOD_DATABASE = [
     source: "web",
     addedDate: "2026-05-08"
   },
+  {
+    id: "hipro-natural",
+    name: "HiPro Natural 0%",
+    brand: "Danone",
+    per100g: { kcal: 53, prot: 10, carbs: 3.0, fat: 0.1, fiber: 0, sodium: 60, sugar: 3.0, sat_fat: 0.0 },
+    unitWeight: 160, unitLabel: "pot",
+    source: "web",
+    addedDate: "2026-05-14"
+  },
+  {
+    id: "galettes-riz-nature",
+    name: "Galettes de Riz Nature",
+    brand: "Generic",
+    per100g: { kcal: 387, prot: 8.0, carbs: 82, fat: 3.0, fiber: 2.0, sodium: 5, sugar: 0.5, sat_fat: 0.5 },
+    unitWeight: 9, unitLabel: "galette",
+    source: "web",
+    addedDate: "2026-05-14"
+  },
+  {
+    id: "coppa-charcuterie",
+    name: "Coppa (charcuterie)",
+    brand: "Generic",
+    per100g: { kcal: 380, prot: 24, carbs: 0.5, fat: 30, fiber: 0, sodium: 1800, sugar: 0.5, sat_fat: 10.0 },
+    source: "web",
+    addedDate: "2026-05-14"
+  },
+  {
+    id: "prosciutto-crudo",
+    name: "Prosciutto Crudo",
+    brand: "Generic",
+    per100g: { kcal: 250, prot: 26, carbs: 0.5, fat: 15, fiber: 0, sodium: 2200, sugar: 0.0, sat_fat: 5.0 },
+    source: "web",
+    addedDate: "2026-05-14"
+  },
+  {
+    id: "quesitos-diana",
+    name: "Quesitos Diana (queso crema porciones)",
+    brand: "Diana",
+    per100g: { kcal: 240, prot: 10, carbs: 3.5, fat: 20, fiber: 0, sodium: 850, sugar: 3.0, sat_fat: 12.0 },
+    source: "web",
+    addedDate: "2026-05-14"
+  },
+  {
+    id: "cheese-balls-republique",
+    name: "Cheese Balls Chips Chez République",
+    brand: "Chez République",
+    per100g: { kcal: 540, prot: 7, carbs: 54, fat: 32, fiber: 1.5, sodium: 980, sugar: 3.0, sat_fat: 6.0 },
+    source: "estimated",
+    addedDate: "2026-05-14"
+  },
+  {
+    id: "saucisson-sec",
+    name: "Saucisson Sec",
+    brand: "Generic",
+    per100g: { kcal: 410, prot: 24, carbs: 1.5, fat: 35, fiber: 0, sodium: 1500, sugar: 0.5, sat_fat: 13.0 },
+    source: "web",
+    addedDate: "2026-05-14"
+  },
+  {
+    id: "pollo-guisado-verduras",
+    name: "Pollo Guisado con Verduras",
+    brand: "Casero",
+    per100g: { kcal: 120, prot: 14, carbs: 5, fat: 5, fiber: 1.5, sodium: 300, sugar: 2.5, sat_fat: 1.5 },
+    source: "estimated",
+    addedDate: "2026-05-14"
+  },
 
 ];
 
