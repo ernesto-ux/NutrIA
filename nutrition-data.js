@@ -39,6 +39,18 @@ const FOOD_DATABASE = [
     source: "recetario",
     addedDate: "2026-04-13"
   },
+  // Pizza High Protein — 180g cottage Danone + 1 3/4 huevo (87.5g) + 1/2 maxi mozzarella Buitoni (125g) + 80g salsa Mutti tomate + 2 rodajas jamon Fleury Michon (40g) + 4ml aceite oliva (3.7g). Total crudo 516g, cocido ~500g, 1 porción.
+  {
+    id: "pizza-high-protein",
+    name: "Pizza High Protein",
+    brand: "Recetario",
+    per100g: { kcal: 140, prot: 12.6, carbs: 1.9, fat: 9.1, fiber: 0.5, sodium: 450, sugar: 1.5, sat_fat: 5.5 },
+    totalG: 500,
+    portions: 1,
+    source: "recetario",
+    addedDate: "2026-05-14",
+    notes: "180g cottage Danone + 1 3/4 huevo (87.5g) + 1/2 maxi mozzarella Buitoni (125g) + 80g salsa Mutti tomate + 2 rodajas jamon Fleury Michon (40g) + 4ml aceite oliva (3.7g). Total crudo 516g → cocido ~500g. 698 kcal, 63.2g prot, 9.7g carbs, 45.7g fat."
+  },
   // Lasagna de Pollo y Pesto — 8 hojas Barilla crudas (12.5g/u, total 100g), mozzarella maxi, 3 faisselle 125g, pesto casero (40g AOVE+60g parm+albahaca+ajo+4 avellanas), 200g champignons, 300g pollo, bechamel 1L leche demi-écrémée. Total crudo 2355g, cocido ~1884g, 6 porciones de ~314g.
   {
     id: "lasagna-pollo-pesto",
