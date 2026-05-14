@@ -39,29 +39,29 @@ const FOOD_DATABASE = [
     source: "recetario",
     addedDate: "2026-04-13"
   },
-  // Pizza High Protein (Jamon) — 180g cottage Danone + 1 3/4 huevo (87.5g) + 1/2 maxi mozzarella Buitoni (125g) + 80g salsa Mutti tomate + 2 rodajas jamon Fleury Michon (40g) + 4ml aceite oliva (3.7g). Total crudo 516g, cocido ~500g, 1 porción.
+  // Pizza High Protein (Jamon) — Masa: 180g cottage Danone + 1 3/4 huevo (87.5g) + 60g harina trigo blanca. Topping: 1/2 maxi mozzarella Buitoni (125g) + 80g salsa Mutti tomate + 2 rodajas jamon Fleury Michon (40g) + 4ml aceite oliva (3.7g). Total crudo 576g, cocido ~560g, 1 porción.
   {
     id: "pizza-high-protein-jamon",
     name: "Pizza High Protein (Jamon)",
     brand: "Recetario",
-    per100g: { kcal: 140, prot: 12.6, carbs: 1.9, fat: 9.1, fiber: 0.5, sodium: 450, sugar: 1.5, sat_fat: 5.5 },
-    totalG: 500,
+    per100g: { kcal: 163, prot: 12.4, carbs: 9.6, fat: 8.3, fiber: 0.8, sodium: 410, sugar: 1.4, sat_fat: 5.0 },
+    totalG: 560,
     portions: 1,
     source: "recetario",
     addedDate: "2026-05-14",
-    notes: "180g cottage Danone + 1 3/4 huevo (87.5g) + 1/2 maxi mozzarella Buitoni (125g) + 80g salsa Mutti tomate + 2 rodajas jamon Fleury Michon (40g) + 4ml aceite oliva (3.7g). Total crudo 516g → cocido ~500g. 698 kcal, 63.2g prot, 9.7g carbs, 45.7g fat."
+    notes: "Masa: 180g cottage Danone + 1 3/4 huevo (87.5g) + 60g harina trigo blanca. Topping: 1/2 maxi mozzarella Buitoni (125g) + 80g salsa Mutti tomate + 2 rodajas jamon Fleury Michon (40g) + 4ml aceite oliva (3.7g). Total crudo 576g → cocido ~560g. 914 kcal, 69.2g prot, 53.5g carbs, 46.3g fat."
   },
-  // Pizza High Protein (Pesto) — 180g cottage Danone + 1 3/4 huevo (87.5g) + 1/2 maxi mozzarella Buitoni (125g) + 80g salsa Mutti tomate + 30g pesto (albahaca, parmesano, AOVE, ajo) + 4ml aceite oliva (3.7g). Total crudo 506g, cocido ~490g, 1 porción.
+  // Pizza High Protein (Pesto) — Masa: 180g cottage Danone + 1 3/4 huevo (87.5g) + 60g harina trigo blanca. Topping: 1/2 maxi mozzarella Buitoni (125g) + 80g salsa Mutti tomate + 30g pesto (albahaca, parmesano, AOVE, ajo) + 4ml aceite oliva (3.7g). Total crudo 566g, cocido ~550g, 1 porción.
   {
     id: "pizza-high-protein-pesto",
     name: "Pizza High Protein (Pesto)",
     brand: "Recetario",
-    per100g: { kcal: 158, prot: 11.5, carbs: 2.2, fat: 11.4, fiber: 0.5, sodium: 430, sugar: 1.5, sat_fat: 5.5 },
-    totalG: 490,
+    per100g: { kcal: 180, prot: 11.3, carbs: 9.9, fat: 10.3, fiber: 0.8, sodium: 395, sugar: 1.4, sat_fat: 5.0 },
+    totalG: 550,
     portions: 1,
     source: "recetario",
     addedDate: "2026-05-14",
-    notes: "180g cottage Danone + 1 3/4 huevo (87.5g) + 1/2 maxi mozzarella Buitoni (125g) + 80g salsa Mutti tomate + 30g pesto (albahaca, parmesano, AOVE, ajo) + 4ml aceite oliva (3.7g). Total crudo 506g → cocido ~490g. 772 kcal, 56.3g prot, 10.8g carbs, 56.0g fat."
+    notes: "Masa: 180g cottage Danone + 1 3/4 huevo (87.5g) + 60g harina trigo blanca. Topping: 1/2 maxi mozzarella Buitoni (125g) + 80g salsa Mutti tomate + 30g pesto (albahaca, parmesano, AOVE, ajo) + 4ml aceite oliva (3.7g). Total crudo 566g → cocido ~550g. 988 kcal, 62.3g prot, 54.6g carbs, 56.6g fat."
   },
   // Lasagna de Pollo y Pesto — 8 hojas Barilla crudas (12.5g/u, total 100g), mozzarella maxi, 3 faisselle 125g, pesto casero (40g AOVE+60g parm+albahaca+ajo+4 avellanas), 200g champignons, 300g pollo, bechamel 1L leche demi-écrémée. Total crudo 2355g, cocido ~1884g, 6 porciones de ~314g.
   {
