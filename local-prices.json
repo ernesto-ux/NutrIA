@@ -1586,9 +1586,14 @@
     "store": "Homemade",
     "notes": "Lasagna Barilla €2/box, mozzarella Barilla €2.60, faisselle €0.50/pot, pollo €10/kg, parmesano €3/100g, AOVE+albahaca+champiñones"
   },
-  "pizza-high-protein": {
+  "pizza-high-protein-jamon": {
     "price_per_100g": 0.8,
     "store": "Homemade",
     "notes": "Cottage Danone €1.50/400g, mozzarella Buitoni Maxi €2.50/250g, huevos €0.30/u, jamón FM €2/100g, salsa Mutti €1.50/400g, AOVE"
+  },
+  "pizza-high-protein-pesto": {
+    "price_per_100g": 0.9,
+    "store": "Homemade",
+    "notes": "Cottage Danone €1.50/400g, mozzarella Buitoni Maxi €2.50/250g, huevos €0.30/u, salsa Mutti €1.50/400g, pesto casero (albahaca+parmesano+AOVE+ajo)"
   }
 }
