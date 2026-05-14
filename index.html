@@ -1474,7 +1474,17 @@ try {
     render();
   };
 
-  function TARGETS() { return USERS[currentUser].targets; }
+  // Returns active targets for a given user+date by walking NUTRITION_CONFIG.targetsHistory.
+  // Falls back to USERS[uid].targets (which may itself be overridden by localStorage).
+  function getTargetsForDate(uid, dateStr) {
+    const history = (NUTRITION_CONFIG && NUTRITION_CONFIG.targetsHistory && NUTRITION_CONFIG.targetsHistory[uid]) || [];
+    if (history.length > 0 && dateStr) {
+      const applicable = history.filter(t => t.from <= dateStr).sort((a, b) => b.from.localeCompare(a.from))[0];
+      if (applicable) return { kcal: applicable.kcal, prot: applicable.prot, carbs: applicable.carbs, fat: applicable.fat };
+    }
+    return USERS[uid].targets;
+  }
+  function TARGETS() { return getTargetsForDate(currentUser, currentDate); }
 
   // TDEE by date: 2182 until 2026-04-16, 2145 from 2026-04-17
   function getTDEE(date) {

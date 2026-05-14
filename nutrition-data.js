@@ -2,11 +2,22 @@
 // Updated by Claude Code via /log-food skill
 // DO NOT EDIT MANUALLY - use /log-food to add meals
 
-const DATA_TIMESTAMP = "2026-05-08T12:00:00 Europe/Paris";
+const DATA_TIMESTAMP = "2026-05-14T20:00:00 Europe/Paris";
 
 const NUTRITION_CONFIG = {
   targets: { kcal: 1770, prot: 190, carbs: 140, fat: 50 },
   targetsAdri: { kcal: 1285, prot: 120, carbs: 100, fat: 45 },
+  // Historial de metas por usuario. La meta vigente para una fecha es la entrada
+  // con `from` más reciente <= fecha. Add new entries here when goals change.
+  targetsHistory: {
+    ernesto: [
+      { from: "2026-01-01", kcal: 1770, prot: 190, carbs: 140, fat: 50 }
+    ],
+    adriana: [
+      { from: "2026-04-06", kcal: 1285, prot: 120, carbs: 100, fat: 45 },
+      { from: "2026-05-10", kcal: 1630, prot: 110, carbs: 155, fat: 63 }
+    ]
+  },
   meals: ["desayuno", "almuerzo", "cena", "snack"],
   mealLabels: { desayuno: "Desayuno", almuerzo: "Almuerzo", cena: "Cena", snack: "Snack" },
   mealIcons: { desayuno: "\u{1F963}", almuerzo: "\u{1F372}", cena: "\u{1F319}", snack: "\u{1F34E}" },
