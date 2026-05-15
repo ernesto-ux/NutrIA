@@ -2,7 +2,7 @@
 // Updated by Claude Code via /log-food skill
 // DO NOT EDIT MANUALLY - use /log-food to add meals
 
-const DATA_TIMESTAMP = "2026-05-16T01:01:00 Europe/Paris";
+const DATA_TIMESTAMP = "2026-05-16T01:45:00 Europe/Paris";
 
 const NUTRITION_CONFIG = {
   targets: { kcal: 1770, prot: 190, carbs: 140, fat: 50 },
@@ -2981,6 +2981,60 @@ const FOOD_DATABASE = [
     per100g: { kcal: 85, prot: 0.1, carbs: 2.6, fat: 0, fiber: 0, sodium: 4, sugar: 0.6, sat_fat: 0 },
     unitWeight: 125,
     unitLabel: "copa",
+    source: "usda",
+    addedDate: "2026-05-16"
+  },
+  {
+    id: "salmon-ahumado",
+    name: "Salmón Ahumado",
+    brand: "Generic",
+    per100g: { kcal: 117, prot: 18.3, carbs: 0, fat: 4.3, fiber: 0, sodium: 1880, sugar: 0, sat_fat: 0.9 },
+    source: "usda",
+    addedDate: "2026-05-16"
+  },
+  {
+    id: "ikea-hotdog-vegetarian-single",
+    name: "Hot Dog Vegetariano IKEA (single)",
+    brand: "IKEA",
+    per100g: { kcal: 245, prot: 9.0, carbs: 25.0, fat: 11.0, fiber: 3.5, sodium: 720, sugar: 4.0, sat_fat: 2.0 },
+    unitWeight: 100,
+    unitLabel: "hotdog",
+    source: "official",
+    addedDate: "2026-05-16"
+  },
+  {
+    id: "ikea-hotdog-vegetarian-double",
+    name: "Hot Dog Vegetariano IKEA (doble)",
+    brand: "IKEA",
+    per100g: { kcal: 250, prot: 10.0, carbs: 24.0, fat: 12.0, fiber: 3.5, sodium: 750, sugar: 4.0, sat_fat: 2.2 },
+    unitWeight: 150,
+    unitLabel: "hotdog doble",
+    source: "official",
+    addedDate: "2026-05-16"
+  },
+  {
+    id: "ikea-bebida-roja-frambuesa",
+    name: "Bebida IKEA Roja (Frambuesa/Lingonberry)",
+    brand: "IKEA",
+    per100g: { kcal: 38, prot: 0, carbs: 9.0, fat: 0, fiber: 0, sodium: 8, sugar: 8.5, sat_fat: 0 },
+    unitWeight: 300,
+    unitLabel: "vaso",
+    source: "official",
+    addedDate: "2026-05-16"
+  },
+  {
+    id: "aderezo-yogur-griego-mostaza-miel-eneldo",
+    name: "Aderezo Yogur Griego, Mostaza, Miel, Eneldo, AOVE",
+    brand: "Casero",
+    per100g: { kcal: 165, prot: 4.0, carbs: 8.0, fat: 13.0, fiber: 0.5, sodium: 320, sugar: 6.0, sat_fat: 2.5 },
+    source: "estimated",
+    addedDate: "2026-05-16"
+  },
+  {
+    id: "mostaza-de-dijon",
+    name: "Mostaza de Dijon",
+    brand: "Generic",
+    per100g: { kcal: 70, prot: 4.0, carbs: 4.5, fat: 4.0, fiber: 3.0, sodium: 2400, sugar: 0.5, sat_fat: 0.3 },
     source: "usda",
     addedDate: "2026-05-16"
   },

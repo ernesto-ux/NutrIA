@@ -1595,5 +1595,435 @@
     "price_per_100g": 0.9,
     "store": "Homemade",
     "notes": "Cottage Danone €1.50/400g, mozzarella Buitoni Maxi €2.50/250g, huevos €0.30/u, salsa Mutti €1.50/400g, pesto casero (albahaca+parmesano+AOVE+ajo)"
+  },
+  "crepe-jambon-fromage": {
+    "price_per_100g": 3.2,
+    "store": "Boulangerie/Crêperie",
+    "notes": "~€8/crêpe 250g"
+  },
+  "crepe-caramel-beurre-sale-chantilly-sorbet": {
+    "price_per_100g": 3.5,
+    "store": "Crêperie",
+    "notes": "Postre crepa elaborada"
+  },
+  "crepe-caramel-beurre-sale-simple": {
+    "price_per_100g": 2.2,
+    "store": "Crêperie",
+    "notes": "~€4/crêpe 180g"
+  },
+  "crepe-classique-nature": {
+    "price_per_100g": 1.5,
+    "store": "Boulangerie",
+    "notes": "~€1/crêpe 60g"
+  },
+  "creme-brulee": {
+    "price_per_100g": 2.5,
+    "store": "Restaurant",
+    "notes": "Postre clásico restaurant"
+  },
+  "soupe-oignon-gratinee": {
+    "price_per_100g": 1.8,
+    "store": "Restaurant",
+    "notes": "~€7/bowl 350g"
+  },
+  "panna-cotta-fresas": {
+    "price_per_100g": 1.4,
+    "store": "Casero",
+    "notes": "Crema + gelatina + fresas"
+  },
+  "tiramisu-classico": {
+    "price_per_100g": 2.8,
+    "store": "Restaurant",
+    "notes": "Postre italiano clásico"
+  },
+  "religieuse-framboise-chantilly": {
+    "price_per_100g": 5.5,
+    "store": "Patisserie",
+    "notes": "~€6/pieza 110g, café spécialité"
+  },
+  "financier-pistacho": {
+    "price_per_100g": 6.0,
+    "store": "Boulangerie",
+    "notes": "~€0.90/mini 15g"
+  },
+  "galleta-fortuna-thai": {
+    "price_per_100g": 5.0,
+    "store": "Restaurant Thai",
+    "notes": "Incluida usualmente"
+  },
+  "galleta-creme-london": {
+    "price_per_100g": 5.7,
+    "store": "Boulangerie",
+    "notes": "~€4/galleta 70g"
+  },
+  "pain-au-chocolat-mini-hotel": {
+    "price_per_100g": 3.5,
+    "store": "Hotel buffet",
+    "notes": "Buffet incluido"
+  },
+  "croissant-mini-hotel": {
+    "price_per_100g": 3.5,
+    "store": "Hotel buffet",
+    "notes": "Buffet incluido"
+  },
+  "mcdo-cheeseburger": {
+    "price_per_100g": 1.5,
+    "store": "McDonald's",
+    "notes": "€1.65/burger 108g"
+  },
+  "mcdonalds-double-chicken-small": {
+    "price_per_100g": 2.0,
+    "store": "McDonald's",
+    "notes": "Sandwich double chicken"
+  },
+  "kfc-chicken-tenders": {
+    "price_per_100g": 2.5,
+    "store": "KFC",
+    "notes": "~€0.75/tender"
+  },
+  "kfc-mini-chicken-burger": {
+    "price_per_100g": 1.8,
+    "store": "KFC",
+    "notes": "Combo 5€"
+  },
+  "kfc-papas-pequena": {
+    "price_per_100g": 2.2,
+    "store": "KFC",
+    "notes": "Combo 5€"
+  },
+  "helado-vainilla-fast-food": {
+    "price_per_100g": 3.5,
+    "store": "KFC/McDo",
+    "notes": "Sundae/sorbete pequeño"
+  },
+  "salmon-grille-restaurant": {
+    "price_per_100g": 6.0,
+    "store": "Restaurant",
+    "notes": "Plat principal pescado"
+  },
+  "papas-roti-restaurant": {
+    "price_per_100g": 2.0,
+    "store": "Restaurant",
+    "notes": "Accompagnement"
+  },
+  "ensalada-mixta-tomate-lechuga": {
+    "price_per_100g": 1.5,
+    "store": "Restaurant",
+    "notes": "Side salad"
+  },
+  "entrecote-grille-restaurant": {
+    "price_per_100g": 8.0,
+    "store": "Restaurant",
+    "notes": "€20-30/250g"
+  },
+  "papas-fritas-fait-maison": {
+    "price_per_100g": 1.8,
+    "store": "Restaurant",
+    "notes": "Frites maison"
+  },
+  "salsa-poivre-restaurant": {
+    "price_per_100g": 1.2,
+    "store": "Restaurant",
+    "notes": "Sauce accompagnement"
+  },
+  "lasagna-restaurant-generic": {
+    "price_per_100g": 2.5,
+    "store": "Restaurant",
+    "notes": "Plat italien"
+  },
+  "plato-libanes-mixto": {
+    "price_per_100g": 3.5,
+    "store": "Restaurant Libanés",
+    "notes": "~€30/plat partagé"
+  },
+  "postres-libaneses-baklava": {
+    "price_per_100g": 6.0,
+    "store": "Restaurant Libanés",
+    "notes": "Mezze postres"
+  },
+  "ensalada-carrefour-jamon": {
+    "price_per_100g": 1.8,
+    "store": "Carrefour",
+    "notes": "Ensalada lista para llevar"
+  },
+  "pancito-apero-queso": {
+    "price_per_100g": 4.0,
+    "store": "Restaurant",
+    "notes": "Pancito apéritif"
+  },
+  "magret-canard-sin-piel": {
+    "price_per_100g": 5.5,
+    "store": "Restaurant",
+    "notes": "Plat principal canard"
+  },
+  "ecrase-pomme-de-terre": {
+    "price_per_100g": 2.0,
+    "store": "Restaurant",
+    "notes": "Accompagnement maison"
+  },
+  "ensalada-chevre-noix": {
+    "price_per_100g": 4.5,
+    "store": "Restaurant",
+    "notes": "Entrée chèvre chaud"
+  },
+  "pollo-esparragos-tomates-cherry": {
+    "price_per_100g": 4.5,
+    "store": "Restaurant",
+    "notes": "Plat principal volaille"
+  },
+  "yogurt-blueberry-hp-carrefour": {
+    "price_per_100g": 0.9,
+    "store": "Carrefour",
+    "notes": "~€1.35/yogurt 150g"
+  },
+  "edamame-cocido": {
+    "price_per_100g": 1.2,
+    "store": "Picard",
+    "notes": "Congelado precocido"
+  },
+  "semillas-mixtas-almendra-avellana-mani": {
+    "price_per_100g": 2.5,
+    "store": "Carrefour",
+    "notes": "Frutos secos mix"
+  },
+  "jalea-fresa": {
+    "price_per_100g": 0.7,
+    "store": "Carrefour",
+    "notes": "Tarro confiture"
+  },
+  "alcaparras-en-vinagre": {
+    "price_per_100g": 2.5,
+    "store": "Monoprix",
+    "notes": "~€2.50/100g jarra"
+  },
+  "nutella": {
+    "price_per_100g": 1.0,
+    "store": "Carrefour",
+    "notes": "Pot 400g €4"
+  },
+  "bacon-tocino-cocido": {
+    "price_per_100g": 2.0,
+    "store": "Carrefour",
+    "notes": "~€2/200g tranches"
+  },
+  "chipolata-saucisse": {
+    "price_per_100g": 1.5,
+    "store": "Carrefour",
+    "notes": "~€3-5/paquet"
+  },
+  "pan-pumpernickel-aleman": {
+    "price_per_100g": 1.3,
+    "store": "Monoprix",
+    "notes": "~€3/500g"
+  },
+  "yogurt-nature-chia": {
+    "price_per_100g": 0.8,
+    "store": "Hotel",
+    "notes": "Buffet"
+  },
+  "old-amsterdam-queso": {
+    "price_per_100g": 4.5,
+    "store": "Monoprix",
+    "notes": "~€7-9/200g aged gouda"
+  },
+  "queso-roquefort": {
+    "price_per_100g": 5.0,
+    "store": "Monoprix",
+    "notes": "~€5/100g AOC"
+  },
+  "vino-rosado": {
+    "price_per_100g": 3.0,
+    "store": "Restaurant",
+    "notes": "~€4-6/copa 125ml"
+  },
+  "vino-tinto-merlot": {
+    "price_per_100g": 3.0,
+    "store": "Restaurant/Cave",
+    "notes": "~€4-6/copa 125ml"
+  },
+  "jambon-porc-roti-tranches": {
+    "price_per_100g": 2.5,
+    "store": "Monoprix",
+    "notes": "Tranches jambon rôti"
+  },
+  "jamon-rojo-bresaola": {
+    "price_per_100g": 6.0,
+    "store": "Charcuterie",
+    "notes": "Charcuterie spéciale"
+  },
+  "chorizo-saucisson": {
+    "price_per_100g": 3.5,
+    "store": "Charcuterie",
+    "notes": "~€20-25/kg"
+  },
+  "ikea-hotdog-vegetarian-single": {
+    "price_per_100g": 1.0,
+    "store": "IKEA",
+    "notes": "~€1/hotdog (€0.70 IKEA Family)"
+  },
+  "ikea-hotdog-vegetarian-double": {
+    "price_per_100g": 1.3,
+    "store": "IKEA",
+    "notes": "Hotdog veggie doble"
+  },
+  "ikea-bebida-roja-frambuesa": {
+    "price_per_100g": 0.5,
+    "store": "IKEA",
+    "notes": "Drink station free refill incluido"
+  },
+  "aderezo-yogur-griego-mostaza-miel-eneldo": {
+    "price_per_100g": 1.5,
+    "store": "Casero",
+    "notes": "Yogurt + mostaza dijon + miel + eneldo + AOVE"
+  },
+  "mostaza-de-dijon": {
+    "price_per_100g": 0.8,
+    "store": "Monoprix",
+    "notes": "~€1.50/200g"
+  },
+  "bolkiri-salade-thai-epicee-doble-carne": {
+    "price_per_100g": 1.4,
+    "store": "Bolkiri",
+    "notes": "€8.50/bowl + supplemento doble carne"
+  },
+  "arroz-con-vegetales-salteado": {
+    "price_per_100g": 0.5,
+    "store": "Casero",
+    "notes": "Arroz + vegetales"
+  },
+  "kinder-bueno-barra": {
+    "price_per_100g": 2.5,
+    "store": "Carrefour",
+    "notes": "~€1.10/barra 43g"
+  },
+  "salmon-ahumado": {
+    "price_per_100g": 5.0,
+    "store": "Monoprix",
+    "notes": "~€5-7/100g"
+  },
+  "couscous-cuit": {
+    "price_per_100g": 0.3,
+    "store": "Carrefour",
+    "notes": "~€2/500g"
+  },
+  "skyr-danone-stracciatella": {
+    "price_per_100g": 1.0,
+    "store": "Carrefour",
+    "notes": "Yogurt Skyr aromatisé"
+  },
+  "too-good-snack-poivre": {
+    "price_per_100g": 2.2,
+    "store": "Monoprix",
+    "notes": "Snack salado"
+  },
+  "cereal-monstruo-quaker": {
+    "price_per_100g": 1.2,
+    "store": "Carrefour",
+    "notes": "Cereal desayuno"
+  },
+  "cereal-monstruo-rockstar": {
+    "price_per_100g": 1.2,
+    "store": "Carrefour",
+    "notes": "Cereal infantil"
+  },
+  "hipro-fresa": {
+    "price_per_100g": 0.85,
+    "store": "Carrefour",
+    "notes": "~€2-2.5/235g"
+  },
+  "lindt-excellence-fleur-de-sel": {
+    "price_per_100g": 4.0,
+    "store": "Monoprix",
+    "notes": "Tablette 100g €3-4"
+  },
+  "yogurt-hotos": {
+    "price_per_100g": 0.8,
+    "store": "Hotos",
+    "notes": "Marca local FR"
+  },
+  "yogurt-griego-natural": {
+    "price_per_100g": 0.6,
+    "store": "Carrefour",
+    "notes": "Yogurt griego 0%"
+  },
+  "sorbete-pistacho-ernesto-adri": {
+    "price_per_100g": 1.5,
+    "store": "Casero",
+    "notes": "Pistacho + sirope + leche almendra"
+  },
+  "hipro-natural": {
+    "price_per_100g": 0.85,
+    "store": "Carrefour",
+    "notes": "~€2-2.5/235g"
+  },
+  "pollo-guisado-verduras": {
+    "price_per_100g": 0.9,
+    "store": "Casero",
+    "notes": "Pollo + verduras casero"
+  },
+  "kinder-postre-naranja-chocolat": {
+    "price_per_100g": 3.0,
+    "store": "Monoprix",
+    "notes": "Edición especial"
+  },
+  "galette-sarrasin-nature": {
+    "price_per_100g": 1.3,
+    "store": "Boulangerie",
+    "notes": "Crêpe sarrasin tradition"
+  },
+  "falafel-generic": {
+    "price_per_100g": 2.5,
+    "store": "Traiteur",
+    "notes": "Comida libanesa"
+  },
+  "empanada-halloumi": {
+    "price_per_100g": 3.0,
+    "store": "Traiteur",
+    "notes": "Empanada queso halloumi"
+  },
+  "pistacho-picado": {
+    "price_per_100g": 4.0,
+    "store": "Monoprix",
+    "notes": "Frutos secos"
+  },
+  "chocolate-negro-80": {
+    "price_per_100g": 2.5,
+    "store": "Carrefour",
+    "notes": "Tableta dark"
+  },
+  "prosciutto-crudo": {
+    "price_per_100g": 5.0,
+    "store": "Monoprix",
+    "notes": "Charcuterie italienne"
+  },
+  "hipro-creme-dessert-vanille": {
+    "price_per_100g": 0.8,
+    "store": "Carrefour",
+    "notes": "Postre lácteo HP"
+  },
+  "galettes-riz-nature": {
+    "price_per_100g": 1.5,
+    "store": "Monoprix",
+    "notes": "~€1.50/100g, ~9g por galette"
+  },
+  "coppa-charcuterie": {
+    "price_per_100g": 4.5,
+    "store": "Monoprix",
+    "notes": "Charcuterie italiana"
+  },
+  "quesitos-diana": {
+    "price_per_100g": 2.0,
+    "store": "Monoprix",
+    "notes": "Queso crema porciones"
+  },
+  "cheese-balls-republique": {
+    "price_per_100g": 3.0,
+    "store": "Chez Republique",
+    "notes": "Cheese balls snack"
+  },
+  "saucisson-sec": {
+    "price_per_100g": 3.0,
+    "store": "Carrefour",
+    "notes": "Saucisson tradition"
   }
 }
