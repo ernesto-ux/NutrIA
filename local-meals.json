@@ -5064,13 +5064,13 @@
       "user": "adriana",
       "items": [
         {
-          "foodId": "beef-green-beans-meat-bowl",
-          "name": "Beef & Green Beans (carne + ejotes + cebolla)",
+          "foodId": "rumsteck-boeuf-cuit",
+          "name": "Rumsteck de Boeuf (cuit)",
           "grams": 43,
-          "kcal": 62.7,
-          "prot": 5.4,
-          "carbs": 2.1,
-          "fat": 3.7
+          "kcal": 51.6,
+          "prot": 10.8,
+          "carbs": 0.0,
+          "fat": 0.9
         },
         {
           "foodId": "lasagna-restaurant-generic",
@@ -5874,6 +5874,15 @@
           "fat": 4.4
         },
         {
+          "foodId": "alcaparras-en-vinagre",
+          "name": "Alcaparras en Vinagre",
+          "grams": 12,
+          "kcal": 2.8,
+          "prot": 0.3,
+          "carbs": 0.6,
+          "fat": 0.1
+        },
+        {
           "foodId": "aderezo-fromage-blanc-aguacate-cilantro",
           "name": "Aderezo de Fromage Blanc, Aguacate y Cilantro Limón",
           "grams": 35,
@@ -5901,13 +5910,13 @@
           "fat": 0.5
         },
         {
-          "foodId": "mani-salado",
-          "name": "Maní Salado (Cacahuetes Tostados)",
+          "foodId": "pistacho-picado",
+          "name": "Pistacho Picado (crudo)",
           "grams": 10,
-          "kcal": 58.5,
-          "prot": 2.5,
-          "carbs": 1.6,
-          "fat": 4.9
+          "kcal": 56.2,
+          "prot": 2.0,
+          "carbs": 2.8,
+          "fat": 4.5
         },
         {
           "foodId": "tony-chocolonely-dark-70",
@@ -5920,6 +5929,33 @@
         }
       ],
       "timestamp": "2026-05-15T12:00:00"
+    },
+    {
+      "id": "2026-05-15-A-snack-2",
+      "date": "2026-05-15",
+      "meal": "snack",
+      "user": "adriana",
+      "items": [
+        {
+          "foodId": "galleta-creme-london",
+          "name": "Galleta Crème London (cookie con crema)",
+          "grams": 52.5,
+          "kcal": 246.8,
+          "prot": 2.9,
+          "carbs": 28.9,
+          "fat": 13.1
+        },
+        {
+          "foodId": "cote-dor-noir-70",
+          "name": "Chocolat Noir Intense 70%",
+          "grams": 10,
+          "kcal": 54.5,
+          "prot": 0.8,
+          "carbs": 3.5,
+          "fat": 4.0
+        }
+      ],
+      "timestamp": "2026-05-15T16:30:00"
     }
   ],
   "overrides": {

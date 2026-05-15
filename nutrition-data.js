@@ -2711,7 +2711,25 @@ const FOOD_DATABASE = [
     per100g: { kcal: 250, prot: 0.5, carbs: 60.0, fat: 0.1, fiber: 0.5 },
     source: "user",
     addedDate: "2026-05-16"
-  }
+  },
+  {
+    id: "alcaparras-en-vinagre",
+    name: "Alcaparras en Vinagre",
+    brand: "Generic",
+    per100g: { kcal: 23, prot: 2.4, carbs: 4.9, fat: 0.9, fiber: 3.2, sodium: 2350, sugar: 0.4, sat_fat: 0.2 },
+    source: "usda",
+    addedDate: "2026-05-16"
+  },
+  {
+    id: "galleta-creme-london",
+    name: "Galleta Crème London (cookie con crema)",
+    brand: "Boulangerie",
+    per100g: { kcal: 470, prot: 5.5, carbs: 55.0, fat: 25.0, fiber: 1.5, sodium: 280, sugar: 30.0, sat_fat: 13.0 },
+    unitWeight: 70,
+    unitLabel: "galleta",
+    source: "estimated",
+    addedDate: "2026-05-16"
+  },
 ];
 
 // Meal log - read-only fallback. GitHub (local-meals.json) is source of truth.
