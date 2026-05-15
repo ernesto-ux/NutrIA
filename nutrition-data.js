@@ -2942,6 +2942,48 @@ const FOOD_DATABASE = [
     source: "estimated",
     addedDate: "2026-05-16"
   },
+  {
+    id: "old-amsterdam-queso",
+    name: "Old Amsterdam (Gouda Vieja)",
+    brand: "Westland",
+    per100g: { kcal: 400, prot: 28.0, carbs: 0, fat: 32.0, fiber: 0, sodium: 1100, sugar: 0, sat_fat: 21.0 },
+    source: "official",
+    addedDate: "2026-05-16"
+  },
+  {
+    id: "bolkiri-salade-thai-epicee-doble-carne",
+    name: "Salade Thaï Épicée Bolkiri (doble carne)",
+    brand: "Bolkiri",
+    per100g: { kcal: 165, prot: 13.0, carbs: 12.0, fat: 8.0, fiber: 2.0, sodium: 480, sugar: 4.0, sat_fat: 2.0 },
+    source: "estimated",
+    addedDate: "2026-05-16"
+  },
+  {
+    id: "arroz-con-vegetales-salteado",
+    name: "Arroz con Vegetales Salteado",
+    brand: "Casero",
+    per100g: { kcal: 150, prot: 3.0, carbs: 28.0, fat: 3.0, fiber: 1.8, sodium: 280, sugar: 2.0, sat_fat: 0.5 },
+    source: "estimated",
+    addedDate: "2026-05-16"
+  },
+  {
+    id: "queso-roquefort",
+    name: "Queso Roquefort (azul)",
+    brand: "Generic",
+    per100g: { kcal: 369, prot: 21.5, carbs: 2.0, fat: 31.0, fiber: 0, sodium: 1800, sugar: 0.5, sat_fat: 19.0 },
+    source: "usda",
+    addedDate: "2026-05-16"
+  },
+  {
+    id: "vino-tinto-merlot",
+    name: "Vino Tinto Merlot",
+    brand: "Generic",
+    per100g: { kcal: 85, prot: 0.1, carbs: 2.6, fat: 0, fiber: 0, sodium: 4, sugar: 0.6, sat_fat: 0 },
+    unitWeight: 125,
+    unitLabel: "copa",
+    source: "usda",
+    addedDate: "2026-05-16"
+  },
 ];
 
 // Meal log - read-only fallback. GitHub (local-meals.json) is source of truth.
