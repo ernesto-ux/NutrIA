@@ -2730,6 +2730,78 @@ const FOOD_DATABASE = [
     source: "estimated",
     addedDate: "2026-05-16"
   },
+  {
+    id: "mcdonalds-double-chicken-small",
+    name: "Double Chicken Small (Sandwich)",
+    brand: "McDonald's",
+    per100g: { kcal: 270, prot: 14.0, carbs: 22.0, fat: 14.0, fiber: 1.5, sodium: 560, sugar: 4.0, sat_fat: 4.5 },
+    unitWeight: 175,
+    unitLabel: "burger",
+    source: "web",
+    addedDate: "2026-05-16"
+  },
+  {
+    id: "magret-canard-sin-piel",
+    name: "Magret de Canard (sin piel ni grasa)",
+    brand: "Restaurant",
+    per100g: { kcal: 195, prot: 28.0, carbs: 0, fat: 9.0, fiber: 0, sodium: 75, sugar: 0, sat_fat: 2.5 },
+    source: "usda",
+    addedDate: "2026-05-16"
+  },
+  {
+    id: "ecrase-pomme-de-terre",
+    name: "Écrasé de Pomme de Terre (mantequilla)",
+    brand: "Restaurant",
+    per100g: { kcal: 155, prot: 2.5, carbs: 18.0, fat: 8.0, fiber: 1.8, sodium: 280, sugar: 1.0, sat_fat: 5.0 },
+    source: "estimated",
+    addedDate: "2026-05-16"
+  },
+  {
+    id: "ensalada-chevre-noix",
+    name: "Salade de Chèvre Chaud (sin pan, con vinagreta)",
+    brand: "Restaurant",
+    per100g: { kcal: 220, prot: 9.0, carbs: 8.0, fat: 17.0, fiber: 1.5, sodium: 380, sugar: 3.0, sat_fat: 9.0 },
+    source: "estimated",
+    addedDate: "2026-05-16"
+  },
+  {
+    id: "vino-rosado",
+    name: "Vino Rosado",
+    brand: "Generic",
+    per100g: { kcal: 83, prot: 0.1, carbs: 2.5, fat: 0, fiber: 0, sodium: 4, sugar: 0.7, sat_fat: 0 },
+    unitWeight: 125,
+    unitLabel: "copa",
+    source: "usda",
+    addedDate: "2026-05-16"
+  },
+  {
+    id: "tiramisu-classico",
+    name: "Tiramisu Clásico Italiano",
+    brand: "Restaurant",
+    per100g: { kcal: 290, prot: 5.0, carbs: 28.0, fat: 18.0, fiber: 0.5, sodium: 120, sugar: 22.0, sat_fat: 11.0 },
+    source: "usda",
+    addedDate: "2026-05-16"
+  },
+  {
+    id: "crepe-caramel-beurre-sale-simple",
+    name: "Crêpe Caramel Beurre Salé (sin toppings)",
+    brand: "Boulangerie",
+    per100g: { kcal: 240, prot: 5.0, carbs: 35.0, fat: 9.0, fiber: 1.0, sodium: 250, sugar: 18.0, sat_fat: 5.0 },
+    unitWeight: 180,
+    unitLabel: "crepa",
+    source: "estimated",
+    addedDate: "2026-05-16"
+  },
+  {
+    id: "jambon-porc-roti-tranches",
+    name: "Jambon de Porc Rôti (tranches)",
+    brand: "Charcuterie",
+    per100g: { kcal: 130, prot: 22.0, carbs: 1.0, fat: 4.5, fiber: 0, sodium: 1100, sugar: 0.5, sat_fat: 1.5 },
+    unitWeight: 25,
+    unitLabel: "rodaja",
+    source: "usda",
+    addedDate: "2026-05-16"
+  },
 ];
 
 // Meal log - read-only fallback. GitHub (local-meals.json) is source of truth.
