@@ -2802,6 +2802,146 @@ const FOOD_DATABASE = [
     source: "usda",
     addedDate: "2026-05-16"
   },
+  {
+    id: "cafe-negro",
+    name: "Café Negro (espresso/allongé)",
+    brand: "Generic",
+    per100g: { kcal: 2, prot: 0.3, carbs: 0, fat: 0, fiber: 0, sodium: 5, sugar: 0, sat_fat: 0 },
+    unitWeight: 50,
+    unitLabel: "taza",
+    source: "usda",
+    addedDate: "2026-05-16"
+  },
+  {
+    id: "kfc-mini-chicken-burger",
+    name: "Mini Chicken Burger KFC",
+    brand: "KFC",
+    per100g: { kcal: 270, prot: 13.0, carbs: 24.0, fat: 14.0, fiber: 1.5, sodium: 520, sugar: 4.0, sat_fat: 4.5 },
+    unitWeight: 135,
+    unitLabel: "burger",
+    source: "web",
+    addedDate: "2026-05-16"
+  },
+  {
+    id: "kfc-papas-pequena",
+    name: "Papas Fritas KFC (pequeña)",
+    brand: "KFC",
+    per100g: { kcal: 290, prot: 3.5, carbs: 38.0, fat: 14.0, fiber: 3.5, sodium: 320, sugar: 0.5, sat_fat: 1.5 },
+    unitWeight: 75,
+    unitLabel: "porción pequeña",
+    source: "web",
+    addedDate: "2026-05-16"
+  },
+  {
+    id: "helado-vainilla-fast-food",
+    name: "Helado/Sorbete Vainilla (fast-food)",
+    brand: "Generic",
+    per100g: { kcal: 200, prot: 3.5, carbs: 26.0, fat: 9.0, fiber: 0, sodium: 80, sugar: 22.0, sat_fat: 5.5 },
+    unitWeight: 60,
+    unitLabel: "porción",
+    source: "estimated",
+    addedDate: "2026-05-16"
+  },
+  {
+    id: "bacon-tocino-cocido",
+    name: "Bacon / Tocino Cocido",
+    brand: "Generic",
+    per100g: { kcal: 540, prot: 37.0, carbs: 1.5, fat: 42.0, fiber: 0, sodium: 1700, sugar: 0, sat_fat: 14.0 },
+    source: "usda",
+    addedDate: "2026-05-16"
+  },
+  {
+    id: "chipolata-saucisse",
+    name: "Chipolata (saucisse petite)",
+    brand: "Generic",
+    per100g: { kcal: 295, prot: 13.0, carbs: 1.0, fat: 27.0, fiber: 0, sodium: 900, sugar: 0.5, sat_fat: 10.0 },
+    unitWeight: 35,
+    unitLabel: "salchicha",
+    source: "usda",
+    addedDate: "2026-05-16"
+  },
+  {
+    id: "nutella",
+    name: "Nutella (pâte à tartiner)",
+    brand: "Ferrero",
+    per100g: { kcal: 539, prot: 6.3, carbs: 57.5, fat: 30.9, fiber: 4.0, sodium: 50, sugar: 56.3, sat_fat: 10.6 },
+    source: "official",
+    addedDate: "2026-05-16"
+  },
+  {
+    id: "crepe-classique-nature",
+    name: "Crêpe Nature (sin relleno)",
+    brand: "Boulangerie",
+    per100g: { kcal: 198, prot: 6.0, carbs: 25.0, fat: 8.0, fiber: 1.0, sodium: 150, sugar: 5.0, sat_fat: 3.0 },
+    unitWeight: 60,
+    unitLabel: "crepa",
+    source: "usda",
+    addedDate: "2026-05-16"
+  },
+  {
+    id: "pan-pumpernickel-aleman",
+    name: "Pan Pumpernickel / Pan Negro Alemán",
+    brand: "Generic",
+    per100g: { kcal: 250, prot: 8.5, carbs: 47.0, fat: 3.0, fiber: 6.0, sodium: 600, sugar: 1.5, sat_fat: 0.5 },
+    unitWeight: 30,
+    unitLabel: "rebanada",
+    source: "usda",
+    addedDate: "2026-05-16"
+  },
+  {
+    id: "panna-cotta-fresas",
+    name: "Panna Cotta Casera con Fresas",
+    brand: "Casera",
+    per100g: { kcal: 260, prot: 4.0, carbs: 18.0, fat: 19.0, fiber: 0.5, sodium: 50, sugar: 16.0, sat_fat: 12.0 },
+    source: "estimated",
+    addedDate: "2026-05-16"
+  },
+  {
+    id: "pollo-esparragos-tomates-cherry",
+    name: "Pollo con Espárragos y Tomates Cherry (restaurant)",
+    brand: "Restaurant",
+    per100g: { kcal: 140, prot: 17.0, carbs: 5.0, fat: 6.0, fiber: 2.0, sodium: 380, sugar: 3.0, sat_fat: 1.5 },
+    source: "estimated",
+    addedDate: "2026-05-16"
+  },
+  {
+    id: "religieuse-framboise-chantilly",
+    name: "Postre Religieuse Framboise Chantilly (choux frambuesa)",
+    brand: "Patisserie",
+    per100g: { kcal: 310, prot: 5.0, carbs: 32.0, fat: 18.0, fiber: 1.5, sodium: 120, sugar: 20.0, sat_fat: 10.0 },
+    unitWeight: 110,
+    unitLabel: "porción",
+    source: "estimated",
+    addedDate: "2026-05-16"
+  },
+  {
+    id: "croissant-mini-hotel",
+    name: "Croissant Mini (hotel)",
+    brand: "Hotel",
+    per100g: { kcal: 460, prot: 8.5, carbs: 45.0, fat: 26.0, fiber: 2.0, sodium: 480, sugar: 9.0, sat_fat: 16.0 },
+    unitWeight: 30,
+    unitLabel: "mini croissant",
+    source: "usda",
+    addedDate: "2026-05-16"
+  },
+  {
+    id: "pain-au-chocolat-mini-hotel",
+    name: "Pain au Chocolat Mini (hotel)",
+    brand: "Hotel",
+    per100g: { kcal: 420, prot: 7.5, carbs: 48.0, fat: 22.0, fiber: 2.5, sodium: 380, sugar: 12.0, sat_fat: 13.0 },
+    unitWeight: 35,
+    unitLabel: "mini pain au chocolat",
+    source: "usda",
+    addedDate: "2026-05-16"
+  },
+  {
+    id: "yogurt-nature-chia",
+    name: "Yogurt Nature con Semillas de Chia",
+    brand: "Hotel",
+    per100g: { kcal: 75, prot: 4.5, carbs: 6.0, fat: 3.5, fiber: 1.5, sodium: 50, sugar: 4.5, sat_fat: 1.5 },
+    source: "estimated",
+    addedDate: "2026-05-16"
+  },
 ];
 
 // Meal log - read-only fallback. GitHub (local-meals.json) is source of truth.
