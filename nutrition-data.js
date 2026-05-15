@@ -2480,7 +2480,7 @@ const MEAL_LOG = [
   {
     id: "2026-03-29-001",
     date: "2026-03-29",
-    meal: "almuerzo",
+    meal: "almuerzo", user: "ernesto",
     items: [
       { foodId: "menu-dia-29", name: "Menu dia 29", grams: 0, kcal: 1688, prot: 71, carbs: 212, fat: 64 }
     ],
@@ -2489,7 +2489,7 @@ const MEAL_LOG = [
   {
     id: "2026-03-30-001",
     date: "2026-03-30",
-    meal: "almuerzo",
+    meal: "almuerzo", user: "ernesto",
     items: [
       { foodId: "menu-dia-30", name: "Menu dia 30", grams: 0, kcal: 1398, prot: 127, carbs: 112, fat: 49 }
     ],
@@ -2498,7 +2498,7 @@ const MEAL_LOG = [
   {
     id: "2026-03-31-001",
     date: "2026-03-31",
-    meal: "almuerzo",
+    meal: "almuerzo", user: "ernesto",
     items: [
       { foodId: "menu-dia-31", name: "Menu dia 31", grams: 0, kcal: 1190, prot: 135, carbs: 74, fat: 44 }
     ],
@@ -2507,7 +2507,7 @@ const MEAL_LOG = [
   {
     id: "2026-04-01-L1775065384650",
     date: "2026-04-01",
-    meal: "cena",
+    meal: "cena", user: "ernesto",
     items: [
       { foodId: "omelette-ligera-jamon", name: "Omelette Ligera con Jamon", grams: 110, kcal: 126.2, prot: 14.6, carbs: 1.4, fat: 6.6 }
     ],
@@ -2516,7 +2516,7 @@ const MEAL_LOG = [
   {
     id: "2026-04-01-L1775065395117",
     date: "2026-04-01",
-    meal: "cena",
+    meal: "cena", user: "ernesto",
     items: [
       { foodId: "danone-cottage-cheese", name: "Cottage Cheese Nature", grams: 50, kcal: 45, prot: 6, carbs: 0.8, fat: 2 }
     ],
@@ -2525,7 +2525,7 @@ const MEAL_LOG = [
   {
     id: "2026-04-01-004",
     date: "2026-04-01",
-    meal: "snack",
+    meal: "snack", user: "ernesto",
     items: [
       { foodId: "siggis-skyr-nature", name: "Skyr Siggis Nature", grams: 80, kcal: 50.4, prot: 8.8, carbs: 3.2, fat: 0.2 },
       { foodId: "fresas-frescas", name: "Fresas Frescas", grams: 20, kcal: 6.4, prot: 0.1, carbs: 1.5, fat: 0.1 },
@@ -2536,7 +2536,7 @@ const MEAL_LOG = [
   {
     id: "2026-04-01-001",
     date: "2026-04-01",
-    meal: "desayuno",
+    meal: "desayuno", user: "ernesto",
     items: [
       { foodId: "frittata-light", name: "Frittata Light", grams: 110, kcal: 150.3, prot: 13.1, carbs: 2.8, fat: 9.7 },
       { foodId: "danone-cottage-cheese", name: "Cottage Cheese Danone", grams: 50, kcal: 45, prot: 6, carbs: 0.8, fat: 2 },
@@ -2549,7 +2549,7 @@ const MEAL_LOG = [
   {
     id: "2026-04-01-005",
     date: "2026-04-01",
-    meal: "snack",
+    meal: "snack", user: "ernesto",
     items: [
       { foodId: "ricotta-casa-azzurra", name: "Ricotta Casa Azzurra", grams: 25, kcal: 43.5, prot: 2.8, carbs: 0.8, fat: 3.3 },
       { foodId: "aguacate-fresco", name: "Aguacate Fresco", grams: 25, kcal: 40, prot: 0.5, carbs: 2.1, fat: 3.7 },
@@ -2560,7 +2560,7 @@ const MEAL_LOG = [
   {
     id: "2026-04-01-L1775081087154",
     date: "2026-04-01",
-    meal: "snack",
+    meal: "snack", user: "ernesto",
     items: [
       { foodId: "wasa-leger", name: "Tartine Croustillante Leger", grams: 9.6, kcal: 32.4, prot: 0.9, carbs: 6, fat: 0.1 }
     ],
@@ -2569,7 +2569,7 @@ const MEAL_LOG = [
   {
     id: "2026-04-01-006",
     date: "2026-04-01",
-    meal: "cena",
+    meal: "cena", user: "ernesto",
     items: [
       { foodId: "eafit-pure-isolate-vanille", name: "Proteina EAFit Vanille", grams: 40, kcal: 146.4, prot: 34.4, carbs: 1.3, fat: 0.4 },
       { foodId: "alpro-noisette-gourmande", name: "Leche Alpro Noisette", grams: 50, kcal: 14.5, prot: 0.2, carbs: 1.6, fat: 0.8 }
@@ -2579,7 +2579,7 @@ const MEAL_LOG = [
   {
     id: "2026-04-01-003",
     date: "2026-04-01",
-    meal: "almuerzo",
+    meal: "almuerzo", user: "ernesto",
     items: [
       { foodId: "fleury-michon-tendre-poulet-roti", name: "Tendre Poulet Roti Fleury Michon", grams: 16.25, kcal: 17.6, prot: 3.3, carbs: 0.1, fat: 0.5 },
       { foodId: "lentejas-carne-vegetales", name: "Lentejas con Carne y Vegetales", grams: 416, kcal: 416.4, prot: 31.6, carbs: 50.3, fat: 10.8 }
@@ -2589,7 +2589,7 @@ const MEAL_LOG = [
   {
     id: "2026-04-02-L1775132385557",
     date: "2026-04-02",
-    meal: "almuerzo",
+    meal: "almuerzo", user: "ernesto",
     items: [
       { foodId: "lentejas-carne-vegetales", name: "Lentejas con Carne y Vegetales", grams: 558, kcal: 558.6, prot: 42.4, carbs: 67.5, fat: 14.5 }
     ],
@@ -2598,7 +2598,7 @@ const MEAL_LOG = [
   {
     id: "2026-04-02-L1775132480724",
     date: "2026-04-02",
-    meal: "desayuno",
+    meal: "desayuno", user: "ernesto",
     items: [
       { foodId: "bowl-de-skir-con-fresas-avellanas-y-miel", name: "Bowl de skir con fresas, avellanas y miel", grams: 109, kcal: 86.4, prot: 6.6, carbs: 10.9, fat: 2.4 },
       { foodId: "frittata-ranchera", name: "Frittata Ranchera", grams: 296, kcal: 309.9, prot: 24.9, carbs: 8.6, fat: 19.5 }
@@ -2608,7 +2608,7 @@ const MEAL_LOG = [
   {
     id: "2026-04-02-L1775145572391",
     date: "2026-04-02",
-    meal: "snack",
+    meal: "snack", user: "ernesto",
     items: [
       { foodId: "eafit-pure-isolate-vanille", name: "Pure Isolate Whey Vanille", grams: 40, kcal: 146.4, prot: 34.4, carbs: 1.3, fat: 0.4 }
     ],
@@ -2617,7 +2617,7 @@ const MEAL_LOG = [
   {
     id: "2026-04-02-003",
     date: "2026-04-02",
-    meal: "cena",
+    meal: "cena", user: "ernesto",
     items: [
       { foodId: "omelette-cottage-salmon", name: "Omelette Cottage Salmon (1/2 receta)", grams: 248, kcal: 245.5, prot: 25.5, carbs: 6, fat: 13.1 }
     ],
@@ -2626,7 +2626,7 @@ const MEAL_LOG = [
   {
     id: "2026-04-02-L1775165521901",
     date: "2026-04-02",
-    meal: "cena",
+    meal: "cena", user: "ernesto",
     items: [
       { foodId: "lentejas-carne-vegetales", name: "Lentejas con Carne y Vegetales", grams: 250, kcal: 250.3, prot: 19, carbs: 30.3, fat: 6.5 }
     ],
@@ -2635,7 +2635,7 @@ const MEAL_LOG = [
   {
     id: "2026-04-02-L1775165597455",
     date: "2026-04-02",
-    meal: "snack",
+    meal: "snack", user: "ernesto",
     items: [
       { foodId: "eafit-pure-isolate-vanille", name: "Pure Isolate Whey Vanille", grams: 10, kcal: 36.6, prot: 8.6, carbs: 0.3, fat: 0.1 }
     ],
@@ -2644,7 +2644,7 @@ const MEAL_LOG = [
   {
     id: "2026-04-02-L1775166171502",
     date: "2026-04-02",
-    meal: "snack",
+    meal: "snack", user: "ernesto",
     items: [
       { foodId: "hipro-vanille", name: "HiPro Vanille", grams: 80, kcal: 61.6, prot: 8.2, carbs: 4.7, fat: 0.6 }
     ],
@@ -2653,7 +2653,7 @@ const MEAL_LOG = [
   {
     id: "2026-04-03-001",
     date: "2026-04-03",
-    meal: "desayuno",
+    meal: "desayuno", user: "ernesto",
     items: [
       { foodId: "hipro-coco", name: "HiPro Coco", grams: 160, kcal: 89.6, prot: 15, carbs: 5.9, fat: 0.6 },
       { foodId: "huevo-entero", name: "Huevo Entero", grams: 50, kcal: 77.5, prot: 6.5, carbs: 0.6, fat: 5.5 },
@@ -2665,7 +2665,7 @@ const MEAL_LOG = [
   {
     id: "2026-04-03-L1775222138905",
     date: "2026-04-03",
-    meal: "almuerzo",
+    meal: "almuerzo", user: "ernesto",
     items: [
       { foodId: "lentejas-carne-vegetales", name: "Lentejas con Carne y Vegetales", grams: 480, kcal: 480.5, prot: 36.5, carbs: 58.1, fat: 12.5 }
     ],
@@ -2674,7 +2674,7 @@ const MEAL_LOG = [
   {
     id: "2026-04-03-L1775222149706",
     date: "2026-04-03",
-    meal: "almuerzo",
+    meal: "almuerzo", user: "ernesto",
     items: [
       { foodId: "melon-fresco", name: "Melon Fresco", grams: 30, kcal: 10.2, prot: 0.2, carbs: 2.5, fat: 0.1 }
     ],
@@ -2683,7 +2683,7 @@ const MEAL_LOG = [
   {
     id: "2026-04-03-002",
     date: "2026-04-03",
-    meal: "snack",
+    meal: "snack", user: "ernesto",
     items: [
       { foodId: "jeff-de-bruges-oeuf-paques", name: "Petit Oeuf Pâques Jeff de Bruges (violet)", grams: 13, kcal: 69.9, prot: 0.9, carbs: 6.8, fat: 4.3 },
       { foodId: "mere-poulard-biscuit-beurre", name: "Biscuit Beurre Mère Poulard x2", grams: 31.2, kcal: 156, prot: 2, carbs: 22, fat: 7 },
@@ -2696,7 +2696,7 @@ const MEAL_LOG = [
   {
     id: "2026-04-03-003",
     date: "2026-04-03",
-    meal: "cena",
+    meal: "cena", user: "ernesto",
     items: [
       { foodId: "pollo-pechuga-horneada", name: "Pechuga de Pollo Horneada", grams: 162, kcal: 267.3, prot: 50.2, carbs: 0, fat: 5.8 },
       { foodId: "tomate-cherry", name: "Tomate Cherry", grams: 50, kcal: 9, prot: 0.5, carbs: 2, fat: 0.1 },
@@ -2709,7 +2709,7 @@ const MEAL_LOG = [
   {
     id: "2026-04-03-004",
     date: "2026-04-03",
-    meal: "snack",
+    meal: "snack", user: "ernesto",
     items: [
       { foodId: "oreo-protein-shake", name: "Oreo Protein Shake", grams: 250, kcal: 231.5, prot: 14.8, carbs: 26.5, fat: 8 }
     ],
@@ -2718,7 +2718,7 @@ const MEAL_LOG = [
   {
     id: "2026-04-04-001",
     date: "2026-04-04",
-    meal: "desayuno",
+    meal: "desayuno", user: "ernesto",
     items: [
       { foodId: "oreo-protein-shake", name: "Oreo Protein Shake", grams: 100, kcal: 92.6, prot: 5.9, carbs: 10.6, fat: 3.2 },
       { foodId: "eafit-pure-isolate-vanille", name: "Proteina EAFit Vanille", grams: 40, kcal: 146.4, prot: 34.4, carbs: 1.3, fat: 0.4 }
@@ -2728,7 +2728,7 @@ const MEAL_LOG = [
   {
     id: "2026-04-04-002",
     date: "2026-04-04",
-    meal: "almuerzo",
+    meal: "almuerzo", user: "ernesto",
     items: [
       { foodId: "charcuterie-variada", name: "Charcuterie Variada (jambon, coppa, saucisson)", grams: 120, kcal: 300, prot: 21.6, carbs: 1.2, fat: 24 },
       { foodId: "tomate-cherry", name: "Tomates Cherry", grams: 100, kcal: 18, prot: 0.9, carbs: 3.9, fat: 0.2 },
@@ -2744,7 +2744,7 @@ const MEAL_LOG = [
   {
     id: "2026-04-04-003",
     date: "2026-04-04",
-    meal: "almuerzo",
+    meal: "almuerzo", user: "ernesto",
     items: [
       { foodId: "cheesecake-oreo-beurre", name: "Cheesecake Oreo & Beurre (1/8)", grams: 194, kcal: 684.6, prot: 11.3, carbs: 54.7, fat: 47.3 },
       { foodId: "coulis-fraises-maison", name: "Coulis de Fresas", grams: 30, kcal: 33, prot: 0.2, carbs: 8.3, fat: 0.1 }
@@ -2754,7 +2754,7 @@ const MEAL_LOG = [
   {
     id: "2026-04-04-004",
     date: "2026-04-04",
-    meal: "snack",
+    meal: "snack", user: "ernesto",
     items: [
       { foodId: "hipro-vanille", name: "HiPro Vanille (1/2)", grams: 80, kcal: 61.6, prot: 8.2, carbs: 4.7, fat: 0.6 }
     ],
@@ -2763,7 +2763,7 @@ const MEAL_LOG = [
   {
     id: "2026-04-04-005",
     date: "2026-04-04",
-    meal: "cena",
+    meal: "cena", user: "ernesto",
     items: [
       { foodId: "huevo-entero", name: "Huevo (1/2)", grams: 25, kcal: 38.8, prot: 3.3, carbs: 0.3, fat: 2.8 },
       { foodId: "ricotta-casa-azzurra", name: "Ricotta", grams: 25, kcal: 43.5, prot: 2.8, carbs: 0.8, fat: 3.3 },
@@ -2778,7 +2778,7 @@ const MEAL_LOG = [
   {
     id: "2026-04-04-L1775379336634",
     date: "2026-04-04",
-    meal: "cena",
+    meal: "cena", user: "ernesto",
     items: [
       { foodId: "lentejas-carne-vegetales", name: "Lentejas con Carne y Vegetales", grams: 300, kcal: 300.3, prot: 22.8, carbs: 36.3, fat: 7.8 }
     ],
@@ -2787,7 +2787,7 @@ const MEAL_LOG = [
   {
     id: "2026-04-05-001",
     date: "2026-04-05",
-    meal: "desayuno",
+    meal: "desayuno", user: "ernesto",
     items: [
       { foodId: "wasa-leger", name: "Wasa Leger (x2)", grams: 19.2, kcal: 64.9, prot: 1.7, carbs: 11.9, fat: 0.3 },
       { foodId: "kiwi-fresco", name: "Kiwi (1/2)", grams: 38, kcal: 23.2, prot: 0.4, carbs: 5.6, fat: 0.2 },
@@ -2800,7 +2800,7 @@ const MEAL_LOG = [
   {
     id: "2026-04-05-003",
     date: "2026-04-05",
-    meal: "almuerzo",
+    meal: "almuerzo", user: "ernesto",
     items: [
       { foodId: "pollo-pechuga-horneada", name: "Pollo al Horno", grams: 180, kcal: 297, prot: 55.8, carbs: 0, fat: 6.5 },
       { foodId: "tortillarepupusa-ricotta", name: "Tortillarepupusa con Ricotta", grams: 53, kcal: 163.1, prot: 6.4, carbs: 21, fat: 5.6 },
@@ -2815,7 +2815,7 @@ const MEAL_LOG = [
   {
     id: "2026-04-05-002",
     date: "2026-04-05",
-    meal: "snack",
+    meal: "snack", user: "ernesto",
     items: [
       { foodId: "creme-halva-chocolate-cookie", name: "Creme London Halva Cookie (1/2)", grams: 46, kcal: 220.8, prot: 3.2, carbs: 23.9, fat: 11.5 }
     ],
@@ -2824,7 +2824,7 @@ const MEAL_LOG = [
   {
     id: "2026-04-05-004",
     date: "2026-04-05",
-    meal: "cena",
+    meal: "cena", user: "ernesto",
     items: [
       { foodId: "arroz-bomba-cocido", name: "Arroz Bomba Cocido", grams: 95, kcal: 123.5, prot: 2.6, carbs: 26.6, fat: 0.3 },
       { foodId: "pescado-salsa-limon-alcaparras", name: "Pescado Salsa Limon y Alcaparras", grams: 205, kcal: 210.7, prot: 30.9, carbs: 2.5, fat: 7.8 }
@@ -2834,7 +2834,7 @@ const MEAL_LOG = [
   {
     id: "2026-04-05-L1775431527857",
     date: "2026-04-05",
-    meal: "cena",
+    meal: "cena", user: "ernesto",
     items: [
       { foodId: "coca-cola-zero", name: "Coca-Cola Zero", grams: 200, kcal: 0.8, prot: 0, carbs: 0, fat: 0 }
     ],
@@ -2843,7 +2843,7 @@ const MEAL_LOG = [
   {
     id: "2026-04-05-L1775431583057",
     date: "2026-04-05",
-    meal: "snack",
+    meal: "snack", user: "ernesto",
     items: [
       { foodId: "eafit-pure-isolate-vanille", name: "Pure Isolate Whey Vanille", grams: 20, kcal: 73.2, prot: 17.2, carbs: 0.7, fat: 0.2 }
     ],
@@ -2852,7 +2852,7 @@ const MEAL_LOG = [
   {
     id: "2026-04-05-L1775433329439",
     date: "2026-04-05",
-    meal: "snack",
+    meal: "snack", user: "ernesto",
     items: [
       { foodId: "jeff-de-bruges-oeuf-paques", name: "Petit Oeuf de Pâques Fourré", grams: 10, kcal: 53.8, prot: 0.7, carbs: 5.2, fat: 3.3 }
     ],
@@ -2861,7 +2861,7 @@ const MEAL_LOG = [
   {
     id: "2026-04-06-001",
     date: "2026-04-06",
-    meal: "desayuno",
+    meal: "desayuno", user: "ernesto",
     items: [
       { foodId: "protein-packed-banana-pb", name: "Protein Packed Banana Peanut Butter (60%)", grams: 209, kcal: 208.4, prot: 26.2, carbs: 18.6, fat: 3.5 },
       { foodId: "mantequilla-de-mani", name: "Mantequilla de mani", grams: 15, kcal: 88.2, prot: 3.8, carbs: 3, fat: 7.5 }
@@ -2871,7 +2871,7 @@ const MEAL_LOG = [
   {
     id: "2026-04-06-A01",
     date: "2026-04-06",
-    meal: "desayuno", who: "adriana",
+    meal: "desayuno", user: "adriana",
     items: [
       { foodId: "pancakes-de-proteina-adri-v2", name: "Pancakes de Proteina Adri V2", grams: 1, kcal: 547, prot: 64.2, carbs: 27.7, fat: 21.2 }
     ],
@@ -2880,7 +2880,7 @@ const MEAL_LOG = [
   {
     id: "2026-04-06-002",
     date: "2026-04-06",
-    meal: "almuerzo",
+    meal: "almuerzo", user: "ernesto",
     items: [
       { foodId: "salmorejo-alvalle", name: "Salmorejo Alvalle", grams: 200, kcal: 108, prot: 2.4, carbs: 11.6, fat: 6 },
       { foodId: "ricotta-casa-azzurra", name: "Ricotta Casa Azzurra", grams: 30, kcal: 52.2, prot: 3.3, carbs: 0.9, fat: 3.9 },
@@ -2896,7 +2896,7 @@ const MEAL_LOG = [
   {
     id: "2026-04-06-A02",
     date: "2026-04-06",
-    meal: "almuerzo", who: "adriana",
+    meal: "almuerzo", user: "adriana",
     items: [
       { foodId: "salmorejo-alvalle", name: "Salmorejo", grams: 100, kcal: 54, prot: 1.2, carbs: 5.8, fat: 3 },
       { foodId: "ricotta-casa-azzurra", name: "Ricotta", grams: 25, kcal: 43.5, prot: 2.8, carbs: 0.8, fat: 3.3 },
@@ -2910,7 +2910,7 @@ const MEAL_LOG = [
   {
     id: "2026-04-06-A-almuerzo",
     date: "2026-04-06",
-    meal: "almuerzo", who: "adriana",
+    meal: "almuerzo", user: "adriana",
     items: [
       { foodId: "salmorejo-alvalle", name: "Salmorejo", grams: 100, kcal: 54, prot: 1.2, carbs: 5.8, fat: 3 },
       { foodId: "ricotta-casa-azzurra", name: "Ricotta", grams: 25, kcal: 43.5, prot: 2.8, carbs: 0.8, fat: 3.3 },
@@ -2924,7 +2924,7 @@ const MEAL_LOG = [
   {
     id: "2026-04-06-A03",
     date: "2026-04-06",
-    meal: "snack", who: "adriana",
+    meal: "snack", user: "adriana",
     items: [
       { foodId: "jeff-de-bruges-oeuf-paques", name: "Huevito Jeff de Bruges x1", grams: 13, kcal: 69.9, prot: 0.9, carbs: 6.8, fat: 4.3 }
     ],
@@ -2933,7 +2933,7 @@ const MEAL_LOG = [
   {
     id: "2026-04-06-A-snack",
     date: "2026-04-06",
-    meal: "snack", who: "adriana",
+    meal: "snack", user: "adriana",
     items: [
       { foodId: "jeff-de-bruges-oeuf-paques", name: "Huevito Jeff de Bruges x1", grams: 13, kcal: 69.9, prot: 0.9, carbs: 6.8, fat: 4.3 }
     ],
@@ -2942,7 +2942,7 @@ const MEAL_LOG = [
   {
     id: "2026-04-06-003",
     date: "2026-04-06",
-    meal: "snack",
+    meal: "snack", user: "ernesto",
     items: [
       { foodId: "jeff-de-bruges-oeuf-paques", name: "Huevito Jeff de Bruges x2", grams: 26, kcal: 139.9, prot: 1.7, carbs: 13.5, fat: 8.6 },
       { foodId: "oreo-protein-shake", name: "Oreo Protein Shake", grams: 400, kcal: 370.4, prot: 23.6, carbs: 42.4, fat: 12.8 },
@@ -2954,7 +2954,7 @@ const MEAL_LOG = [
   {
     id: "2026-04-06-A04",
     date: "2026-04-06",
-    meal: "cena", who: "adriana",
+    meal: "cena", user: "adriana",
     items: [
       { foodId: "pizza-regine-pizzou", name: "Pizza Régine Pizzou", grams: 220, kcal: 341, prot: 22.9, carbs: 42.2, fat: 10.1 },
       { foodId: "aceite-oliva", name: "Aceite de oliva (1/4 cdta)", grams: 1.1, kcal: 9.7, prot: 0, carbs: 0, fat: 1.1 },
@@ -2967,7 +2967,7 @@ const MEAL_LOG = [
   {
     id: "2026-04-06-A-cena",
     date: "2026-04-06",
-    meal: "cena", who: "adriana",
+    meal: "cena", user: "adriana",
     items: [
       { foodId: "pizza-regine-pizzou", name: "Pizza Régine Pizzou", grams: 220, kcal: 341, prot: 22.9, carbs: 42.2, fat: 10.1 },
       { foodId: "aceite-oliva", name: "Aceite de oliva (1/4 cdta)", grams: 1.1, kcal: 9.7, prot: 0, carbs: 0, fat: 1.1 },
@@ -2980,7 +2980,7 @@ const MEAL_LOG = [
   {
     id: "2026-04-06-004",
     date: "2026-04-06",
-    meal: "cena",
+    meal: "cena", user: "ernesto",
     items: [
       { foodId: "pizza-regine-pizzou", name: "Pizza Régine Pizzou", grams: 330, kcal: 512, prot: 34.3, carbs: 63.4, fat: 15.2 },
       { foodId: "coca-cola-zero", name: "Coca-Cola Zero", grams: 200, kcal: 0.8, prot: 0, carbs: 0, fat: 0 }
@@ -2990,7 +2990,7 @@ const MEAL_LOG = [
   {
     id: "2026-04-06-L1775512880333",
     date: "2026-04-06",
-    meal: "desayuno", who: "adriana",
+    meal: "desayuno", user: "adriana",
     items: [
       { foodId: "pancakes-de-proteina-adri-v2", name: "Pancakes de Proteina Adri V2", grams: 1, kcal: 547, prot: 64.2, carbs: 27.7, fat: 21.2 }
     ],
@@ -2999,7 +2999,7 @@ const MEAL_LOG = [
   {
     id: "2026-04-06-L1775514376856",
     date: "2026-04-06",
-    meal: "cena",
+    meal: "cena", user: "ernesto",
     items: [
       { foodId: "aceite-oliva", name: "Aceite de Oliva", grams: 3, kcal: 26.5, prot: 0, carbs: 0, fat: 3 }
     ],
@@ -3008,7 +3008,7 @@ const MEAL_LOG = [
   {
     id: "2026-04-06-005",
     date: "2026-04-06",
-    meal: "snack",
+    meal: "snack", user: "ernesto",
     items: [
       { foodId: "eafit-pure-isolate-vanille", name: "Pure Isolate Whey Vanille", grams: 40, kcal: 146.4, prot: 34.4, carbs: 1.3, fat: 0.4 },
       { foodId: "galleta-oreo-sin-crema", name: "Galleta Oreo wafer x8", grams: 60, kcal: 282.6, prot: 1.7, carbs: 44.1, fat: 12.4 },
@@ -3019,7 +3019,7 @@ const MEAL_LOG = [
   {
     id: "2026-04-07-A01",
     date: "2026-04-07",
-    meal: "desayuno", who: "adriana",
+    meal: "desayuno", user: "adriana",
     items: [
       { foodId: "hipro-coco", name: "HiPro Coco", grams: 152, kcal: 85.1, prot: 14.3, carbs: 5.6, fat: 0.6 },
       { foodId: "siggis-skyr-nature", name: "Skyr Siggis Nature", grams: 104, kcal: 65.5, prot: 11.4, carbs: 4.2, fat: 0.2 },
@@ -3031,7 +3031,7 @@ const MEAL_LOG = [
   {
     id: "2026-04-07-001",
     date: "2026-04-07",
-    meal: "desayuno",
+    meal: "desayuno", user: "ernesto",
     items: [
       { foodId: "hipro-coco", name: "HiPro Coco", grams: 160, kcal: 89.6, prot: 15, carbs: 5.9, fat: 0.6 },
       { foodId: "pancakes-de-proteina-adri-v2", name: "Pancake Proteina Adri", grams: 30, kcal: 46.9, prot: 5.5, carbs: 2.4, fat: 1.8 },
@@ -3042,7 +3042,7 @@ const MEAL_LOG = [
   {
     id: "2026-04-07-A02",
     date: "2026-04-07",
-    meal: "snack", who: "adriana",
+    meal: "snack", user: "adriana",
     items: [
       { foodId: "baiocchi-pistachio", name: "Baiocchi Pistachio (x1 galleta)", grams: 9.3, kcal: 47, prot: 0.8, carbs: 5.5, fat: 2.3 },
       { foodId: "pancakes-de-proteina-adri-v2", name: "Pancake Proteina Adri", grams: 62, kcal: 96.9, prot: 11.4, carbs: 4.9, fat: 3.8 },
@@ -3054,7 +3054,7 @@ const MEAL_LOG = [
   {
     id: "2026-04-07-002",
     date: "2026-04-07",
-    meal: "snack",
+    meal: "snack", user: "ernesto",
     items: [
       { foodId: "mandarina-fresca", name: "Mandarina", grams: 80, kcal: 37.6, prot: 0.6, carbs: 9.6, fat: 0.2 },
       { foodId: "mango-fresco", name: "Mango", grams: 55, kcal: 33, prot: 0.4, carbs: 8.3, fat: 0.2 },
@@ -3067,7 +3067,7 @@ const MEAL_LOG = [
   {
     id: "2026-04-07-A03",
     date: "2026-04-07",
-    meal: "almuerzo", who: "adriana",
+    meal: "almuerzo", user: "adriana",
     items: [
       { foodId: "rigatoni-cocida", name: "Rigatoni Cocida", grams: 130, kcal: 204.1, prot: 7.2, carbs: 40.3, fat: 1.2 },
       { foodId: "beef-green-beans-meat-bowl", name: "Carne con Ejote y Cebolla", grams: 130, kcal: 189.7, prot: 16.4, carbs: 6.5, fat: 11.1 },
@@ -3078,7 +3078,7 @@ const MEAL_LOG = [
   {
     id: "2026-04-07-003",
     date: "2026-04-07",
-    meal: "almuerzo",
+    meal: "almuerzo", user: "ernesto",
     items: [
       { foodId: "rigatoni-cocida", name: "Rigatoni Cocida", grams: 200, kcal: 314, prot: 11, carbs: 62, fat: 1.8 },
       { foodId: "beef-green-beans-meat-bowl", name: "Carne y Ejote con Cebolla", grams: 128, kcal: 186.8, prot: 16.1, carbs: 6.4, fat: 10.9 }
@@ -3088,7 +3088,7 @@ const MEAL_LOG = [
   {
     id: "2026-04-07-005",
     date: "2026-04-07",
-    meal: "snack",
+    meal: "snack", user: "ernesto",
     items: [
       { foodId: "wasa-leger", name: "Wasa Léger (1 tartine)", grams: 9.6, kcal: 32.4, prot: 0.9, carbs: 6, fat: 0.1 },
       { foodId: "ricotta-casa-azzurra", name: "Ricotta", grams: 35, kcal: 60.9, prot: 3.9, carbs: 1.1, fat: 4.6 }
@@ -3098,7 +3098,7 @@ const MEAL_LOG = [
   {
     id: "2026-04-07-A04",
     date: "2026-04-07",
-    meal: "cena", who: "adriana",
+    meal: "cena", user: "adriana",
     items: [
       { foodId: "clara-huevo", name: "Clara de Huevo (x1)", grams: 33, kcal: 17.2, prot: 3.6, carbs: 0.2, fat: 0.1 },
       { foodId: "huevo-entero", name: "Huevo Entero (x1)", grams: 50, kcal: 77.5, prot: 6.5, carbs: 0.6, fat: 5.5 },
@@ -3113,7 +3113,7 @@ const MEAL_LOG = [
   {
     id: "2026-04-07-004",
     date: "2026-04-07",
-    meal: "cena",
+    meal: "cena", user: "ernesto",
     items: [
       { foodId: "danone-cottage-cheese", name: "Cottage Cheese", grams: 100, kcal: 90, prot: 12, carbs: 1.6, fat: 3.9 },
       { foodId: "clara-huevo", name: "Clara de Huevo (x2)", grams: 66, kcal: 34.3, prot: 7.3, carbs: 0.5, fat: 0.1 },
@@ -3129,7 +3129,7 @@ const MEAL_LOG = [
   {
     id: "2026-04-08-L1775637666710",
     date: "2026-04-08",
-    meal: "desayuno",
+    meal: "desayuno", user: "ernesto",
     items: [
       { foodId: "cafe-negro", name: "Café Negro (sin azucar)", grams: 120, kcal: 2.4, prot: 0.1, carbs: 0, fat: 0 },
       { foodId: "hipro-banane", name: "HiPro Banane", grams: 160, kcal: 112, prot: 19.8, carbs: 6.4, fat: 0.6 }
@@ -3139,7 +3139,7 @@ const MEAL_LOG = [
   {
     id: "2026-04-08-L1775655446964",
     date: "2026-04-08",
-    meal: "desayuno",
+    meal: "desayuno", user: "ernesto",
     items: [
       { foodId: "pancakes-de-proteina-adri-v2", name: "Pancakes de Proteina Adri V2", grams: 30, kcal: 46.9, prot: 5.5, carbs: 2.4, fat: 1.8 }
     ],
@@ -3148,7 +3148,7 @@ const MEAL_LOG = [
   {
     id: "2026-04-08-L1775655454297",
     date: "2026-04-08",
-    meal: "desayuno",
+    meal: "desayuno", user: "ernesto",
     items: [
       { foodId: "ricotta-casa-azzurra", name: "Ricotta Casa Azzurra", grams: 50, kcal: 87, prot: 5.5, carbs: 1.5, fat: 6.5 }
     ],
@@ -3157,7 +3157,7 @@ const MEAL_LOG = [
   {
     id: "2026-04-08-L1775655726869",
     date: "2026-04-08",
-    meal: "snack",
+    meal: "snack", user: "ernesto",
     items: [
       { foodId: "eafit-pure-isolate-vanille", name: "Pure Isolate Whey Vanille", grams: 40, kcal: 146.4, prot: 34.4, carbs: 1.3, fat: 0.4 }
     ],
@@ -3166,7 +3166,7 @@ const MEAL_LOG = [
   {
     id: "2026-04-08-L1775663325750",
     date: "2026-04-08",
-    meal: "snack",
+    meal: "snack", user: "ernesto",
     items: [
       { foodId: "queso-maduro-espanol", name: "Queso Maduro Español", grams: 15, kcal: 60, prot: 3.8, carbs: 0.1, fat: 5.0 }
     ],
@@ -3175,7 +3175,7 @@ const MEAL_LOG = [
   {
     id: "2026-04-08-002",
     date: "2026-04-08",
-    meal: "snack",
+    meal: "snack", user: "ernesto",
     items: [
       { foodId: "queso-curado-hacendado", name: "Queso Curado Hacendado", grams: 15, kcal: 64.7, prot: 3.8, carbs: 0.3, fat: 5.4 },
       { foodId: "wasa-leger", name: "Wasa Leger", grams: 9.6, units: 1, kcal: 32.4, prot: 0.9, carbs: 6.0, fat: 0.1 },
@@ -3186,7 +3186,7 @@ const MEAL_LOG = [
   {
     id: "2026-04-08-003",
     date: "2026-04-08",
-    meal: "almuerzo",
+    meal: "almuerzo", user: "ernesto",
     items: [
       { foodId: "rumsteck-boeuf-cuit", name: "Rumsteck de Boeuf", grams: 95, kcal: 114.0, prot: 23.8, carbs: 0, fat: 1.9 },
       { foodId: "aceite-oliva", name: "AOVE (3/4 cdita)", grams: 3.75, kcal: 33.2, prot: 0, carbs: 0, fat: 3.8 },
@@ -3199,7 +3199,7 @@ const MEAL_LOG = [
   {
     id: "2026-04-08-A01",
     date: "2026-04-08",
-    meal: "desayuno", who: "adriana",
+    meal: "desayuno", user: "adriana",
     items: [
       { foodId: "hipro-vanille", name: "HiPro Vanille", grams: 154, kcal: 118.6, prot: 15.7, carbs: 9.1, fat: 1.2 },
       { foodId: "siggis-skyr-nature", name: "Skyr Siggis Nature", grams: 127, kcal: 80.0, prot: 14.0, carbs: 5.1, fat: 0.3 },
@@ -3211,7 +3211,7 @@ const MEAL_LOG = [
   {
     id: "2026-04-08-A02",
     date: "2026-04-08",
-    meal: "almuerzo", who: "adriana",
+    meal: "almuerzo", user: "adriana",
     items: [
       { foodId: "rumsteck-boeuf-cuit", name: "Rumsteck de Boeuf", grams: 75, kcal: 90.0, prot: 18.8, carbs: 0, fat: 1.5 },
       { foodId: "brocoli-cuit", name: "Brocoli", grams: 95, kcal: 33.3, prot: 2.9, carbs: 3.8, fat: 0.4 },
@@ -3224,7 +3224,7 @@ const MEAL_LOG = [
   {
     id: "2026-04-08-A03",
     date: "2026-04-08",
-    meal: "snack", who: "adriana",
+    meal: "snack", user: "adriana",
     items: [
       { foodId: "siggis-skyr-raspberry", name: "Siggi's Skyr Raspberry", grams: 140, units: 1, kcal: 102.2, prot: 14.0, carbs: 11.2, fat: 0.3 },
       { foodId: "gerble-cookie-cacao-pepites-ss", name: "Gerblé Cookie Cacao Pépites x6", grams: 65, units: 6, kcal: 336.7, prot: 5.2, carbs: 39.7, fat: 11.7 },
@@ -3236,7 +3236,7 @@ const MEAL_LOG = [
   {
     id: "2026-04-08-A04",
     date: "2026-04-08",
-    meal: "cena", who: "adriana",
+    meal: "cena", user: "adriana",
     items: [
       { foodId: "huevo-entero", name: "Huevo Entero", grams: 50, units: 1, kcal: 77.5, prot: 6.5, carbs: 0.6, fat: 5.5 },
       { foodId: "jamon-porc-fleury-michon", name: "Jambon Porc Rôti FM", grams: 26, kcal: 29.9, prot: 5.2, carbs: 0.3, fat: 0.9 },
@@ -3253,7 +3253,7 @@ const MEAL_LOG = [
   {
     id: "2026-04-08-004",
     date: "2026-04-08",
-    meal: "cena",
+    meal: "cena", user: "ernesto",
     items: [
       { foodId: "clara-huevo", name: "Clara de Huevo (x2)", grams: 66, kcal: 34.3, prot: 7.3, carbs: 0.5, fat: 0.1 },
       { foodId: "huevo-entero", name: "Huevo Entero", grams: 50, units: 1, kcal: 77.5, prot: 6.5, carbs: 0.6, fat: 5.5 },
@@ -3269,7 +3269,7 @@ const MEAL_LOG = [
   {
     id: "2026-04-08-005",
     date: "2026-04-08",
-    meal: "snack",
+    meal: "snack", user: "ernesto",
     items: [
       { foodId: "wasa-leger", name: "Wasa Leger (x2)", grams: 19.2, units: 2, kcal: 64.9, prot: 1.7, carbs: 11.9, fat: 0.3 },
       { foodId: "danone-cottage-cheese", name: "Cottage Cheese", grams: 30, kcal: 27.0, prot: 3.6, carbs: 0.5, fat: 1.2 }
@@ -3280,7 +3280,7 @@ const MEAL_LOG = [
   {
     id: "2026-04-09-001",
     date: "2026-04-09",
-    meal: "desayuno",
+    meal: "desayuno", user: "ernesto",
     items: [
       { foodId: "cafe-negro", name: "Café", grams: 240, units: 1, kcal: 4.8, prot: 0.2, carbs: 0, fat: 0 },
       { foodId: "huevo-entero", name: "Huevo Entero", grams: 50, units: 1, kcal: 77.5, prot: 6.5, carbs: 0.6, fat: 5.5 },
@@ -3295,7 +3295,7 @@ const MEAL_LOG = [
   {
     id: "2026-04-09-002",
     date: "2026-04-09",
-    meal: "snack",
+    meal: "snack", user: "ernesto",
     items: [
       { foodId: "siggis-skyr-nature", name: "Skyr Siggis", grams: 50, kcal: 31.5, prot: 5.5, carbs: 2.0, fat: 0.1 },
       { foodId: "hipro-blueberry", name: "HiPro Blueberry", grams: 50, kcal: 26.5, prot: 4.7, carbs: 1.9, fat: 0 },
@@ -3309,7 +3309,7 @@ const MEAL_LOG = [
   {
     id: "2026-04-09-003",
     date: "2026-04-09",
-    meal: "almuerzo",
+    meal: "almuerzo", user: "ernesto",
     items: [
       { foodId: "rigatoni-cocida", name: "Rigatoni", grams: 80, kcal: 125.6, prot: 4.4, carbs: 24.8, fat: 0.7 },
       { foodId: "bavette-cocida", name: "Bavette", grams: 130, kcal: 204.1, prot: 7.2, carbs: 40.3, fat: 1.2 },
@@ -3324,7 +3324,7 @@ const MEAL_LOG = [
   {
     id: "2026-04-09-004",
     date: "2026-04-09",
-    meal: "snack",
+    meal: "snack", user: "ernesto",
     items: [
       { foodId: "chocolate-negro-90", name: "Chocolate Negro 90%", grams: 7, kcal: 41.4, prot: 0.7, carbs: 1.0, fat: 3.9 },
       { foodId: "kefir-lactel-0-bio", name: "Kéfir Lactel 0%", grams: 125, kcal: 55.0, prot: 4.3, carbs: 5.1, fat: 1.9 },
@@ -3337,7 +3337,7 @@ const MEAL_LOG = [
   {
     id: "2026-04-09-005",
     date: "2026-04-09",
-    meal: "cena",
+    meal: "cena", user: "ernesto",
     items: [
       { foodId: "huevo-entero", name: "Huevo Entero (x2)", grams: 100, units: 2, kcal: 155.0, prot: 13.0, carbs: 1.1, fat: 11.0 },
       { foodId: "clara-huevo", name: "Clara de Huevo", grams: 33, units: 1, kcal: 17.2, prot: 3.6, carbs: 0.2, fat: 0.1 },
@@ -3352,7 +3352,7 @@ const MEAL_LOG = [
   {
     id: "2026-04-09-006",
     date: "2026-04-09",
-    meal: "snack",
+    meal: "snack", user: "ernesto",
     items: [
       { foodId: "eafit-pure-isolate-vanille", name: "EAFit Vanille", grams: 20, kcal: 73.2, prot: 17.2, carbs: 0.7, fat: 0.2 }
     ],
@@ -3361,7 +3361,7 @@ const MEAL_LOG = [
   {
     id: "2026-04-09-007",
     date: "2026-04-09",
-    meal: "snack",
+    meal: "snack", user: "ernesto",
     items: [
       { foodId: "eafit-pure-isolate-vanille", name: "EAFit Vanille", grams: 20, kcal: 73.2, prot: 17.2, carbs: 0.7, fat: 0.2 },
       { foodId: "siggis-skyr-nature", name: "Skyr Siggis", grams: 70, kcal: 44.1, prot: 7.7, carbs: 2.8, fat: 0.1 }
@@ -3372,7 +3372,7 @@ const MEAL_LOG = [
   {
     id: "2026-04-09-A01",
     date: "2026-04-09",
-    meal: "desayuno", who: "adriana",
+    meal: "desayuno", user: "adriana",
     items: [
       { foodId: "hipro-vanille", name: "HiPro Vanille", grams: 154, kcal: 118.6, prot: 15.7, carbs: 9.1, fat: 1.2 },
       { foodId: "siggis-skyr-nature", name: "Skyr Siggis", grams: 100, kcal: 63.0, prot: 11.0, carbs: 4.0, fat: 0.2 },
@@ -3386,7 +3386,7 @@ const MEAL_LOG = [
   {
     id: "2026-04-09-A02",
     date: "2026-04-09",
-    meal: "snack", who: "adriana",
+    meal: "snack", user: "adriana",
     items: [
       { foodId: "sojasun-nature", name: "Sojasun Nature (1 pot)", grams: 100, units: 1, kcal: 41.0, prot: 4.6, carbs: 0, fat: 2.4 },
       { foodId: "blueberries-frescas", name: "Blueberries", grams: 50, kcal: 28.5, prot: 0.4, carbs: 7.3, fat: 0.2 }
@@ -3396,7 +3396,7 @@ const MEAL_LOG = [
   {
     id: "2026-04-09-A03",
     date: "2026-04-09",
-    meal: "almuerzo", who: "adriana",
+    meal: "almuerzo", user: "adriana",
     items: [
       { foodId: "bavette-cocida", name: "Pasta", grams: 130, kcal: 204.1, prot: 7.2, carbs: 40.3, fat: 1.2 },
       { foodId: "rumsteck-boeuf-cuit", name: "Carne", grams: 80, kcal: 96.0, prot: 20.0, carbs: 0, fat: 1.6 },
@@ -3407,7 +3407,7 @@ const MEAL_LOG = [
   {
     id: "2026-04-09-A04",
     date: "2026-04-09",
-    meal: "snack", who: "adriana",
+    meal: "snack", user: "adriana",
     items: [
       { foodId: "kefir-lactel-0-bio", name: "Kéfir Lactel 0%", grams: 125, kcal: 55.0, prot: 4.3, carbs: 5.1, fat: 1.9 },
       { foodId: "fruits-rouges-mix", name: "Fruits Rouges", grams: 60, kcal: 24.0, prot: 0.5, carbs: 5.4, fat: 0.2 },
@@ -3419,7 +3419,7 @@ const MEAL_LOG = [
   {
     id: "2026-04-09-A05",
     date: "2026-04-09",
-    meal: "cena", who: "adriana",
+    meal: "cena", user: "adriana",
     items: [
       { foodId: "huevo-entero", name: "Huevo Entero (x2)", grams: 100, units: 2, kcal: 155.0, prot: 13.0, carbs: 1.1, fat: 11.0 },
       { foodId: "tomate-triturado", name: "Tomate (4 cdas)", grams: 60, kcal: 14.4, prot: 0.6, carbs: 2.4, fat: 0.1 },
@@ -3434,7 +3434,7 @@ const MEAL_LOG = [
   {
     id: "2026-04-10-001",
     date: "2026-04-10",
-    meal: "desayuno",
+    meal: "desayuno", user: "ernesto",
     items: [
       { foodId: "hipro-blueberry", name: "HiPro Blueberry (1/2)", grams: 80, kcal: 42.4, prot: 7.5, carbs: 3.0, fat: 0 },
       { foodId: "eafit-pure-isolate-vanille", name: "EAFit Vanille", grams: 40, kcal: 146.4, prot: 34.4, carbs: 1.3, fat: 0.4 },
@@ -3446,7 +3446,7 @@ const MEAL_LOG = [
   {
     id: "2026-04-10-002",
     date: "2026-04-10",
-    meal: "almuerzo",
+    meal: "almuerzo", user: "ernesto",
     items: [
       { foodId: "salmorejo-alvalle", name: "Salmorejo", grams: 150, kcal: 81.0, prot: 1.8, carbs: 8.7, fat: 4.5 },
       { foodId: "ricotta-casa-azzurra", name: "Ricotta (1 tbsp)", grams: 15, kcal: 26.1, prot: 1.7, carbs: 0.5, fat: 2.0 },
@@ -3464,7 +3464,7 @@ const MEAL_LOG = [
   {
     id: "2026-04-10-003",
     date: "2026-04-10",
-    meal: "snack",
+    meal: "snack", user: "ernesto",
     items: [
       { foodId: "fresas-frescas", name: "Fresas (x2)", grams: 24, units: 2, kcal: 7.7, prot: 0.2, carbs: 1.8, fat: 0.1 }
     ],
@@ -3473,7 +3473,7 @@ const MEAL_LOG = [
   {
     id: "2026-04-10-004",
     date: "2026-04-10",
-    meal: "cena",
+    meal: "cena", user: "ernesto",
     items: [
       { foodId: "spanakopita-light", name: "Spanakopita Light", grams: 440, kcal: 791.6, prot: 47.5, carbs: 29.0, fat: 53.2 },
       { foodId: "pan-banano-hp-chocolate", name: "Pan de Banano HP + Choc", grams: 125, kcal: 279.4, prot: 11.6, carbs: 42.1, fat: 7.4 },
@@ -3485,7 +3485,7 @@ const MEAL_LOG = [
   {
     id: "2026-04-10-A01",
     date: "2026-04-10",
-    meal: "desayuno", who: "adriana",
+    meal: "desayuno", user: "adriana",
     items: [
       { foodId: "hipro-blueberry", name: "HiPro Blueberry", grams: 155, kcal: 82.2, prot: 14.6, carbs: 5.9, fat: 0 },
       { foodId: "siggis-skyr-nature", name: "Skyr", grams: 100, kcal: 63.0, prot: 11.0, carbs: 4.0, fat: 0.2 },
@@ -3498,7 +3498,7 @@ const MEAL_LOG = [
   {
     id: "2026-04-10-A02",
     date: "2026-04-10",
-    meal: "snack", who: "adriana",
+    meal: "snack", user: "adriana",
     items: [
       { foodId: "kefir-lactel-0-bio", name: "Kéfir Lactel 0%", grams: 125, kcal: 55.0, prot: 4.3, carbs: 5.1, fat: 1.9 },
       { foodId: "pp-vanilla-protein", name: "Proteina", grams: 13, kcal: 48.8, prot: 10.4, carbs: 0.7, fat: 0.4 },
@@ -3511,7 +3511,7 @@ const MEAL_LOG = [
   {
     id: "2026-04-10-A03",
     date: "2026-04-10",
-    meal: "snack", who: "adriana",
+    meal: "snack", user: "adriana",
     items: [
       { foodId: "wasa-leger", name: "Wasa Leger x1", grams: 9.6, units: 1, kcal: 32.4, prot: 0.9, carbs: 6.0, fat: 0.1 },
       { foodId: "ricotta-casa-azzurra", name: "Ricotta (1 tbsp)", grams: 15, kcal: 26.1, prot: 1.7, carbs: 0.5, fat: 2.0 },
@@ -3522,7 +3522,7 @@ const MEAL_LOG = [
   {
     id: "2026-04-10-A04",
     date: "2026-04-10",
-    meal: "almuerzo", who: "adriana",
+    meal: "almuerzo", user: "adriana",
     items: [
       { foodId: "salmorejo-alvalle", name: "Salmorejo", grams: 100, kcal: 54.0, prot: 1.2, carbs: 5.8, fat: 3.0 },
       { foodId: "ricotta-casa-azzurra", name: "Ricotta (1 tbsp)", grams: 15, kcal: 26.1, prot: 1.7, carbs: 0.5, fat: 2.0 },
@@ -3537,7 +3537,7 @@ const MEAL_LOG = [
   {
     id: "2026-04-10-A05",
     date: "2026-04-10",
-    meal: "cena", who: "adriana",
+    meal: "cena", user: "adriana",
     items: [
       { foodId: "spanakopita-light", name: "Spanakopita Light", grams: 309, kcal: 555.9, prot: 33.4, carbs: 20.4, fat: 37.4 },
       { foodId: "pan-banano-hp-chocolate", name: "Pan de Banano HP + Choc", grams: 102, kcal: 228.0, prot: 9.5, carbs: 34.4, fat: 6.0 },
@@ -3549,7 +3549,7 @@ const MEAL_LOG = [
   {
     id: "2026-04-11-001",
     date: "2026-04-11",
-    meal: "desayuno",
+    meal: "desayuno", user: "ernesto",
     items: [
       { foodId: "kefir-lactel-0-bio", name: "Kéfir Lactel 0%", grams: 150, kcal: 66.0, prot: 5.1, carbs: 6.2, fat: 2.3 },
       { foodId: "eafit-pure-isolate-vanille", name: "EAFit Vanille", grams: 20, kcal: 73.2, prot: 17.2, carbs: 0.7, fat: 0.2 },
@@ -3561,7 +3561,7 @@ const MEAL_LOG = [
   {
     id: "2026-04-11-002",
     date: "2026-04-11",
-    meal: "almuerzo",
+    meal: "almuerzo", user: "ernesto",
     items: [
       { foodId: "eafit-pure-isolate-chocolat", name: "EAFit Chocolat", grams: 40, kcal: 141.6, prot: 32.4, carbs: 1.5, fat: 0.6 },
       { foodId: "siggis-skyr-nature", name: "Skyr Siggis", grams: 50, kcal: 31.5, prot: 5.5, carbs: 2.0, fat: 0.1 },
@@ -3576,7 +3576,7 @@ const MEAL_LOG = [
   {
     id: "2026-04-11-003",
     date: "2026-04-11",
-    meal: "snack",
+    meal: "snack", user: "ernesto",
     items: [
       { foodId: "spanakopita-light", name: "Spanakopita Light", grams: 125, kcal: 224.9, prot: 13.5, carbs: 8.3, fat: 15.1 },
       { foodId: "kebab-veau-maison", name: "Kebab Veau Maison", grams: 150, kcal: 270.0, prot: 37.5, carbs: 1.5, fat: 12.8 }
@@ -3586,7 +3586,7 @@ const MEAL_LOG = [
   {
     id: "2026-04-11-004",
     date: "2026-04-11",
-    meal: "cena",
+    meal: "cena", user: "ernesto",
     items: [
       { foodId: "girasoli-burrata-basilic-picard", name: "Girasoli Burrata Picard", grams: 113, kcal: 204.5, prot: 9.5, carbs: 28.3, fat: 5.4 },
       { foodId: "tomate-triturado", name: "Salsa Tomate Natural", grams: 50, kcal: 12.0, prot: 0.5, carbs: 2.0, fat: 0.1 },
@@ -3600,7 +3600,7 @@ const MEAL_LOG = [
   {
     id: "2026-04-11-A01",
     date: "2026-04-11",
-    meal: "desayuno", who: "adriana",
+    meal: "desayuno", user: "adriana",
     items: [
       { foodId: "kefir-lactel-0-bio", name: "Kéfir Lactel 0%", grams: 125, kcal: 55.0, prot: 4.3, carbs: 5.1, fat: 1.9 },
       { foodId: "pp-vanilla-protein", name: "Proteina", grams: 15, kcal: 56.3, prot: 12.0, carbs: 0.8, fat: 0.5 },
@@ -3611,7 +3611,7 @@ const MEAL_LOG = [
   {
     id: "2026-04-11-A02",
     date: "2026-04-11",
-    meal: "almuerzo", who: "adriana",
+    meal: "almuerzo", user: "adriana",
     items: [
       { foodId: "saumon-benny-kozy", name: "Saumon Benny (Kozy Paris)", grams: 340, kcal: 545.0, prot: 28.0, carbs: 41.5, fat: 29.0 }
     ],
@@ -3620,7 +3620,7 @@ const MEAL_LOG = [
   {
     id: "2026-04-11-A03",
     date: "2026-04-11",
-    meal: "snack", who: "adriana",
+    meal: "snack", user: "adriana",
     items: [
       { foodId: "pan-banano-hp-chocolate", name: "Pan de Banano HP", grams: 16, kcal: 35.8, prot: 1.5, carbs: 5.4, fat: 0.9 },
       { foodId: "siggis-skyr-raspberry", name: "Siggis Framboise (3 tsp)", grams: 15, kcal: 11.0, prot: 1.5, carbs: 1.2, fat: 0 },
@@ -3631,7 +3631,7 @@ const MEAL_LOG = [
   {
     id: "2026-04-11-A04",
     date: "2026-04-11",
-    meal: "cena", who: "adriana",
+    meal: "cena", user: "adriana",
     items: [
       { foodId: "girasoli-burrata-basilic-picard", name: "Girasoli Burrata Picard", grams: 226, kcal: 409.1, prot: 19.0, carbs: 56.5, fat: 10.8 },
       { foodId: "pan-banano-hp-chocolate", name: "Banana Bread HP", grams: 120, kcal: 268.2, prot: 11.2, carbs: 40.4, fat: 7.1 }
@@ -3642,7 +3642,7 @@ const MEAL_LOG = [
   {
     id: "2026-04-12-001",
     date: "2026-04-12",
-    meal: "snack",
+    meal: "snack", user: "ernesto",
     items: [
       { foodId: "eafit-pure-isolate-chocolat", name: "EAFit Chocolat", grams: 20, kcal: 70.8, prot: 16.2, carbs: 0.7, fat: 0.3 }
     ],
@@ -3651,7 +3651,7 @@ const MEAL_LOG = [
   {
     id: "2026-04-12-002",
     date: "2026-04-12",
-    meal: "desayuno",
+    meal: "desayuno", user: "ernesto",
     items: [
       { foodId: "pancake-avena-chocolate-hp", name: "Pancake Avena Choc HP", grams: 105, kcal: 121.6, prot: 14.0, carbs: 15.6, fat: 2.0 },
       { foodId: "banana-fresca", name: "Banano", grams: 36, kcal: 32.0, prot: 0.4, carbs: 8.2, fat: 0.1 },
@@ -3662,7 +3662,7 @@ const MEAL_LOG = [
   {
     id: "2026-04-12-003",
     date: "2026-04-12",
-    meal: "snack",
+    meal: "snack", user: "ernesto",
     items: [
       { foodId: "shake-strawberry-blueberry-protein", name: "Strawberry Blueberry Protein Shake", grams: 120, kcal: 92.9, prot: 13.0, carbs: 7.3, fat: 1.6 }
     ],
@@ -3671,7 +3671,7 @@ const MEAL_LOG = [
   {
     id: "2026-04-12-004",
     date: "2026-04-12",
-    meal: "almuerzo",
+    meal: "almuerzo", user: "ernesto",
     items: [
       { foodId: "kebab-veau-maison", name: "Kebab Veau (sobras)", grams: 60, kcal: 108.0, prot: 15.0, carbs: 0.6, fat: 5.1 },
       { foodId: "quinoa-cocida", name: "Quinoa Cocida", grams: 63, kcal: 75.6, prot: 2.8, carbs: 13.4, fat: 1.2 },
@@ -3683,7 +3683,7 @@ const MEAL_LOG = [
   {
     id: "2026-04-12-005",
     date: "2026-04-12",
-    meal: "snack",
+    meal: "snack", user: "ernesto",
     items: [
       { foodId: "holy-cookie-pistachio", name: "Holy Cookie Pistachio (1/2)", grams: 90, kcal: 443.7, prot: 10.2, carbs: 31.9, fat: 29.7 }
     ],
@@ -3692,7 +3692,7 @@ const MEAL_LOG = [
   {
     id: "2026-04-12-006",
     date: "2026-04-12",
-    meal: "cena",
+    meal: "cena", user: "ernesto",
     items: [
       { foodId: "huevo-entero", name: "Huevo Entero", grams: 50, units: 1, kcal: 77.5, prot: 6.5, carbs: 0.6, fat: 5.5 },
       { foodId: "jamon-porc-fleury-michon", name: "Jamon", grams: 25, kcal: 28.8, prot: 5.0, carbs: 0.3, fat: 0.9 },
@@ -3706,7 +3706,7 @@ const MEAL_LOG = [
   {
     id: "2026-04-12-007",
     date: "2026-04-12",
-    meal: "cena",
+    meal: "cena", user: "ernesto",
     items: [
       { foodId: "kefir-lactel-0-bio", name: "Kéfir Lactel 0%", grams: 100, kcal: 44.0, prot: 3.4, carbs: 4.1, fat: 1.5 },
       { foodId: "siggis-skyr-nature", name: "Skyr", grams: 50, kcal: 31.5, prot: 5.5, carbs: 2.0, fat: 0.1 },
@@ -3719,7 +3719,7 @@ const MEAL_LOG = [
   {
     id: "2026-04-12-A01",
     date: "2026-04-12",
-    meal: "desayuno", who: "adriana",
+    meal: "desayuno", user: "adriana",
     items: [
       { foodId: "pancake-avena-chocolate-hp", name: "Pancake Avena Choc HP", grams: 83, kcal: 96.1, prot: 11.0, carbs: 12.4, fat: 1.6 },
       { foodId: "mantequilla-de-mani-menguys", name: "Peanut Butter", grams: 5, kcal: 29.4, prot: 1.3, carbs: 1.0, fat: 2.5 }
@@ -3729,7 +3729,7 @@ const MEAL_LOG = [
   {
     id: "2026-04-12-A02",
     date: "2026-04-12",
-    meal: "snack", who: "adriana",
+    meal: "snack", user: "adriana",
     items: [
       { foodId: "shake-strawberry-blueberry-protein", name: "Strawberry Blueberry Protein Shake", grams: 120, kcal: 92.9, prot: 13.0, carbs: 7.3, fat: 1.6 }
     ],
@@ -3738,7 +3738,7 @@ const MEAL_LOG = [
   {
     id: "2026-04-12-A03",
     date: "2026-04-12",
-    meal: "almuerzo", who: "adriana",
+    meal: "almuerzo", user: "adriana",
     items: [
       { foodId: "kebab-veau-maison", name: "Kebab Veau (sobras)", grams: 57, kcal: 102.6, prot: 14.3, carbs: 0.6, fat: 4.8 },
       { foodId: "quinoa-cocida", name: "Quinoa Cocida", grams: 40, kcal: 48.0, prot: 1.8, carbs: 8.5, fat: 0.8 },
@@ -3750,7 +3750,7 @@ const MEAL_LOG = [
   {
     id: "2026-04-12-A04",
     date: "2026-04-12",
-    meal: "snack", who: "adriana",
+    meal: "snack", user: "adriana",
     items: [
       { foodId: "holy-cookie-pistachio", name: "Holy Cookie Pistachio (1/2)", grams: 90, kcal: 443.7, prot: 10.2, carbs: 31.9, fat: 29.7 },
       { foodId: "chocolate-negro-90", name: "Chocolate Negro 90%", grams: 6, kcal: 35.5, prot: 0.6, carbs: 0.8, fat: 3.3 }
@@ -3760,7 +3760,7 @@ const MEAL_LOG = [
   {
     id: "2026-04-12-A05",
     date: "2026-04-12",
-    meal: "cena", who: "adriana",
+    meal: "cena", user: "adriana",
     items: [
       { foodId: "huevo-entero", name: "Huevo Entero", grams: 50, units: 1, kcal: 77.5, prot: 6.5, carbs: 0.6, fat: 5.5 },
       { foodId: "jamon-porc-fleury-michon", name: "Jamon", grams: 25, kcal: 28.8, prot: 5.0, carbs: 0.3, fat: 0.9 },
@@ -3774,7 +3774,7 @@ const MEAL_LOG = [
   {
     id: "2026-04-12-A06",
     date: "2026-04-12",
-    meal: "cena", who: "adriana",
+    meal: "cena", user: "adriana",
     items: [
       { foodId: "kefir-lactel-0-bio", name: "Kéfir Lactel 0%", grams: 125, kcal: 55.0, prot: 4.3, carbs: 5.1, fat: 1.9 },
       { foodId: "siggis-skyr-nature", name: "Skyr", grams: 47, kcal: 29.6, prot: 5.2, carbs: 1.9, fat: 0.1 },
@@ -3787,7 +3787,7 @@ const MEAL_LOG = [
   {
     id: "2026-04-13-001",
     date: "2026-04-13",
-    meal: "desayuno",
+    meal: "desayuno", user: "ernesto",
     items: [
       { foodId: "hipro-coco", name: "HiPro Coco", grams: 160, kcal: 89.6, prot: 15.0, carbs: 5.9, fat: 0.6 },
       { foodId: "siggis-skyr-nature", name: "Skyr", grams: 40, kcal: 25.2, prot: 4.4, carbs: 1.6, fat: 0.1 },
@@ -3799,7 +3799,7 @@ const MEAL_LOG = [
   {
     id: "2026-04-13-002",
     date: "2026-04-13",
-    meal: "almuerzo",
+    meal: "almuerzo", user: "ernesto",
     items: [
       { foodId: "spanakopita", name: "Spanakopita", grams: 80, kcal: 111.8, prot: 4.9, carbs: 5.4, fat: 8.1 },
       { foodId: "pasta-pollo-espinaca-tomate-adri", name: "Pasta Pollo Espinaca Tomate", grams: 260, kcal: 224.6, prot: 34.6, carbs: 10.4, fat: 3.9 }
@@ -3809,7 +3809,7 @@ const MEAL_LOG = [
   {
     id: "2026-04-13-003",
     date: "2026-04-13",
-    meal: "snack",
+    meal: "snack", user: "ernesto",
     items: [
       { foodId: "wasa-leger", name: "Wasa Leger", grams: 19.2, units: 2, kcal: 64.9, prot: 1.7, carbs: 11.9, fat: 0.3 },
       { foodId: "ricotta-casa-azzurra", name: "Ricotta", grams: 40, kcal: 60.0, prot: 3.2, carbs: 0.5, fat: 4.8 },
@@ -3820,7 +3820,7 @@ const MEAL_LOG = [
   {
     id: "2026-04-13-004",
     date: "2026-04-13",
-    meal: "cena",
+    meal: "cena", user: "ernesto",
     items: [
       { foodId: "quiche-brocoli-salmon-ricotta", name: "Quiche Brocoli Salmon", grams: 385, kcal: 456.6, prot: 37.3, carbs: 13.9, fat: 27.7 },
       { foodId: "ricotta-casa-azzurra", name: "Ricotta", grams: 63, kcal: 94.5, prot: 5.0, carbs: 0.8, fat: 7.6 }
@@ -3830,7 +3830,7 @@ const MEAL_LOG = [
   {
     id: "2026-04-13-005",
     date: "2026-04-13",
-    meal: "snack",
+    meal: "snack", user: "ernesto",
     items: [
       { foodId: "kefir-lactel-0-bio", name: "Kefir Lactel 0 Bio", grams: 126, kcal: 55.4, prot: 4.3, carbs: 5.2, fat: 1.9 },
       { foodId: "siggis-skyr-nature", name: "Skyr Siggis", grams: 53, kcal: 33.4, prot: 5.8, carbs: 2.1, fat: 0.1 },
@@ -3843,7 +3843,7 @@ const MEAL_LOG = [
   {
     id: "2026-04-13-006",
     date: "2026-04-13",
-    meal: "snack",
+    meal: "snack", user: "ernesto",
     items: [
       { foodId: "wasa-fibre", name: "Wasa Fibre", grams: 14, units: 1, kcal: 47.6, prot: 1.4, carbs: 8.1, fat: 0.4 },
       { foodId: "danone-cottage-cheese", name: "Cottage Cheese", grams: 30, kcal: 27.0, prot: 3.6, carbs: 0.5, fat: 1.2 },
@@ -3855,7 +3855,7 @@ const MEAL_LOG = [
   {
     id: "2026-04-13-A01",
     date: "2026-04-13",
-    meal: "desayuno", who: "adriana",
+    meal: "desayuno", user: "adriana",
     items: [
       { foodId: "chocolate-negro-90", name: "Chocolate Negro 90%", grams: 10, kcal: 59.2, prot: 1.0, carbs: 1.4, fat: 5.5 },
       { foodId: "hipro-blueberry", name: "HiPro Blueberry", grams: 155, kcal: 82.2, prot: 14.6, carbs: 5.9, fat: 0 },
@@ -3867,7 +3867,7 @@ const MEAL_LOG = [
   {
     id: "2026-04-13-A02",
     date: "2026-04-13",
-    meal: "almuerzo", who: "adriana",
+    meal: "almuerzo", user: "adriana",
     items: [
       { foodId: "pasta-pollo-espinaca-tomate-adri", name: "Pasta Pollo Espinaca Tomate", grams: 135, kcal: 116.6, prot: 18.0, carbs: 5.4, fat: 2.0 }
     ],
@@ -3876,7 +3876,7 @@ const MEAL_LOG = [
   {
     id: "2026-04-13-A03",
     date: "2026-04-13",
-    meal: "snack", who: "adriana",
+    meal: "snack", user: "adriana",
     items: [
       { foodId: "kefir-lactel-0-bio", name: "Kéfir Lactel 0%", grams: 125, kcal: 55.0, prot: 4.3, carbs: 5.1, fat: 1.9 },
       { foodId: "siggis-skyr-nature", name: "Skyr Siggis", grams: 42, kcal: 26.5, prot: 4.6, carbs: 1.7, fat: 0.1 },
@@ -3889,7 +3889,7 @@ const MEAL_LOG = [
   {
     id: "2026-04-13-A04",
     date: "2026-04-13",
-    meal: "snack", who: "adriana",
+    meal: "snack", user: "adriana",
     items: [
       { foodId: "pan-banano-hp-chocolate", name: "Banana Bread HP", grams: 50, kcal: 111.8, prot: 4.7, carbs: 16.9, fat: 3.0 }
     ],
@@ -3898,7 +3898,7 @@ const MEAL_LOG = [
   {
     id: "2026-04-13-A05",
     date: "2026-04-13",
-    meal: "cena", who: "adriana",
+    meal: "cena", user: "adriana",
     items: [
       { foodId: "quiche-brocoli-salmon-ricotta", name: "Quiche Brocoli Salmon", grams: 245, kcal: 290.6, prot: 23.8, carbs: 8.8, fat: 17.6 },
       { foodId: "ricotta-casa-azzurra", name: "Ricotta", grams: 53, kcal: 79.5, prot: 4.2, carbs: 0.6, fat: 6.4 }
@@ -3909,7 +3909,7 @@ const MEAL_LOG = [
   {
     id: "2026-04-14-A01",
     date: "2026-04-14",
-    meal: "desayuno", who: "adriana",
+    meal: "desayuno", user: "adriana",
     items: [
       { foodId: "kefir-lactel-0-bio", name: "Kéfir Lactel 0%", grams: 200, kcal: 88.0, prot: 6.8, carbs: 8.2, fat: 3.0 },
       { foodId: "siggis-skyr-nature", name: "Skyr Siggis", grams: 40, kcal: 25.2, prot: 4.4, carbs: 1.6, fat: 0.1 },
@@ -3923,7 +3923,7 @@ const MEAL_LOG = [
   {
     id: "2026-04-14-A02",
     date: "2026-04-14",
-    meal: "snack", who: "adriana",
+    meal: "snack", user: "adriana",
     items: [
       { foodId: "semillas-maranon", name: "Semillas de Marañon", grams: 10, kcal: 55.3, prot: 1.8, carbs: 3.0, fat: 4.4 }
     ],
@@ -3932,7 +3932,7 @@ const MEAL_LOG = [
   {
     id: "2026-04-14-A03",
     date: "2026-04-14",
-    meal: "almuerzo", who: "adriana",
+    meal: "almuerzo", user: "adriana",
     items: [
       { foodId: "rigatoni-cocida", name: "Pasta Cocida", grams: 50, kcal: 78.5, prot: 2.8, carbs: 15.5, fat: 0.5 },
       { foodId: "espinaca-congelada", name: "Salsa Espinaca", grams: 75, kcal: 17.3, prot: 1.9, carbs: 1.1, fat: 0.3 },
@@ -3944,7 +3944,7 @@ const MEAL_LOG = [
   {
     id: "2026-04-14-A04",
     date: "2026-04-14",
-    meal: "snack", who: "adriana",
+    meal: "snack", user: "adriana",
     items: [
       { foodId: "kefir-lactel-0-bio", name: "Kéfir Lactel 0%", grams: 300, kcal: 132.0, prot: 10.2, carbs: 12.3, fat: 4.5 }
     ],
@@ -3954,7 +3954,7 @@ const MEAL_LOG = [
   {
     id: "2026-04-14-001",
     date: "2026-04-14",
-    meal: "desayuno",
+    meal: "desayuno", user: "ernesto",
     items: [
       { foodId: "kefir-lactel-0-bio", name: "Kéfir Lactel 0%", grams: 200, kcal: 88.0, prot: 6.8, carbs: 8.2, fat: 3.0 },
       { foodId: "siggis-skyr-nature", name: "Skyr Siggis", grams: 50, kcal: 31.5, prot: 5.5, carbs: 2.0, fat: 0.1 },
@@ -3967,7 +3967,7 @@ const MEAL_LOG = [
   {
     id: "2026-04-14-002",
     date: "2026-04-14",
-    meal: "almuerzo",
+    meal: "almuerzo", user: "ernesto",
     items: [
       { foodId: "quiche-brocoli-salmon-ricotta", name: "Quiche Saumon Brocoli", grams: 30, kcal: 35.6, prot: 2.9, carbs: 1.1, fat: 2.2 },
       { foodId: "patatas-horneadas", name: "Patatas Horneadas", grams: 100, kcal: 93.0, prot: 2.5, carbs: 21.0, fat: 0.1 },
@@ -3978,7 +3978,7 @@ const MEAL_LOG = [
   {
     id: "2026-04-14-003",
     date: "2026-04-14",
-    meal: "snack",
+    meal: "snack", user: "ernesto",
     items: [
       { foodId: "eafit-pure-isolate-chocolat", name: "EAFit Chocolat", grams: 45, kcal: 159.3, prot: 36.5, carbs: 1.7, fat: 0.7 },
       { foodId: "remolacha-cocida", name: "Remolacha x2 pequeñas", grams: 120, kcal: 52.8, prot: 2.0, carbs: 12.0, fat: 0.1 },
@@ -3989,7 +3989,7 @@ const MEAL_LOG = [
   {
     id: "2026-04-14-004",
     date: "2026-04-14",
-    meal: "cena",
+    meal: "cena", user: "ernesto",
     items: [
       { foodId: "huevo-picado-tomate-cebolla", name: "Huevo Picado con Tomate y Cebolla", grams: 250, kcal: 151.8, prot: 9.5, carbs: 10.3, fat: 8.8 },
       { foodId: "danone-cottage-cheese", name: "Cottage Cheese", grams: 50, kcal: 45.0, prot: 6.0, carbs: 0.8, fat: 2.0 },
@@ -4001,7 +4001,7 @@ const MEAL_LOG = [
   {
     id: "2026-04-14-005",
     date: "2026-04-14",
-    meal: "snack",
+    meal: "snack", user: "ernesto",
     items: [
       { foodId: "tostones-platano-macho", name: "Tostones Plátano Macho", grams: 30, kcal: 84.0, prot: 0.4, carbs: 13.2, fat: 3.3 },
       { foodId: "platano-maduro-frito", name: "Plátano Maduro Frito (2 rodajitas)", grams: 16, kcal: 38.4, prot: 0.2, carbs: 6.4, fat: 1.4 }
@@ -4012,7 +4012,7 @@ const MEAL_LOG = [
   {
     id: "2026-04-14-A05",
     date: "2026-04-14",
-    meal: "snack", who: "adriana",
+    meal: "snack", user: "adriana",
     items: [
       { foodId: "gerble-cookie-cacao-pepites-ss", name: "Gerblé Cookie Cacao x3", grams: 32.4, units: 3, kcal: 167.8, prot: 2.6, carbs: 19.8, fat: 5.8 }
     ],
@@ -4021,7 +4021,7 @@ const MEAL_LOG = [
   {
     id: "2026-04-14-A06",
     date: "2026-04-14",
-    meal: "snack", who: "adriana",
+    meal: "snack", user: "adriana",
     items: [
       { foodId: "siggis-skyr-nature", name: "Skyr Siggis", grams: 90, kcal: 56.7, prot: 9.9, carbs: 3.6, fat: 0.2 },
       { foodId: "blueberries-frescas", name: "Blueberries", grams: 25, kcal: 14.3, prot: 0.2, carbs: 3.6, fat: 0.1 },
@@ -4032,7 +4032,7 @@ const MEAL_LOG = [
   {
     id: "2026-04-14-A07",
     date: "2026-04-14",
-    meal: "cena", who: "adriana",
+    meal: "cena", user: "adriana",
     items: [
       { foodId: "huevo-picado-tomate-cebolla", name: "Huevo Picado con Tomate y Cebolla", grams: 164, kcal: 99.5, prot: 6.3, carbs: 6.8, fat: 5.7 },
       { foodId: "danone-cottage-cheese", name: "Cottage Cheese", grams: 19, kcal: 17.1, prot: 2.3, carbs: 0.3, fat: 0.7 },
@@ -4043,7 +4043,7 @@ const MEAL_LOG = [
   {
     id: "2026-04-14-A08",
     date: "2026-04-14",
-    meal: "snack", who: "adriana",
+    meal: "snack", user: "adriana",
     items: [
       { foodId: "tostones-platano-macho", name: "Tostones Plátano Macho", grams: 30, kcal: 84.0, prot: 0.4, carbs: 13.2, fat: 3.3 },
       { foodId: "platano-maduro-frito", name: "Plátano Maduro Frito (2 rodajitas)", grams: 16, kcal: 38.4, prot: 0.2, carbs: 6.4, fat: 1.4 }
@@ -4053,7 +4053,7 @@ const MEAL_LOG = [
   {
     id: "2026-04-14-006",
     date: "2026-04-14",
-    meal: "snack",
+    meal: "snack", user: "ernesto",
     items: [
       { foodId: "eafit-pure-isolate-vanille", name: "EAFit Vanille", grams: 40, kcal: 146.4, prot: 34.4, carbs: 1.3, fat: 0.4 }
     ],
@@ -4062,7 +4062,7 @@ const MEAL_LOG = [
   {
     id: "2026-04-15-001",
     date: "2026-04-15",
-    meal: "desayuno",
+    meal: "desayuno", user: "ernesto",
     items: [
       { foodId: "hipro-blueberry", name: "HiPro Blueberry", grams: 160, units: 1, kcal: 84.8, prot: 15.0, carbs: 6.1, fat: 0 }
     ],
@@ -4071,7 +4071,7 @@ const MEAL_LOG = [
   {
     id: "2026-04-15-002",
     date: "2026-04-15",
-    meal: "almuerzo",
+    meal: "almuerzo", user: "ernesto",
     items: [
       { foodId: "pollo-pechuga-horneada", name: "Pollo Horneado", grams: 90, kcal: 148.5, prot: 27.9, carbs: 0, fat: 3.2 },
       { foodId: "aceite-oliva", name: "AOVE (1 cdita marinado)", grams: 5, kcal: 44.2, prot: 0, carbs: 0, fat: 5.0 },
@@ -4087,7 +4087,7 @@ const MEAL_LOG = [
   {
     id: "2026-04-15-003",
     date: "2026-04-15",
-    meal: "snack",
+    meal: "snack", user: "ernesto",
     items: [
       { foodId: "eafit-pure-isolate-vanille", name: "Proteina EAFit Vanille", grams: 50, kcal: 183.0, prot: 43.0, carbs: 1.7, fat: 0.5 },
       { foodId: "siggis-skyr-nature", name: "Skyr Nature", grams: 30, kcal: 18.9, prot: 3.3, carbs: 1.2, fat: 0.1 }
@@ -4097,7 +4097,7 @@ const MEAL_LOG = [
   {
     id: "2026-04-15-004",
     date: "2026-04-15",
-    meal: "snack",
+    meal: "snack", user: "ernesto",
     items: [
       { foodId: "remolacha-cocida", name: "Remolacha", grams: 80, units: 1, kcal: 35.2, prot: 1.4, carbs: 8.0, fat: 0.1 },
       { foodId: "galleta-oreo-sin-crema", name: "Oreo Cookie (no cream)", grams: 30, kcal: 141.3, prot: 0.9, carbs: 22.1, fat: 6.2 }
@@ -4107,7 +4107,7 @@ const MEAL_LOG = [
   {
     id: "2026-04-15-005",
     date: "2026-04-15",
-    meal: "snack",
+    meal: "snack", user: "ernesto",
     items: [
       { foodId: "gerble-cookie-cacao-pepites-ss", name: "Gerblé Cookie Cacao x1", grams: 10.8, units: 1, kcal: 55.9, prot: 0.9, carbs: 6.6, fat: 1.9 }
     ],
@@ -4116,7 +4116,7 @@ const MEAL_LOG = [
   {
     id: "2026-04-15-006",
     date: "2026-04-15",
-    meal: "cena",
+    meal: "cena", user: "ernesto",
     items: [
       { foodId: "huevo-entero", name: "Huevo Entero (x1)", grams: 50, units: 1, kcal: 77.5, prot: 6.5, carbs: 0.6, fat: 5.5 },
       { foodId: "clara-huevo", name: "Clara de Huevo (x2)", grams: 66, units: 2, kcal: 34.3, prot: 7.3, carbs: 0.5, fat: 0.1 },
@@ -4132,7 +4132,7 @@ const MEAL_LOG = [
   {
     id: "2026-04-15-007",
     date: "2026-04-15",
-    meal: "snack",
+    meal: "snack", user: "ernesto",
     items: [
       { foodId: "leche-almendra", name: "Leche Almendra (prop. 130/254)", grams: 51.2, kcal: 6.7, prot: 0.2, carbs: 0.1, fat: 0.6 },
       { foodId: "eafit-pure-isolate-vanille", name: "EAFit Vanille (prop.)", grams: 10.2, kcal: 37.3, prot: 8.8, carbs: 0.3, fat: 0.1 },
@@ -4144,7 +4144,7 @@ const MEAL_LOG = [
   {
     id: "2026-04-15-008",
     date: "2026-04-15",
-    meal: "cena",
+    meal: "cena", user: "ernesto",
     items: [
       { foodId: "eafit-pure-isolate-vanille", name: "EAFit Vanille", grams: 30, kcal: 109.8, prot: 25.8, carbs: 1.0, fat: 0.3 },
       { foodId: "siggis-skyr-nature", name: "Skyr Siggis", grams: 60, kcal: 37.8, prot: 6.6, carbs: 2.4, fat: 0.1 }
@@ -4154,7 +4154,7 @@ const MEAL_LOG = [
   {
     id: "2026-04-15-009",
     date: "2026-04-15",
-    meal: "cena",
+    meal: "cena", user: "ernesto",
     items: [
       { foodId: "eafit-pure-isolate-chocolat", name: "EAFit Chocolat", grams: 25, kcal: 88.5, prot: 20.3, carbs: 0.9, fat: 0.4 }
     ],
@@ -4164,7 +4164,7 @@ const MEAL_LOG = [
   {
     id: "2026-04-15-010",
     date: "2026-04-15",
-    meal: "desayuno", who: "adriana",
+    meal: "desayuno", user: "adriana",
     items: [
       { foodId: "hipro-coco", name: "HiPro Coco", grams: 233, kcal: 130.5, prot: 21.9, carbs: 8.6, fat: 0.9 },
       { foodId: "siggis-skyr-nature", name: "Skyr Siggis", grams: 50, kcal: 31.5, prot: 5.5, carbs: 2.0, fat: 0.1 },
@@ -4178,7 +4178,7 @@ const MEAL_LOG = [
   {
     id: "2026-04-15-011",
     date: "2026-04-15",
-    meal: "snack", who: "adriana",
+    meal: "snack", user: "adriana",
     items: [
       { foodId: "gerble-cookie-cacao-pepites-ss", name: "Gerblé Cookie Cacao x3", grams: 32.4, units: 3, kcal: 167.8, prot: 2.6, carbs: 19.8, fat: 5.8 },
       { foodId: "cote-dor-noir-70", name: "Côte d'Or 70%", grams: 40, kcal: 218.0, prot: 3.2, carbs: 14.0, fat: 16.0 }
@@ -4188,7 +4188,7 @@ const MEAL_LOG = [
   {
     id: "2026-04-15-012",
     date: "2026-04-15",
-    meal: "snack", who: "adriana",
+    meal: "snack", user: "adriana",
     items: [
       { foodId: "leche-almendra", name: "Leche Almendra (prop. 130/254)", grams: 51.2, kcal: 6.7, prot: 0.2, carbs: 0.1, fat: 0.6 },
       { foodId: "eafit-pure-isolate-vanille", name: "EAFit Vanille (prop.)", grams: 10.2, kcal: 37.3, prot: 8.8, carbs: 0.3, fat: 0.1 },
@@ -4200,7 +4200,7 @@ const MEAL_LOG = [
   {
     id: "2026-04-15-013",
     date: "2026-04-15",
-    meal: "snack", who: "adriana",
+    meal: "snack", user: "adriana",
     items: [
       { foodId: "ricotta-casa-azzurra", name: "Ricotta", grams: 50, kcal: 75.0, prot: 4.0, carbs: 0.6, fat: 6.0 },
       { foodId: "wasa-fibre", name: "Wasa Fibre (x2)", grams: 22.8, units: 2, kcal: 75.9, prot: 3.0, carbs: 10.5, fat: 1.1 }
@@ -4210,7 +4210,7 @@ const MEAL_LOG = [
   {
     id: "2026-04-15-014",
     date: "2026-04-15",
-    meal: "cena", who: "adriana",
+    meal: "cena", user: "adriana",
     items: [
       { foodId: "huevo-entero", name: "Huevo Entero (x1)", grams: 50, units: 1, kcal: 77.5, prot: 6.5, carbs: 0.6, fat: 5.5 },
       { foodId: "clara-huevo", name: "Clara de Huevo (x1)", grams: 33, units: 1, kcal: 17.2, prot: 3.6, carbs: 0.2, fat: 0.1 },
@@ -4226,7 +4226,7 @@ const MEAL_LOG = [
   {
     id: "2026-04-15-015",
     date: "2026-04-15",
-    meal: "almuerzo", who: "adriana",
+    meal: "almuerzo", user: "adriana",
     items: [
       { foodId: "arroz-bomba-cocido", name: "Arroz Cocido", grams: 70, kcal: 91.0, prot: 1.9, carbs: 19.6, fat: 0.2 },
       { foodId: "pollo-pechuga-horneada", name: "Pollo Horneado", grams: 80, kcal: 132.0, prot: 24.8, carbs: 0, fat: 2.9 },
@@ -4240,7 +4240,7 @@ const MEAL_LOG = [
   {
     id: "2026-04-16-001",
     date: "2026-04-16",
-    meal: "desayuno",
+    meal: "desayuno", user: "ernesto",
     items: [
       { foodId: "huevo-picado-tomate-cebolla", name: "Huevo Picado con Tomate y Cebolla", grams: 110, kcal: 66.8, prot: 4.2, carbs: 4.5, fat: 3.9 },
       { foodId: "ricotta-casero", name: "Ricotta Casero", grams: 50, kcal: 87.0, prot: 5.7, carbs: 1.5, fat: 6.5 },
@@ -4254,7 +4254,7 @@ const MEAL_LOG = [
   {
     id: "2026-04-16-002",
     date: "2026-04-16",
-    meal: "almuerzo",
+    meal: "almuerzo", user: "ernesto",
     items: [
       { foodId: "pollo-pechuga-horneada", name: "Pollo Horneado", grams: 105, kcal: 173.3, prot: 32.6, carbs: 0, fat: 3.7 },
       { foodId: "aceite-oliva", name: "AOVE (1 cdita marinado)", grams: 5, kcal: 44.2, prot: 0, carbs: 0, fat: 5.0 },
@@ -4270,7 +4270,7 @@ const MEAL_LOG = [
   {
     id: "2026-04-16-003",
     date: "2026-04-16",
-    meal: "snack",
+    meal: "snack", user: "ernesto",
     items: [
       { foodId: "gerble-cookie-cacao-pepites-ss", name: "Gerblé Cookie Chocola x2", grams: 21.6, units: 2, kcal: 111.9, prot: 1.7, carbs: 13.2, fat: 3.9 }
     ],
@@ -4280,7 +4280,7 @@ const MEAL_LOG = [
   {
     id: "2026-04-16-A01",
     date: "2026-04-16",
-    meal: "desayuno", who: "adriana",
+    meal: "desayuno", user: "adriana",
     items: [
       { foodId: "leche-almendra", name: "Leche de Almendras", grams: 150, kcal: 19.5, prot: 0.6, carbs: 0.3, fat: 1.7 },
       { foodId: "hipro-vanille", name: "HiPro Vanille", grams: 153, kcal: 117.8, prot: 15.6, carbs: 9.0, fat: 1.2 },
@@ -4296,7 +4296,7 @@ const MEAL_LOG = [
   {
     id: "2026-04-16-A02",
     date: "2026-04-16",
-    meal: "snack", who: "adriana",
+    meal: "snack", user: "adriana",
     items: [
       { foodId: "mini-financier-amandes", name: "Mini Financier x2", grams: 30, units: 2, kcal: 135.9, prot: 1.6, carbs: 14.1, fat: 7.7 },
       { foodId: "madeleine-traditionnelle", name: "Madeleine x2", grams: 50, units: 2, kcal: 216.5, prot: 3.3, carbs: 25.0, fat: 11.7 }
@@ -4307,7 +4307,7 @@ const MEAL_LOG = [
   {
     id: "2026-04-16-A03",
     date: "2026-04-16",
-    meal: "almuerzo", who: "adriana",
+    meal: "almuerzo", user: "adriana",
     items: [
       { foodId: "arroz-bomba-cocido", name: "Arroz Cocido", grams: 70, kcal: 91.0, prot: 1.9, carbs: 19.6, fat: 0.2 },
       { foodId: "pollo-pechuga-horneada", name: "Pollo Horneado", grams: 80, kcal: 132.0, prot: 24.8, carbs: 0, fat: 2.9 },
@@ -4321,7 +4321,7 @@ const MEAL_LOG = [
   {
     id: "2026-04-16-A04",
     date: "2026-04-16",
-    meal: "snack", who: "adriana",
+    meal: "snack", user: "adriana",
     items: [
       { foodId: "kefir-lactel-0-bio", name: "Kéfir Lactel 0%", grams: 123, kcal: 54.1, prot: 4.2, carbs: 5.0, fat: 1.8 },
       { foodId: "eafit-pure-isolate-vanille", name: "EAFit Vanille", grams: 10, kcal: 36.6, prot: 8.6, carbs: 0.3, fat: 0.1 },
@@ -4333,7 +4333,7 @@ const MEAL_LOG = [
   {
     id: "2026-04-16-A05",
     date: "2026-04-16",
-    meal: "cena", who: "adriana",
+    meal: "cena", user: "adriana",
     items: [
       { foodId: "huevo-entero", name: "Huevo Entero", grams: 50, units: 1, kcal: 77.5, prot: 6.5, carbs: 0.6, fat: 5.5 },
       { foodId: "clara-huevo", name: "Clara de Huevo", grams: 33, units: 1, kcal: 17.2, prot: 3.6, carbs: 0.2, fat: 0.1 },
@@ -4351,7 +4351,7 @@ const MEAL_LOG = [
   {
     id: "2026-04-16-004",
     date: "2026-04-16",
-    meal: "snack",
+    meal: "snack", user: "ernesto",
     items: [
       { foodId: "kefir-lactel-0-bio", name: "Kéfir Lactel 0%", grams: 125, kcal: 55.0, prot: 4.3, carbs: 5.1, fat: 1.9 },
       { foodId: "eafit-pure-isolate-chocolat", name: "EAFit Chocolat", grams: 20, kcal: 70.8, prot: 16.2, carbs: 0.7, fat: 0.3 },
@@ -4363,7 +4363,7 @@ const MEAL_LOG = [
   {
     id: "2026-04-16-005",
     date: "2026-04-16",
-    meal: "cena",
+    meal: "cena", user: "ernesto",
     items: [
       { foodId: "huevo-entero", name: "Huevo Entero", grams: 50, units: 1, kcal: 77.5, prot: 6.5, carbs: 0.6, fat: 5.5 },
       { foodId: "clara-huevo", name: "Clara de Huevo (x2)", grams: 66, units: 2, kcal: 34.3, prot: 7.3, carbs: 0.5, fat: 0.1 },
@@ -4379,7 +4379,7 @@ const MEAL_LOG = [
   {
     id: "2026-04-16-006",
     date: "2026-04-16",
-    meal: "snack",
+    meal: "snack", user: "ernesto",
     items: [
       { foodId: "eafit-pure-isolate-vanille", name: "EAFit Vanille", grams: 35, kcal: 128.1, prot: 30.1, carbs: 1.2, fat: 0.3 }
     ],
@@ -4389,7 +4389,7 @@ const MEAL_LOG = [
   {
     id: "2026-04-17-001",
     date: "2026-04-17",
-    meal: "desayuno",
+    meal: "desayuno", user: "ernesto",
     items: [
       { foodId: "eafit-pure-isolate-chocolat", name: "EAFit Chocolat", grams: 40, kcal: 141.6, prot: 32.4, carbs: 1.5, fat: 0.6 },
       { foodId: "kefir-lactel-0-bio", name: "Kéfir Lactel 0%", grams: 50, kcal: 22.0, prot: 1.7, carbs: 2.1, fat: 0.8 },
@@ -4402,7 +4402,7 @@ const MEAL_LOG = [
   {
     id: "2026-04-17-002",
     date: "2026-04-17",
-    meal: "almuerzo",
+    meal: "almuerzo", user: "ernesto",
     items: [
       { foodId: "pollo-pechuga-horneada", name: "Pollo Horneado", grams: 100, kcal: 165.0, prot: 31.0, carbs: 0, fat: 3.6 },
       { foodId: "cannelloni-ricotta-epinard-picard", name: "Cannelloni Ricotta Épinard Picard", grams: 175, kcal: 210.0, prot: 9.8, carbs: 16.1, fat: 11.4 }
@@ -4413,7 +4413,7 @@ const MEAL_LOG = [
   {
     id: "2026-04-17-003",
     date: "2026-04-17",
-    meal: "snack",
+    meal: "snack", user: "ernesto",
     items: [
       { foodId: "kefir-lactel-0-bio", name: "Kéfir Lactel 0%", grams: 150, kcal: 66.0, prot: 5.1, carbs: 6.2, fat: 2.3 },
       { foodId: "eafit-pure-isolate-vanille", name: "EAFit Vainilla", grams: 40, kcal: 146.4, prot: 34.4, carbs: 1.3, fat: 0.4 },
@@ -4425,7 +4425,7 @@ const MEAL_LOG = [
   {
     id: "2026-04-17-004",
     date: "2026-04-17",
-    meal: "cena",
+    meal: "cena", user: "ernesto",
     items: [
       { foodId: "arroz-bomba-cocido", name: "Arroz Cocido (casamiento)", grams: 50, kcal: 65.0, prot: 1.4, carbs: 14.0, fat: 0.2 },
       { foodId: "frijoles-negros-licuados", name: "Frijoles Licuados", grams: 30, kcal: 27.0, prot: 1.8, carbs: 3.6, fat: 0.5 },
@@ -4441,7 +4441,7 @@ const MEAL_LOG = [
   {
     id: "2026-04-17-005",
     date: "2026-04-17",
-    meal: "snack",
+    meal: "snack", user: "ernesto",
     items: [
       { foodId: "hipro-creme-dessert-choco-noisette", name: "HiPro Crème Dessert Choco Noisette", grams: 111, kcal: 84.4, prot: 11.3, carbs: 7.0, fat: 1.0 }
     ],
@@ -4451,7 +4451,7 @@ const MEAL_LOG = [
   {
     id: "2026-04-17-A01",
     date: "2026-04-17",
-    meal: "desayuno", who: "adriana",
+    meal: "desayuno", user: "adriana",
     items: [
       { foodId: "hipro-coco", name: "HiPro Coco", grams: 79, kcal: 44.2, prot: 7.4, carbs: 2.9, fat: 0.3 },
       { foodId: "siggis-skyr-nature", name: "Skyr Siggis", grams: 171, kcal: 107.7, prot: 18.8, carbs: 6.8, fat: 0.3 },
@@ -4464,7 +4464,7 @@ const MEAL_LOG = [
   {
     id: "2026-04-17-A02",
     date: "2026-04-17",
-    meal: "almuerzo", who: "adriana",
+    meal: "almuerzo", user: "adriana",
     items: [
       { foodId: "pollo-pechuga-horneada", name: "Pollo Horneado", grams: 80, kcal: 132.0, prot: 24.8, carbs: 0, fat: 2.9 },
       { foodId: "cannelloni-ricotta-epinard-picard", name: "Cannelloni Ricotta Épinard", grams: 175, kcal: 210.0, prot: 9.8, carbs: 16.1, fat: 11.4 },
@@ -4476,7 +4476,7 @@ const MEAL_LOG = [
   {
     id: "2026-04-17-A03",
     date: "2026-04-17",
-    meal: "snack", who: "adriana",
+    meal: "snack", user: "adriana",
     items: [
       { foodId: "kefir-lactel-0-bio", name: "Kéfir Lactel 0%", grams: 130, kcal: 57.2, prot: 4.4, carbs: 5.3, fat: 2.0 },
       { foodId: "eafit-pure-isolate-vanille", name: "EAFit Vainilla", grams: 25, kcal: 91.5, prot: 21.5, carbs: 0.8, fat: 0.2 },
@@ -4491,7 +4491,7 @@ const MEAL_LOG = [
   {
     id: "2026-04-17-A04",
     date: "2026-04-17",
-    meal: "cena", who: "adriana",
+    meal: "cena", user: "adriana",
     items: [
       { foodId: "arroz-bomba-cocido", name: "Arroz Cocido (casamiento)", grams: 20, kcal: 26.0, prot: 0.5, carbs: 5.6, fat: 0.1 },
       { foodId: "frijoles-negros-licuados", name: "Frijoles Licuados", grams: 14, kcal: 12.6, prot: 0.8, carbs: 1.7, fat: 0.2 },
@@ -4507,7 +4507,7 @@ const MEAL_LOG = [
   {
     id: "2026-04-17-A05",
     date: "2026-04-17",
-    meal: "snack", who: "adriana",
+    meal: "snack", user: "adriana",
     items: [
       { foodId: "hipro-creme-dessert-choco-noisette", name: "HiPro Crème Dessert Choco Noisette", grams: 69, kcal: 52.4, prot: 7.0, carbs: 4.3, fat: 0.6 }
     ],
@@ -4517,7 +4517,7 @@ const MEAL_LOG = [
   {
     id: "2026-04-18-001",
     date: "2026-04-18",
-    meal: "desayuno",
+    meal: "desayuno", user: "ernesto",
     items: [
       { foodId: "avena-cruda", name: "Avena en Hojuelas (75%)", grams: 30, kcal: 116.7, prot: 5.1, carbs: 19.9, fat: 2.1 },
       { foodId: "huevo-entero", name: "Huevo Entero (75%)", grams: 37.5, kcal: 58.1, prot: 4.9, carbs: 0.4, fat: 4.1 },
@@ -4532,7 +4532,7 @@ const MEAL_LOG = [
   {
     id: "2026-04-18-002",
     date: "2026-04-18",
-    meal: "almuerzo",
+    meal: "almuerzo", user: "ernesto",
     items: [
       { foodId: "carne-mechada-venezolana", name: "Carne Mechada Venezolana", grams: 165, kcal: 231.0, prot: 28.1, carbs: 5.0, fat: 10.7 },
       { foodId: "platano-maduro-frito", name: "Plátano Maduro Frito", grams: 57, kcal: 136.8, prot: 0.6, carbs: 22.8, fat: 5.1 },
@@ -4547,7 +4547,7 @@ const MEAL_LOG = [
   {
     id: "2026-04-18-A01",
     date: "2026-04-18",
-    meal: "desayuno", who: "adriana",
+    meal: "desayuno", user: "adriana",
     items: [
       { foodId: "avena-cruda", name: "Avena en Hojuelas", grams: 40, kcal: 155.6, prot: 6.8, carbs: 26.5, fat: 2.8 },
       { foodId: "huevo-entero", name: "Huevo Entero (x1)", grams: 50, units: 1, kcal: 77.5, prot: 6.5, carbs: 0.6, fat: 5.5 },
@@ -4562,7 +4562,7 @@ const MEAL_LOG = [
   {
     id: "2026-04-18-A02",
     date: "2026-04-18",
-    meal: "snack", who: "adriana",
+    meal: "snack", user: "adriana",
     items: [
       { foodId: "chausson-pommes-boulangerie", name: "Chausson aux Pommes", grams: 42, kcal: 142.8, prot: 1.5, carbs: 16.8, fat: 7.6 }
     ],
@@ -4571,7 +4571,7 @@ const MEAL_LOG = [
   {
     id: "2026-04-18-A03",
     date: "2026-04-18",
-    meal: "almuerzo", who: "adriana",
+    meal: "almuerzo", user: "adriana",
     items: [
       { foodId: "carne-mechada-venezolana", name: "Carne Mechada Venezolana", grams: 125, kcal: 175.0, prot: 21.3, carbs: 3.8, fat: 8.1 },
       { foodId: "platano-maduro-frito", name: "Plátano Maduro Frito", grams: 55, kcal: 132.0, prot: 0.6, carbs: 22.0, fat: 5.0 },
@@ -4584,7 +4584,7 @@ const MEAL_LOG = [
   {
     id: "2026-04-18-003",
     date: "2026-04-18",
-    meal: "cena",
+    meal: "cena", user: "ernesto",
     items: [
       { foodId: "vino-blanco-seco", name: "Vino Blanco Ouistiti (2 copas peq)", grams: 200, kcal: 164.0, prot: 0.2, carbs: 5.2, fat: 0 },
       { foodId: "pizza-margherite-louielouie", name: "Pizza Margherite LouieLouie (1/2)", grams: 150, kcal: 315.0, prot: 10.5, carbs: 46.5, fat: 9.0 },
@@ -4598,7 +4598,7 @@ const MEAL_LOG = [
   {
     id: "2026-04-18-A04",
     date: "2026-04-18",
-    meal: "cena", who: "adriana",
+    meal: "cena", user: "adriana",
     items: [
       { foodId: "limonada-casera", name: "Limonada Casera", grams: 250, kcal: 87.5, prot: 0, carbs: 22.5, fat: 0 },
       { foodId: "pizza-margherite-louielouie", name: "Pizza Margherite LouieLouie (1/3)", grams: 100, kcal: 210.0, prot: 7.0, carbs: 31.0, fat: 6.0 },
@@ -4611,7 +4611,7 @@ const MEAL_LOG = [
   {
     id: "2026-04-18-004",
     date: "2026-04-18",
-    meal: "snack",
+    meal: "snack", user: "ernesto",
     items: [
       { foodId: "eafit-pure-isolate-vanille", name: "EAFit Vainilla", grams: 48, kcal: 175.7, prot: 41.3, carbs: 1.6, fat: 0.4 }
     ],
@@ -4621,7 +4621,7 @@ const MEAL_LOG = [
   {
     id: "2026-04-19-001",
     date: "2026-04-19",
-    meal: "desayuno",
+    meal: "desayuno", user: "ernesto",
     items: [
       { foodId: "shake-vanilla-fresas", name: "Shake Vanilla Fresas", grams: 300, kcal: 132.0, prot: 26.4, carbs: 6.3, fat: 0.6 },
       { foodId: "siggis-skyr-nature", name: "Skyr Nature", grams: 50, kcal: 31.5, prot: 5.5, carbs: 2.0, fat: 0.1 },
@@ -4632,7 +4632,7 @@ const MEAL_LOG = [
   {
     id: "2026-04-19-002",
     date: "2026-04-19",
-    meal: "almuerzo",
+    meal: "almuerzo", user: "ernesto",
     items: [
       { foodId: "carne-mechada-venezolana", name: "Carne Mechada", grams: 180, kcal: 252.0, prot: 30.6, carbs: 5.4, fat: 11.7 },
       { foodId: "casamiento-arroz-frijoles", name: "Casamiento", grams: 35, kcal: 40.3, prot: 1.4, carbs: 7.7, fat: 0.3 },
@@ -4645,7 +4645,7 @@ const MEAL_LOG = [
   {
     id: "2026-04-19-003",
     date: "2026-04-19",
-    meal: "snack",
+    meal: "snack", user: "ernesto",
     items: [
       { foodId: "eafit-pure-isolate-chocolat", name: "EAFit Choco", grams: 40, kcal: 141.6, prot: 32.4, carbs: 1.5, fat: 0.6 },
       { foodId: "kefir-lactel-0-bio", name: "Kefir Lactel 0%", grams: 50, kcal: 22.0, prot: 1.7, carbs: 2.1, fat: 0.8 },
@@ -4664,7 +4664,7 @@ const MEAL_LOG = [
   {
     id: "2026-04-19-004",
     date: "2026-04-19",
-    meal: "cena",
+    meal: "cena", user: "ernesto",
     items: [
       { foodId: "pollo-pepiado-zucchini", name: "Pollo Pepiado (pechuga + zucchini + AOVE)", grams: 185, kcal: 168.4, prot: 24.6, carbs: 3.3, fat: 6.1 },
       { foodId: "salsa-skyr-cilantro", name: "Salsa de Skyr", grams: 36, kcal: 30.6, prot: 3.6, carbs: 1.4, fat: 1.1 },
@@ -4680,7 +4680,7 @@ const MEAL_LOG = [
   {
     id: "2026-04-19-005",
     date: "2026-04-19",
-    meal: "snack",
+    meal: "snack", user: "ernesto",
     items: [
       { foodId: "hipro-chocolate-drink", name: "HiPro Choco Drink", grams: 100, kcal: 54.0, prot: 7.2, carbs: 4.0, fat: 0.3 }
     ],
@@ -4690,7 +4690,7 @@ const MEAL_LOG = [
   {
     id: "2026-04-19-A01",
     date: "2026-04-19",
-    meal: "desayuno", who: "adriana",
+    meal: "desayuno", user: "adriana",
     items: [
       { foodId: "eafit-pure-isolate-vanille", name: "EAFit Vanilla", grams: 20, kcal: 73.2, prot: 17.2, carbs: 0.7, fat: 0.2 },
       { foodId: "siggis-skyr-nature", name: "Skyr Nature", grams: 50, kcal: 31.5, prot: 5.5, carbs: 2.0, fat: 0.1 },
@@ -4701,7 +4701,7 @@ const MEAL_LOG = [
   {
     id: "2026-04-19-A02",
     date: "2026-04-19",
-    meal: "snack", who: "adriana",
+    meal: "snack", user: "adriana",
     items: [
       { foodId: "eafit-pure-isolate-chocolat", name: "EAFit Choco", grams: 23, kcal: 81.4, prot: 18.6, carbs: 0.9, fat: 0.4 },
       { foodId: "kefir-lactel-0-bio", name: "Kefir Lactel 0%", grams: 50, kcal: 22.0, prot: 1.7, carbs: 2.1, fat: 0.8 },
@@ -4714,7 +4714,7 @@ const MEAL_LOG = [
   {
     id: "2026-04-19-A03",
     date: "2026-04-19",
-    meal: "almuerzo", who: "adriana",
+    meal: "almuerzo", user: "adriana",
     items: [
       { foodId: "pizza-margherite-louielouie", name: "Pizza Margherite (1/12)", grams: 25, kcal: 52.5, prot: 1.8, carbs: 7.8, fat: 1.5 },
       { foodId: "pizza-jamon-bigorre-louielouie", name: "Pizza Jamon Bigorre (1/12)", grams: 27.5, kcal: 68.8, prot: 3.0, carbs: 7.4, fat: 2.8 },
@@ -4727,7 +4727,7 @@ const MEAL_LOG = [
   {
     id: "2026-04-19-A04",
     date: "2026-04-19",
-    meal: "snack", who: "adriana",
+    meal: "snack", user: "adriana",
     items: [
       { foodId: "alfajor-havanna-chocolate-ddl", name: "Alfajor Havanna (1/2)", grams: 27.5, kcal: 112.5, prot: 1.5, carbs: 16.0, fat: 4.7 }
     ],
@@ -4737,7 +4737,7 @@ const MEAL_LOG = [
   {
     id: "2026-04-19-A05",
     date: "2026-04-19",
-    meal: "cena", who: "adriana",
+    meal: "cena", user: "adriana",
     items: [
       { foodId: "pollo-pepiado-zucchini", name: "Pollo Pepiado", grams: 130, kcal: 118.3, prot: 17.3, carbs: 2.3, fat: 4.3 },
       { foodId: "salsa-skyr-cilantro", name: "Salsa de Skyr", grams: 34, kcal: 28.9, prot: 3.4, carbs: 1.4, fat: 1.0 },
@@ -4755,7 +4755,7 @@ const MEAL_LOG = [
   {
     id: "2026-04-20-E01",
     date: "2026-04-20",
-    meal: "desayuno",
+    meal: "desayuno", user: "ernesto",
     items: [
       { foodId: "eafit-pure-isolate-vanille", name: "EAFit Vanilla", grams: 40, kcal: 146.4, prot: 34.4, carbs: 1.3, fat: 0.4 },
       { foodId: "leche-almendra", name: "Leche Almendra", grams: 100, kcal: 13.0, prot: 0.4, carbs: 0.2, fat: 1.1 }
@@ -4765,7 +4765,7 @@ const MEAL_LOG = [
   {
     id: "2026-04-20-E02",
     date: "2026-04-20",
-    meal: "almuerzo",
+    meal: "almuerzo", user: "ernesto",
     items: [
       { foodId: "pollo-pepiado-zucchini", name: "Pollo Pepiado (ayer)", grams: 180, kcal: 163.8, prot: 23.9, carbs: 3.2, fat: 5.9 },
       { foodId: "arepa-maiz-blanco-casera", name: "Arepa Maiz Blanco", grams: 83, kcal: 126.2, prot: 2.9, carbs: 28.2, fat: 0.6 },
@@ -4777,7 +4777,7 @@ const MEAL_LOG = [
   {
     id: "2026-04-20-E03",
     date: "2026-04-20",
-    meal: "desayuno",
+    meal: "desayuno", user: "ernesto",
     items: [
       { foodId: "chausson-pommes-boulangerie", name: "Chausson Pommes (1/2)", grams: 70, units: 0.5, kcal: 238.0, prot: 2.5, carbs: 28.0, fat: 12.6 },
       { foodId: "hipro-vanille", name: "HiPro Vanille", grams: 160, units: 1, kcal: 123.2, prot: 16.3, carbs: 9.4, fat: 1.3 }
@@ -4787,7 +4787,7 @@ const MEAL_LOG = [
   {
     id: "2026-04-20-E04",
     date: "2026-04-20",
-    meal: "snack",
+    meal: "snack", user: "ernesto",
     items: [
       { foodId: "queso-maduro-espanol", name: "Queso Maduro", grams: 15, kcal: 60.0, prot: 3.8, carbs: 0.1, fat: 5.0 },
       { foodId: "sante-crispy-oat-honey", name: "Galleta Crispy Oat & Honey Santé", grams: 40, units: 1, kcal: 190.0, prot: 3.6, carbs: 24.0, fat: 8.0 }
@@ -4797,7 +4797,7 @@ const MEAL_LOG = [
   {
     id: "2026-04-20-E05",
     date: "2026-04-20",
-    meal: "cena",
+    meal: "cena", user: "ernesto",
     items: [
       { foodId: "jamon-porc-fleury-michon", name: "Jamon Porc", grams: 67, kcal: 77.1, prot: 13.4, carbs: 0.7, fat: 2.3 },
       { foodId: "champinones-frescos", name: "Hongos", grams: 70, kcal: 15.4, prot: 2.2, carbs: 2.3, fat: 0.2 },
@@ -4814,7 +4814,7 @@ const MEAL_LOG = [
   {
     id: "2026-04-20-E06",
     date: "2026-04-20",
-    meal: "snack",
+    meal: "snack", user: "ernesto",
     items: [
       { foodId: "gerble-cookie-cacao-pepites-ss", name: "Gerblé Cookie Cacao x3", grams: 32.4, units: 3, kcal: 167.8, prot: 2.6, carbs: 19.8, fat: 5.8 }
     ],
@@ -4823,7 +4823,7 @@ const MEAL_LOG = [
   {
     id: "2026-04-20-E07",
     date: "2026-04-20",
-    meal: "snack",
+    meal: "snack", user: "ernesto",
     items: [
       { foodId: "eafit-pure-isolate-chocolat", name: "EAFit Chocolat (shake compartido, 293/443g)", grams: 49.6, kcal: 175.6, prot: 40.2, carbs: 1.8, fat: 0.8 },
       { foodId: "weider-peanut-butter-powder", name: "PB Powder (shake compartido, 293/443g)", grams: 5.3, kcal: 23.3, prot: 2.6, carbs: 1.0, fat: 0.7 }
@@ -4834,7 +4834,7 @@ const MEAL_LOG = [
   {
     id: "2026-04-20-A01",
     date: "2026-04-20",
-    meal: "desayuno", who: "adriana",
+    meal: "desayuno", user: "adriana",
     items: [
       { foodId: "hipro-coco", name: "HiPro Coco", grams: 155, kcal: 86.8, prot: 14.6, carbs: 5.7, fat: 0.6 },
       { foodId: "siggis-skyr-nature", name: "Skyr Nature", grams: 145, kcal: 91.4, prot: 16.0, carbs: 5.8, fat: 0.3 },
@@ -4846,7 +4846,7 @@ const MEAL_LOG = [
   {
     id: "2026-04-20-A02",
     date: "2026-04-20",
-    meal: "almuerzo", who: "adriana",
+    meal: "almuerzo", user: "adriana",
     items: [
       { foodId: "pollo-pepiado-zucchini", name: "Pollo Pepiado", grams: 120, kcal: 109.2, prot: 16.0, carbs: 2.2, fat: 4.0 },
       { foodId: "salsa-skyr-cilantro", name: "Salsa Skyr (ayer)", grams: 20, kcal: 17.0, prot: 2.0, carbs: 0.8, fat: 0.6 },
@@ -4857,7 +4857,7 @@ const MEAL_LOG = [
   {
     id: "2026-04-20-A03",
     date: "2026-04-20",
-    meal: "snack", who: "adriana",
+    meal: "snack", user: "adriana",
     items: [
       { foodId: "kiwi-fresco", name: "Kiwis x2", grams: 150, units: 2, kcal: 91.5, prot: 1.7, carbs: 22.1, fat: 0.8 },
       { foodId: "cottage-cheese-president", name: "Cottage Casero (2 tbsp)", grams: 30, kcal: 29.7, prot: 3.6, carbs: 0.8, fat: 1.4 },
@@ -4871,7 +4871,7 @@ const MEAL_LOG = [
   {
     id: "2026-04-20-A04",
     date: "2026-04-20",
-    meal: "cena", who: "adriana",
+    meal: "cena", user: "adriana",
     items: [
       { foodId: "jamon-porc-fleury-michon", name: "Jamon Porc", grams: 56, kcal: 64.4, prot: 11.2, carbs: 0.6, fat: 2.0 },
       { foodId: "champinones-frescos", name: "Hongos Salteados", grams: 56, kcal: 12.3, prot: 1.7, carbs: 1.8, fat: 0.2 },
@@ -4886,7 +4886,7 @@ const MEAL_LOG = [
   {
     id: "2026-04-20-A05",
     date: "2026-04-20",
-    meal: "snack", who: "adriana",
+    meal: "snack", user: "adriana",
     items: [
       { foodId: "eafit-pure-isolate-chocolat", name: "EAFit Chocolat (shake compartido, 150/443g)", grams: 25.4, kcal: 89.9, prot: 20.6, carbs: 0.9, fat: 0.4 },
       { foodId: "weider-peanut-butter-powder", name: "PB Powder (shake compartido, 150/443g)", grams: 2.7, kcal: 11.9, prot: 1.3, carbs: 0.5, fat: 0.4 }
@@ -4897,7 +4897,7 @@ const MEAL_LOG = [
   {
     id: "2026-04-21-E01",
     date: "2026-04-21",
-    meal: "desayuno",
+    meal: "desayuno", user: "ernesto",
     items: [
       { foodId: "hipro-coco", name: "HiPro Coco", grams: 160, units: 1, kcal: 89.6, prot: 15.0, carbs: 5.9, fat: 0.6 },
       { foodId: "eafit-pure-isolate-chocolat", name: "EAFit Isolate Chocolat", grams: 30, kcal: 106.2, prot: 24.3, carbs: 1.1, fat: 0.5 }
@@ -4907,7 +4907,7 @@ const MEAL_LOG = [
   {
     id: "2026-04-21-E02",
     date: "2026-04-21",
-    meal: "almuerzo",
+    meal: "almuerzo", user: "ernesto",
     items: [
       { foodId: "pollo-pepiado-zucchini", name: "Pollo Pepiado (ayer)", grams: 180, kcal: 163.8, prot: 23.9, carbs: 3.2, fat: 5.9 },
       { foodId: "brocoli-cuit", name: "Brocoli", grams: 130, kcal: 45.5, prot: 3.9, carbs: 5.2, fat: 0.5 },
@@ -4919,7 +4919,7 @@ const MEAL_LOG = [
   {
     id: "2026-04-21-E03",
     date: "2026-04-21",
-    meal: "snack",
+    meal: "snack", user: "ernesto",
     items: [
       { foodId: "blueberries-frescas", name: "Blueberries", grams: 50, kcal: 28.5, prot: 0.4, carbs: 7.3, fat: 0.2 },
       { foodId: "gerble-cookie-cacao-pepites-ss", name: "Gerblé Cookie Cacao x3", grams: 32.4, units: 3, kcal: 167.8, prot: 2.6, carbs: 19.8, fat: 5.8 },
@@ -4930,7 +4930,7 @@ const MEAL_LOG = [
   {
     id: "2026-04-21-E04",
     date: "2026-04-21",
-    meal: "snack",
+    meal: "snack", user: "ernesto",
     items: [
       { foodId: "odyssee-salade-thon-intermarche", name: "Odyssée Salade au Thon", grams: 70, kcal: 87.5, prot: 5.3, carbs: 7.0, fat: 4.2 },
       { foodId: "eafit-pure-isolate-vanille", name: "EAFit Isolate Vanille", grams: 44, kcal: 161.0, prot: 37.8, carbs: 1.5, fat: 0.4 },
@@ -4943,7 +4943,7 @@ const MEAL_LOG = [
   {
     id: "2026-04-21-E05",
     date: "2026-04-21",
-    meal: "cena",
+    meal: "cena", user: "ernesto",
     items: [
       { foodId: "huevo-entero", name: "Huevo Entero", grams: 50, units: 1, kcal: 77.5, prot: 6.5, carbs: 0.6, fat: 5.5 },
       { foodId: "clara-huevo", name: "Claras x2", grams: 66, units: 2, kcal: 34.3, prot: 7.3, carbs: 0.5, fat: 0.1 },
@@ -4956,7 +4956,7 @@ const MEAL_LOG = [
   {
     id: "2026-04-21-E06",
     date: "2026-04-21",
-    meal: "snack",
+    meal: "snack", user: "ernesto",
     items: [
       { foodId: "eafit-pure-isolate-vanille", name: "EAFit Isolate Vanille (ajuste prot)", grams: 31, kcal: 113.5, prot: 26.7, carbs: 1.0, fat: 0.3 }
     ],
@@ -4966,7 +4966,7 @@ const MEAL_LOG = [
   {
     id: "2026-04-21-A01",
     date: "2026-04-21",
-    meal: "desayuno", who: "adriana",
+    meal: "desayuno", user: "adriana",
     items: [
       { foodId: "kefir-lactel-0-bio", name: "Kefir Lactel 0% Bio", grams: 200, kcal: 88.0, prot: 6.8, carbs: 8.2, fat: 3.0 },
       { foodId: "eafit-pure-isolate-vanille", name: "EAFit Isolate Vanille", grams: 27, kcal: 98.8, prot: 23.2, carbs: 0.9, fat: 0.2 },
@@ -4978,7 +4978,7 @@ const MEAL_LOG = [
   {
     id: "2026-04-21-A02",
     date: "2026-04-21",
-    meal: "almuerzo", who: "adriana",
+    meal: "almuerzo", user: "adriana",
     items: [
       { foodId: "pollo-pepiado-zucchini", name: "Pollo Pepiado", grams: 120, kcal: 109.2, prot: 16.0, carbs: 2.2, fat: 4.0 },
       { foodId: "salsa-skyr-cilantro", name: "Salsa Skyr (ayer)", grams: 20, kcal: 17.0, prot: 2.0, carbs: 0.8, fat: 0.6 },
@@ -4991,7 +4991,7 @@ const MEAL_LOG = [
   {
     id: "2026-04-21-A03",
     date: "2026-04-21",
-    meal: "snack", who: "adriana",
+    meal: "snack", user: "adriana",
     items: [
       { foodId: "kiwi-fresco", name: "Kiwi", grams: 75, units: 1, kcal: 45.8, prot: 0.8, carbs: 11.0, fat: 0.4 },
       { foodId: "eafit-pure-isolate-vanille", name: "EAFit Isolate Vanille", grams: 20, kcal: 73.2, prot: 17.2, carbs: 0.7, fat: 0.2 },
@@ -5005,7 +5005,7 @@ const MEAL_LOG = [
   {
     id: "2026-04-21-A04",
     date: "2026-04-21",
-    meal: "cena", who: "adriana",
+    meal: "cena", user: "adriana",
     items: [
       { foodId: "huevo-entero", name: "Huevo Entero", grams: 50, units: 1, kcal: 77.5, prot: 6.5, carbs: 0.6, fat: 5.5 },
       { foodId: "jamon-porc-fleury-michon", name: "Jambon de Porc", grams: 43, kcal: 49.5, prot: 8.6, carbs: 0.4, fat: 1.5 },
@@ -5018,7 +5018,7 @@ const MEAL_LOG = [
   {
     id: "2026-04-22-E01",
     date: "2026-04-22",
-    meal: "desayuno",
+    meal: "desayuno", user: "ernesto",
     items: [
       { foodId: "pain-baguette", name: "Pan Baguette", grams: 79, kcal: 216.5, prot: 6.7, carbs: 43.5, fat: 1.0 },
       { foodId: "salsa-skyr-cilantro", name: "Salsa Skyr", grams: 15, kcal: 12.8, prot: 1.5, carbs: 0.6, fat: 0.5 },
@@ -5032,7 +5032,7 @@ const MEAL_LOG = [
   {
     id: "2026-04-22-E02",
     date: "2026-04-22",
-    meal: "almuerzo",
+    meal: "almuerzo", user: "ernesto",
     items: [
       { foodId: "pain-baguette", name: "Pan Sandwich (1/2)", grams: 70, kcal: 191.8, prot: 6.0, carbs: 38.5, fat: 0.9 },
       { foodId: "pollo-pechuga-horneada", name: "Pollo sandwich", grams: 40, kcal: 66.0, prot: 12.4, carbs: 0, fat: 1.4 },
@@ -5052,7 +5052,7 @@ const MEAL_LOG = [
   {
     id: "2026-04-22-E03",
     date: "2026-04-22",
-    meal: "cena",
+    meal: "cena", user: "ernesto",
     items: [
       { foodId: "mcdonalds-mccrispy-chicken", name: "Chicken McCrispy", grams: 205, units: 1, kcal: 470.0, prot: 27.0, carbs: 45.0, fat: 20.0 },
       { foodId: "mcdonalds-papas-large", name: "Papas Large (1/2)", grams: 75, kcal: 234.0, prot: 2.6, carbs: 30.8, fat: 11.3 },
@@ -5067,7 +5067,7 @@ const MEAL_LOG = [
   {
     id: "2026-04-22-E04",
     date: "2026-04-22",
-    meal: "snack",
+    meal: "snack", user: "ernesto",
     items: [
       { foodId: "eafit-pure-isolate-vanille", name: "EAFit Isolate Vanille", grams: 40, kcal: 146.4, prot: 34.4, carbs: 1.3, fat: 0.4 },
       { foodId: "heineken-biere", name: "Heineken 500ml", grams: 500, kcal: 210.0, prot: 2.5, carbs: 16.0, fat: 0 }
@@ -5078,7 +5078,7 @@ const MEAL_LOG = [
   {
     id: "2026-04-22-A01",
     date: "2026-04-22",
-    meal: "desayuno", who: "adriana",
+    meal: "desayuno", user: "adriana",
     items: [
       { foodId: "pain-baguette", name: "Pan Baguette", grams: 71, kcal: 194.5, prot: 6.0, carbs: 39.1, fat: 0.9 },
       { foodId: "salsa-skyr-cilantro", name: "Salsa Skyr", grams: 10, kcal: 8.5, prot: 1.0, carbs: 0.4, fat: 0.3 },
@@ -5092,7 +5092,7 @@ const MEAL_LOG = [
   {
     id: "2026-04-22-A02",
     date: "2026-04-22",
-    meal: "almuerzo", who: "adriana",
+    meal: "almuerzo", user: "adriana",
     items: [
       { foodId: "pain-baguette", name: "Pan Sandwich (1/2)", grams: 70, kcal: 191.8, prot: 6.0, carbs: 38.5, fat: 0.9 },
       { foodId: "pollo-pechuga-horneada", name: "Pollo sandwich", grams: 40, kcal: 66.0, prot: 12.4, carbs: 0, fat: 1.4 },
@@ -5113,7 +5113,7 @@ const MEAL_LOG = [
   {
     id: "2026-04-22-A03",
     date: "2026-04-22",
-    meal: "cena", who: "adriana",
+    meal: "cena", user: "adriana",
     items: [
       { foodId: "mcdonalds-royal-cheese", name: "Royal Cheese (1/4 Pounder)", grams: 195, units: 1, kcal: 520.0, prot: 30.0, carbs: 40.0, fat: 26.0 },
       { foodId: "mcdonalds-papas-large", name: "Papas Large (1/2)", grams: 75, kcal: 234.0, prot: 2.6, carbs: 30.8, fat: 11.3 },
@@ -5126,7 +5126,7 @@ const MEAL_LOG = [
   {
     id: "2026-04-22-A04",
     date: "2026-04-22",
-    meal: "snack", who: "adriana",
+    meal: "snack", user: "adriana",
     items: [
       { foodId: "fuze-tea-the-vert", name: "Fuze Tea Thé Vert 330ml", grams: 330, kcal: 59.4, prot: 0, carbs: 14.5, fat: 0 }
     ],
@@ -5136,7 +5136,7 @@ const MEAL_LOG = [
   {
     id: "2026-04-23-E01",
     date: "2026-04-23",
-    meal: "desayuno",
+    meal: "desayuno", user: "ernesto",
     items: [
       { foodId: "hipro-coco", name: "HiPro Coco", grams: 160, units: 1, kcal: 89.6, prot: 15.0, carbs: 5.9, fat: 0.6 },
       { foodId: "eafit-pure-isolate-chocolat", name: "EAFit Isolate Chocolat", grams: 30, kcal: 106.2, prot: 24.3, carbs: 1.1, fat: 0.5 },
@@ -5147,7 +5147,7 @@ const MEAL_LOG = [
   {
     id: "2026-04-23-A01",
     date: "2026-04-23",
-    meal: "desayuno", who: "adriana",
+    meal: "desayuno", user: "adriana",
     items: [
       { foodId: "hipro-coco", name: "HiPro Coco", grams: 160, units: 1, kcal: 89.6, prot: 15.0, carbs: 5.9, fat: 0.6 }
     ],
@@ -5156,7 +5156,7 @@ const MEAL_LOG = [
   {
     id: "2026-04-23-E02",
     date: "2026-04-23",
-    meal: "almuerzo",
+    meal: "almuerzo", user: "ernesto",
     items: [
       { foodId: "papas-ambacht-frites-artesanales", name: "Frites Papa's Ambacht (Large+Regular /2)", grams: 275, kcal: 962.5, prot: 11.0, carbs: 115.5, fat: 49.5 },
       { foodId: "queso-dutch-oud-amsterdam", name: "Queso Dutch Oud (compartido /2)", grams: 15, kcal: 57.0, prot: 4.2, carbs: 0, fat: 4.5 },
@@ -5170,7 +5170,7 @@ const MEAL_LOG = [
   {
     id: "2026-04-23-A02",
     date: "2026-04-23",
-    meal: "almuerzo", who: "adriana",
+    meal: "almuerzo", user: "adriana",
     items: [
       { foodId: "papas-ambacht-frites-artesanales", name: "Frites Papa's Ambacht (Large+Regular /2)", grams: 275, kcal: 962.5, prot: 11.0, carbs: 115.5, fat: 49.5 },
       { foodId: "queso-dutch-oud-amsterdam", name: "Queso Dutch Oud (compartido /2)", grams: 15, kcal: 57.0, prot: 4.2, carbs: 0, fat: 4.5 },
@@ -5184,7 +5184,7 @@ const MEAL_LOG = [
   {
     id: "2026-04-23-E03",
     date: "2026-04-23",
-    meal: "snack",
+    meal: "snack", user: "ernesto",
     items: [
       { foodId: "poffertjes-mini-dutch", name: "Mini Poffertjes x10", grams: 80, units: 10, kcal: 272.0, prot: 4.0, carbs: 38.4, fat: 10.4 },
       { foodId: "salsa-pistacho", name: "Salsa Pistacho", grams: 20, kcal: 100.0, prot: 1.6, carbs: 8.0, fat: 7.0 },
@@ -5196,7 +5196,7 @@ const MEAL_LOG = [
   {
     id: "2026-04-23-E04",
     date: "2026-04-23",
-    meal: "cena",
+    meal: "cena", user: "ernesto",
     items: [
       { foodId: "sopa-thai-mariscos-picante", name: "Sopa Thai Picante Mariscos", grams: 300, kcal: 150.0, prot: 12.0, carbs: 12.0, fat: 4.5 },
       { foodId: "coca-cola-zero", name: "Coca-Cola Zero", grams: 330, kcal: 1.3, prot: 0, carbs: 0, fat: 0 },
@@ -5208,7 +5208,7 @@ const MEAL_LOG = [
   {
     id: "2026-04-23-A03",
     date: "2026-04-23",
-    meal: "cena", who: "adriana",
+    meal: "cena", user: "adriana",
     items: [
       { foodId: "sopa-thai-mariscos-picante", name: "Sopa Thai Picante Mariscos", grams: 300, kcal: 150.0, prot: 12.0, carbs: 12.0, fat: 4.5 },
       { foodId: "arroz-basmati-cocido", name: "Arroz Basmati", grams: 60, kcal: 78.0, prot: 1.6, carbs: 16.8, fat: 0.2 },
@@ -5219,7 +5219,7 @@ const MEAL_LOG = [
   {
     id: "2026-04-23-E05",
     date: "2026-04-23",
-    meal: "snack",
+    meal: "snack", user: "ernesto",
     items: [
       { foodId: "eafit-pure-isolate-vanille", name: "EAFit Isolate Vanille", grams: 40, kcal: 146.4, prot: 34.4, carbs: 1.3, fat: 0.4 }
     ],
@@ -5229,7 +5229,7 @@ const MEAL_LOG = [
   {
     id: "2026-04-24-E01",
     date: "2026-04-24",
-    meal: "desayuno",
+    meal: "desayuno", user: "ernesto",
     items: [
       { foodId: "hipro-banana-drink", name: "HiPro Banana Drink (botella 345ml, 25g prot)", grams: 345, kcal: 186.3, prot: 24.8, carbs: 13.8, fat: 1.0 },
       { foodId: "eafit-pure-isolate-vanille", name: "EAFit Isolate Vanille", grams: 40, kcal: 146.4, prot: 34.4, carbs: 1.3, fat: 0.4 }
@@ -5239,7 +5239,7 @@ const MEAL_LOG = [
   {
     id: "2026-04-24-E02",
     date: "2026-04-24",
-    meal: "almuerzo",
+    meal: "almuerzo", user: "ernesto",
     items: [
       { foodId: "te-verde-menta", name: "Té Verde con Menta", grams: 250, kcal: 2.5, prot: 0, carbs: 0, fat: 0 },
       { foodId: "ensalada-thai-peanut-mango-satay-oliver-green", name: "Ensalada Thai Peanut Mango Satay (Oliver Green)", grams: 500, kcal: 650.0, prot: 42.5, carbs: 55.0, fat: 30.0 }
@@ -5249,7 +5249,7 @@ const MEAL_LOG = [
   {
     id: "2026-04-24-E03",
     date: "2026-04-24",
-    meal: "snack",
+    meal: "snack", user: "ernesto",
     items: [
       { foodId: "stroopwafel-rudi-chocolate-negro", name: "Stroopwafel Rudi con Chocolate Negro", grams: 40, units: 1, kcal: 192.0, prot: 2.4, carbs: 26.0, fat: 8.8 }
     ],
@@ -5258,7 +5258,7 @@ const MEAL_LOG = [
   {
     id: "2026-04-24-E04",
     date: "2026-04-24",
-    meal: "cena",
+    meal: "cena", user: "ernesto",
     items: [
       { foodId: "frites-pareltje-amsterdam", name: "Large Frites 't Pareltje (5oz)", grams: 142, kcal: 497.0, prot: 5.7, carbs: 59.6, fat: 25.6 },
       { foodId: "mayo-trufa", name: "Mayo Trufa (1/3)", grams: 17, kcal: 76.5, prot: 0.5, carbs: 0.9, fat: 7.8 },
@@ -5272,7 +5272,7 @@ const MEAL_LOG = [
   {
     id: "2026-04-25-E01",
     date: "2026-04-25",
-    meal: "desayuno",
+    meal: "desayuno", user: "ernesto",
     items: [
       { foodId: "zuivelhoeve-stevige-trek", name: "Zuivelhoeve Stevige Trek con Granola (pot grande)", grams: 200, units: 1, kcal: 270.0, prot: 10.0, carbs: 34.0, fat: 9.0 }
     ],
@@ -5281,7 +5281,7 @@ const MEAL_LOG = [
   {
     id: "2026-04-25-E02",
     date: "2026-04-25",
-    meal: "almuerzo",
+    meal: "almuerzo", user: "ernesto",
     items: [
       { foodId: "van-stapele-cookie", name: "Van Stapele Cookie x2", grams: 160, units: 2, kcal: 800.0, prot: 8.0, carbs: 80.0, fat: 44.8 },
       { foodId: "subway-sweet-onion-chicken-teriyaki-15cm", name: "Subway Sweet Onion Chicken Teriyaki 15cm (pan sésamo)", grams: 245, units: 1, kcal: 370.0, prot: 27.0, carbs: 60.0, fat: 4.5 }
@@ -5291,7 +5291,7 @@ const MEAL_LOG = [
   {
     id: "2026-04-25-E03",
     date: "2026-04-25",
-    meal: "snack",
+    meal: "snack", user: "ernesto",
     items: [
       { foodId: "tres-leches-tiramisu-amsterdam", name: "Tres Leches Tiramisu (De Beste Lekkernij Herenstraat)", grams: 120, units: 1, kcal: 336.0, prot: 5.4, carbs: 36.0, fat: 18.0 },
       { foodId: "papas-ambacht-frites-artesanales", name: "Frites Regular 1/2 (compartidas)", grams: 75, kcal: 262.5, prot: 3.0, carbs: 31.5, fat: 13.5 },
@@ -5302,7 +5302,7 @@ const MEAL_LOG = [
   {
     id: "2026-04-25-E04",
     date: "2026-04-25",
-    meal: "cena",
+    meal: "cena", user: "ernesto",
     items: [
       { foodId: "zaanlander-48-cheese", name: "Queso Zaanlander +48 (2.5 rodajas)", grams: 50, units: 2.5, kcal: 210.0, prot: 13.5, carbs: 0, fat: 17.5 },
       { foodId: "pollo-salteado", name: "Pollo Salteado", grams: 200, kcal: 360.0, prot: 62.0, carbs: 0, fat: 12.0 },
@@ -5315,7 +5315,7 @@ const MEAL_LOG = [
   {
     id: "2026-04-26-E01",
     date: "2026-04-26",
-    meal: "desayuno",
+    meal: "desayuno", user: "ernesto",
     items: [
       { foodId: "hipro-vanille", name: "HiPro Vanille (1 pot)", grams: 160, units: 1, kcal: 123.2, prot: 16.3, carbs: 9.4, fat: 1.3 },
       { foodId: "frambuesas-fresas", name: "Frambuesas", grams: 20, kcal: 10.4, prot: 0.2, carbs: 2.4, fat: 0.1 }
@@ -5325,7 +5325,7 @@ const MEAL_LOG = [
   {
     id: "2026-04-26-E02",
     date: "2026-04-26",
-    meal: "snack",
+    meal: "snack", user: "ernesto",
     items: [
       { foodId: "gerble-cookie-cacao-pepites-ss", name: "Gerblé Cookie Cacao Pépites Sans Sucres x3", grams: 32.4, units: 3, kcal: 167.8, prot: 2.6, carbs: 19.8, fat: 5.8 }
     ],
@@ -5334,7 +5334,7 @@ const MEAL_LOG = [
   {
     id: "2026-04-26-E03",
     date: "2026-04-26",
-    meal: "almuerzo",
+    meal: "almuerzo", user: "ernesto",
     items: [
       { foodId: "carne-mechada", name: "Carne Mechada", grams: 250, kcal: 475.0, prot: 55.0, carbs: 10.0, fat: 22.5 },
       { foodId: "pain-baguette", name: "Pain Baguette", grams: 40, kcal: 109.6, prot: 3.4, carbs: 22.0, fat: 0.5 },
@@ -5347,7 +5347,7 @@ const MEAL_LOG = [
   {
     id: "2026-04-26-E04",
     date: "2026-04-26",
-    meal: "cena",
+    meal: "cena", user: "ernesto",
     items: [
       { foodId: "sopa-pollo-fideos-vegetales", name: "Sopa Pollo Fideos Brócoli y Zanahoria", grams: 400, kcal: 200.0, prot: 12.0, carbs: 24.0, fat: 4.8 },
       { foodId: "chocolate-negro-90", name: "Chocolate Negro 10g", grams: 10, kcal: 59.2, prot: 1.0, carbs: 1.4, fat: 5.5 }
@@ -5358,7 +5358,7 @@ const MEAL_LOG = [
   {
     id: "2026-04-24-A01",
     date: "2026-04-24",
-    meal: "desayuno", who: "adriana",
+    meal: "desayuno", user: "adriana",
     items: [
       { foodId: "hotel-yogurt-granola-amsterdam", name: "Yogurt con Granola del Hotel", grams: 180, units: 1, kcal: 216.0, prot: 9.0, carbs: 25.2, fat: 9.0 },
       { foodId: "eafit-pure-isolate-vanille", name: "EAFit Vainilla con agua (120ml)", grams: 30, kcal: 109.8, prot: 25.8, carbs: 1.0, fat: 0.3 }
@@ -5368,7 +5368,7 @@ const MEAL_LOG = [
   {
     id: "2026-04-24-A02",
     date: "2026-04-24",
-    meal: "almuerzo", who: "adriana",
+    meal: "almuerzo", user: "adriana",
     items: [
       { foodId: "ensalada-thai-peanut-mango-satay-oliver-green", name: "Bowl Autumn Chicken (espinaca, pollo, camote, feta, brocoli, tomate cherry, manzana, almendras, balsamico, arroz integral)", grams: 500, kcal: 650.0, prot: 40.0, carbs: 75.0, fat: 25.0 },
       { foodId: "te-verde-menta", name: "Té de Menta", grams: 250, kcal: 2.5, prot: 0, carbs: 0, fat: 0 }
@@ -5378,7 +5378,7 @@ const MEAL_LOG = [
   {
     id: "2026-04-24-A03",
     date: "2026-04-24",
-    meal: "snack", who: "adriana",
+    meal: "snack", user: "adriana",
     items: [
       { foodId: "stroopwafel-rudi-chocolate-negro", name: "Stroopwafel Rudi's", grams: 40, units: 1, kcal: 192.0, prot: 2.4, carbs: 26.0, fat: 8.8 }
     ],
@@ -5387,7 +5387,7 @@ const MEAL_LOG = [
   {
     id: "2026-04-24-A04",
     date: "2026-04-24",
-    meal: "cena", who: "adriana",
+    meal: "cena", user: "adriana",
     items: [
       { foodId: "frites-pareltje-amsterdam", name: "Large Frites 't Pareltje (5oz, mismas que Ernesto)", grams: 142, kcal: 497.0, prot: 5.7, carbs: 59.6, fat: 25.6 },
       { foodId: "mayo-trufa", name: "Mayo Trufa", grams: 17, kcal: 76.5, prot: 0.5, carbs: 0.9, fat: 7.8 },
@@ -5400,7 +5400,7 @@ const MEAL_LOG = [
   {
     id: "2026-04-25-A01",
     date: "2026-04-25",
-    meal: "desayuno", who: "adriana",
+    meal: "desayuno", user: "adriana",
     items: [
       { foodId: "zuivelhoeve-stevige-trek", name: "Zuivelhoeve Stevige Trek con Granola (pot grande)", grams: 200, units: 1, kcal: 270.0, prot: 10.0, carbs: 34.0, fat: 9.0 }
     ],
@@ -5409,7 +5409,7 @@ const MEAL_LOG = [
   {
     id: "2026-04-25-A02",
     date: "2026-04-25",
-    meal: "almuerzo", who: "adriana",
+    meal: "almuerzo", user: "adriana",
     items: [
       { foodId: "subway-melt-sweet-onion-15cm", name: "Subway Melt 15cm con Sweet Onion", grams: 245, units: 1, kcal: 410.0, prot: 23.0, carbs: 56.0, fat: 11.0 },
       { foodId: "van-stapele-cookie", name: "Van Stapele Cookie x2", grams: 160, units: 2, kcal: 800.0, prot: 8.0, carbs: 80.0, fat: 44.8 }
@@ -5419,7 +5419,7 @@ const MEAL_LOG = [
   {
     id: "2026-04-25-A03",
     date: "2026-04-25",
-    meal: "cena", who: "adriana",
+    meal: "cena", user: "adriana",
     items: [
       { foodId: "zaanlander-48-cheese", name: "Queso Zaanlander +48 (2 rodajas)", grams: 40, units: 2, kcal: 168.0, prot: 10.8, carbs: 0, fat: 14.0 },
       { foodId: "pollo-salteado", name: "Pollo Salteado", grams: 100, kcal: 180.0, prot: 31.0, carbs: 0, fat: 6.0 },
@@ -5431,7 +5431,7 @@ const MEAL_LOG = [
   {
     id: "2026-04-25-A04",
     date: "2026-04-25",
-    meal: "snack", who: "adriana",
+    meal: "snack", user: "adriana",
     items: [
       { foodId: "tres-leches-tiramisu-amsterdam", name: "Tres Leches Tiramisu (1/2 porción)", grams: 60, units: 0.5, kcal: 168.0, prot: 2.7, carbs: 18.0, fat: 9.0 },
       { foodId: "tres-leches-pistacho-amsterdam", name: "Tres Leches Pistacho (1/2 porción)", grams: 60, units: 0.5, kcal: 174.0, prot: 3.3, carbs: 16.8, fat: 9.6 },
@@ -5444,7 +5444,7 @@ const MEAL_LOG = [
   {
     id: "2026-04-26-A01",
     date: "2026-04-26",
-    meal: "desayuno", who: "adriana",
+    meal: "desayuno", user: "adriana",
     items: [
       { foodId: "huevo-entero", name: "Huevo Entero x2", grams: 100, units: 2, kcal: 155.0, prot: 13.0, carbs: 1.2, fat: 11.0 },
       { foodId: "jamon-porc-fleury-michon", name: "Jamón", grams: 23, kcal: 26.5, prot: 4.6, carbs: 0.2, fat: 0.8 },
@@ -5458,7 +5458,7 @@ const MEAL_LOG = [
   {
     id: "2026-04-26-A02",
     date: "2026-04-26",
-    meal: "snack", who: "adriana",
+    meal: "snack", user: "adriana",
     items: [
       { foodId: "frambuesas-fresas", name: "Frambuesas", grams: 24, kcal: 12.5, prot: 0.3, carbs: 2.9, fat: 0.2 },
       { foodId: "fresas-frescas", name: "Fresas Frescas", grams: 45, kcal: 14.4, prot: 0.3, carbs: 3.5, fat: 0.1 },
@@ -5471,7 +5471,7 @@ const MEAL_LOG = [
   {
     id: "2026-04-26-A03",
     date: "2026-04-26",
-    meal: "cena", who: "adriana",
+    meal: "cena", user: "adriana",
     items: [
       { foodId: "bavette-cocida", name: "Fideos Cocidos", grams: 87, kcal: 136.6, prot: 4.8, carbs: 27.0, fat: 0.8 },
       { foodId: "caldo-pollo", name: "Caldo de Pollo (180ml)", grams: 180, kcal: 18.0, prot: 2.7, carbs: 0.9, fat: 0.5 },
@@ -5484,7 +5484,7 @@ const MEAL_LOG = [
   {
     id: "2026-04-27-A01",
     date: "2026-04-27",
-    meal: "desayuno", who: "adriana",
+    meal: "desayuno", user: "adriana",
     items: [
       { foodId: "hipro-vanille", name: "HiPro Vanille", grams: 155, kcal: 119.4, prot: 15.8, carbs: 9.1, fat: 1.2 },
       { foodId: "siggis-skyr-nature", name: "Skyr Nature", grams: 145, kcal: 91.4, prot: 16.0, carbs: 5.8, fat: 0.3 },
@@ -5495,7 +5495,7 @@ const MEAL_LOG = [
   {
     id: "2026-04-27-A02",
     date: "2026-04-27",
-    meal: "snack", who: "adriana",
+    meal: "snack", user: "adriana",
     items: [
       { foodId: "stroopwafel-rudi-chocolate-negro", name: "Stroopwafels x2", grams: 80, units: 2, kcal: 384.0, prot: 4.8, carbs: 52.0, fat: 17.6 }
     ],
@@ -5504,7 +5504,7 @@ const MEAL_LOG = [
   {
     id: "2026-04-27-A03",
     date: "2026-04-27",
-    meal: "almuerzo", who: "adriana",
+    meal: "almuerzo", user: "adriana",
     items: [
       { foodId: "lechuga-fresca", name: "Hojas de Lechuga", grams: 40, kcal: 6.0, prot: 0.6, carbs: 1.2, fat: 0.1 },
       { foodId: "chile-rojo-fresco", name: "Chile Rojo", grams: 40, kcal: 12.4, prot: 0.4, carbs: 2.4, fat: 0.1 },
@@ -5519,7 +5519,7 @@ const MEAL_LOG = [
   {
     id: "2026-04-27-E01",
     date: "2026-04-27",
-    meal: "desayuno",
+    meal: "desayuno", user: "ernesto",
     items: [
       { foodId: "hipro-blueberry", name: "HiPro Myrtille (Blueberry)", grams: 160, units: 1, kcal: 84.8, prot: 15.0, carbs: 6.1, fat: 0 },
       { foodId: "cafe-negro", name: "Café sin azúcar", grams: 240, units: 1, kcal: 4.8, prot: 0.2, carbs: 0, fat: 0 },
@@ -5531,7 +5531,7 @@ const MEAL_LOG = [
   {
     id: "2026-04-27-E02",
     date: "2026-04-27",
-    meal: "almuerzo",
+    meal: "almuerzo", user: "ernesto",
     items: [
       { foodId: "lechuga-fresca", name: "Hojas de Lechuga", grams: 40, kcal: 6.0, prot: 0.6, carbs: 1.2, fat: 0.1 },
       { foodId: "chile-rojo-fresco", name: "Chile Rojo", grams: 40, kcal: 12.4, prot: 0.4, carbs: 2.4, fat: 0.1 },
@@ -5546,7 +5546,7 @@ const MEAL_LOG = [
   {
     id: "2026-04-27-A04",
     date: "2026-04-27",
-    meal: "snack", who: "adriana",
+    meal: "snack", user: "adriana",
     items: [
       { foodId: "eafit-pure-isolate-chocolat", name: "Pure Isolate Whey Chocolat", grams: 25, kcal: 88.5, prot: 20.3, carbs: 0.9, fat: 0.4 },
       { foodId: "kefir-lactel-0-bio", name: "Kéfir Lactel 0%", grams: 107, kcal: 47.1, prot: 3.6, carbs: 4.4, fat: 1.6 },
@@ -5561,7 +5561,7 @@ const MEAL_LOG = [
   {
     id: "2026-04-27-A05",
     date: "2026-04-27",
-    meal: "cena", who: "adriana",
+    meal: "cena", user: "adriana",
     items: [
       { foodId: "huevo-entero", name: "Huevo Entero", grams: 50, units: 1, kcal: 77.5, prot: 6.5, carbs: 0.6, fat: 5.5 },
       { foodId: "clara-huevo", name: "Clara de Huevo", grams: 33, units: 1, kcal: 17.2, prot: 3.6, carbs: 0.2, fat: 0.1 },
@@ -5574,7 +5574,7 @@ const MEAL_LOG = [
   {
     id: "2026-04-27-E03",
     date: "2026-04-27",
-    meal: "snack",
+    meal: "snack", user: "ernesto",
     items: [
       { foodId: "eafit-pure-isolate-vanille", name: "Pure Isolate Whey Vanille", grams: 40, kcal: 146.4, prot: 34.4, carbs: 1.3, fat: 0.4 },
       { foodId: "fresas-frescas", name: "Fresas Frescas", grams: 50, kcal: 16.0, prot: 0.4, carbs: 3.9, fat: 0.2 }
@@ -5584,7 +5584,7 @@ const MEAL_LOG = [
   {
     id: "2026-04-27-E04",
     date: "2026-04-27",
-    meal: "cena",
+    meal: "cena", user: "ernesto",
     items: [
       { foodId: "huevo-entero", name: "Huevo Entero", grams: 50, units: 1, kcal: 77.5, prot: 6.5, carbs: 0.6, fat: 5.5 },
       { foodId: "clara-huevo", name: "Claras de Huevo", grams: 66, units: 2, kcal: 34.3, prot: 7.3, carbs: 0.5, fat: 0.1 },
@@ -5600,7 +5600,7 @@ const MEAL_LOG = [
   {
     id: "2026-04-27-E05",
     date: "2026-04-27",
-    meal: "snack",
+    meal: "snack", user: "ernesto",
     items: [
       { foodId: "wasa-fibre", name: "Wasa Fibre", grams: 14, units: 1, kcal: 47.6, prot: 1.4, carbs: 8.1, fat: 0.4 },
       { foodId: "mermelada-lucien-fraises-sans-sucres", name: "Mermelada Sans Sucres", grams: 10, kcal: 8.9, prot: 0.1, carbs: 2.2, fat: 0.1 },
@@ -5611,7 +5611,7 @@ const MEAL_LOG = [
   {
     id: "2026-04-27-E06",
     date: "2026-04-27",
-    meal: "snack",
+    meal: "snack", user: "ernesto",
     items: [
       { foodId: "lu-petit-beurre", name: "LU Petit Beurre x3", grams: 25, units: 3, kcal: 108.8, prot: 1.9, carbs: 18.8, fat: 2.8 }
     ],
@@ -5620,7 +5620,7 @@ const MEAL_LOG = [
   {
     id: "2026-04-28-A01",
     date: "2026-04-28",
-    meal: "desayuno", who: "adriana",
+    meal: "desayuno", user: "adriana",
     items: [
       { foodId: "hipro-coco", name: "HiPro Coco", grams: 155, kcal: 86.8, prot: 14.6, carbs: 5.7, fat: 0.6 },
       { foodId: "siggis-skyr-nature", name: "Skyr Siggis Nature", grams: 150, kcal: 94.5, prot: 16.5, carbs: 6.0, fat: 0.3 },
@@ -5632,7 +5632,7 @@ const MEAL_LOG = [
   {
     id: "2026-04-28-A02",
     date: "2026-04-28",
-    meal: "almuerzo", who: "adriana",
+    meal: "almuerzo", user: "adriana",
     items: [
       { foodId: "lechuga-fresca", name: "Hojas de Lechuga", grams: 40, kcal: 6.0, prot: 0.6, carbs: 1.2, fat: 0.1 },
       { foodId: "chile-rojo-fresco", name: "Chile Rojo", grams: 40, kcal: 12.4, prot: 0.4, carbs: 2.4, fat: 0.1 },
@@ -5646,7 +5646,7 @@ const MEAL_LOG = [
   {
     id: "2026-04-28-A03",
     date: "2026-04-28",
-    meal: "snack", who: "adriana",
+    meal: "snack", user: "adriana",
     items: [
       { foodId: "mandarina-fresca", name: "Mandarina", grams: 80, units: 1, kcal: 37.6, prot: 0.6, carbs: 9.6, fat: 0.2 }
     ],
@@ -5655,7 +5655,7 @@ const MEAL_LOG = [
   {
     id: "2026-04-28-A04",
     date: "2026-04-28",
-    meal: "snack", who: "adriana",
+    meal: "snack", user: "adriana",
     items: [
       { foodId: "kefir-lactel-0-bio", name: "Kéfir Lactel 0%", grams: 130, kcal: 57.2, prot: 4.4, carbs: 5.3, fat: 2.0 },
       { foodId: "siggis-skyr-nature", name: "Skyr Nature", grams: 42, kcal: 26.5, prot: 4.6, carbs: 1.7, fat: 0.1 },
@@ -5668,7 +5668,7 @@ const MEAL_LOG = [
   {
     id: "2026-04-28-A05",
     date: "2026-04-28",
-    meal: "cena", who: "adriana",
+    meal: "cena", user: "adriana",
     items: [
       { foodId: "huevo-entero", name: "Huevos Enteros x2", grams: 100, units: 2, kcal: 155.0, prot: 13.0, carbs: 1.1, fat: 11.0 },
       { foodId: "wasa-leger", name: "Wasa Holandesa", grams: 25, kcal: 84.5, prot: 2.3, carbs: 15.5, fat: 0.4 },
@@ -5681,7 +5681,7 @@ const MEAL_LOG = [
   {
     id: "2026-04-28-E01",
     date: "2026-04-28",
-    meal: "desayuno",
+    meal: "desayuno", user: "ernesto",
     items: [
       { foodId: "hipro-coco", name: "HiPro Coco", grams: 160, units: 1, kcal: 89.6, prot: 15.0, carbs: 5.9, fat: 0.6 },
       { foodId: "starbucks-protein-drink-coffee-lowfat", name: "Starbucks Protein Coffee Drink Low Fat", grams: 330, units: 1, kcal: 168.3, prot: 20.1, carbs: 13.5, fat: 3.6 }
@@ -5691,7 +5691,7 @@ const MEAL_LOG = [
   {
     id: "2026-04-28-E02",
     date: "2026-04-28",
-    meal: "almuerzo",
+    meal: "almuerzo", user: "ernesto",
     items: [
       { foodId: "lechuga-fresca", name: "Hojas de Lechuga", grams: 40, kcal: 6.0, prot: 0.6, carbs: 1.2, fat: 0.1 },
       { foodId: "chile-rojo-fresco", name: "Chile Rojo", grams: 40, kcal: 12.4, prot: 0.4, carbs: 2.4, fat: 0.1 },
@@ -5712,7 +5712,7 @@ const MEAL_LOG = [
   {
     id: "2026-04-28-E03",
     date: "2026-04-28",
-    meal: "cena",
+    meal: "cena", user: "ernesto",
     items: [
       { foodId: "huevo-entero", name: "Huevo Entero", grams: 50, units: 1, kcal: 77.5, prot: 6.5, carbs: 0.6, fat: 5.5 },
       { foodId: "clara-huevo", name: "Claras de Huevo", grams: 66, units: 2, kcal: 34.3, prot: 7.3, carbs: 0.5, fat: 0.1 },
@@ -5726,7 +5726,7 @@ const MEAL_LOG = [
   {
     id: "2026-04-28-E04",
     date: "2026-04-28",
-    meal: "snack",
+    meal: "snack", user: "ernesto",
     items: [
       { foodId: "tony-chocolonely-dark-70", name: "Tony's Chocolonely Dark 70%", grams: 12, kcal: 69.0, prot: 1.1, carbs: 4.1, fat: 4.9 }
     ],
@@ -5735,7 +5735,7 @@ const MEAL_LOG = [
   {
     id: "2026-04-29-E01",
     date: "2026-04-29",
-    meal: "desayuno",
+    meal: "desayuno", user: "ernesto",
     items: [
       { foodId: "hipro-coco", name: "HiPro Coco", grams: 160, units: 1, kcal: 89.6, prot: 15.0, carbs: 5.9, fat: 0.6 },
       { foodId: "eafit-pure-isolate-vanille", name: "Pure Isolate Whey Vanille", grams: 30, kcal: 109.8, prot: 25.8, carbs: 1.0, fat: 0.3 }
@@ -5745,7 +5745,7 @@ const MEAL_LOG = [
   {
     id: "2026-04-29-E02",
     date: "2026-04-29",
-    meal: "almuerzo",
+    meal: "almuerzo", user: "ernesto",
     items: [
       { foodId: "lomo-cerdo-horneado", name: "Lomo de Cerdo Horneado", grams: 120, kcal: 171.6, prot: 31.2, carbs: 0, fat: 5.4 },
       { foodId: "camote-hervido", name: "Camote Hervido", grams: 80, kcal: 60.8, prot: 1.1, carbs: 14.2, fat: 0.1 },
@@ -5758,7 +5758,7 @@ const MEAL_LOG = [
   {
     id: "2026-04-29-E03",
     date: "2026-04-29",
-    meal: "snack",
+    meal: "snack", user: "ernesto",
     items: [
       { foodId: "tastybasics-cracker-protein", name: "TastyBasics Fibre Cracker (Amsterdam)", grams: 20, kcal: 99.6, prot: 7.2, carbs: 3.0, fat: 6.0 },
       { foodId: "danone-cottage-cheese", name: "Cottage Cheese", grams: 80, kcal: 72.0, prot: 9.6, carbs: 1.3, fat: 3.1 }
@@ -5769,7 +5769,7 @@ const MEAL_LOG = [
     id: "2026-04-29-A01",
     date: "2026-04-29",
     meal: "desayuno",
-    who: "adriana",
+    user: "adriana",
     items: [
       { foodId: "kefir-lactel-0-bio", name: "Kéfir Lactel 0%", grams: 90, kcal: 39.6, prot: 3.1, carbs: 3.7, fat: 1.4 },
       { foodId: "siggis-skyr-nature", name: "Skyr Nature", grams: 75, kcal: 47.3, prot: 8.3, carbs: 3.0, fat: 0.2 },
@@ -5783,7 +5783,7 @@ const MEAL_LOG = [
     id: "2026-04-29-A02",
     date: "2026-04-29",
     meal: "snack",
-    who: "adriana",
+    user: "adriana",
     items: [
       { foodId: "pain-aux-raisins", name: "Pain aux Raisins (Roulé)", grams: 90, units: 1, kcal: 306.0, prot: 5.9, carbs: 40.5, fat: 13.5 }
     ],
@@ -5793,7 +5793,7 @@ const MEAL_LOG = [
     id: "2026-04-29-A03",
     date: "2026-04-29",
     meal: "snack",
-    who: "adriana",
+    user: "adriana",
     items: [
       { foodId: "wasa-leger", name: "Wasa Leger x2", grams: 19.2, units: 2, kcal: 64.9, prot: 1.7, carbs: 11.9, fat: 0.3 },
       { foodId: "ricotta-casa-azzurra", name: "Ricotta Casa Azzurra", grams: 46, kcal: 69.0, prot: 3.7, carbs: 0.6, fat: 5.5 },
@@ -5805,7 +5805,7 @@ const MEAL_LOG = [
     id: "2026-04-29-A04",
     date: "2026-04-29",
     meal: "cena",
-    who: "adriana",
+    user: "adriana",
     items: [
       { foodId: "bavette-cocida", name: "Fideos Cocidos", grams: 93, kcal: 146.0, prot: 5.1, carbs: 28.8, fat: 0.8 },
       { foodId: "caldo-pollo", name: "Caldo de Pollo", grams: 198, kcal: 19.8, prot: 3.0, carbs: 1.0, fat: 0.6 },
@@ -5818,7 +5818,7 @@ const MEAL_LOG = [
     id: "2026-04-29-A05",
     date: "2026-04-29",
     meal: "almuerzo",
-    who: "adriana",
+    user: "adriana",
     items: [
       { foodId: "lomo-cerdo-horneado", name: "Lomo de Cerdo Horneado", grams: 90, kcal: 128.7, prot: 23.4, carbs: 0, fat: 4.1 },
       { foodId: "brocoli-cuit", name: "Brócoli", grams: 90, kcal: 31.5, prot: 2.7, carbs: 3.6, fat: 0.4 },
@@ -5830,7 +5830,7 @@ const MEAL_LOG = [
   {
     id: "2026-04-29-E04",
     date: "2026-04-29",
-    meal: "snack",
+    meal: "snack", user: "ernesto",
     items: [
       { foodId: "tony-chocolonely-dark-70", name: "Chocolate Negro 70%", grams: 20, kcal: 115.0, prot: 1.8, carbs: 6.8, fat: 8.2 },
       { foodId: "wasa-leger", name: "Wasa Light x2", grams: 19.2, units: 2, kcal: 64.9, prot: 1.7, carbs: 11.9, fat: 0.3 },
@@ -5842,7 +5842,7 @@ const MEAL_LOG = [
   {
     id: "2026-04-29-E05",
     date: "2026-04-29",
-    meal: "cena",
+    meal: "cena", user: "ernesto",
     items: [
       { foodId: "fideos-chinos-mamee", name: "Mamee Poulet (80% del sachet 85g = 68g seco)", grams: 68, kcal: 257.0, prot: 6.3, carbs: 31.7, fat: 11.2 },
       { foodId: "lomo-cerdo-horneado", name: "Cerdo Horneado", grams: 50, kcal: 71.5, prot: 13.0, carbs: 0, fat: 2.3 },
@@ -5854,7 +5854,7 @@ const MEAL_LOG = [
   {
     id: "2026-04-30-E01",
     date: "2026-04-30",
-    meal: "desayuno",
+    meal: "desayuno", user: "ernesto",
     items: [
       { foodId: "eafit-pure-isolate-vanille", name: "Pure Isolate Whey Vanille", grams: 40, kcal: 146.4, prot: 34.4, carbs: 1.3, fat: 0.4 },
       { foodId: "banana-fresca", name: "Banana", grams: 35, kcal: 31.2, prot: 0.4, carbs: 8.0, fat: 0.1 },
@@ -5866,7 +5866,7 @@ const MEAL_LOG = [
   {
     id: "2026-04-30-E02",
     date: "2026-04-30",
-    meal: "almuerzo",
+    meal: "almuerzo", user: "ernesto",
     items: [
       { foodId: "lomo-cerdo-horneado", name: "Lomo de Cerdo Horneado", grams: 130, kcal: 185.9, prot: 33.8, carbs: 0, fat: 5.9 },
       { foodId: "brocoli-cuit", name: "Brócoli", grams: 120, kcal: 42.0, prot: 3.6, carbs: 4.8, fat: 0.5 },
@@ -5880,7 +5880,7 @@ const MEAL_LOG = [
   {
     id: "2026-04-30-E03",
     date: "2026-04-30",
-    meal: "snack",
+    meal: "snack", user: "ernesto",
     items: [
       { foodId: "kinder-chocobon", name: "Kinder Chocobon x1", grams: 5, units: 1, kcal: 28.3, prot: 0.4, carbs: 2.8, fat: 1.7 }
     ],
@@ -5892,40 +5892,40 @@ const MEAL_LOG = [
 // Activity log - gym sessions and step data
 // Steps from Samsung Health, gym from Apple Watch/tracker
 const ACTIVITY_LOG = [
-  { date: "2026-03-29", steps: 3000, stepsKcal: 50,  gym: null, gymKcal: 0,   notes: "estimado pasos" },
-  { date: "2026-03-30", steps: 200,  stepsKcal: 0,   gym: null, gymKcal: 0,   notes: "lunes casi sin pasos" },
-  { date: "2026-03-31", steps: 4000, stepsKcal: 100,  gym: "full body", gymKcal: 744, notes: "" },
-  { date: "2026-04-01", steps: 3500, stepsKcal: 75,  gym: null, gymKcal: 0,   notes: "" },
-  { date: "2026-04-02", steps: 3000, stepsKcal: 50,  gym: "full body", gymKcal: 466, notes: "" },
-  { date: "2026-04-03", steps: 3500, stepsKcal: 75,  gym: null, gymKcal: 0,   notes: "" },
-  { date: "2026-04-04", steps: 6000, stepsKcal: 200, gym: "gym", gymKcal: 370, notes: "apero + gym" },
-  { date: "2026-04-05", steps: 12954, stepsKcal: 400, gym: "gym", gymKcal: 541, notes: "domingo" },
-  { date: "2026-04-06", steps: 11001, stepsKcal: 350, gym: "gym", gymKcal: 656, notes: "" },
-  { date: "2026-04-07", steps: 6755, stepsKcal: 175, gym: null, gymKcal: 0, notes: "" },
-  { date: "2026-04-08", steps: 6368, stepsKcal: 175, gym: "gym", gymKcal: 601, notes: "" },
-  { date: "2026-04-09", steps: 10000, stepsKcal: 300, gym: "caminar rapido", gymKcal: 265, notes: "" },
-  { date: "2026-04-10", steps: 10017, stepsKcal: 300, gym: null, gymKcal: 0, notes: "" },
-  { date: "2026-04-11", steps: 10624, stepsKcal: 300, gym: "gym", gymKcal: 551, notes: "" },
-  { date: "2026-04-12", steps: 12870, stepsKcal: 375, gym: "gym", gymKcal: 478, notes: "" },
-  { date: "2026-04-13", steps: 5484, stepsKcal: 150, gym: null, gymKcal: 0, notes: "" },
-  { date: "2026-04-14", steps: 4737, stepsKcal: 125, gym: "gym", gymKcal: 480, notes: "" },
-  { date: "2026-04-15", steps: 5500, stepsKcal: 150, gym: null, gymKcal: 0, notes: "" },
-  { date: "2026-04-16", steps: 6336, stepsKcal: 175, gym: null, gymKcal: 0, notes: "" },
-  { date: "2026-04-17", steps: 8800, stepsKcal: 250, gym: "caminata cardio 45min", gymKcal: 300, notes: "" },
-  { date: "2026-04-18", steps: 16846, stepsKcal: 500, gym: "gym", gymKcal: 507, notes: "pizza LouieLouie" },
-  { date: "2026-04-19", steps: 12221, stepsKcal: 365, gym: "gym", gymKcal: 923, notes: "arepa reina pepiada day" },
-  { date: "2026-04-20", steps: 3054,  stepsKcal: 50,  gym: "gym", gymKcal: 487, notes: "" },
-  { date: "2026-04-21", steps: 3922,  stepsKcal: 75,  gym: null,  gymKcal: 0,   notes: "" },
-  { date: "2026-04-22", steps: 8224,  stepsKcal: 525, gym: null,  gymKcal: 0,   notes: "8224 pasos + 7h de pie en fila (~275 kcal standing extra)" },
-  { date: "2026-04-23", steps: 16705, stepsKcal: 500, gym: null,  gymKcal: 0,   notes: "Amsterdam walking day" },
-  { date: "2026-04-24", steps: 18795, stepsKcal: 600, gym: "gym", gymKcal: 610, notes: "Amsterdam walking day 2 + gym" },
-  { date: "2026-04-25", steps: 15119, stepsKcal: 450, gym: null,  gymKcal: 0,   notes: "Amsterdam walking day 3" },
-  { date: "2026-04-26", steps: 300,   stepsKcal: 0,   gym: null,  gymKcal: 0,   notes: "Domingo descanso, viaje" },
-  { date: "2026-04-27", steps: 2600,  stepsKcal: 25,  gym: null,  gymKcal: 0,   notes: "" },
-  { date: "2026-04-28", steps: 800,   stepsKcal: 0,   gym: null,  gymKcal: 0,   notes: "" },
-  { date: "2026-04-29", steps: 5065,  stepsKcal: 125, gym: null,  gymKcal: 0,   notes: "" },
-  { date: "2026-04-30", steps: 600,   stepsKcal: 0,   gym: null,  gymKcal: 0,   notes: "" },
-  { date: "2026-05-01", steps: 5413,  stepsKcal: 125, gym: "gym", gymKcal: 617, notes: "" },
+  { date: "2026-03-29", user: "ernesto", steps: 3000, stepsKcal: 50,  gym: null, gymKcal: 0,   notes: "estimado pasos" },
+  { date: "2026-03-30", user: "ernesto", steps: 200,  stepsKcal: 0,   gym: null, gymKcal: 0,   notes: "lunes casi sin pasos" },
+  { date: "2026-03-31", user: "ernesto", steps: 4000, stepsKcal: 100,  gym: "full body", gymKcal: 744, notes: "" },
+  { date: "2026-04-01", user: "ernesto", steps: 3500, stepsKcal: 75,  gym: null, gymKcal: 0,   notes: "" },
+  { date: "2026-04-02", user: "ernesto", steps: 3000, stepsKcal: 50,  gym: "full body", gymKcal: 466, notes: "" },
+  { date: "2026-04-03", user: "ernesto", steps: 3500, stepsKcal: 75,  gym: null, gymKcal: 0,   notes: "" },
+  { date: "2026-04-04", user: "ernesto", steps: 6000, stepsKcal: 200, gym: "gym", gymKcal: 370, notes: "apero + gym" },
+  { date: "2026-04-05", user: "ernesto", steps: 12954, stepsKcal: 400, gym: "gym", gymKcal: 541, notes: "domingo" },
+  { date: "2026-04-06", user: "ernesto", steps: 11001, stepsKcal: 350, gym: "gym", gymKcal: 656, notes: "" },
+  { date: "2026-04-07", user: "ernesto", steps: 6755, stepsKcal: 175, gym: null, gymKcal: 0, notes: "" },
+  { date: "2026-04-08", user: "ernesto", steps: 6368, stepsKcal: 175, gym: "gym", gymKcal: 601, notes: "" },
+  { date: "2026-04-09", user: "ernesto", steps: 10000, stepsKcal: 300, gym: "caminar rapido", gymKcal: 265, notes: "" },
+  { date: "2026-04-10", user: "ernesto", steps: 10017, stepsKcal: 300, gym: null, gymKcal: 0, notes: "" },
+  { date: "2026-04-11", user: "ernesto", steps: 10624, stepsKcal: 300, gym: "gym", gymKcal: 551, notes: "" },
+  { date: "2026-04-12", user: "ernesto", steps: 12870, stepsKcal: 375, gym: "gym", gymKcal: 478, notes: "" },
+  { date: "2026-04-13", user: "ernesto", steps: 5484, stepsKcal: 150, gym: null, gymKcal: 0, notes: "" },
+  { date: "2026-04-14", user: "ernesto", steps: 4737, stepsKcal: 125, gym: "gym", gymKcal: 480, notes: "" },
+  { date: "2026-04-15", user: "ernesto", steps: 5500, stepsKcal: 150, gym: null, gymKcal: 0, notes: "" },
+  { date: "2026-04-16", user: "ernesto", steps: 6336, stepsKcal: 175, gym: null, gymKcal: 0, notes: "" },
+  { date: "2026-04-17", user: "ernesto", steps: 8800, stepsKcal: 250, gym: "caminata cardio 45min", gymKcal: 300, notes: "" },
+  { date: "2026-04-18", user: "ernesto", steps: 16846, stepsKcal: 500, gym: "gym", gymKcal: 507, notes: "pizza LouieLouie" },
+  { date: "2026-04-19", user: "ernesto", steps: 12221, stepsKcal: 365, gym: "gym", gymKcal: 923, notes: "arepa reina pepiada day" },
+  { date: "2026-04-20", user: "ernesto", steps: 3054,  stepsKcal: 50,  gym: "gym", gymKcal: 487, notes: "" },
+  { date: "2026-04-21", user: "ernesto", steps: 3922,  stepsKcal: 75,  gym: null,  gymKcal: 0,   notes: "" },
+  { date: "2026-04-22", user: "ernesto", steps: 8224,  stepsKcal: 525, gym: null,  gymKcal: 0,   notes: "8224 pasos + 7h de pie en fila (~275 kcal standing extra)" },
+  { date: "2026-04-23", user: "ernesto", steps: 16705, stepsKcal: 500, gym: null,  gymKcal: 0,   notes: "Amsterdam walking day" },
+  { date: "2026-04-24", user: "ernesto", steps: 18795, stepsKcal: 600, gym: "gym", gymKcal: 610, notes: "Amsterdam walking day 2 + gym" },
+  { date: "2026-04-25", user: "ernesto", steps: 15119, stepsKcal: 450, gym: null,  gymKcal: 0,   notes: "Amsterdam walking day 3" },
+  { date: "2026-04-26", user: "ernesto", steps: 300,   stepsKcal: 0,   gym: null,  gymKcal: 0,   notes: "Domingo descanso, viaje" },
+  { date: "2026-04-27", user: "ernesto", steps: 2600,  stepsKcal: 25,  gym: null,  gymKcal: 0,   notes: "" },
+  { date: "2026-04-28", user: "ernesto", steps: 800,   stepsKcal: 0,   gym: null,  gymKcal: 0,   notes: "" },
+  { date: "2026-04-29", user: "ernesto", steps: 5065,  stepsKcal: 125, gym: null,  gymKcal: 0,   notes: "" },
+  { date: "2026-04-30", user: "ernesto", steps: 600,   stepsKcal: 0,   gym: null,  gymKcal: 0,   notes: "" },
+  { date: "2026-05-01", user: "ernesto", steps: 5413,  stepsKcal: 125, gym: "gym", gymKcal: 617, notes: "" },
   { date: "2026-05-02", steps: 1475, stepsKcal: 25,  gym: null, gymKcal: 0,   user: "adriana", notes: "" },
   { date: "2026-05-03", steps: 3972, stepsKcal: 75,  gym: "gym", gymKcal: 428, user: "adriana", notes: "" },
   { date: "2026-05-04", steps: 3273, stepsKcal: 65,  gym: null, gymKcal: 0,   user: "adriana", notes: "" },
@@ -5942,14 +5942,14 @@ const ACTIVITY_LOG = [
 // balance: intake - tdee - stepsKcal - gymKcal (negative = deficit)
 const DAILY_BALANCE = [
   // Semana 29 mar - 5 abr
-  { date: "2026-03-29", day: "Dom", intake: 1688, tdee: 2182, stepsKcal: 50,  gymKcal: 0,   balance: -544 },
-  { date: "2026-03-30", day: "Lun", intake: 1398, tdee: 2182, stepsKcal: 0,   gymKcal: 0,   balance: -784 },
-  { date: "2026-03-31", day: "Mar", intake: 1190, tdee: 2182, stepsKcal: 100, gymKcal: 744, balance: -1836 },
-  { date: "2026-04-01", day: "Mie", intake: 1158, tdee: 2182, stepsKcal: 75,  gymKcal: 0,   balance: -1099 },
-  { date: "2026-04-02", day: "Jue", intake: 1695, tdee: 2182, stepsKcal: 50,  gymKcal: 466, balance: -1003 },
-  { date: "2026-04-03", day: "Vie", intake: 1193, tdee: 2182, stepsKcal: 75,  gymKcal: 0,   balance: -1064 },
-  { date: "2026-04-04", day: "Sab", intake: 2564, tdee: 2182, stepsKcal: 200, gymKcal: 370, balance: -188 },
-  { date: "2026-04-05", day: "Dom", intake: 1459, tdee: 2182, stepsKcal: 400, gymKcal: 541, balance: -1664, notes: "" }
+  { date: "2026-03-29", user: "ernesto", day: "Dom", intake: 1688, tdee: 2182, stepsKcal: 50,  gymKcal: 0,   balance: -544 },
+  { date: "2026-03-30", user: "ernesto", day: "Lun", intake: 1398, tdee: 2182, stepsKcal: 0,   gymKcal: 0,   balance: -784 },
+  { date: "2026-03-31", user: "ernesto", day: "Mar", intake: 1190, tdee: 2182, stepsKcal: 100, gymKcal: 744, balance: -1836 },
+  { date: "2026-04-01", user: "ernesto", day: "Mie", intake: 1158, tdee: 2182, stepsKcal: 75,  gymKcal: 0,   balance: -1099 },
+  { date: "2026-04-02", user: "ernesto", day: "Jue", intake: 1695, tdee: 2182, stepsKcal: 50,  gymKcal: 466, balance: -1003 },
+  { date: "2026-04-03", user: "ernesto", day: "Vie", intake: 1193, tdee: 2182, stepsKcal: 75,  gymKcal: 0,   balance: -1064 },
+  { date: "2026-04-04", user: "ernesto", day: "Sab", intake: 2564, tdee: 2182, stepsKcal: 200, gymKcal: 370, balance: -188 },
+  { date: "2026-04-05", user: "ernesto", day: "Dom", intake: 1459, tdee: 2182, stepsKcal: 400, gymKcal: 541, balance: -1664, notes: "" }
 ];
 
 // Weight & body composition log - from Renpho scale or manual entry

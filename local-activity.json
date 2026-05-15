@@ -1,5 +1,5 @@
 {
-  "_comment": "Activity entries pushed by Apple Health Shortcut. Format per entry: { date: 'YYYY-MM-DD', steps, activeKcal, exerciseMin, hrAvg, hrMax, source: 'apple-health' }. App merges this with ACTIVITY_LOG (this file takes priority).",
+  "_comment": "Activity entries pushed by Apple Health Shortcut (multi-user). Format per entry: { date: 'YYYY-MM-DD', user: 'ernesto'|'adriana', steps, activeKcal, exerciseMin, hrAvg, hrMax, source: 'apple-health' }. App merges this with ACTIVITY_LOG (this file takes priority). Default user when missing: 'ernesto'.",
   "lastSync": null,
   "entries": []
 }

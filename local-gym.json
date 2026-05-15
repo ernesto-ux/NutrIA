@@ -1,5 +1,5 @@
 {
-  "_comment": "Detailed gym sessions. Schema per entry: { date, type, durationMin, rpe, hrAvg, hrMax, exercises: [{name, sets, reps, weightKg}], kcalBurn, notes }",
+  "_comment": "Detailed gym sessions (multi-user). Schema per entry: { id, date, user: 'ernesto'|'adriana', type, durationMin, rpe, hrAvg, hrMax, exercises: [{name, sets, reps, weightKg}], kcalBurn, notes }. Default user when missing: 'ernesto'.",
   "lastUpdate": null,
   "sessions": []
 }

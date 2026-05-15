@@ -1701,7 +1701,7 @@ try {
     const ghMeals = getLocalMeals();
     const ghIds = new Set(ghMeals.map(m => m.id));
     const fallback = MEAL_LOG
-      .filter(e => !ghIds.has(e.id) && (e.who || 'ernesto') === currentUser)
+      .filter(e => !ghIds.has(e.id) && (e.user || e.who || 'ernesto') === currentUser)
       .map(e => ({ ...e, source: 'file' }));
     return [...ghMeals, ...fallback]
       .filter(e => !overrides[e.id] || overrides[e.id] !== 'deleted')
@@ -2772,10 +2772,10 @@ try {
     } catch(_) {}
   }
   function getActivityForDate(dateStr) {
-    const fromExtra = _extraActivity.find(a => a.date === dateStr);
+    const fromExtra = _extraActivity.find(a => a.date === dateStr && (a.user || 'ernesto') === currentUser);
     if (fromExtra) return fromExtra;
     if (typeof ACTIVITY_LOG === 'undefined') return null;
-    return ACTIVITY_LOG.find(a => a.date === dateStr) || null;
+    return ACTIVITY_LOG.find(a => a.date === dateStr && (a.user || 'ernesto') === currentUser) || null;
   }
 
   function getBalanceForDate(dateStr) {
@@ -3698,7 +3698,7 @@ try {
 
   function renderNutricion() {
     const tgt = TARGETS();
-    const userMeals = MEAL_LOG.filter(m => !m.who || m.who === currentUser);
+    const userMeals = MEAL_LOG.filter(m => (m.user || m.who || 'ernesto') === currentUser);
 
     // Score foods
     const scoredFoods = FOOD_DATABASE.filter(f => f.per100g && f.per100g.kcal > 0).map(f => {
