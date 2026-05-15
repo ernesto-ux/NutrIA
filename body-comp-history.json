@@ -5,11 +5,21 @@
     "ernesto": {
       "profile": {
         "name": "Ernesto Otero",
+        "sex": "male",
         "age": 34,
         "height_cm": 175,
         "goal_kg": 75,
         "start_weight_kg": 89,
-        "start_date": "2026-04-03"
+        "start_date": "2026-04-03",
+        "metabolic": {
+          "as_of": "2026-04-03",
+          "weight_kg": 89,
+          "bmr_mifflin": 1819,
+          "activity_factor": 1.2,
+          "activity_label": "sedentario base",
+          "tdee_maintenance": 2182,
+          "notes": "Cálculo inicial con peso 89kg. Recalcular al perder peso."
+        }
       },
       "weekly_snapshots": [
         {
@@ -45,11 +55,33 @@
     "adriana": {
       "profile": {
         "name": "Adriana",
+        "sex": "female",
         "age": 27,
         "height_cm": 160,
         "goal_kg": null,
+        "current_weight_kg": 54,
         "start_weight_kg": 53.3,
-        "start_date": "2026-04-06"
+        "start_date": "2026-04-06",
+        "metabolic": {
+          "as_of": "2026-05-16",
+          "weight_kg": 54,
+          "bmr_mifflin": 1244,
+          "activity_factor": 1.55,
+          "activity_label": "moderado (gym 1h × 4/sem + 8-9k pasos/día)",
+          "tdee_maintenance": 1925,
+          "tdee_bottom_up": 1919,
+          "breakdown": {
+            "bmr": 1244,
+            "steps_extra_kcal": 260,
+            "gym_prorated_kcal": 229,
+            "neat_base_kcal": 187
+          },
+          "deficit_options": {
+            "moderate_minus_300": 1625,
+            "aggressive_minus_500": 1425
+          },
+          "notes": "Meta vigente 1630 kcal alineada con déficit moderado (~-300). No bajar de BMR 1244."
+        }
       },
       "weekly_snapshots": []
     }
