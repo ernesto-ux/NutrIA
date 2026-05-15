@@ -4831,6 +4831,1095 @@
           "fat": 17.5
         }
       ]
+    },
+    {
+      "id": "2026-05-07-A-desayuno",
+      "date": "2026-05-07",
+      "meal": "desayuno",
+      "user": "adriana",
+      "items": [
+        {
+          "foodId": "kefir-lactel-0-bio",
+          "name": "Kéfir 0% Bio",
+          "grams": 255,
+          "kcal": 112.2,
+          "prot": 8.7,
+          "carbs": 10.5,
+          "fat": 3.8
+        },
+        {
+          "foodId": "eafit-pure-isolate-chocolat",
+          "name": "Pure Isolate Whey Chocolat",
+          "grams": 30,
+          "kcal": 106.2,
+          "prot": 24.3,
+          "carbs": 1.1,
+          "fat": 0.5
+        },
+        {
+          "foodId": "flax-seed",
+          "name": "Semillas de Lino (Flax Seed)",
+          "grams": 2.5,
+          "kcal": 13.4,
+          "prot": 0.5,
+          "carbs": 0.7,
+          "fat": 1.1
+        }
+      ],
+      "timestamp": "2026-05-07T12:00:00"
+    },
+    {
+      "id": "2026-05-07-A-snack",
+      "date": "2026-05-07",
+      "meal": "snack",
+      "user": "adriana",
+      "items": [
+        {
+          "foodId": "lindt-excellence-fleur-de-sel",
+          "name": "Lindt Excellence Pointe de Fleur de Sel",
+          "grams": 20,
+          "kcal": 107.4,
+          "prot": 1.1,
+          "carbs": 10.4,
+          "fat": 6.4
+        },
+        {
+          "foodId": "lu-petit-beurre",
+          "name": "Veritable Petit Beurre",
+          "grams": 25,
+          "kcal": 108.8,
+          "prot": 1.9,
+          "carbs": 18.8,
+          "fat": 2.8
+        },
+        {
+          "foodId": "pain-au-chocolat",
+          "name": "Pain au Chocolat",
+          "grams": 65,
+          "kcal": 269.1,
+          "prot": 4.6,
+          "carbs": 30.6,
+          "fat": 14.3
+        }
+      ],
+      "timestamp": "2026-05-07T12:00:00"
+    },
+    {
+      "id": "2026-05-07-A-almuerzo",
+      "date": "2026-05-07",
+      "meal": "almuerzo",
+      "user": "adriana",
+      "items": [
+        {
+          "foodId": "pollo-pechuga-horneada",
+          "name": "Pechuga de Pollo Horneada",
+          "grams": 100,
+          "kcal": 165.0,
+          "prot": 31.0,
+          "carbs": 0.0,
+          "fat": 3.6
+        },
+        {
+          "foodId": "couscous-cuit",
+          "name": "Couscous Cocido",
+          "grams": 40,
+          "kcal": 44.8,
+          "prot": 1.5,
+          "carbs": 9.2,
+          "fat": 0.1
+        },
+        {
+          "foodId": "brocoli-cuit",
+          "name": "Brocoli (cuit)",
+          "grams": 65,
+          "kcal": 22.8,
+          "prot": 2.0,
+          "carbs": 2.6,
+          "fat": 0.3
+        }
+      ],
+      "timestamp": "2026-05-07T12:00:00"
+    },
+    {
+      "id": "2026-05-07-A-snack-2",
+      "date": "2026-05-07",
+      "meal": "snack",
+      "user": "adriana",
+      "items": [
+        {
+          "foodId": "mani-salado",
+          "name": "Maní Salado (Cacahuetes Tostados)",
+          "grams": 30,
+          "kcal": 175.5,
+          "prot": 7.3,
+          "carbs": 4.8,
+          "fat": 14.8
+        },
+        {
+          "foodId": "falafel-generic",
+          "name": "Falafel (cuit/frit)",
+          "grams": 35,
+          "kcal": 115.5,
+          "prot": 4.5,
+          "carbs": 10.8,
+          "fat": 5.9
+        },
+        {
+          "foodId": "empanada-halloumi",
+          "name": "Empanada de Halloumi",
+          "grams": 60,
+          "kcal": 168.0,
+          "prot": 5.4,
+          "carbs": 14.4,
+          "fat": 8.4
+        },
+        {
+          "foodId": "sorbete-pistacho-ernesto-adri",
+          "name": "Sorbete Pistacho (Recetario Ernesto/Adriana)",
+          "grams": 55,
+          "kcal": 63.4,
+          "prot": 13.2,
+          "carbs": 2.1,
+          "fat": 0.2
+        }
+      ],
+      "timestamp": "2026-05-07T12:00:00"
+    },
+    {
+      "id": "2026-05-07-A-cena",
+      "date": "2026-05-07",
+      "meal": "cena",
+      "user": "adriana",
+      "items": [
+        {
+          "foodId": "crepe-jambon-fromage",
+          "name": "Crêpe Jambon Fromage",
+          "grams": 250,
+          "kcal": 550.0,
+          "prot": 30.0,
+          "carbs": 40.0,
+          "fat": 30.0
+        },
+        {
+          "foodId": "huevo-entero",
+          "name": "Huevo Entero",
+          "grams": 50,
+          "kcal": 77.5,
+          "prot": 6.5,
+          "carbs": 0.6,
+          "fat": 5.5
+        }
+      ],
+      "timestamp": "2026-05-07T12:00:00"
+    },
+    {
+      "id": "2026-05-08-A-desayuno",
+      "date": "2026-05-08",
+      "meal": "desayuno",
+      "user": "adriana",
+      "items": [
+        {
+          "foodId": "siggis-skyr-nature",
+          "name": "Skyr Nature",
+          "grams": 79,
+          "kcal": 49.8,
+          "prot": 8.7,
+          "carbs": 3.2,
+          "fat": 0.2
+        },
+        {
+          "foodId": "hipro-vanille",
+          "name": "HiPro Vanille",
+          "grams": 53,
+          "kcal": 40.8,
+          "prot": 5.4,
+          "carbs": 3.1,
+          "fat": 0.4
+        },
+        {
+          "foodId": "frambuesas-fresas",
+          "name": "Frambuesas Frescas",
+          "grams": 10,
+          "kcal": 5.2,
+          "prot": 0.1,
+          "carbs": 1.2,
+          "fat": 0.1
+        },
+        {
+          "foodId": "lu-petit-beurre",
+          "name": "Veritable Petit Beurre",
+          "grams": 33,
+          "kcal": 143.6,
+          "prot": 2.5,
+          "carbs": 24.8,
+          "fat": 3.6
+        }
+      ],
+      "timestamp": "2026-05-08T12:00:00"
+    },
+    {
+      "id": "2026-05-08-A-almuerzo",
+      "date": "2026-05-08",
+      "meal": "almuerzo",
+      "user": "adriana",
+      "items": [
+        {
+          "foodId": "beef-green-beans-meat-bowl",
+          "name": "Beef & Green Beans (carne + ejotes + cebolla)",
+          "grams": 43,
+          "kcal": 62.7,
+          "prot": 5.4,
+          "carbs": 2.1,
+          "fat": 3.7
+        },
+        {
+          "foodId": "lasagna-restaurant-generic",
+          "name": "Lasagna (Restaurant Genérica)",
+          "grams": 290,
+          "kcal": 449.5,
+          "prot": 23.2,
+          "carbs": 34.8,
+          "fat": 23.2
+        }
+      ],
+      "timestamp": "2026-05-08T12:00:00"
+    },
+    {
+      "id": "2026-05-08-A-snack",
+      "date": "2026-05-08",
+      "meal": "snack",
+      "user": "adriana",
+      "items": [
+        {
+          "foodId": "mcdo-cheeseburger",
+          "name": "Cheeseburger McDonald's",
+          "grams": 216,
+          "kcal": 553.0,
+          "prot": 28.1,
+          "carbs": 56.2,
+          "fat": 25.9
+        },
+        {
+          "foodId": "mcdonalds-papas-large",
+          "name": "Papas Fritas Large",
+          "grams": 75,
+          "kcal": 234.0,
+          "prot": 2.5,
+          "carbs": 30.8,
+          "fat": 11.2
+        },
+        {
+          "foodId": "mcdonalds-papas-large",
+          "name": "Papas Fritas Large",
+          "grams": 100,
+          "kcal": 312.0,
+          "prot": 3.4,
+          "carbs": 41.0,
+          "fat": 15.0
+        },
+        {
+          "foodId": "kinder-bueno-barra",
+          "name": "Kinder Bueno (barra dual)",
+          "grams": 43,
+          "kcal": 246.0,
+          "prot": 3.6,
+          "carbs": 21.1,
+          "fat": 15.9
+        }
+      ],
+      "timestamp": "2026-05-08T12:00:00"
+    },
+    {
+      "id": "2026-05-08-A-cena",
+      "date": "2026-05-08",
+      "meal": "cena",
+      "user": "adriana",
+      "items": [
+        {
+          "foodId": "plato-libanes-mixto",
+          "name": "Plato Libanés Mixto (hummus, kebab, tabbouleh)",
+          "grams": 350,
+          "kcal": 770.0,
+          "prot": 42.0,
+          "carbs": 77.0,
+          "fat": 35.0
+        },
+        {
+          "foodId": "postres-libaneses-baklava",
+          "name": "Postres Libaneses (baklava, knafeh, etc)",
+          "grams": 80,
+          "kcal": 304.0,
+          "prot": 4.0,
+          "carbs": 36.0,
+          "fat": 16.0
+        }
+      ],
+      "timestamp": "2026-05-08T12:00:00"
+    },
+    {
+      "id": "2026-05-09-A-desayuno",
+      "date": "2026-05-09",
+      "meal": "desayuno",
+      "user": "adriana",
+      "items": [
+        {
+          "foodId": "pain-au-chocolat",
+          "name": "Pain au Chocolat",
+          "grams": 65,
+          "kcal": 269.1,
+          "prot": 4.6,
+          "carbs": 30.6,
+          "fat": 14.3
+        },
+        {
+          "foodId": "croissant-boulangerie",
+          "name": "Croissant Artisanal",
+          "grams": 30,
+          "kcal": 121.8,
+          "prot": 2.5,
+          "carbs": 13.7,
+          "fat": 6.3
+        }
+      ],
+      "timestamp": "2026-05-09T12:00:00"
+    },
+    {
+      "id": "2026-05-09-A-almuerzo",
+      "date": "2026-05-09",
+      "meal": "almuerzo",
+      "user": "adriana",
+      "items": [
+        {
+          "foodId": "ensalada-mixta-tomate-lechuga",
+          "name": "Ensalada Mixta (tomate, lechuga, aderezo)",
+          "grams": 75,
+          "kcal": 22.5,
+          "prot": 0.8,
+          "carbs": 3.0,
+          "fat": 0.8
+        },
+        {
+          "foodId": "pancito-apero-queso",
+          "name": "Pancito con Queso (apéritif)",
+          "grams": 30,
+          "kcal": 96.0,
+          "prot": 3.0,
+          "carbs": 12.0,
+          "fat": 4.2
+        },
+        {
+          "foodId": "soupe-oignon-gratinee",
+          "name": "Soupe à l'Oignon Gratinée",
+          "grams": 75,
+          "kcal": 71.2,
+          "prot": 3.0,
+          "carbs": 6.8,
+          "fat": 3.8
+        },
+        {
+          "foodId": "salmon-grille-restaurant",
+          "name": "Filete de Salmón Grillado",
+          "grams": 130,
+          "kcal": 267.8,
+          "prot": 28.6,
+          "carbs": 0.0,
+          "fat": 16.9
+        },
+        {
+          "foodId": "papas-roti-restaurant",
+          "name": "Papas Rôties (al horno)",
+          "grams": 160,
+          "kcal": 264.0,
+          "prot": 4.8,
+          "carbs": 40.0,
+          "fat": 9.6
+        },
+        {
+          "foodId": "tres-leches-tiramisu-amsterdam",
+          "name": "Tres Leches Tiramisu",
+          "grams": 80,
+          "kcal": 224.0,
+          "prot": 3.6,
+          "carbs": 24.0,
+          "fat": 12.0
+        },
+        {
+          "foodId": "creme-brulee",
+          "name": "Crème Brûlée",
+          "grams": 15,
+          "kcal": 43.5,
+          "prot": 0.6,
+          "carbs": 3.8,
+          "fat": 2.9
+        }
+      ],
+      "timestamp": "2026-05-09T12:00:00"
+    },
+    {
+      "id": "2026-05-09-A-cena",
+      "date": "2026-05-09",
+      "meal": "cena",
+      "user": "adriana",
+      "items": [
+        {
+          "foodId": "crepe-caramel-beurre-sale-chantilly-sorbet",
+          "name": "Crêpe Caramel Beurre Salé con Chantilly y Sorbete Vainilla",
+          "grams": 300,
+          "kcal": 855.0,
+          "prot": 12.0,
+          "carbs": 96.0,
+          "fat": 48.0
+        },
+        {
+          "foodId": "ensalada-carrefour-jamon",
+          "name": "Ensalada Carrefour con Jamón",
+          "grams": 100,
+          "kcal": 130.0,
+          "prot": 8.0,
+          "carbs": 12.0,
+          "fat": 6.0
+        },
+        {
+          "foodId": "kefir-lactel-0-bio",
+          "name": "Kéfir 0% Bio",
+          "grams": 125,
+          "kcal": 55.0,
+          "prot": 4.2,
+          "carbs": 5.1,
+          "fat": 1.9
+        }
+      ],
+      "timestamp": "2026-05-09T12:00:00"
+    },
+    {
+      "id": "2026-05-10-A-desayuno",
+      "date": "2026-05-10",
+      "meal": "desayuno",
+      "user": "adriana",
+      "items": [
+        {
+          "foodId": "yogurt-blueberry-hp-carrefour",
+          "name": "Yogurt Blueberry High Protein Carrefour",
+          "grams": 225,
+          "kcal": 130.5,
+          "prot": 22.5,
+          "carbs": 9.0,
+          "fat": 0.5
+        },
+        {
+          "foodId": "kefir-lactel-0-bio",
+          "name": "Kéfir 0% Bio",
+          "grams": 100,
+          "kcal": 44.0,
+          "prot": 3.4,
+          "carbs": 4.1,
+          "fat": 1.5
+        }
+      ],
+      "timestamp": "2026-05-10T12:00:00"
+    },
+    {
+      "id": "2026-05-10-A-almuerzo",
+      "date": "2026-05-10",
+      "meal": "almuerzo",
+      "user": "adriana",
+      "items": [
+        {
+          "foodId": "entrecote-grille-restaurant",
+          "name": "Entrecôte Grillé",
+          "grams": 200,
+          "kcal": 540.0,
+          "prot": 50.0,
+          "carbs": 0.0,
+          "fat": 36.0
+        },
+        {
+          "foodId": "papas-fritas-fait-maison",
+          "name": "Papas Fritas (fait maison)",
+          "grams": 150,
+          "kcal": 427.5,
+          "prot": 5.2,
+          "carbs": 52.5,
+          "fat": 21.0
+        },
+        {
+          "foodId": "pain-baguette",
+          "name": "Pain Baguette",
+          "grams": 50,
+          "kcal": 137.0,
+          "prot": 4.2,
+          "carbs": 27.5,
+          "fat": 0.7
+        },
+        {
+          "foodId": "salsa-poivre-restaurant",
+          "name": "Salsa Poivre (crema pimienta)",
+          "grams": 30,
+          "kcal": 48.0,
+          "prot": 0.8,
+          "carbs": 2.1,
+          "fat": 4.2
+        }
+      ],
+      "timestamp": "2026-05-10T12:00:00"
+    },
+    {
+      "id": "2026-05-10-A-cena",
+      "date": "2026-05-10",
+      "meal": "cena",
+      "user": "adriana",
+      "items": [
+        {
+          "foodId": "mcdo-cheeseburger",
+          "name": "Cheeseburger McDonald's",
+          "grams": 108,
+          "kcal": 276.5,
+          "prot": 14.0,
+          "carbs": 28.1,
+          "fat": 13.0
+        },
+        {
+          "foodId": "mcdonalds-papas-large",
+          "name": "Papas Fritas Large",
+          "grams": 75,
+          "kcal": 234.0,
+          "prot": 2.5,
+          "carbs": 30.8,
+          "fat": 11.2
+        },
+        {
+          "foodId": "mcdonalds-ketchup-sachet",
+          "name": "Ketchup Sachet",
+          "grams": 40,
+          "kcal": 40.0,
+          "prot": 0.4,
+          "carbs": 9.6,
+          "fat": 0.0
+        },
+        {
+          "foodId": "kfc-chicken-tenders",
+          "name": "Chicken Tenders KFC",
+          "grams": 120,
+          "kcal": 348.0,
+          "prot": 21.6,
+          "carbs": 21.6,
+          "fat": 19.2
+        },
+        {
+          "foodId": "mcdonalds-papas-large",
+          "name": "Papas Fritas Large",
+          "grams": 75,
+          "kcal": 234.0,
+          "prot": 2.5,
+          "carbs": 30.8,
+          "fat": 11.2
+        }
+      ],
+      "timestamp": "2026-05-10T12:00:00"
+    },
+    {
+      "id": "2026-05-12-A-desayuno",
+      "date": "2026-05-12",
+      "meal": "desayuno",
+      "user": "adriana",
+      "items": [
+        {
+          "foodId": "hipro-vanille",
+          "name": "HiPro Vanille",
+          "grams": 85,
+          "kcal": 65.5,
+          "prot": 8.7,
+          "carbs": 5.0,
+          "fat": 0.7
+        },
+        {
+          "foodId": "siggis-skyr-nature",
+          "name": "Skyr Nature",
+          "grams": 175,
+          "kcal": 110.2,
+          "prot": 19.2,
+          "carbs": 7.0,
+          "fat": 0.4
+        },
+        {
+          "foodId": "flax-seed",
+          "name": "Semillas de Lino (Flax Seed)",
+          "grams": 2.5,
+          "kcal": 13.4,
+          "prot": 0.5,
+          "carbs": 0.7,
+          "fat": 1.1
+        },
+        {
+          "foodId": "semillas-mixtas-almendra-avellana-mani",
+          "name": "Semillas Mixtas (almendras, avellanas, maní)",
+          "grams": 13,
+          "kcal": 80.6,
+          "prot": 2.3,
+          "carbs": 2.3,
+          "fat": 6.9
+        }
+      ],
+      "timestamp": "2026-05-12T12:00:00"
+    },
+    {
+      "id": "2026-05-12-A-almuerzo",
+      "date": "2026-05-12",
+      "meal": "almuerzo",
+      "user": "adriana",
+      "items": [
+        {
+          "foodId": "ensalada-thai-peanut-mango-satay-oliver-green",
+          "name": "Ensalada Thai Peanut con Mango y Pollo Satay",
+          "grams": 350,
+          "kcal": 455.0,
+          "prot": 29.8,
+          "carbs": 38.5,
+          "fat": 21.0
+        },
+        {
+          "foodId": "galleta-fortuna-thai",
+          "name": "Galleta de la Fortuna (Fortune Cookie)",
+          "grams": 7,
+          "kcal": 26.6,
+          "prot": 0.3,
+          "carbs": 6.0,
+          "fat": 0.2
+        }
+      ],
+      "timestamp": "2026-05-12T12:00:00"
+    },
+    {
+      "id": "2026-05-12-A-snack",
+      "date": "2026-05-12",
+      "meal": "snack",
+      "user": "adriana",
+      "items": [
+        {
+          "foodId": "eafit-pure-isolate-vanille",
+          "name": "Pure Isolate Whey Vanille",
+          "grams": 30,
+          "kcal": 109.8,
+          "prot": 25.8,
+          "carbs": 1.0,
+          "fat": 0.3
+        },
+        {
+          "foodId": "siggis-skyr-nature",
+          "name": "Skyr Nature",
+          "grams": 67,
+          "kcal": 42.2,
+          "prot": 7.4,
+          "carbs": 2.7,
+          "fat": 0.1
+        },
+        {
+          "foodId": "mani-salado",
+          "name": "Maní Salado (Cacahuetes Tostados)",
+          "grams": 25,
+          "kcal": 146.2,
+          "prot": 6.1,
+          "carbs": 4.0,
+          "fat": 12.3
+        }
+      ],
+      "timestamp": "2026-05-12T12:00:00"
+    },
+    {
+      "id": "2026-05-12-A-cena",
+      "date": "2026-05-12",
+      "meal": "cena",
+      "user": "adriana",
+      "items": [
+        {
+          "foodId": "hipro-blueberry",
+          "name": "HiPro Myrtille (Blueberry)",
+          "grams": 71,
+          "kcal": 37.6,
+          "prot": 6.7,
+          "carbs": 2.7,
+          "fat": 0.0
+        },
+        {
+          "foodId": "fresas-frescas",
+          "name": "Fresas Frescas",
+          "grams": 18,
+          "kcal": 5.8,
+          "prot": 0.1,
+          "carbs": 1.4,
+          "fat": 0.1
+        },
+        {
+          "foodId": "cottage-cheese-president",
+          "name": "Cottage Cheese",
+          "grams": 55,
+          "kcal": 54.5,
+          "prot": 6.6,
+          "carbs": 1.4,
+          "fat": 2.5
+        }
+      ],
+      "timestamp": "2026-05-12T12:00:00"
+    },
+    {
+      "id": "2026-05-13-A-desayuno",
+      "date": "2026-05-13",
+      "meal": "desayuno",
+      "user": "adriana",
+      "items": [
+        {
+          "foodId": "hipro-fresa",
+          "name": "HiPro Fresa Danone",
+          "grams": 151,
+          "kcal": 81.5,
+          "prot": 14.2,
+          "carbs": 5.9,
+          "fat": 0.2
+        },
+        {
+          "foodId": "siggis-skyr-nature",
+          "name": "Skyr Nature",
+          "grams": 100,
+          "kcal": 63.0,
+          "prot": 11.0,
+          "carbs": 4.0,
+          "fat": 0.2
+        },
+        {
+          "foodId": "hipro-natural",
+          "name": "HiPro Natural 0%",
+          "grams": 55,
+          "kcal": 29.2,
+          "prot": 5.5,
+          "carbs": 1.7,
+          "fat": 0.1
+        },
+        {
+          "foodId": "flax-seed",
+          "name": "Semillas de Lino (Flax Seed)",
+          "grams": 2.5,
+          "kcal": 13.4,
+          "prot": 0.5,
+          "carbs": 0.7,
+          "fat": 1.1
+        },
+        {
+          "foodId": "nueces-enteras",
+          "name": "Nueces Enteras (Walnuts)",
+          "grams": 15,
+          "kcal": 98.1,
+          "prot": 2.2,
+          "carbs": 2.1,
+          "fat": 9.8
+        },
+        {
+          "foodId": "fresas-frescas",
+          "name": "Fresas Frescas",
+          "grams": 50,
+          "kcal": 16.0,
+          "prot": 0.3,
+          "carbs": 3.9,
+          "fat": 0.1
+        }
+      ],
+      "timestamp": "2026-05-13T12:00:00"
+    },
+    {
+      "id": "2026-05-13-A-almuerzo",
+      "date": "2026-05-13",
+      "meal": "almuerzo",
+      "user": "adriana",
+      "items": [
+        {
+          "foodId": "pollo-guisado-verduras",
+          "name": "Pollo Guisado con Verduras",
+          "grams": 333,
+          "kcal": 399.6,
+          "prot": 46.6,
+          "carbs": 16.6,
+          "fat": 16.6
+        }
+      ],
+      "timestamp": "2026-05-13T12:00:00"
+    },
+    {
+      "id": "2026-05-13-A-snack",
+      "date": "2026-05-13",
+      "meal": "snack",
+      "user": "adriana",
+      "items": [
+        {
+          "foodId": "too-good-snack-poivre",
+          "name": "Too Good Snack Poivre",
+          "grams": 25,
+          "kcal": 100.0,
+          "prot": 0.2,
+          "carbs": 14.1,
+          "fat": 2.4
+        },
+        {
+          "foodId": "galettes-riz-nature",
+          "name": "Galettes de Riz Nature",
+          "grams": 9,
+          "kcal": 34.8,
+          "prot": 0.7,
+          "carbs": 7.4,
+          "fat": 0.3
+        },
+        {
+          "foodId": "cottage-cheese-president",
+          "name": "Cottage Cheese",
+          "grams": 15,
+          "kcal": 14.8,
+          "prot": 1.8,
+          "carbs": 0.4,
+          "fat": 0.7
+        },
+        {
+          "foodId": "cottage-cheese-president",
+          "name": "Cottage Cheese",
+          "grams": 64,
+          "kcal": 63.4,
+          "prot": 7.7,
+          "carbs": 1.6,
+          "fat": 2.9
+        },
+        {
+          "foodId": "galettes-riz-nature",
+          "name": "Galettes de Riz Nature",
+          "grams": 18,
+          "kcal": 69.7,
+          "prot": 1.4,
+          "carbs": 14.8,
+          "fat": 0.5
+        },
+        {
+          "foodId": "fresas-frescas",
+          "name": "Fresas Frescas",
+          "grams": 17,
+          "kcal": 5.4,
+          "prot": 0.1,
+          "carbs": 1.3,
+          "fat": 0.1
+        },
+        {
+          "foodId": "kinder-bueno-barra",
+          "name": "Kinder Bueno (barra dual)",
+          "grams": 21.5,
+          "kcal": 123.0,
+          "prot": 1.8,
+          "carbs": 10.5,
+          "fat": 8.0
+        },
+        {
+          "foodId": "tony-chocolonely-dark-70",
+          "name": "Chocolate Negro 70%",
+          "grams": 22,
+          "kcal": 126.5,
+          "prot": 2.0,
+          "carbs": 7.5,
+          "fat": 9.0
+        },
+        {
+          "foodId": "van-stapele-cookie",
+          "name": "Cookie Chocolate Negro con Núcleo Chocolate Blanco",
+          "grams": 80,
+          "kcal": 400.0,
+          "prot": 4.0,
+          "carbs": 40.0,
+          "fat": 22.4
+        }
+      ],
+      "timestamp": "2026-05-13T12:00:00"
+    },
+    {
+      "id": "2026-05-13-A-cena",
+      "date": "2026-05-13",
+      "meal": "cena",
+      "user": "adriana",
+      "items": [
+        {
+          "foodId": "pizza-high-protein-jamon",
+          "name": "Pizza High Protein (Jamon)",
+          "grams": 280,
+          "kcal": 456.4,
+          "prot": 34.7,
+          "carbs": 26.9,
+          "fat": 23.2
+        }
+      ],
+      "timestamp": "2026-05-13T12:00:00"
+    },
+    {
+      "id": "2026-05-15-A-desayuno",
+      "date": "2026-05-15",
+      "meal": "desayuno",
+      "user": "adriana",
+      "items": [
+        {
+          "foodId": "pancakes-de-proteina-adri-v2",
+          "name": "Pancakes de Proteina Adri V2",
+          "grams": 209,
+          "kcal": 326.7,
+          "prot": 38.2,
+          "carbs": 16.5,
+          "fat": 12.7
+        },
+        {
+          "foodId": "weider-peanut-butter-powder",
+          "name": "Peanut Butter Powder",
+          "grams": 9,
+          "kcal": 39.6,
+          "prot": 4.4,
+          "carbs": 1.7,
+          "fat": 1.2
+        },
+        {
+          "foodId": "nueces-enteras",
+          "name": "Nueces Enteras (Walnuts)",
+          "grams": 4,
+          "kcal": 26.2,
+          "prot": 0.6,
+          "carbs": 0.6,
+          "fat": 2.6
+        },
+        {
+          "foodId": "fresas-frescas",
+          "name": "Fresas Frescas",
+          "grams": 44,
+          "kcal": 14.1,
+          "prot": 0.3,
+          "carbs": 3.4,
+          "fat": 0.1
+        },
+        {
+          "foodId": "miel-abeja",
+          "name": "Miel de Abeja",
+          "grams": 9,
+          "kcal": 27.4,
+          "prot": 0.0,
+          "carbs": 7.4,
+          "fat": 0.0
+        }
+      ],
+      "timestamp": "2026-05-15T12:00:00"
+    },
+    {
+      "id": "2026-05-15-A-snack",
+      "date": "2026-05-15",
+      "meal": "snack",
+      "user": "adriana",
+      "items": [
+        {
+          "foodId": "too-good-snack-poivre",
+          "name": "Too Good Snack Poivre",
+          "grams": 47,
+          "kcal": 188.0,
+          "prot": 0.5,
+          "carbs": 26.6,
+          "fat": 4.5
+        }
+      ],
+      "timestamp": "2026-05-15T12:00:00"
+    },
+    {
+      "id": "2026-05-15-A-almuerzo",
+      "date": "2026-05-15",
+      "meal": "almuerzo",
+      "user": "adriana",
+      "items": [
+        {
+          "foodId": "pollo-guisado-verduras",
+          "name": "Pollo Guisado con Verduras",
+          "grams": 200,
+          "kcal": 240.0,
+          "prot": 28.0,
+          "carbs": 10.0,
+          "fat": 10.0
+        }
+      ],
+      "timestamp": "2026-05-15T12:00:00"
+    },
+    {
+      "id": "2026-05-15-A-cena",
+      "date": "2026-05-15",
+      "meal": "cena",
+      "user": "adriana",
+      "items": [
+        {
+          "foodId": "salmon-grille-restaurant",
+          "name": "Filete de Salmón Grillado",
+          "grams": 50,
+          "kcal": 103.0,
+          "prot": 11.0,
+          "carbs": 0.0,
+          "fat": 6.5
+        },
+        {
+          "foodId": "edamame-cocido",
+          "name": "Edamame Cocido",
+          "grams": 53,
+          "kcal": 64.7,
+          "prot": 5.8,
+          "carbs": 4.8,
+          "fat": 2.7
+        },
+        {
+          "foodId": "aguacate-fresco",
+          "name": "Aguacate Fresco",
+          "grams": 30,
+          "kcal": 48.0,
+          "prot": 0.6,
+          "carbs": 2.5,
+          "fat": 4.4
+        },
+        {
+          "foodId": "aderezo-fromage-blanc-aguacate-cilantro",
+          "name": "Aderezo de Fromage Blanc, Aguacate y Cilantro Limón",
+          "grams": 35,
+          "kcal": 31.1,
+          "prot": 0.9,
+          "carbs": 1.6,
+          "fat": 2.5
+        },
+        {
+          "foodId": "financier-pistacho",
+          "name": "Financier Pistache",
+          "grams": 58,
+          "kcal": 266.8,
+          "prot": 4.6,
+          "carbs": 23.2,
+          "fat": 16.2
+        },
+        {
+          "foodId": "sorbete-pistacho-ernesto-adri",
+          "name": "Sorbete Pistacho (Recetario Ernesto/Adriana)",
+          "grams": 120,
+          "kcal": 138.2,
+          "prot": 28.8,
+          "carbs": 4.6,
+          "fat": 0.5
+        },
+        {
+          "foodId": "mani-salado",
+          "name": "Maní Salado (Cacahuetes Tostados)",
+          "grams": 10,
+          "kcal": 58.5,
+          "prot": 2.5,
+          "carbs": 1.6,
+          "fat": 4.9
+        },
+        {
+          "foodId": "tony-chocolonely-dark-70",
+          "name": "Chocolate Negro 70%",
+          "grams": 8,
+          "kcal": 46.0,
+          "prot": 0.7,
+          "carbs": 2.7,
+          "fat": 3.3
+        }
+      ],
+      "timestamp": "2026-05-15T12:00:00"
     }
   ],
   "overrides": {

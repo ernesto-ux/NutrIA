@@ -2,7 +2,7 @@
 // Updated by Claude Code via /log-food skill
 // DO NOT EDIT MANUALLY - use /log-food to add meals
 
-const DATA_TIMESTAMP = "2026-05-14T20:00:00 Europe/Paris";
+const DATA_TIMESTAMP = "2026-05-16T01:01:00 Europe/Paris";
 
 const NUTRITION_CONFIG = {
   targets: { kcal: 1770, prot: 190, carbs: 140, fat: 50 },
@@ -2472,7 +2472,246 @@ const FOOD_DATABASE = [
     source: "estimated",
     addedDate: "2026-05-14"
   },
-
+  {
+    id: "pain-au-chocolat",
+    name: "Pain au Chocolat",
+    brand: "Boulangerie",
+    per100g: { kcal: 414, prot: 7.1, carbs: 47.0, fat: 22.0, fiber: 2.0 },
+    unitWeight: 65,
+    unitLabel: "pieza",
+    source: "user",
+    addedDate: "2026-05-16"
+  },
+  {
+    id: "crepe-jambon-fromage",
+    name: "Crêpe Jambon Fromage",
+    brand: "Boulangerie",
+    per100g: { kcal: 220, prot: 12.0, carbs: 16.0, fat: 12.0, fiber: 0.5 },
+    unitWeight: 250,
+    unitLabel: "crepa",
+    source: "user",
+    addedDate: "2026-05-16"
+  },
+  {
+    id: "crepe-caramel-beurre-sale-chantilly-sorbet",
+    name: "Crêpe Caramel Beurre Salé con Chantilly y Sorbete Vainilla",
+    brand: "Restaurant",
+    per100g: { kcal: 285, prot: 4.0, carbs: 32.0, fat: 16.0, fiber: 1.0 },
+    unitWeight: 300,
+    unitLabel: "crepa",
+    source: "user",
+    addedDate: "2026-05-16"
+  },
+  {
+    id: "creme-brulee",
+    name: "Crème Brûlée",
+    brand: "Restaurant",
+    per100g: { kcal: 290, prot: 4.0, carbs: 25.0, fat: 19.0, fiber: 0 },
+    unitWeight: 5,
+    unitLabel: "cucharadita",
+    source: "user",
+    addedDate: "2026-05-16"
+  },
+  {
+    id: "soupe-oignon-gratinee",
+    name: "Soupe à l'Oignon Gratinée",
+    brand: "Restaurant",
+    per100g: { kcal: 95, prot: 4.0, carbs: 9.0, fat: 5.0, fiber: 1.0 },
+    source: "user",
+    addedDate: "2026-05-16"
+  },
+  {
+    id: "salmon-grille-restaurant",
+    name: "Filete de Salmón Grillado",
+    brand: "Restaurant",
+    per100g: { kcal: 206, prot: 22.0, carbs: 0, fat: 13.0, fiber: 0 },
+    source: "user",
+    addedDate: "2026-05-16"
+  },
+  {
+    id: "papas-roti-restaurant",
+    name: "Papas Rôties (al horno)",
+    brand: "Restaurant",
+    per100g: { kcal: 165, prot: 3.0, carbs: 25.0, fat: 6.0, fiber: 2.5 },
+    unitWeight: 40,
+    unitLabel: "papa",
+    source: "user",
+    addedDate: "2026-05-16"
+  },
+  {
+    id: "ensalada-mixta-tomate-lechuga",
+    name: "Ensalada Mixta (tomate, lechuga, aderezo)",
+    brand: "Generic",
+    per100g: { kcal: 30, prot: 1.0, carbs: 4.0, fat: 1.0, fiber: 1.5 },
+    source: "user",
+    addedDate: "2026-05-16"
+  },
+  {
+    id: "yogurt-blueberry-hp-carrefour",
+    name: "Yogurt Blueberry High Protein Carrefour",
+    brand: "Carrefour",
+    per100g: { kcal: 58, prot: 10.0, carbs: 4.0, fat: 0.2, fiber: 0.5 },
+    unitWeight: 150,
+    unitLabel: "yogurt",
+    source: "user",
+    addedDate: "2026-05-16"
+  },
+  {
+    id: "entrecote-grille-restaurant",
+    name: "Entrecôte Grillé",
+    brand: "Restaurant",
+    per100g: { kcal: 270, prot: 25.0, carbs: 0, fat: 18.0, fiber: 0 },
+    source: "user",
+    addedDate: "2026-05-16"
+  },
+  {
+    id: "papas-fritas-fait-maison",
+    name: "Papas Fritas (fait maison)",
+    brand: "Restaurant",
+    per100g: { kcal: 285, prot: 3.5, carbs: 35.0, fat: 14.0, fiber: 3.0 },
+    source: "user",
+    addedDate: "2026-05-16"
+  },
+  {
+    id: "salsa-poivre-restaurant",
+    name: "Salsa Poivre (crema pimienta)",
+    brand: "Restaurant",
+    per100g: { kcal: 160, prot: 2.5, carbs: 7.0, fat: 14.0, fiber: 0 },
+    source: "user",
+    addedDate: "2026-05-16"
+  },
+  {
+    id: "kfc-chicken-tenders",
+    name: "Chicken Tenders KFC",
+    brand: "KFC",
+    per100g: { kcal: 290, prot: 18.0, carbs: 18.0, fat: 16.0, fiber: 0.5 },
+    unitWeight: 30,
+    unitLabel: "tender",
+    source: "user",
+    addedDate: "2026-05-16"
+  },
+  {
+    id: "lasagna-restaurant-generic",
+    name: "Lasagna (Restaurant Genérica)",
+    brand: "Restaurant",
+    per100g: { kcal: 155, prot: 8.0, carbs: 12.0, fat: 8.0, fiber: 1.0 },
+    source: "user",
+    addedDate: "2026-05-16"
+  },
+  {
+    id: "plato-libanes-mixto",
+    name: "Plato Libanés Mixto (hummus, kebab, tabbouleh)",
+    brand: "Restaurant",
+    per100g: { kcal: 220, prot: 12.0, carbs: 22.0, fat: 10.0, fiber: 3.0 },
+    source: "user",
+    addedDate: "2026-05-16"
+  },
+  {
+    id: "postres-libaneses-baklava",
+    name: "Postres Libaneses (baklava, knafeh, etc)",
+    brand: "Restaurant",
+    per100g: { kcal: 380, prot: 5.0, carbs: 45.0, fat: 20.0, fiber: 1.5 },
+    source: "user",
+    addedDate: "2026-05-16"
+  },
+  {
+    id: "edamame-cocido",
+    name: "Edamame Cocido",
+    brand: "Generic",
+    per100g: { kcal: 122, prot: 11.0, carbs: 9.0, fat: 5.0, fiber: 5.0 },
+    source: "user",
+    addedDate: "2026-05-16"
+  },
+  {
+    id: "financier-pistacho",
+    name: "Financier Pistache",
+    brand: "Boulangerie",
+    per100g: { kcal: 460, prot: 8.0, carbs: 40.0, fat: 28.0, fiber: 2.0 },
+    unitWeight: 15,
+    unitLabel: "mini financier",
+    source: "user",
+    addedDate: "2026-05-16"
+  },
+  {
+    id: "kinder-bueno-barra",
+    name: "Kinder Bueno (barra dual)",
+    brand: "Kinder",
+    per100g: { kcal: 572, prot: 8.4, carbs: 49.0, fat: 37.0, fiber: 3.0 },
+    unitWeight: 43,
+    unitLabel: "barra dual",
+    source: "user",
+    addedDate: "2026-05-16"
+  },
+  {
+    id: "mcdo-cheeseburger",
+    name: "Cheeseburger McDonald's",
+    brand: "McDonald's",
+    per100g: { kcal: 256, prot: 13.0, carbs: 26.0, fat: 12.0, fiber: 1.5 },
+    unitWeight: 108,
+    unitLabel: "burger",
+    source: "user",
+    addedDate: "2026-05-16"
+  },
+  {
+    id: "ensalada-carrefour-jamon",
+    name: "Ensalada Carrefour con Jamón",
+    brand: "Carrefour",
+    per100g: { kcal: 130, prot: 8.0, carbs: 12.0, fat: 6.0, fiber: 2.0 },
+    source: "user",
+    addedDate: "2026-05-16"
+  },
+  {
+    id: "pancito-apero-queso",
+    name: "Pancito con Queso (apéritif)",
+    brand: "Restaurant",
+    per100g: { kcal: 320, prot: 10.0, carbs: 40.0, fat: 14.0, fiber: 1.5 },
+    unitWeight: 30,
+    unitLabel: "pancito",
+    source: "user",
+    addedDate: "2026-05-16"
+  },
+  {
+    id: "chorizo-saucisson",
+    name: "Chorizo / Saucisson Sec",
+    brand: "Charcuterie",
+    per100g: { kcal: 410, prot: 25.0, carbs: 1.0, fat: 35.0, fiber: 0 },
+    source: "user",
+    addedDate: "2026-05-16"
+  },
+  {
+    id: "jamon-rojo-bresaola",
+    name: "Jamón Rojo Tipo Bresaola/Coppa",
+    brand: "Charcuterie",
+    per100g: { kcal: 380, prot: 24.0, carbs: 0, fat: 32.0, fiber: 0 },
+    source: "user",
+    addedDate: "2026-05-16"
+  },
+  {
+    id: "semillas-mixtas-almendra-avellana-mani",
+    name: "Semillas Mixtas (almendras, avellanas, maní)",
+    brand: "Generic",
+    per100g: { kcal: 620, prot: 18.0, carbs: 18.0, fat: 53.0, fiber: 8.0 },
+    source: "user",
+    addedDate: "2026-05-16"
+  },
+  {
+    id: "galleta-fortuna-thai",
+    name: "Galleta de la Fortuna (Fortune Cookie)",
+    brand: "Generic",
+    per100g: { kcal: 380, prot: 4.0, carbs: 85.0, fat: 3.0, fiber: 1.0 },
+    unitWeight: 7,
+    unitLabel: "galleta",
+    source: "user",
+    addedDate: "2026-05-16"
+  },
+  {
+    id: "jalea-fresa",
+    name: "Jalea de Fresa",
+    brand: "Generic",
+    per100g: { kcal: 250, prot: 0.5, carbs: 60.0, fat: 0.1, fiber: 0.5 },
+    source: "user",
+    addedDate: "2026-05-16"
+  }
 ];
 
 // Meal log - read-only fallback. GitHub (local-meals.json) is source of truth.
