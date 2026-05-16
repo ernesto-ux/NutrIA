@@ -44,18 +44,18 @@
       padding: 0 0 48px;
     }
 
-    /* ── HEADER ── */
+    /* ── HEADER (top bar: brand + date nav + user switcher) ── */
     .site-header {
       background: var(--card);
       border-bottom: 1px solid var(--border);
-      padding: 20px 0 0;
+      padding: 14px 0;
       position: sticky;
       top: 0;
       z-index: 100;
       box-shadow: 0 1px 8px rgba(0,0,0,.06);
     }
     .header-inner {
-      max-width: 900px;
+      max-width: 1280px;
       margin: 0 auto;
       padding: 0 24px;
     }
@@ -65,8 +65,128 @@
       justify-content: space-between;
       flex-wrap: wrap;
       gap: 12px;
-      margin-bottom: 16px;
     }
+
+    /* ── SIDEBAR (vertical nav desktop) ── */
+    .sidebar {
+      position: fixed;
+      left: 0;
+      top: 0;
+      bottom: 0;
+      width: 88px;
+      background: linear-gradient(180deg, #0F766E 0%, #0D9488 100%);
+      box-shadow: 2px 0 14px rgba(0,0,0,0.08);
+      z-index: 200;
+      padding: 20px 0 16px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 4px;
+      overflow-y: auto;
+      overflow-x: hidden;
+    }
+    .sidebar::-webkit-scrollbar { width: 0; }
+    .sidebar-brand {
+      width: 56px;
+      height: 56px;
+      border-radius: 14px;
+      background: rgba(255,255,255,0.18);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 28px;
+      margin-bottom: 16px;
+      backdrop-filter: blur(8px);
+    }
+    .sidebar-tab {
+      width: 64px;
+      padding: 10px 4px 8px;
+      border: none;
+      background: transparent;
+      color: rgba(255,255,255,0.7);
+      cursor: pointer;
+      border-radius: 12px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 4px;
+      transition: all .18s ease;
+      font-family: inherit;
+      font-size: 9px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      position: relative;
+    }
+    .sidebar-tab-icon { font-size: 22px; line-height: 1; transition: transform .18s; }
+    .sidebar-tab:hover { color: #fff; background: rgba(255,255,255,0.1); }
+    .sidebar-tab:hover .sidebar-tab-icon { transform: scale(1.1); }
+    .sidebar-tab.active {
+      color: #fff;
+      background: rgba(255,255,255,0.22);
+    }
+    .sidebar-tab.active::before {
+      content: '';
+      position: absolute;
+      left: -16px;
+      top: 18px;
+      bottom: 18px;
+      width: 4px;
+      background: #fff;
+      border-radius: 0 4px 4px 0;
+    }
+    .sidebar-footer {
+      margin-top: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      width: 100%;
+      align-items: center;
+    }
+
+    /* ── MOBILE BOTTOM BAR (replaces sidebar on small screens) ── */
+    .mobile-nav {
+      display: none;
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: var(--card);
+      border-top: 1px solid var(--border);
+      box-shadow: 0 -2px 14px rgba(0,0,0,0.08);
+      z-index: 200;
+      padding: 6px 4px calc(6px + env(safe-area-inset-bottom));
+      gap: 2px;
+      overflow-x: auto;
+      overflow-y: hidden;
+      scrollbar-width: none;
+    }
+    .mobile-nav::-webkit-scrollbar { display: none; }
+    .mobile-nav-tab {
+      flex: 1;
+      min-width: 60px;
+      padding: 8px 4px 4px;
+      border: none;
+      background: none;
+      color: var(--text-sec);
+      cursor: pointer;
+      border-radius: 10px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 2px;
+      font-family: inherit;
+      font-size: 9px;
+      font-weight: 600;
+      transition: all .15s;
+      text-transform: uppercase;
+      letter-spacing: 0.4px;
+      flex-shrink: 0;
+    }
+    .mobile-nav-tab-icon { font-size: 20px; line-height: 1; }
+    .mobile-nav-tab.active {
+      color: var(--teal);
+      background: var(--teal-light);
+    }
+    .mobile-nav-tab.active .mobile-nav-tab-icon { transform: scale(1.05); }
     .brand { display: flex; flex-direction: column; }
     .brand-title {
       font-size: 1.6rem;
@@ -114,6 +234,7 @@
       transition: all .15s;
     }
     .date-label:hover { border-color: var(--teal); color: var(--teal); }
+    /* Legacy pill style (used in sub-tabs only, not main nav) */
     .period-pills {
       display: flex;
       gap: 2px;
@@ -124,8 +245,6 @@
       scrollbar-width: thin;
       scrollbar-color: var(--border) transparent;
       -webkit-overflow-scrolling: touch;
-      mask-image: linear-gradient(to right, black calc(100% - 24px), transparent);
-      -webkit-mask-image: linear-gradient(to right, black calc(100% - 24px), transparent);
     }
     .period-pills::-webkit-scrollbar { height: 2px; }
     .period-pills::-webkit-scrollbar-thumb { background: var(--border); border-radius: 1px; }
@@ -146,19 +265,25 @@
     }
     .pill:hover { color: var(--teal); }
     .pill.active { color: var(--teal); border-bottom-color: var(--teal); }
-    @media (max-width: 680px) {
-      .pill { padding: 8px 10px; font-size: 0.72rem; }
-      .period-pills { gap: 0; }
-    }
-    @media (max-width: 420px) {
-      .pill { padding: 8px 8px; font-size: 0.7rem; }
-    }
 
     /* ── MAIN ── */
     .main {
-      max-width: 900px;
-      margin: 32px auto 0;
+      max-width: 1100px;
+      margin: 24px auto 0;
       padding: 0 24px;
+      margin-left: calc(88px + 16px);
+      transition: margin-left .25s ease;
+    }
+    .site-header {
+      margin-left: 88px;
+    }
+
+    /* ── MOBILE LAYOUT ── */
+    @media (max-width: 880px) {
+      .sidebar { display: none !important; }
+      .mobile-nav { display: flex; }
+      .main { margin-left: 0; padding: 0 16px; padding-bottom: 80px; }
+      .site-header { margin-left: 0; }
     }
 
     /* ── CARDS ── */
@@ -1022,20 +1147,37 @@
         </div>
       </div>
     </div>
-    <div class="period-pills">
-      <button class="pill active" data-period="hoy" onclick="setPeriod('hoy')">🍽️ Meals</button>
-      <button class="pill" data-period="historial" onclick="setPeriod('historial')">📅 Historial</button>
-      <button class="pill" data-period="informes" onclick="setPeriod('informes')">📊 Informes</button>
-      <button class="pill" data-period="finanzas" onclick="setPeriod('finanzas')">💰 Finanzas</button>
-      <button class="pill" data-period="hogar" onclick="setPeriod('hogar')">🏠 Hogar</button>
-      <button class="pill" data-period="coach" onclick="setPeriod('coach')">🤖 Coach</button>
-      <button class="pill" data-period="nutricion" onclick="setPeriod('nutricion')">🥗 Nutricion</button>
-      <button class="pill" data-period="actividad" onclick="setPeriod('actividad')">🏃 Actividad</button>
-      <button class="pill" data-period="salud" onclick="setPeriod('salud')">🏥 Salud</button>
-      <button class="pill" data-period="tools" onclick="setPeriod('tools')">🛠️ Tools</button>
-    </div>
   </div>
 </header>
+
+<!-- VERTICAL SIDEBAR (desktop) -->
+<aside class="sidebar" id="sidebar">
+  <div class="sidebar-brand" title="NutrIA">🦦</div>
+  <button class="sidebar-tab active" data-period="hoy" onclick="setPeriod('hoy')"><span class="sidebar-tab-icon">🍽️</span>Meals</button>
+  <button class="sidebar-tab" data-period="historial" onclick="setPeriod('historial')"><span class="sidebar-tab-icon">📅</span>Historial</button>
+  <button class="sidebar-tab" data-period="informes" onclick="setPeriod('informes')"><span class="sidebar-tab-icon">📊</span>Informes</button>
+  <button class="sidebar-tab" data-period="finanzas" onclick="setPeriod('finanzas')"><span class="sidebar-tab-icon">💰</span>Finanzas</button>
+  <button class="sidebar-tab" data-period="hogar" onclick="setPeriod('hogar')"><span class="sidebar-tab-icon">🏠</span>Hogar</button>
+  <button class="sidebar-tab" data-period="coach" onclick="setPeriod('coach')"><span class="sidebar-tab-icon">🤖</span>Coach</button>
+  <button class="sidebar-tab" data-period="nutricion" onclick="setPeriod('nutricion')"><span class="sidebar-tab-icon">🥗</span>Nutricion</button>
+  <button class="sidebar-tab" data-period="actividad" onclick="setPeriod('actividad')"><span class="sidebar-tab-icon">🏃</span>Actividad</button>
+  <button class="sidebar-tab" data-period="salud" onclick="setPeriod('salud')"><span class="sidebar-tab-icon">🏥</span>Salud</button>
+  <button class="sidebar-tab" data-period="tools" onclick="setPeriod('tools')"><span class="sidebar-tab-icon">🛠️</span>Tools</button>
+</aside>
+
+<!-- MOBILE BOTTOM NAV -->
+<nav class="mobile-nav" id="mobile-nav">
+  <button class="mobile-nav-tab active" data-period="hoy" onclick="setPeriod('hoy')"><span class="mobile-nav-tab-icon">🍽️</span>Meals</button>
+  <button class="mobile-nav-tab" data-period="historial" onclick="setPeriod('historial')"><span class="mobile-nav-tab-icon">📅</span>Historial</button>
+  <button class="mobile-nav-tab" data-period="informes" onclick="setPeriod('informes')"><span class="mobile-nav-tab-icon">📊</span>Informes</button>
+  <button class="mobile-nav-tab" data-period="finanzas" onclick="setPeriod('finanzas')"><span class="mobile-nav-tab-icon">💰</span>$</button>
+  <button class="mobile-nav-tab" data-period="hogar" onclick="setPeriod('hogar')"><span class="mobile-nav-tab-icon">🏠</span>Hogar</button>
+  <button class="mobile-nav-tab" data-period="coach" onclick="setPeriod('coach')"><span class="mobile-nav-tab-icon">🤖</span>Coach</button>
+  <button class="mobile-nav-tab" data-period="nutricion" onclick="setPeriod('nutricion')"><span class="mobile-nav-tab-icon">🥗</span>Nutri</button>
+  <button class="mobile-nav-tab" data-period="actividad" onclick="setPeriod('actividad')"><span class="mobile-nav-tab-icon">🏃</span>Activ</button>
+  <button class="mobile-nav-tab" data-period="salud" onclick="setPeriod('salud')"><span class="mobile-nav-tab-icon">🏥</span>Salud</button>
+  <button class="mobile-nav-tab" data-period="tools" onclick="setPeriod('tools')"><span class="mobile-nav-tab-icon">🛠️</span>Tools</button>
+</nav>
 
 <!-- MAIN -->
 <main class="main" id="main-content"></main>
@@ -1081,7 +1223,35 @@
 </div>
 
 <!-- QUICK ADD FAB -->
+<button id="photo-journal-fab" onclick="openPhotoJournal()" title="Foto journal" style="position:fixed;bottom:24px;right:90px;width:56px;height:56px;border-radius:50%;background:linear-gradient(135deg,#F97316,#EA580C);color:#fff;border:none;font-size:24px;cursor:pointer;box-shadow:0 6px 20px rgba(234,88,12,0.4);z-index:500;display:flex;align-items:center;justify-content:center;font-family:inherit;">📷</button>
+<input id="photo-journal-input" type="file" accept="image/*" capture="environment" style="display:none;" onchange="onPhotoJournalSelect(this.files)" multiple>
+
 <button id="quick-add-fab" onclick="toggleQuickAdd()" title="Quick add (q)" style="position:fixed;bottom:24px;right:24px;width:56px;height:56px;border-radius:50%;background:var(--teal);color:#fff;border:none;font-size:26px;cursor:pointer;box-shadow:0 6px 20px rgba(15,118,110,0.35);z-index:500;display:flex;align-items:center;justify-content:center;font-family:inherit;">+</button>
+
+<!-- PHOTO JOURNAL MODAL -->
+<div id="photo-journal-modal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.55);z-index:600;align-items:center;justify-content:center;padding:20px;" onclick="if(event.target===this)closePhotoJournal()">
+  <div style="background:var(--card);border-radius:18px;padding:0;max-width:560px;width:96%;max-height:90vh;overflow:hidden;display:flex;flex-direction:column;box-shadow:0 25px 70px rgba(0,0,0,0.35);">
+    <div style="padding:18px 22px;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;align-items:center;background:linear-gradient(135deg,#F97316,#EA580C);color:#fff;">
+      <div style="display:flex;align-items:center;gap:10px;">
+        <div style="font-size:22px;">📷</div>
+        <div>
+          <div style="font-size:16px;font-weight:700;">Photo journal</div>
+          <div style="font-size:11px;opacity:0.85;">Sube fotos de lo que comiste. Detecto fecha/hora automáticamente.</div>
+        </div>
+      </div>
+      <button onclick="closePhotoJournal()" style="background:rgba(255,255,255,0.2);border:none;font-size:18px;cursor:pointer;color:#fff;width:32px;height:32px;border-radius:50%;font-family:inherit;">×</button>
+    </div>
+    <div id="photo-journal-body" style="padding:18px 22px;overflow-y:auto;flex:1;">
+      <div id="photo-journal-empty" style="text-align:center;padding:40px 20px;color:var(--text-sec);">
+        <div style="font-size:48px;margin-bottom:10px;opacity:0.5;">🍽️</div>
+        <div style="font-weight:600;color:var(--text);margin-bottom:6px;">Selecciona fotos de tus comidas</div>
+        <div style="font-size:12px;margin-bottom:20px;">Puedes subir varias a la vez. EXIF se lee automáticamente.</div>
+        <button onclick="document.getElementById('photo-journal-input').click()" style="padding:12px 24px;background:var(--teal);color:#fff;border:none;border-radius:10px;font-size:14px;font-weight:600;cursor:pointer;font-family:inherit;">📁 Seleccionar fotos</button>
+      </div>
+      <div id="photo-journal-results"></div>
+    </div>
+  </div>
+</div>
 
 <div id="quick-add-modal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.5);z-index:600;align-items:flex-start;justify-content:center;padding-top:80px;" onclick="if(event.target===this)closeQuickAdd()">
   <div style="background:var(--card);border-radius:14px;padding:20px;max-width:480px;width:90%;box-shadow:0 20px 60px rgba(0,0,0,0.3);">
@@ -2101,15 +2271,37 @@ try {
             </div>
           </div>`).join('');
 
+      // Photos linked to this meal (date + meal type)
+      let mealPhotos = [];
+      try {
+        const allPhotos = (typeof getStoredPhotos === 'function') ? getStoredPhotos() : {};
+        mealPhotos = Object.entries(allPhotos)
+          .filter(([_, p]) => p.date === currentDate && p.mealType === m)
+          .map(([id, p]) => ({ id, ...p }));
+      } catch(e) {}
+      const photosStrip = mealPhotos.length > 0 ? `
+        <div style="display:flex;gap:6px;padding:6px 0 8px;overflow-x:auto;scrollbar-width:none;">
+          ${mealPhotos.map(p => p.base64
+            ? `<img src="${p.base64}" style="width:56px;height:56px;object-fit:cover;border-radius:8px;border:2px solid ${kcal > 0 ? '#10B981' : '#F59E0B'};flex-shrink:0;cursor:pointer;" onclick="window.open('${p.base64}','_blank')" title="${p.filename} · ${p.time}">`
+            : `<div style="width:56px;height:56px;border-radius:8px;background:var(--bg);border:2px dashed ${kcal > 0 ? '#10B981' : '#F59E0B'};display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0;" title="${p.filename} · ${p.time} (HEIC: sin preview)">📱</div>`
+          ).join('')}
+        </div>` : '';
+      const photoDiscrepancy = (mealPhotos.length > 0 && kcal === 0)
+        ? `<div style="background:#FEF3C7;color:#92400E;padding:6px 8px;border-radius:8px;font-size:11px;font-weight:600;margin-bottom:6px;display:flex;align-items:center;gap:6px;">⚠ ${mealPhotos.length} foto(s) sin texto loggeado</div>`
+        : '';
+
       return `
         <div class="meal-col" data-meal="${m}">
           <div class="meal-col-header">
             <div class="meal-col-title">
               <span class="meal-icon">${MEAL_ICONS[m]}</span>
               ${MEAL_LABELS[m]}
+              ${mealPhotos.length > 0 ? `<span style="font-size:11px;color:#F97316;font-weight:700;margin-left:4px;">📷${mealPhotos.length}</span>` : ''}
             </div>
             <span class="meal-kcal">${kcal > 0 ? Math.round(kcal) + ' kcal' + tripleCheck(kcal, mealMacros[m].prot, mealMacros[m].carbs, mealMacros[m].fat, TARGETS().kcal) : '—'}</span>
           </div>
+          ${photoDiscrepancy}
+          ${photosStrip}
           ${kcal > 0 ? `<div class="meal-macros-bar"><span class="meal-macro-tag prot">${mealMacros[m].prot}P</span><span class="meal-macro-tag carbs">${mealMacros[m].carbs}C</span><span class="meal-macro-tag fat">${mealMacros[m].fat}F</span></div>` : ''}
           ${itemCards}
         </div>`;
@@ -6778,7 +6970,8 @@ try {
       : formatDateDisplay(currentDate);
     dateEl.textContent = label;
 
-    document.querySelectorAll('.pill').forEach(p => {
+    // Sync active state across all nav surfaces (sidebar + mobile + legacy pills)
+    document.querySelectorAll('.sidebar-tab, .mobile-nav-tab, .pill[data-period]').forEach(p => {
       p.classList.toggle('active', p.dataset.period === currentPeriod);
     });
 
@@ -6834,12 +7027,14 @@ try {
   window.setPeriod = function (period) {
     currentPeriod = period;
     render();
-    // Scroll active tab into view (helpful when navbar overflows)
+    // Scroll active mobile tab into view if hidden
     setTimeout(() => {
-      const active = document.querySelector(`.pill[data-period="${period}"]`);
-      if (active && active.scrollIntoView) {
+      const active = document.querySelector(`.mobile-nav-tab[data-period="${period}"]`);
+      if (active && active.scrollIntoView && window.innerWidth <= 880) {
         active.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
       }
+      // Scroll main content to top on tab change
+      window.scrollTo({ top: 0, behavior: 'smooth' });
     }, 50);
   };
 
@@ -6886,6 +7081,215 @@ try {
     }
     return { qty: parseFloat(m[1].replace(',','.')), unit: m[2] || 'g', name: m[3].trim() };
   }
+
+  // ============== PHOTO JOURNAL ==============
+  // Per-user photo storage: localStorage key `nutria_photos_${user}` =
+  //   { [photoId]: { base64, exifDate, filename, hour, mealType, mealId?, createdAt, note? } }
+  // Photo entries can be linked to existing meal entries or stand alone.
+  function _photosKey() { return 'nutria_photos_' + currentUser; }
+  function getStoredPhotos() {
+    try { return JSON.parse(localStorage.getItem(_photosKey()) || '{}'); }
+    catch(e) { return {}; }
+  }
+  function setStoredPhotos(obj) {
+    localStorage.setItem(_photosKey(), JSON.stringify(obj));
+  }
+  // Read EXIF DateTimeOriginal from JPEG/HEIC bytes (lightweight, no deps)
+  async function readExifDate(file) {
+    try {
+      const buf = await file.slice(0, 256 * 1024).arrayBuffer();
+      const view = new DataView(buf);
+      // JPEG: starts with 0xFFD8
+      if (view.getUint16(0) !== 0xFFD8) {
+        // HEIC/other: fall back to file lastModified
+        return file.lastModified ? new Date(file.lastModified) : null;
+      }
+      let offset = 2;
+      while (offset < view.byteLength) {
+        const marker = view.getUint16(offset);
+        if (marker === 0xFFE1) {
+          // APP1 (EXIF)
+          const size = view.getUint16(offset + 2);
+          if (view.getUint32(offset + 4) === 0x45786966) {
+            // "Exif"
+            const tiffOffset = offset + 10;
+            const little = view.getUint16(tiffOffset) === 0x4949;
+            const get16 = (o) => view.getUint16(o, little);
+            const get32 = (o) => view.getUint32(o, little);
+            const ifd0 = tiffOffset + get32(tiffOffset + 4);
+            const numEntries = get16(ifd0);
+            let exifIFD = null;
+            for (let i = 0; i < numEntries; i++) {
+              const entry = ifd0 + 2 + i * 12;
+              const tag = get16(entry);
+              if (tag === 0x8769) { exifIFD = tiffOffset + get32(entry + 8); break; }
+            }
+            if (exifIFD) {
+              const n = get16(exifIFD);
+              for (let i = 0; i < n; i++) {
+                const e = exifIFD + 2 + i * 12;
+                const tag = get16(e);
+                if (tag === 0x9003) { // DateTimeOriginal
+                  const valOffset = tiffOffset + get32(e + 8);
+                  let str = '';
+                  for (let j = 0; j < 19; j++) str += String.fromCharCode(view.getUint8(valOffset + j));
+                  // "YYYY:MM:DD HH:MM:SS"
+                  const m = str.match(/^(\d{4}):(\d{2}):(\d{2}) (\d{2}):(\d{2}):(\d{2})$/);
+                  if (m) return new Date(+m[1], +m[2] - 1, +m[3], +m[4], +m[5], +m[6]);
+                }
+              }
+            }
+          }
+          offset += 2 + size;
+        } else if ((marker & 0xFF00) !== 0xFF00) {
+          break;
+        } else {
+          offset += 2 + view.getUint16(offset + 2);
+        }
+      }
+    } catch(e) { console.warn('EXIF read failed', e); }
+    return file.lastModified ? new Date(file.lastModified) : null;
+  }
+  function fmtYMD(d) {
+    return d.getFullYear() + '-' + String(d.getMonth()+1).padStart(2,'0') + '-' + String(d.getDate()).padStart(2,'0');
+  }
+  function fmtHM(d) {
+    return String(d.getHours()).padStart(2,'0') + ':' + String(d.getMinutes()).padStart(2,'0');
+  }
+  function inferMealFromHour(h) {
+    if (h < 11) return 'desayuno';
+    if (h < 15) return 'almuerzo';
+    if (h < 19) return 'snack';
+    return 'cena';
+  }
+  // Compress image to base64 (max 800px) for localStorage
+  async function compressToBase64(file, maxSide = 800) {
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.onload = e => {
+        const img = new Image();
+        img.onload = () => {
+          let w = img.width, h = img.height;
+          if (w > h && w > maxSide) { h = h * (maxSide / w); w = maxSide; }
+          else if (h > maxSide) { w = w * (maxSide / h); h = maxSide; }
+          const canvas = document.createElement('canvas');
+          canvas.width = w; canvas.height = h;
+          canvas.getContext('2d').drawImage(img, 0, 0, w, h);
+          resolve(canvas.toDataURL('image/jpeg', 0.82));
+        };
+        img.onerror = reject;
+        img.src = e.target.result;
+      };
+      reader.onerror = reject;
+      reader.readAsDataURL(file);
+    });
+  }
+  window.openPhotoJournal = function() {
+    document.getElementById('photo-journal-modal').style.display = 'flex';
+    document.getElementById('photo-journal-empty').style.display = 'block';
+    document.getElementById('photo-journal-results').innerHTML = '';
+  };
+  window.closePhotoJournal = function() {
+    document.getElementById('photo-journal-modal').style.display = 'none';
+    document.getElementById('photo-journal-input').value = '';
+  };
+  window.onPhotoJournalSelect = async function(files) {
+    if (!files || !files.length) return;
+    document.getElementById('photo-journal-empty').style.display = 'none';
+    const results = document.getElementById('photo-journal-results');
+    results.innerHTML = `<div style="text-align:center;padding:20px;color:var(--text-sec);">⏳ Procesando ${files.length} foto(s)...</div>`;
+
+    const photos = getStoredPhotos();
+    const processed = [];
+
+    for (const file of Array.from(files)) {
+      try {
+        const isHeic = /\.heic$/i.test(file.name);
+        const exifDate = await readExifDate(file);
+        const photoId = 'p_' + Date.now() + '_' + Math.random().toString(36).slice(2, 7);
+        // HEIC: browser cannot decode. Store metadata only without base64 preview.
+        let base64 = null;
+        if (!isHeic && file.type.startsWith('image/')) {
+          try { base64 = await compressToBase64(file); } catch(e) {}
+        }
+        const d = exifDate || new Date(file.lastModified || Date.now());
+        const dateStr = fmtYMD(d);
+        const timeStr = fmtHM(d);
+        const mealType = inferMealFromHour(d.getHours());
+        const meals = (typeof getMeals === 'function') ? getMeals() : [];
+        const matchingMeal = meals.find(m => m.date === dateStr && m.meal === mealType);
+        const photo = {
+          base64: base64,
+          isHeic: isHeic,
+          filename: file.name,
+          exifDate: d.toISOString(),
+          date: dateStr,
+          time: timeStr,
+          mealType: mealType,
+          mealId: matchingMeal ? matchingMeal.id : null,
+          createdAt: new Date().toISOString(),
+        };
+        photos[photoId] = photo;
+        processed.push({ photoId, photo, matchingMeal });
+      } catch(e) {
+        console.error('photo error', file.name, e);
+      }
+    }
+    setStoredPhotos(photos);
+
+    // Render results
+    results.innerHTML = processed.map(({ photoId, photo, matchingMeal }) => {
+      const matchBadge = matchingMeal
+        ? `<div style="display:inline-flex;align-items:center;gap:4px;padding:3px 8px;background:#D1FAE5;color:#065F46;border-radius:12px;font-size:11px;font-weight:600;">✓ Match: ${matchingMeal.items.length} ítems · ${Math.round(matchingMeal.items.reduce((s,it)=>s+it.kcal,0))} kcal</div>`
+        : `<div style="display:inline-flex;align-items:center;gap:4px;padding:3px 8px;background:#FEF3C7;color:#92400E;border-radius:12px;font-size:11px;font-weight:600;">⚠ Sin texto loggeado</div>`;
+      const thumb = photo.base64
+        ? `<img src="${photo.base64}" style="width:88px;height:88px;object-fit:cover;border-radius:10px;border:1px solid var(--border);">`
+        : `<div style="width:88px;height:88px;border-radius:10px;background:var(--bg);border:1px dashed var(--border);display:flex;align-items:center;justify-content:center;font-size:24px;">${photo.isHeic ? '📱' : '🖼️'}</div>`;
+      return `<div style="display:flex;gap:14px;padding:12px;border:1px solid var(--border);border-radius:12px;margin-bottom:10px;align-items:flex-start;">
+        ${thumb}
+        <div style="flex:1;min-width:0;">
+          <div style="font-size:13px;font-weight:600;color:var(--text);margin-bottom:4px;">${photo.filename}</div>
+          <div style="font-size:11px;color:var(--text-sec);margin-bottom:6px;">📅 ${photo.date} · ⏰ ${photo.time} · 🍽️ ${MEAL_LABELS[photo.mealType] || photo.mealType}</div>
+          ${matchBadge}
+          ${photo.isHeic ? '<div style="margin-top:6px;font-size:10px;color:#92400E;">📱 HEIC: usa convertir a JPG en Photos.app para preview</div>' : ''}
+        </div>
+        <button onclick="deletePhoto('${photoId}')" style="background:none;border:none;font-size:16px;cursor:pointer;color:var(--text-sec);" title="Eliminar">🗑️</button>
+      </div>`;
+    }).join('') + `<div style="text-align:center;margin-top:14px;display:flex;gap:8px;justify-content:center;">
+      <button onclick="document.getElementById('photo-journal-input').click()" style="padding:10px 18px;background:var(--bg);color:var(--text);border:1px solid var(--border);border-radius:10px;font-size:13px;font-weight:600;cursor:pointer;font-family:inherit;">+ Más fotos</button>
+      <button onclick="closePhotoJournal();render();" style="padding:10px 18px;background:var(--teal);color:#fff;border:none;border-radius:10px;font-size:13px;font-weight:600;cursor:pointer;font-family:inherit;">Listo</button>
+    </div>`;
+
+    // Toast: discrepancies
+    const unmatched = processed.filter(p => !p.matchingMeal).length;
+    if (unmatched > 0 && typeof showToast === 'function') {
+      showToast(`⚠ ${unmatched} foto(s) sin comida loggeada en texto — verifica`);
+    }
+  };
+  window.deletePhoto = function(photoId) {
+    const photos = getStoredPhotos();
+    delete photos[photoId];
+    setStoredPhotos(photos);
+    // Re-render current results
+    const remaining = Object.entries(photos);
+    if (!remaining.length) {
+      document.getElementById('photo-journal-empty').style.display = 'block';
+      document.getElementById('photo-journal-results').innerHTML = '';
+    } else {
+      // refresh list
+      window.refreshPhotoJournalList && window.refreshPhotoJournalList();
+      // Simple: just remove the element
+      event.target.closest('div[style*="border:1px solid"]').remove();
+    }
+  };
+  // Helper: photos for a meal entry (by meal id or by date+meal type)
+  window.getPhotosForMeal = function(mealEntry) {
+    if (!mealEntry) return [];
+    const photos = getStoredPhotos();
+    return Object.entries(photos)
+      .filter(([_, p]) => p.mealId === mealEntry.id || (p.date === mealEntry.date && p.mealType === mealEntry.meal))
+      .map(([id, p]) => ({ id, ...p }));
+  };
 
   window.toggleQuickAdd = function() {
     const modal = document.getElementById('quick-add-modal');

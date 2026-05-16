@@ -1,5 +1,39 @@
 # Changelog - NutrIA
 
+## [V2.0 — Photo journal + vertical sidebar + visual refresh] - 16 mayo 2026
+### Agregado (Major UX evolution — inspirado en Virtuagym + iOS food log)
+- **Vertical sidebar desktop**: nav lateral fija 88px con gradient teal, iconos grandes (22px) + labels (9px uppercase), barra activa lateral blanca. Adiós a las pills horizontales arriba (overflow-scroll → vertical permanente).
+- **Bottom nav mobile**: nav inferior horizontal con scroll-x, iconos 20px + labels cortos (4-5 chars), versión adaptada para celular. `@media (max-width:880px)` switch automático.
+- **Photo journal feature** (nuevo módulo):
+  - FAB naranja (🧡 `#F97316→#EA580C`) junto al `+` verde: abre modal de subida de fotos
+  - **EXIF DateTimeOriginal extraction** desde bytes JPEG (no library deps): lee marker 0xFFE1 → IFD0 → ExifIFD → tag 0x9003. Fallback a `file.lastModified` para HEIC u otros sin EXIF
+  - **Compresión automática** a base64 (max 800px, JPEG quality 0.82) via canvas → localStorage por usuario (`nutria_photos_${user}`)
+  - **HEIC detection**: navegador no decodifica HEIC nativo, se almacena metadata sin preview (icono 📱)
+  - **Inferencia automática** de mealType desde hora EXIF: <11=desayuno, <15=almuerzo, <19=snack, ≥19=cena
+  - **Auto-link con meal existente**: cuando date+mealType matchea con entry en local-meals.json, asocia automáticamente. Si no, queda standalone con badge "⚠ Sin texto loggeado"
+- **Photo strip en meal cards** (Meals tab):
+  - Thumbnails 56×56 con border verde si hay text-match, naranja punteado si solo foto
+  - Click expande imagen en nueva pestaña
+  - Badge `📷N` en título del meal cuando hay fotos
+  - **Discrepancy alert**: si hay fotos pero `kcal === 0` (sin texto), banner amarillo "⚠ N foto(s) sin texto loggeado"
+  - Para HEIC sin preview: icono 📱 + hint "convertir a JPG en Photos.app"
+
+### Implementación técnica
+- Nuevos files: ninguno (todo en index.html). Photos persistidos en localStorage como base64 → portable, sin filesystem deps
+- Architecture: `users.{ernesto, adriana}` ya soportado (currentUser scoped storage)
+- Funciones añadidas (window scope): openPhotoJournal, closePhotoJournal, onPhotoJournalSelect, deletePhoto, getPhotosForMeal, readExifDate, compressToBase64, inferMealFromHour, getStoredPhotos, setStoredPhotos
+- `setPeriod()` actualizado: sync active state a `.sidebar-tab, .mobile-nav-tab, .pill[data-period]` (all three nav surfaces)
+- Removed: legacy `period-pills` horizontal nav, mask-image fade overflow
+
+### Roadmap futuras sesiones
+- **Photo-text comparison vía Claude vision**: detectar cuando texto loggeado no matchea foto (e.g., loggeas pollo pero foto muestra pizza)
+- **Food image library**: auto-fetch imagen de cada food del DB para mostrar en cards estilo Virtuagym
+- **Food card redesign**: imagen + macros prominentes (rings circulares) + click expandible
+- **Day strip navigator**: barra horizontal de días recientes (estilo iOS) en lugar de date picker
+- **Insights tab**: streaks, achievements, weekly summary
+- **Library tab**: catálogo browseable de foods con imágenes
+- **Lectura HEIC**: integrar libheif-js para decode HEIC en browser (requiere ~200kb library)
+
 ## [Multi-user schema + carga masiva May 6-15 + fixes UI] - 16 mayo 2026
 ### Fixed (Schema multi-user crítico)
 - **`who` → `user` everywhere**: MEAL_LOG en nutrition-data.js tenía 116 entries de Adriana con campo `who` (no `user`). Causa: el dashboard solo veía 7 días de Adriana (vs 29 reales). Migración aplicada: 288 entries MEAL_LOG (172 ernesto + 116 adriana), 12 entries local-meals.json con campo duplicado limpiadas, 40 ACTIVITY_LOG + 8 DAILY_BALANCE tagged con user
