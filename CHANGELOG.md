@@ -1,5 +1,19 @@
 # Changelog - NutrIA
 
+## [V2.4.1 — HOTFIX Photo Journal crash] - 16 mayo 2026
+### Fixed (CRÍTICO)
+- **Photo Journal mostraba página en blanco**: `renderPhotoJournal()` llamaba `getMeals()` que no existe → `ReferenceError` silencioso → page crash con HTML vacío. Fix: reemplazado por `getAllMeals()` (la función correcta que merge MEAL_LOG legacy + local-meals.json + filtra por currentUser). 3 ocurrencias reemplazadas en photo journal + photo strips + analyzePhotoVsText.
+- Esto explicaba por qué clicar 📷 Journal "no hacía nada" — el render fallaba antes de generar HTML.
+
+### Verificado (datos están presentes pese a reporte usuario)
+- Ernesto 29/03 → 15/05: **48/49 días con data** (solo 16/05 sin loggear)
+- May 1: 4 meals, 2074 kcal ✓
+- May 2: 6 meals, 1916 kcal ✓
+- May 4: 4 meals, 1769 kcal ✓
+- May 11: 4 meals, 2550 kcal ✓ (desayuno hotel + almuerzo The Jgo Toulouse + snack religieuse + cena pan pumpernickel)
+
+El usuario probablemente no veía los datos porque el render crasheaba en cuanto pasaba por Photo Journal.
+
 ## [V2.4 — Food image library + Library tab + Photo thumbnails embebidos + goToDate fix] - 16 mayo 2026
 ### Fixed (críticos)
 - **Day strip click no funcionaba**: faltaba `window.goToDate(ymd)`. Solo respondían las flechas izquierda/derecha del header. Ahora click en cualquier celda del strip salta al día + scroll top

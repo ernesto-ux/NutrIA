@@ -6655,7 +6655,7 @@ try {
     list.forEach(p => { (byDate[p.date] = byDate[p.date] || []).push(p); });
     const dates = Object.keys(byDate).sort((a, b) => b.localeCompare(a));
 
-    const meals = getMeals();
+    const meals = getAllMeals();
     const tgt = TARGETS();
     const totalKcal = list.length;
     const matched = list.filter(p => p.mealId).length;
@@ -8410,7 +8410,7 @@ try {
         const dateStr = fmtYMD(d);
         const timeStr = fmtHM(d);
         const mealType = inferMealFromHour(d.getHours());
-        const meals = (typeof getMeals === 'function') ? getMeals() : [];
+        const meals = (typeof getAllMeals === 'function') ? getAllMeals() : [];
         const matchingMeal = meals.find(m => m.date === dateStr && m.meal === mealType);
         const photo = {
           base64: base64,
@@ -8516,7 +8516,7 @@ try {
     const photo = photos[photoId];
     if (!photo || !photo.base64) { alert('Foto no disponible o sin preview (HEIC sin decode)'); return; }
     // Find linked meal
-    const meals = getMeals();
+    const meals = getAllMeals();
     const meal = photo.mealId
       ? meals.find(m => m.id === photo.mealId)
       : meals.find(m => m.date === photo.date && m.meal === photo.mealType);
