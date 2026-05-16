@@ -1,5 +1,41 @@
 # Changelog - NutrIA
 
+## [Multi-user schema + carga masiva May 6-15 + fixes UI] - 16 mayo 2026
+### Fixed (Schema multi-user crítico)
+- **`who` → `user` everywhere**: MEAL_LOG en nutrition-data.js tenía 116 entries de Adriana con campo `who` (no `user`). Causa: el dashboard solo veía 7 días de Adriana (vs 29 reales). Migración aplicada: 288 entries MEAL_LOG (172 ernesto + 116 adriana), 12 entries local-meals.json con campo duplicado limpiadas, 40 ACTIVITY_LOG + 8 DAILY_BALANCE tagged con user
+- **Dashboard reader**: chain `m.user || m.who || 'ernesto'` (backward-compat)
+- **body-comp-history.json v2**: restructurado `users.{ernesto,adriana}` con per-user profile + weekly_snapshots + metabolic
+- **local-activity.json schema fix**: `activeKcal` → `stepsKcal` + añadido `gymKcal` (merge desde local-gym.json) para que dashboard lo lea
+- **renderActividad() bugs**: no merge con `_extraActivity` ni filter por currentUser. Fix: merge ACTIVITY_LOG + local-activity priority local > legacy, filter por currentUser
+
+### Agregado (Data load May 6-15)
+- **Adriana**: 27 meal entries (May 7-15, 7 días), TDEE 1925 kcal (BMR 1244 Mifflin × 1.55 moderado), targets vigentes 1630 kcal = déficit -300 validado
+- **Ernesto**: 32 meal entries (May 8-15, 8 días), 9 días pasos (3697→16622 rango), 3 sesiones gym (May 10/12/14, 530-580 kcal)
+- **Targets Ernesto**: nuevo entry 2026-05-11 → 1686 kcal / 172P / 101C / 66F (anterior: 1770/190P/140C/50F)
+- **~50 alimentos nuevos** en FOOD_DATABASE: McDo+KFC combos, crepe variants (jambon-fromage/caramel-beurre-salé/classique), entrecôte, magret-canard, écrasé pdt, ensalada chèvre, vino rosé/merlot, religieuse framboise, mini croissant/pain-chocolat hotel, bacon, chipolata, nutella, panna cotta, IKEA hotdog veg, aderezo yogur griego, old amsterdam, bolkiri thai, queso roquefort, alcaparras, galleta crème london, financier pistacho, salmón ahumado, etc.
+- **86 precios nuevos** en local-prices.json (343 → 368 total, 0 missing ✓)
+- **FOOD_DATABASE**: 275 → 339 alimentos
+
+### Agregado (Profile metabolic)
+- Adriana: BMR 1244, TDEE 1925 (breakdown: BMR + pasos 260 + gym 229 + NEAT 187 = 1919)
+- Ernesto: BMR 1819, TDEE 2182 sedentario
+- Schema `profile.metabolic { as_of, weight_kg, bmr_mifflin, activity_factor, activity_label, tdee_maintenance, breakdown, deficit_options, notes }`
+
+### Fixed (UI dashboard)
+- **CALORIAS DIARIAS chart**: scroll horizontal cuando >21 días. Bars ancho fijo 28-46px para números kcal sin solape. Hint visual + threshold inteligente
+- **Balance Energético table**: sticky header con position:sticky + max-height:560px, scroll interno de filas con columnas siempre visibles
+
+### Fixed (Data corrections solicitadas por usuario)
+- May 10 Ernesto: entrecôte 250g→200g (compartida 400g/2), papas 200g→125g (-349 kcal)
+- May 12 Ernesto: Bolkiri Thaï per100g recalculado (kcal 165→159, carbs 12→4.7) + porción 620g→485g — error: asumí fideos pero base es germinados de soja. -252 kcal
+- May 8 Ernesto: postres libaneses 100g→60g (-152 kcal)
+- May 9 Ernesto: split brunch en desayuno + almuerzo. Aderezo casero → industrial 1/2 bolsita. Crêpe snack 180g→150g classique
+- May 15 cena: alcaparras 12g añadidas (faltaban), mani-salado proxy → pistacho-picado real
+
+### Notas operacionales
+- Backups completos pre-migración multi-user: `~/Desktop/NutrIA/backups/pre-multiuser-migration/` (excluido de git)
+- Commits: dabe994 (activity schema), 5b7c131 (renderActividad bugfix), 31c55c7 (sticky header), 1a7c1b4 (chart scroll), 399ee7a (targets), 244ea73 (data fixes), 060a686 (Adriana 27 meals + prices + activity)
+
 ## [Fase H4 · Gym detail completo] - 02 mayo 2026
 ### Agregado
 - **`local-gym.json`**: archivo nuevo para sesiones detalladas de gym (cargado al boot junto a meals/prices/activity)
