@@ -1,5 +1,40 @@
 # Changelog - NutrIA
 
+## [V2.1 — HEIC decode + Food cards Virtuagym + Claude vision + Photo backfill] - 16 mayo 2026
+### Agregado (Roadmap V2.0 entregado)
+- **HEIC browser decode** vía heic2any (libheif wrapper, CDN cdnjs ~1.5MB): tus fotos iPhone se ven directo sin convertir a JPG. Fallback al placeholder 📱 si la decodificación falla
+- **Food card redesign estilo Virtuagym**: cada card ahora con icon prominente 44×44 categoría (gradient color por categoría) + nombre + chips de macros coloridos (kcal amarillo, P rosa, C azul, F naranja, € verde). Layout horizontal flex en lugar de stacked
+- **Claude AI Vision integration**:
+  - Card en Tools tab "🤖 Claude AI Vision" para configurar API key (sk-ant-...). LocalStorage scoped. Link directo a console.anthropic.com
+  - Botón "🤖 Analizar" aparece en photo strip de meal cards cuando hay key + foto con preview
+  - Llama claude-sonnet-4-6 con `anthropic-dangerous-direct-browser-access: true` (no proxy)
+  - Prompt estructurado pide: 1) descripción visual, 2) alineación alta/media/baja, 3) discrepancias concretas, 4) score 0-100
+  - Resultado en modal con preview foto + texto formato markdown
+  - aiAnalysis se guarda en photo entry para historial
+- **Photo backfill desde Downloads** (`local-photos.json`):
+  - Script extrajo 43 HEIC files de ~/Downloads, filtró por rango Apr-May 2026 (38 fotos)
+  - sips convertir a JPEG 1200px max → carpeta `photos/ernesto/{date}_{filename}.jpg`
+  - EXIF date via `mdls kMDItemContentCreationDate`
+  - Inferencia mealType por hora + match a entries existentes en local-meals.json
+  - Resultado: **32 fotos linkeadas a meals, 6 unmatched** (rango Apr 18-19 sin meal entries)
+  - Storage: `local-photos.json` en server-side (vs localStorage browser-side). Dashboard merge automático
+- **Piecewise target line en CALORIAS DIARIAS chart**: cuando hay cambios en `targetsHistory` (e.g. Ernesto cambió de 1770 → 1686 el 2026-05-11), la línea punteada de objetivo ahora se ajusta visualmente con segmentos. Cada segmento muestra el kcal target específico vigente para ese rango de días
+
+### Implementación técnica
+- Nuevos files: `local-photos.json`, `photos/{user}/` directory
+- Nuevas funciones: loadHeic2Any, convertHeicToJpeg, callClaudeVision, analyzePhotoVsText, saveAnthropicKey, clearAnthropicKey, renderPiecewiseTargetLine
+- _backfillPhotos global merged con localStorage via getStoredPhotos() (server-side has priority for backfill_ ids)
+- Architecture multi-user preservada: backfill filtra por `(p.user || 'ernesto') === currentUser`
+- CSS: nuevas clases `.food-icon`, `.food-body`, chips coloreados `.macro-chip.{kcal,prot,carbs,fat,price}`
+
+### Roadmap pendiente (próximas sesiones)
+- Day strip navigator iOS-style (barra horizontal Dom-Lun-Mar... en lugar de date picker)
+- Food image library (auto-fetch URL de imagen real per food del DB, no solo emoji)
+- Insights tab (streaks, weekly digest, achievements)
+- Library tab (catálogo browseable foods con imágenes)
+- Bulk photo import directo desde ~/Downloads/ vía UI (botón "Importar carpeta")
+- Photo timeline view (grid por día/semana de todas las fotos)
+
 ## [V2.0 — Photo journal + vertical sidebar + visual refresh] - 16 mayo 2026
 ### Agregado (Major UX evolution — inspirado en Virtuagym + iOS food log)
 - **Vertical sidebar desktop**: nav lateral fija 88px con gradient teal, iconos grandes (22px) + labels (9px uppercase), barra activa lateral blanca. Adiós a las pills horizontales arriba (overflow-scroll → vertical permanente).

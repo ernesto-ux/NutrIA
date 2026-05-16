@@ -513,18 +513,37 @@
     .meal-macro-tag.fat { background: #FFFBEB; color: #D97706; border-color: #FDE68A; }
     .food-card {
       background: white;
-      border-radius: 8px;
-      padding: 10px;
-      margin-bottom: 7px;
+      border-radius: 12px;
+      padding: 10px 12px;
+      margin-bottom: 8px;
       box-shadow: 0 1px 3px rgba(0,0,0,.05);
       transition: transform .15s, box-shadow .15s;
+      display: flex;
+      align-items: center;
+      gap: 12px;
     }
     .food-card:hover { transform: translateY(-1px); box-shadow: 0 4px 12px rgba(0,0,0,.08); }
+    .food-icon {
+      width: 44px;
+      height: 44px;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 22px;
+      flex-shrink: 0;
+      background: linear-gradient(135deg, #F3F4F6, #E5E7EB);
+      box-shadow: inset 0 -2px 4px rgba(0,0,0,0.04);
+    }
+    .food-body { flex: 1; min-width: 0; }
     .food-name {
-      font-size: 0.75rem;
+      font-size: 0.78rem;
       font-weight: 700;
       color: var(--text);
-      margin-bottom: 3px;
+      margin-bottom: 2px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
     }
     .food-grams {
       font-size: 0.65rem;
@@ -532,29 +551,40 @@
       margin-bottom: 6px;
     }
     .macro-bar {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 3px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 4px;
     }
     .macro-chip {
       background: var(--bg);
-      border-radius: 4px;
-      padding: 2px 4px;
+      border-radius: 6px;
+      padding: 2px 6px;
       text-align: center;
+      display: inline-flex;
+      align-items: center;
+      gap: 3px;
     }
     .macro-chip-label {
       font-size: 0.55rem;
       color: var(--text-sec);
       text-transform: uppercase;
       letter-spacing: .4px;
-      display: block;
     }
     .macro-chip-val {
-      font-size: 0.65rem;
-      font-weight: 600;
+      font-size: 0.66rem;
+      font-weight: 700;
       color: var(--text);
-      display: block;
     }
+    .macro-chip.kcal { background: #FEF3C7; }
+    .macro-chip.kcal .macro-chip-val { color: #92400E; }
+    .macro-chip.prot { background: #FCE7F3; }
+    .macro-chip.prot .macro-chip-val { color: #BE185D; }
+    .macro-chip.carbs { background: #DBEAFE; }
+    .macro-chip.carbs .macro-chip-val { color: #1E40AF; }
+    .macro-chip.fat { background: #FED7AA; }
+    .macro-chip.fat .macro-chip-val { color: #9A3412; }
+    .macro-chip.price { background: #D1FAE5; }
+    .macro-chip.price .macro-chip-val { color: #065F46; }
     .empty-meal {
       border: 1.5px dashed var(--border);
       border-radius: 8px;
@@ -2254,22 +2284,26 @@ try {
              <span style="font-size:11px;color:var(--text-sec);">Sin registro</span>
              <span style="font-size:11px;color:var(--teal);font-weight:700;">↩ Repetir última</span>
            </div>`
-        : items.map((item, cardIdx) => `
+        : items.map((item, cardIdx) => {
+          // Find food in DB and get category icon
+          const food = item.foodId ? FOOD_DATABASE.find(f => f.id === item.foodId) : null;
+          const catInfo = food ? categorizeFood(food) : { emoji: '🍽️', color: '#94a3b8' };
+          return `
           <div class="food-card" draggable="true" data-entry-id="${item._entryId}" data-item-idx="${item._itemIdx}" data-source="${item._source}" data-meal="${m}" data-food-id="${item.foodId || ''}" data-food-name="${item.name}" data-grams="${item.grams}" data-kcal="${item.kcal || 0}" data-prot="${item.prot || 0}" data-carbs="${item.carbs || 0}" data-fat="${item.fat || 0}">
-            <div class="food-card-header">
-              <div>
-                <div class="food-name">${item.name}</div>
-                <div class="food-grams">${item.grams}g</div>
+            <div class="food-icon" style="background:linear-gradient(135deg, ${catInfo.color}22, ${catInfo.color}44);" title="${catInfo.cat || ''}">${catInfo.emoji}</div>
+            <div class="food-body">
+              <div class="food-name">${item.name}</div>
+              <div class="food-grams">${item.grams}g</div>
+              <div class="macro-bar">
+                <div class="macro-chip kcal"><span class="macro-chip-val">${Math.round(item.kcal || 0)}</span><span class="macro-chip-label">kcal</span></div>
+                <div class="macro-chip prot"><span class="macro-chip-val">${round1(item.prot || 0)}g</span><span class="macro-chip-label">P</span></div>
+                <div class="macro-chip carbs"><span class="macro-chip-val">${round1(item.carbs || 0)}g</span><span class="macro-chip-label">C</span></div>
+                <div class="macro-chip fat"><span class="macro-chip-val">${round1(item.fat || 0)}g</span><span class="macro-chip-label">F</span></div>
+                ${showItemPrices && item.foodId && PRICE_DB[item.foodId] ? `<div class="macro-chip price"><span class="macro-chip-val">€${(PRICE_DB[item.foodId].price_per_100g * (item.grams||0) / 100).toFixed(2)}</span></div>` : ''}
               </div>
             </div>
-            <div class="macro-bar">
-              <div class="macro-chip"><span class="macro-chip-label">kcal</span><span class="macro-chip-val">${Math.round(item.kcal || 0)}</span></div>
-              <div class="macro-chip"><span class="macro-chip-label">prot</span><span class="macro-chip-val">${round1(item.prot || 0)}g</span></div>
-              <div class="macro-chip"><span class="macro-chip-label">carbs</span><span class="macro-chip-val">${round1(item.carbs || 0)}g</span></div>
-              <div class="macro-chip"><span class="macro-chip-label">fat</span><span class="macro-chip-val">${round1(item.fat || 0)}g</span></div>
-              ${showItemPrices && item.foodId && PRICE_DB[item.foodId] ? `<div class="macro-chip" style="color:#059669;font-weight:700;">€${(PRICE_DB[item.foodId].price_per_100g * (item.grams||0) / 100).toFixed(2)}</div>` : ''}
-            </div>
-          </div>`).join('');
+          </div>`;
+        }).join('');
 
       // Photos linked to this meal (date + meal type)
       let mealPhotos = [];
@@ -2279,12 +2313,16 @@ try {
           .filter(([_, p]) => p.date === currentDate && p.mealType === m)
           .map(([id, p]) => ({ id, ...p }));
       } catch(e) {}
+      const hasClaudeKey = !!localStorage.getItem('nutria_anthropic_key');
       const photosStrip = mealPhotos.length > 0 ? `
-        <div style="display:flex;gap:6px;padding:6px 0 8px;overflow-x:auto;scrollbar-width:none;">
-          ${mealPhotos.map(p => p.base64
-            ? `<img src="${p.base64}" style="width:56px;height:56px;object-fit:cover;border-radius:8px;border:2px solid ${kcal > 0 ? '#10B981' : '#F59E0B'};flex-shrink:0;cursor:pointer;" onclick="window.open('${p.base64}','_blank')" title="${p.filename} · ${p.time}">`
-            : `<div style="width:56px;height:56px;border-radius:8px;background:var(--bg);border:2px dashed ${kcal > 0 ? '#10B981' : '#F59E0B'};display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0;" title="${p.filename} · ${p.time} (HEIC: sin preview)">📱</div>`
-          ).join('')}
+        <div style="display:flex;gap:6px;padding:6px 0 4px;overflow-x:auto;scrollbar-width:none;align-items:center;">
+          ${mealPhotos.map(p => {
+            const thumb = p.base64
+              ? `<img src="${p.base64}" style="width:56px;height:56px;object-fit:cover;border-radius:8px;border:2px solid ${kcal > 0 ? '#10B981' : '#F59E0B'};flex-shrink:0;cursor:pointer;" onclick="window.open('${p.base64}','_blank')" title="${p.filename} · ${p.time}">`
+              : `<div style="width:56px;height:56px;border-radius:8px;background:var(--bg);border:2px dashed ${kcal > 0 ? '#10B981' : '#F59E0B'};display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0;" title="${p.filename} · ${p.time}">📱</div>`;
+            return thumb;
+          }).join('')}
+          ${hasClaudeKey && mealPhotos.some(p => p.base64) ? `<button onclick="analyzePhotoVsText('${mealPhotos.find(p => p.base64).id}')" style="padding:6px 10px;background:linear-gradient(135deg,#8B5CF6,#7C3AED);color:#fff;border:none;border-radius:8px;font-size:11px;font-weight:700;cursor:pointer;font-family:inherit;flex-shrink:0;" title="Analizar foto vs texto con Claude">🤖 Analizar</button>` : ''}
         </div>` : '';
       const photoDiscrepancy = (mealPhotos.length > 0 && kcal === 0)
         ? `<div style="background:#FEF3C7;color:#92400E;padding:6px 8px;border-radius:8px;font-size:11px;font-weight:600;margin-bottom:6px;display:flex;align-items:center;gap:6px;">⚠ ${mealPhotos.length} foto(s) sin texto loggeado</div>`
@@ -2937,6 +2975,7 @@ try {
   let _extraActivity = [];
   let _appleHealthLastSync = null;
   let _gymSessions = []; // detailed gym sessions from local-gym.json
+  let _backfillPhotos = {}; // photos from local-photos.json (server-side backfill)
   async function loadActivityExtra() {
     try {
       const r = await fetch('local-activity.json?v=' + Date.now(), { cache: 'no-store' });
@@ -2951,6 +2990,14 @@ try {
       if (r.ok) {
         const d = await r.json();
         _gymSessions = Array.isArray(d.sessions) ? d.sessions : [];
+      }
+    } catch(_) {}
+    // Load local-photos.json (backfill from server-side script)
+    try {
+      const r = await fetch('local-photos.json?v=' + Date.now(), { cache: 'no-store' });
+      if (r.ok) {
+        const d = await r.json();
+        _backfillPhotos = d.photos || {};
       }
     } catch(_) {}
     // Restore in-progress local sessions from localStorage if any
@@ -3369,8 +3416,36 @@ try {
       </div>`;
     }).join('');
 
-    // Target line position
+    // Target line position (current day's target — used as fallback)
     const targetY = 120 - (tgt.kcal / maxKcal) * 120;
+    // Piecewise target line: get target per-day so the line can step when target changes
+    const dayTargets = days.map(d => {
+      try { return getTargetsForDate(currentUser, d.date).kcal; }
+      catch(e) { return tgt.kcal; }
+    });
+    // Group into contiguous segments with same target
+    const targetSegments = [];
+    if (dayTargets.length) {
+      let segStart = 0;
+      for (let i = 1; i <= dayTargets.length; i++) {
+        if (i === dayTargets.length || dayTargets[i] !== dayTargets[segStart]) {
+          targetSegments.push({ start: segStart, end: i - 1, kcal: dayTargets[segStart] });
+          segStart = i;
+        }
+      }
+    }
+    // Generate SVG-like absolute-positioned dashed segments
+    function renderPiecewiseTargetLine() {
+      if (targetSegments.length === 0) return '';
+      const n = days.length;
+      return targetSegments.map(seg => {
+        const y = 120 - (seg.kcal / maxKcal) * 120;
+        const leftPct = (seg.start / n) * 100;
+        const widthPct = ((seg.end - seg.start + 1) / n) * 100;
+        return `<div style="position:absolute;left:${leftPct}%;width:${widthPct}%;top:${y + 20}px;border-top:2px dashed var(--teal);opacity:0.65;pointer-events:none;"></div>
+                <div style="position:absolute;left:${leftPct + widthPct/2}%;top:${y + 5}px;font-size:9px;color:var(--teal);font-weight:600;background:#fff;padding:0 4px;border-radius:4px;transform:translateX(-50%);">${seg.kcal}</div>`;
+      }).join('');
+    }
 
     // Projection
     const weeklyDeficit = Math.abs(totalDeficit) / numDays * 7;
@@ -3435,10 +3510,7 @@ try {
             <div style="display:flex;gap:2px;align-items:flex-end;">
               ${informeShowCombined ? combinedBars : chartBars}
             </div>
-            ${informeChartMode === 'intake' && !informeShowCombined ? `
-              <div style="position:absolute;left:0;right:0;top:${targetY + 20}px;border-top:2px dashed var(--teal);opacity:0.5;pointer-events:none;"></div>
-              <div style="position:absolute;right:4px;top:${targetY + 12}px;font-size:9px;color:var(--teal);font-weight:600;background:#fff;padding:0 4px;">obj ${tgt.kcal}</div>
-            ` : ''}
+            ${informeChartMode === 'intake' && !informeShowCombined ? renderPiecewiseTargetLine() : ''}
             ${isMonthView ? monthSeparators : ''}
           </div>
         </div>
@@ -3448,10 +3520,7 @@ try {
           <div style="display:flex;gap:2px;align-items:flex-end;">
             ${informeShowCombined ? combinedBars : chartBars}
           </div>
-          ${informeChartMode === 'intake' && !informeShowCombined ? `
-            <div style="position:absolute;left:0;right:0;top:${targetY + 20}px;border-top:2px dashed var(--teal);opacity:0.5;"></div>
-            <div style="position:absolute;right:4px;top:${targetY + 12}px;font-size:9px;color:var(--teal);font-weight:600;">obj ${tgt.kcal}</div>
-          ` : ''}
+          ${informeChartMode === 'intake' && !informeShowCombined ? renderPiecewiseTargetLine() : ''}
           ${isMonthView ? monthSeparators : ''}
         </div>
         `}
@@ -4278,6 +4347,28 @@ try {
       s.onerror = () => reject(new Error('No se pudo cargar Tesseract.js'));
       document.head.appendChild(s);
     });
+  }
+
+  // heic2any (libheif wrapper) for HEIC → JPEG decode in browser
+  let heicLoaded = false;
+  function loadHeic2Any() {
+    if (heicLoaded || (typeof heic2any !== 'undefined')) {
+      heicLoaded = true;
+      return Promise.resolve();
+    }
+    return new Promise((resolve, reject) => {
+      const s = document.createElement('script');
+      s.src = 'https://cdnjs.cloudflare.com/ajax/libs/heic2any/0.0.4/heic2any.min.js';
+      s.onload = () => { heicLoaded = true; resolve(); };
+      s.onerror = () => reject(new Error('No se pudo cargar heic2any'));
+      document.head.appendChild(s);
+    });
+  }
+  // Convert HEIC file → JPEG Blob (then can be processed like JPEG)
+  async function convertHeicToJpeg(file) {
+    await loadHeic2Any();
+    if (typeof heic2any === 'undefined') throw new Error('heic2any no disponible');
+    return await heic2any({ blob: file, toType: 'image/jpeg', quality: 0.85 });
   }
 
   // Saved metabolic profile (localStorage)
@@ -5841,12 +5932,36 @@ try {
         </div>
       </div>`;
 
+    // Claude AI vision card
+    const claudeKey = localStorage.getItem('nutria_anthropic_key') || '';
+    const claudeStatus = claudeKey ? { color: '#059669', text: 'Configurado', emoji: '🟢' } : { color: '#94a3b8', text: 'Sin configurar', emoji: '⚪' };
+    const claudeCard = `
+      <div class="card" style="margin-bottom:16px;">
+        <div class="card-title" style="display:flex;justify-content:space-between;align-items:center;">
+          <span>🤖 Claude AI Vision</span>
+          <span style="font-size:11px;color:${claudeStatus.color};font-weight:700;">${claudeStatus.emoji} ${claudeStatus.text}</span>
+        </div>
+        <div style="font-size:12px;color:var(--text-sec);margin-bottom:10px;">
+          Analiza tus fotos vs texto loggeado. Detecta discrepancias sustanciales (e.g. loggeas pollo pero la foto muestra pizza). API key sk-ant-... se almacena solo en tu navegador (localStorage), nunca se envía a otro servidor.
+        </div>
+        <div style="display:flex;gap:8px;align-items:center;">
+          <input id="anthropic-key-input" type="password" placeholder="sk-ant-..." value="${claudeKey}" style="flex:1;padding:8px 10px;border:1px solid var(--border);border-radius:8px;font-size:12px;font-family:inherit;background:var(--bg);color:var(--text);">
+          <button onclick="saveAnthropicKey()" style="padding:8px 14px;background:var(--teal);color:#fff;border:none;border-radius:8px;font-size:12px;font-weight:600;cursor:pointer;font-family:inherit;">Guardar</button>
+          ${claudeKey ? `<button onclick="clearAnthropicKey()" style="padding:8px 12px;background:#FEE2E2;color:#991B1B;border:none;border-radius:8px;font-size:12px;font-weight:600;cursor:pointer;font-family:inherit;">Borrar</button>` : ''}
+        </div>
+        <div style="font-size:10.5px;color:var(--text-sec);margin-top:8px;">
+          Obtén tu API key en <a href="https://console.anthropic.com/settings/keys" target="_blank" style="color:var(--teal);">console.anthropic.com</a>. Modelo usado: claude-sonnet-4-6 (vision).
+        </div>
+      </div>`;
+
     return `
     <div style="padding:0 4px;">
       <!-- STORIES (week recap) -->
       <div class="card" style="margin-bottom:16px;padding:14px;">
         ${renderStories()}
       </div>
+
+      ${claudeCard}
 
       ${healthCard}
 
@@ -7087,12 +7202,28 @@ try {
   //   { [photoId]: { base64, exifDate, filename, hour, mealType, mealId?, createdAt, note? } }
   // Photo entries can be linked to existing meal entries or stand alone.
   function _photosKey() { return 'nutria_photos_' + currentUser; }
+  // Returns merged photos: server-side backfill (local-photos.json) + browser uploads (localStorage).
+  // Server backfill uses `path` field (relative to dashboard), localStorage uses `base64` directly.
   function getStoredPhotos() {
-    try { return JSON.parse(localStorage.getItem(_photosKey()) || '{}'); }
-    catch(e) { return {}; }
+    let local = {};
+    try { local = JSON.parse(localStorage.getItem(_photosKey()) || '{}'); } catch(e) {}
+    // Filter backfill photos by current user
+    const backfill = {};
+    Object.entries(_backfillPhotos || {}).forEach(([id, p]) => {
+      if ((p.user || 'ernesto') === currentUser) {
+        // Map `path` → use as `src` (browser loads from server-relative URL)
+        backfill[id] = { ...p, base64: p.base64 || p.path || null, _isBackfill: true };
+      }
+    });
+    return { ...backfill, ...local };
   }
   function setStoredPhotos(obj) {
-    localStorage.setItem(_photosKey(), JSON.stringify(obj));
+    // Save only the non-backfill entries to localStorage
+    const localOnly = {};
+    Object.entries(obj).forEach(([id, p]) => {
+      if (!p._isBackfill && !id.startsWith('backfill_')) localOnly[id] = p;
+    });
+    localStorage.setItem(_photosKey(), JSON.stringify(localOnly));
   }
   // Read EXIF DateTimeOriginal from JPEG/HEIC bytes (lightweight, no deps)
   async function readExifDate(file) {
@@ -7204,13 +7335,30 @@ try {
 
     for (const file of Array.from(files)) {
       try {
-        const isHeic = /\.heic$/i.test(file.name);
+        const isHeic = /\.heic$/i.test(file.name) || file.type === 'image/heic' || file.type === 'image/heif';
+        // Read EXIF FIRST from original file (HEIC may have EXIF too, fallback to mtime)
         const exifDate = await readExifDate(file);
         const photoId = 'p_' + Date.now() + '_' + Math.random().toString(36).slice(2, 7);
-        // HEIC: browser cannot decode. Store metadata only without base64 preview.
+
+        // For HEIC, convert to JPEG blob in browser using heic2any (libheif wrapper)
+        let workingFile = file;
+        let heicConverted = false;
+        if (isHeic) {
+          try {
+            results.innerHTML = `<div style="text-align:center;padding:20px;color:var(--text-sec);">📱 Decodificando ${file.name} (HEIC → JPEG)...</div>`;
+            const jpegBlob = await convertHeicToJpeg(file);
+            // heic2any may return array if multi-image HEIC
+            const blob = Array.isArray(jpegBlob) ? jpegBlob[0] : jpegBlob;
+            workingFile = new File([blob], file.name.replace(/\.heic$/i, '.jpg'), { type: 'image/jpeg' });
+            heicConverted = true;
+          } catch(e) {
+            console.warn('HEIC decode failed for', file.name, e);
+          }
+        }
+
         let base64 = null;
-        if (!isHeic && file.type.startsWith('image/')) {
-          try { base64 = await compressToBase64(file); } catch(e) {}
+        if (workingFile.type.startsWith('image/') || heicConverted) {
+          try { base64 = await compressToBase64(workingFile); } catch(e) {}
         }
         const d = exifDate || new Date(file.lastModified || Date.now());
         const dateStr = fmtYMD(d);
@@ -7221,6 +7369,7 @@ try {
         const photo = {
           base64: base64,
           isHeic: isHeic,
+          heicConverted: heicConverted,
           filename: file.name,
           exifDate: d.toISOString(),
           date: dateStr,
@@ -7266,6 +7415,115 @@ try {
       showToast(`⚠ ${unmatched} foto(s) sin comida loggeada en texto — verifica`);
     }
   };
+  // ============== CLAUDE AI VISION ==============
+  window.saveAnthropicKey = function() {
+    const val = document.getElementById('anthropic-key-input').value.trim();
+    if (!val) { alert('Pega tu API key sk-ant-...'); return; }
+    if (!val.startsWith('sk-ant-')) { alert('La key debe empezar con sk-ant-'); return; }
+    localStorage.setItem('nutria_anthropic_key', val);
+    if (typeof showToast === 'function') showToast('✓ API key guardada');
+    render();
+  };
+  window.clearAnthropicKey = function() {
+    if (!confirm('¿Borrar API key?')) return;
+    localStorage.removeItem('nutria_anthropic_key');
+    if (typeof showToast === 'function') showToast('API key eliminada');
+    render();
+  };
+  async function callClaudeVision(base64Image, textPrompt) {
+    const key = localStorage.getItem('nutria_anthropic_key');
+    if (!key) throw new Error('Configura tu API key en Tools → Claude AI Vision');
+    // base64 starts with "data:image/jpeg;base64,..."
+    const m = base64Image.match(/^data:(image\/[^;]+);base64,(.+)$/);
+    if (!m) throw new Error('Imagen inválida');
+    const mediaType = m[1];
+    const imageData = m[2];
+    const resp = await fetch('https://api.anthropic.com/v1/messages', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'x-api-key': key,
+        'anthropic-version': '2023-06-01',
+        'anthropic-dangerous-direct-browser-access': 'true',
+      },
+      body: JSON.stringify({
+        model: 'claude-sonnet-4-6',
+        max_tokens: 1024,
+        messages: [{
+          role: 'user',
+          content: [
+            { type: 'image', source: { type: 'base64', media_type: mediaType, data: imageData } },
+            { type: 'text', text: textPrompt },
+          ],
+        }],
+      }),
+    });
+    if (!resp.ok) {
+      const err = await resp.text();
+      throw new Error('Claude API error ' + resp.status + ': ' + err.slice(0, 200));
+    }
+    const data = await resp.json();
+    return data.content[0].text;
+  }
+  window.analyzePhotoVsText = async function(photoId) {
+    const photos = getStoredPhotos();
+    const photo = photos[photoId];
+    if (!photo || !photo.base64) { alert('Foto no disponible o sin preview (HEIC sin decode)'); return; }
+    // Find linked meal
+    const meals = getMeals();
+    const meal = photo.mealId
+      ? meals.find(m => m.id === photo.mealId)
+      : meals.find(m => m.date === photo.date && m.meal === photo.mealType);
+    const mealText = meal && meal.items.length > 0
+      ? meal.items.map(it => `${it.name} (${it.grams}g, ${Math.round(it.kcal)}kcal)`).join('\n')
+      : '(no hay items loggeados en texto para esta comida)';
+    const prompt = `Estás revisando un journal de comidas. La foto debería contener lo siguiente, según lo que el usuario loggeó en texto:
+
+LOGGEADO:
+${mealText}
+
+Tarea:
+1. Describe brevemente lo que VES en la foto (1-2 frases).
+2. Evalúa si LO LOGGEADO matchea con LO QUE SE VE (alineación: alta / media / baja).
+3. Lista discrepancias concretas si las hay: items faltantes (en foto pero no loggeados), items sobrantes (loggeados pero no visibles), tamaños sospechosos.
+4. Da un score de confianza 0-100 de la alineación.
+
+Sé directo y conciso. Formato:
+**Lo que veo:** ...
+**Alineación:** alta/media/baja
+**Discrepancias:**
+- ...
+**Score:** XX/100`;
+
+    const photoElement = event.target;
+    photoElement.disabled = true;
+    photoElement.textContent = '⏳ Analizando...';
+    try {
+      const result = await callClaudeVision(photo.base64, prompt);
+      // Save result to photo
+      photo.aiAnalysis = { text: result, analyzedAt: new Date().toISOString() };
+      setStoredPhotos(photos);
+      // Show in modal
+      const overlay = document.createElement('div');
+      overlay.style.cssText = 'position:fixed;inset:0;background:rgba(0,0,0,0.6);z-index:700;display:flex;align-items:center;justify-content:center;padding:20px;';
+      overlay.onclick = e => { if (e.target === overlay) overlay.remove(); };
+      overlay.innerHTML = `<div style="background:#fff;border-radius:14px;padding:22px;max-width:560px;width:96%;max-height:80vh;overflow-y:auto;box-shadow:0 25px 70px rgba(0,0,0,0.35);">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;">
+          <div style="font-size:16px;font-weight:700;color:var(--text);">🤖 Análisis Claude</div>
+          <button onclick="this.parentElement.parentElement.parentElement.remove()" style="background:none;border:none;font-size:22px;cursor:pointer;color:var(--text-sec);">×</button>
+        </div>
+        <img src="${photo.base64}" style="width:100%;max-height:240px;object-fit:cover;border-radius:10px;margin-bottom:14px;">
+        <div style="font-size:13px;color:var(--text);white-space:pre-wrap;line-height:1.55;">${result}</div>
+      </div>`;
+      document.body.appendChild(overlay);
+    } catch(e) {
+      alert('Error: ' + e.message);
+    } finally {
+      photoElement.disabled = false;
+      photoElement.textContent = '🤖 Analizar';
+    }
+  };
+
   window.deletePhoto = function(photoId) {
     const photos = getStoredPhotos();
     delete photos[photoId];
