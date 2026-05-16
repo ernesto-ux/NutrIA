@@ -1,68 +1,86 @@
 {
-  "_comment": "Activity entries pushed by Apple Health Shortcut (multi-user). Format per entry: { date: 'YYYY-MM-DD', user: 'ernesto'|'adriana', steps, activeKcal, exerciseMin, hrAvg, hrMax, source: 'apple-health' }. App merges this with ACTIVITY_LOG (this file takes priority). Default user when missing: 'ernesto'.",
+  "_comment": "Activity entries (multi-user). Schema: { date, user: 'ernesto'|'adriana', steps, stepsKcal, gym (label or null), gymKcal, source }. Default user when missing: 'ernesto'. Dashboard reads stepsKcal + gymKcal directly. Gym kcal merged from local-gym.json on write.",
   "lastSync": "2026-05-16T01:30:00 Europe/Paris",
   "entries": [
     {
       "date": "2026-05-07",
       "user": "ernesto",
       "steps": 3697,
-      "activeKcal": 148,
+      "stepsKcal": 148,
+      "gym": null,
+      "gymKcal": 0,
       "source": "manual"
     },
     {
       "date": "2026-05-08",
       "user": "ernesto",
       "steps": 6664,
-      "activeKcal": 267,
+      "stepsKcal": 267,
+      "gym": null,
+      "gymKcal": 0,
       "source": "manual"
     },
     {
       "date": "2026-05-09",
       "user": "ernesto",
       "steps": 14393,
-      "activeKcal": 576,
+      "stepsKcal": 576,
+      "gym": null,
+      "gymKcal": 0,
       "source": "manual"
     },
     {
       "date": "2026-05-10",
       "user": "ernesto",
       "steps": 16622,
-      "activeKcal": 665,
+      "stepsKcal": 665,
+      "gym": "gym",
+      "gymKcal": 530,
       "source": "manual"
     },
     {
       "date": "2026-05-11",
       "user": "ernesto",
       "steps": 15110,
-      "activeKcal": 604,
+      "stepsKcal": 604,
+      "gym": null,
+      "gymKcal": 0,
       "source": "manual"
     },
     {
       "date": "2026-05-12",
       "user": "ernesto",
       "steps": 3499,
-      "activeKcal": 140,
+      "stepsKcal": 140,
+      "gym": "gym",
+      "gymKcal": 555,
       "source": "manual"
     },
     {
       "date": "2026-05-13",
       "user": "ernesto",
       "steps": 1352,
-      "activeKcal": 54,
+      "stepsKcal": 54,
+      "gym": null,
+      "gymKcal": 0,
       "source": "manual"
     },
     {
       "date": "2026-05-14",
       "user": "ernesto",
       "steps": 5506,
-      "activeKcal": 220,
+      "stepsKcal": 220,
+      "gym": "gym",
+      "gymKcal": 580,
       "source": "manual"
     },
     {
       "date": "2026-05-15",
       "user": "ernesto",
       "steps": 1072,
-      "activeKcal": 43,
+      "stepsKcal": 43,
+      "gym": null,
+      "gymKcal": 0,
       "source": "manual"
     }
   ]
