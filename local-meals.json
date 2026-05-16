@@ -6209,20 +6209,20 @@
         {
           "foodId": "entrecote-grille-restaurant",
           "name": "Entrecôte Grillé",
-          "grams": 250,
-          "kcal": 675.0,
-          "prot": 62.5,
+          "grams": 200,
+          "kcal": 540.0,
+          "prot": 50.0,
           "carbs": 0.0,
-          "fat": 45.0
+          "fat": 36.0
         },
         {
           "foodId": "papas-fritas-fait-maison",
           "name": "Papas Fritas (fait maison)",
-          "grams": 200,
-          "kcal": 570.0,
-          "prot": 7.0,
-          "carbs": 70.0,
-          "fat": 28.0
+          "grams": 125,
+          "kcal": 356.2,
+          "prot": 4.4,
+          "carbs": 43.8,
+          "fat": 17.5
         },
         {
           "foodId": "salsa-poivre-restaurant",
