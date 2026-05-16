@@ -1257,6 +1257,7 @@
   <button class="sidebar-tab" data-period="hogar" onclick="setPeriod('hogar')"><span class="sidebar-tab-icon">🏠</span>Hogar</button>
   <button class="sidebar-tab" data-period="coach" onclick="setPeriod('coach')"><span class="sidebar-tab-icon">🤖</span>Coach</button>
   <button class="sidebar-tab" data-period="nutricion" onclick="setPeriod('nutricion')"><span class="sidebar-tab-icon">🥗</span>Nutricion</button>
+  <button class="sidebar-tab" data-period="library" onclick="setPeriod('library')"><span class="sidebar-tab-icon">📚</span>Library</button>
   <button class="sidebar-tab" data-period="actividad" onclick="setPeriod('actividad')"><span class="sidebar-tab-icon">🏃</span>Actividad</button>
   <button class="sidebar-tab" data-period="salud" onclick="setPeriod('salud')"><span class="sidebar-tab-icon">🏥</span>Salud</button>
   <button class="sidebar-tab" data-period="tools" onclick="setPeriod('tools')"><span class="sidebar-tab-icon">🛠️</span>Tools</button>
@@ -1273,6 +1274,7 @@
   <button class="mobile-nav-tab" data-period="hogar" onclick="setPeriod('hogar')"><span class="mobile-nav-tab-icon">🏠</span>Hogar</button>
   <button class="mobile-nav-tab" data-period="coach" onclick="setPeriod('coach')"><span class="mobile-nav-tab-icon">🤖</span>Coach</button>
   <button class="mobile-nav-tab" data-period="nutricion" onclick="setPeriod('nutricion')"><span class="mobile-nav-tab-icon">🥗</span>Nutri</button>
+  <button class="mobile-nav-tab" data-period="library" onclick="setPeriod('library')"><span class="mobile-nav-tab-icon">📚</span>Lib</button>
   <button class="mobile-nav-tab" data-period="actividad" onclick="setPeriod('actividad')"><span class="mobile-nav-tab-icon">🏃</span>Activ</button>
   <button class="mobile-nav-tab" data-period="salud" onclick="setPeriod('salud')"><span class="mobile-nav-tab-icon">🏥</span>Salud</button>
   <button class="mobile-nav-tab" data-period="tools" onclick="setPeriod('tools')"><span class="mobile-nav-tab-icon">🛠️</span>Tools</button>
@@ -2869,55 +2871,327 @@ try {
     return f;
   }
 
-  function renderFoodDB() {
-    const sorted = [...FOOD_DATABASE].map(getFoodData).sort((a, b) => a.name.localeCompare(b.name));
-    const webCount = sorted.filter(f => f.source === 'web').length;
-    const verifiedCount = sorted.filter(f => f.source === 'verified').length;
+  // ============== FOOD IMAGE LIBRARY ==============
+  // Manual map: foodId → image URL. For unmapped foods, derive Unsplash query from keywords.
+  // Using public CDN images (Wikimedia/Pixabay/etc) where possible for stability.
+  // Pattern: id → URL string
+  const FOOD_IMAGE_MAP = {
+    // High protein essentials
+    'huevo-entero': 'https://images.unsplash.com/photo-1607690424560-35d967d6ad7f?w=240&q=70',
+    'clara-huevo': 'https://images.unsplash.com/photo-1607690424560-35d967d6ad7f?w=240&q=70',
+    'pollo-pechuga-horneada': 'https://images.unsplash.com/photo-1604908176997-125f25cc6f3d?w=240&q=70',
+    'pollo-salteado': 'https://images.unsplash.com/photo-1604908176997-125f25cc6f3d?w=240&q=70',
+    'rumsteck-boeuf-cuit': 'https://images.unsplash.com/photo-1558030006-450675393462?w=240&q=70',
+    'entrecote-grille-restaurant': 'https://images.unsplash.com/photo-1558030006-450675393462?w=240&q=70',
+    'magret-canard-sin-piel': 'https://images.unsplash.com/photo-1542528180-a1208c5169a5?w=240&q=70',
+    'salmon-grille-restaurant': 'https://images.unsplash.com/photo-1467003909585-2f8a72700288?w=240&q=70',
+    'salmon-ahumado': 'https://images.unsplash.com/photo-1599490659213-e2b9527bd087?w=240&q=70',
 
-    const rows = sorted.map(f => {
+    // Dairy & yogurt
+    'siggis-skyr-nature': 'https://images.unsplash.com/photo-1488477181946-6428a0291777?w=240&q=70',
+    'kefir-lactel-0-bio': 'https://images.unsplash.com/photo-1488477181946-6428a0291777?w=240&q=70',
+    'danone-cottage-cheese': 'https://images.unsplash.com/photo-1486297678162-eb2a19b0a32d?w=240&q=70',
+    'cottage-cheese-president': 'https://images.unsplash.com/photo-1486297678162-eb2a19b0a32d?w=240&q=70',
+    'ricotta-casa-azzurra': 'https://images.unsplash.com/photo-1559561853-08451507cbe7?w=240&q=70',
+    'yogurt-blueberry-hp-carrefour': 'https://images.unsplash.com/photo-1488477181946-6428a0291777?w=240&q=70',
+    'hipro-vanille': 'https://images.unsplash.com/photo-1488477181946-6428a0291777?w=240&q=70',
+    'hipro-coco': 'https://images.unsplash.com/photo-1488477181946-6428a0291777?w=240&q=70',
+    'hipro-natural': 'https://images.unsplash.com/photo-1488477181946-6428a0291777?w=240&q=70',
+    'hipro-fresa': 'https://images.unsplash.com/photo-1488477181946-6428a0291777?w=240&q=70',
+    'mozzarella-barilla-maxi': 'https://images.unsplash.com/photo-1559561853-08451507cbe7?w=240&q=70',
+    'queso-roquefort': 'https://images.unsplash.com/photo-1486297678162-eb2a19b0a32d?w=240&q=70',
+    'old-amsterdam-queso': 'https://images.unsplash.com/photo-1486297678162-eb2a19b0a32d?w=240&q=70',
+    'zaanlander-48-cheese': 'https://images.unsplash.com/photo-1486297678162-eb2a19b0a32d?w=240&q=70',
+
+    // Fruits
+    'banana-fresca': 'https://images.unsplash.com/photo-1571771894821-ce9b6c11b08e?w=240&q=70',
+    'fresas-frescas': 'https://images.unsplash.com/photo-1543158181-e6f9f6712055?w=240&q=70',
+    'frambuesas-fresas': 'https://images.unsplash.com/photo-1577003833619-76bbd7f82948?w=240&q=70',
+    'blueberries-frescas': 'https://images.unsplash.com/photo-1498557850523-fd3d118b962e?w=240&q=70',
+    'aguacate-fresco': 'https://images.unsplash.com/photo-1523049673857-eb18f1d7b578?w=240&q=70',
+    'mandarina-fresca': 'https://images.unsplash.com/photo-1591084728795-1149f32d9866?w=240&q=70',
+    'kiwi-fresco': 'https://images.unsplash.com/photo-1610917040803-1fccf9623064?w=240&q=70',
+    'mango-fresco': 'https://images.unsplash.com/photo-1605027990121-cbae9e0642db?w=240&q=70',
+    'uvas-blancas': 'https://images.unsplash.com/photo-1599819177626-b3d4eebbb735?w=240&q=70',
+
+    // Vegetables
+    'tomate-fresco': 'https://images.unsplash.com/photo-1518977956812-cd3dbadaaf31?w=240&q=70',
+    'tomate-cherry': 'https://images.unsplash.com/photo-1561138961-4a7a26be1eaf?w=240&q=70',
+    'brocoli-cuit': 'https://images.unsplash.com/photo-1583663848692-6cb37a8c0f3a?w=240&q=70',
+    'edamame-cocido': 'https://images.unsplash.com/photo-1607522073019-9bdaaf16e1aa?w=240&q=70',
+
+    // Carbs
+    'pasta-cocida': 'https://images.unsplash.com/photo-1551183053-bf91a1d81141?w=240&q=70',
+    'rigatoni-cocida': 'https://images.unsplash.com/photo-1551183053-bf91a1d81141?w=240&q=70',
+    'arroz-bomba-cocido': 'https://images.unsplash.com/photo-1536304929831-ee1ca9d44906?w=240&q=70',
+    'arroz-basmati-cocido': 'https://images.unsplash.com/photo-1536304929831-ee1ca9d44906?w=240&q=70',
+    'arroz-salteado': 'https://images.unsplash.com/photo-1603133872878-684f208fb84b?w=240&q=70',
+    'arroz-con-vegetales-salteado': 'https://images.unsplash.com/photo-1603133872878-684f208fb84b?w=240&q=70',
+    'quinoa-cocida': 'https://images.unsplash.com/photo-1604329760661-e71dc83f8f26?w=240&q=70',
+    'couscous-cuit': 'https://images.unsplash.com/photo-1599052300767-7bed4c1e2c1d?w=240&q=70',
+    'avena-cruda': 'https://images.unsplash.com/photo-1571748982800-fa51082c2224?w=240&q=70',
+    'pain-baguette': 'https://images.unsplash.com/photo-1568471173242-461f0a730452?w=240&q=70',
+    'pan-pumpernickel-aleman': 'https://images.unsplash.com/photo-1509440159596-0249088772ff?w=240&q=70',
+    'patate-cuite': 'https://images.unsplash.com/photo-1518977676601-b53f82aba655?w=240&q=70',
+    'ecrase-pomme-de-terre': 'https://images.unsplash.com/photo-1518977676601-b53f82aba655?w=240&q=70',
+    'papas-fritas-fait-maison': 'https://images.unsplash.com/photo-1573080496219-bb080dd4f877?w=240&q=70',
+    'mcdonalds-papas-large': 'https://images.unsplash.com/photo-1573080496219-bb080dd4f877?w=240&q=70',
+    'kfc-papas-pequena': 'https://images.unsplash.com/photo-1573080496219-bb080dd4f877?w=240&q=70',
+
+    // Pizza
+    'pizza-margherite-louielouie': 'https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?w=240&q=70',
+    'pizza-regina-pizzou': 'https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?w=240&q=70',
+    'pizza-regine-pizzou': 'https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?w=240&q=70',
+    'pizza-jamon-bigorre-louielouie': 'https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?w=240&q=70',
+    'pizza-high-protein-jamon': 'https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?w=240&q=70',
+    'pizza-high-protein-pesto': 'https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?w=240&q=70',
+
+    // Fast food
+    'mcdonalds-royal-cheese': 'https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=240&q=70',
+    'mcdo-cheeseburger': 'https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=240&q=70',
+    'mcdonalds-double-chicken-small': 'https://images.unsplash.com/photo-1606755962773-d324e0a13086?w=240&q=70',
+    'mcdonalds-mccrispy-chicken': 'https://images.unsplash.com/photo-1606755962773-d324e0a13086?w=240&q=70',
+    'kfc-chicken-tenders': 'https://images.unsplash.com/photo-1606755962773-d324e0a13086?w=240&q=70',
+    'kfc-mini-chicken-burger': 'https://images.unsplash.com/photo-1606755962773-d324e0a13086?w=240&q=70',
+    'subway-melt-sweet-onion-15cm': 'https://images.unsplash.com/photo-1509722747041-616f39b57569?w=240&q=70',
+    'subway-sweet-onion-chicken-teriyaki-15cm': 'https://images.unsplash.com/photo-1509722747041-616f39b57569?w=240&q=70',
+
+    // Pastry
+    'pain-au-chocolat': 'https://images.unsplash.com/photo-1568827999250-3f6afff96e66?w=240&q=70',
+    'croissant-boulangerie': 'https://images.unsplash.com/photo-1555507036-ab1f4038808a?w=240&q=70',
+    'croissant-mini-hotel': 'https://images.unsplash.com/photo-1555507036-ab1f4038808a?w=240&q=70',
+    'pain-au-chocolat-mini-hotel': 'https://images.unsplash.com/photo-1568827999250-3f6afff96e66?w=240&q=70',
+    'crepe-classique-nature': 'https://images.unsplash.com/photo-1519676867240-f03562e64548?w=240&q=70',
+    'crepe-caramel-beurre-sale-simple': 'https://images.unsplash.com/photo-1519676867240-f03562e64548?w=240&q=70',
+    'crepe-caramel-beurre-sale-chantilly-sorbet': 'https://images.unsplash.com/photo-1519676867240-f03562e64548?w=240&q=70',
+    'crepe-jambon-fromage': 'https://images.unsplash.com/photo-1519676867240-f03562e64548?w=240&q=70',
+    'tiramisu-classico': 'https://images.unsplash.com/photo-1571877227200-a0d98ea607e9?w=240&q=70',
+    'tres-leches-tiramisu-amsterdam': 'https://images.unsplash.com/photo-1571877227200-a0d98ea607e9?w=240&q=70',
+    'tres-leches-pistacho-amsterdam': 'https://images.unsplash.com/photo-1571877227200-a0d98ea607e9?w=240&q=70',
+    'creme-brulee': 'https://images.unsplash.com/photo-1488477181946-6428a0291777?w=240&q=70',
+    'panna-cotta-fresas': 'https://images.unsplash.com/photo-1488477181946-6428a0291777?w=240&q=70',
+    'religieuse-framboise-chantilly': 'https://images.unsplash.com/photo-1606471191009-63994c53433b?w=240&q=70',
+    'financier-pistacho': 'https://images.unsplash.com/photo-1568827999250-3f6afff96e66?w=240&q=70',
+    'mini-financier-amandes': 'https://images.unsplash.com/photo-1568827999250-3f6afff96e66?w=240&q=70',
+    'galleta-creme-london': 'https://images.unsplash.com/photo-1499636136210-6f4ee915583e?w=240&q=70',
+    'van-stapele-cookie': 'https://images.unsplash.com/photo-1499636136210-6f4ee915583e?w=240&q=70',
+    'gerble-cookie-cacao-pepites-ss': 'https://images.unsplash.com/photo-1499636136210-6f4ee915583e?w=240&q=70',
+    'lu-petit-beurre': 'https://images.unsplash.com/photo-1499636136210-6f4ee915583e?w=240&q=70',
+    'mere-poulard-biscuit-beurre': 'https://images.unsplash.com/photo-1499636136210-6f4ee915583e?w=240&q=70',
+    'baiocchi-pistachio': 'https://images.unsplash.com/photo-1499636136210-6f4ee915583e?w=240&q=70',
+
+    // Charcuterie & cheese
+    'jamon-porc-fleury-michon': 'https://images.unsplash.com/photo-1531889236320-ddd5b50dcf94?w=240&q=70',
+    'jambon-porc-roti-tranches': 'https://images.unsplash.com/photo-1531889236320-ddd5b50dcf94?w=240&q=70',
+    'prosciutto-crudo': 'https://images.unsplash.com/photo-1531889236320-ddd5b50dcf94?w=240&q=70',
+    'saucisson-sec': 'https://images.unsplash.com/photo-1531889236320-ddd5b50dcf94?w=240&q=70',
+    'charcuterie-variada': 'https://images.unsplash.com/photo-1531889236320-ddd5b50dcf94?w=240&q=70',
+    'coppa-charcuterie': 'https://images.unsplash.com/photo-1531889236320-ddd5b50dcf94?w=240&q=70',
+    'chipolata-saucisse': 'https://images.unsplash.com/photo-1605281317010-fe5ffe798166?w=240&q=70',
+    'bacon-tocino-cocido': 'https://images.unsplash.com/photo-1528607929212-2636ec44253e?w=240&q=70',
+
+    // Snacks & sweets
+    'chocolate-negro-80': 'https://images.unsplash.com/photo-1606312619070-d48b4c652a52?w=240&q=70',
+    'chocolate-negro-90': 'https://images.unsplash.com/photo-1606312619070-d48b4c652a52?w=240&q=70',
+    'tony-chocolonely-dark-70': 'https://images.unsplash.com/photo-1606312619070-d48b4c652a52?w=240&q=70',
+    'cote-dor-noir-70': 'https://images.unsplash.com/photo-1606312619070-d48b4c652a52?w=240&q=70',
+    'lindt-excellence-fleur-de-sel': 'https://images.unsplash.com/photo-1606312619070-d48b4c652a52?w=240&q=70',
+    'kinder-bueno-barra': 'https://images.unsplash.com/photo-1499636136210-6f4ee915583e?w=240&q=70',
+    'kinder-chocobon': 'https://images.unsplash.com/photo-1499636136210-6f4ee915583e?w=240&q=70',
+    'nutella': 'https://images.unsplash.com/photo-1481653125770-b78c206c59d4?w=240&q=70',
+    'mantequilla-de-mani-menguys': 'https://images.unsplash.com/photo-1556910103-1c02745aae4d?w=240&q=70',
+    'mani-salado': 'https://images.unsplash.com/photo-1567892737950-30c4db4779cc?w=240&q=70',
+    'almendras-enteras': 'https://images.unsplash.com/photo-1574680096145-d05b474e2155?w=240&q=70',
+    'nueces-enteras': 'https://images.unsplash.com/photo-1564631317906-32957a96f70d?w=240&q=70',
+    'pistacho-picado': 'https://images.unsplash.com/photo-1601557390817-c4fa3c2da7df?w=240&q=70',
+    'stroopwafel-rudi-chocolate-negro': 'https://images.unsplash.com/photo-1499636136210-6f4ee915583e?w=240&q=70',
+    'too-good-snack-poivre': 'https://images.unsplash.com/photo-1599490659213-e2b9527bd087?w=240&q=70',
+    'galettes-riz-nature': 'https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=240&q=70',
+    'wasa-leger': 'https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=240&q=70',
+    'wasa-fibre': 'https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=240&q=70',
+
+    // Beverages
+    'cafe-negro': 'https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=240&q=70',
+    'vino-rosado': 'https://images.unsplash.com/photo-1551538827-9c037cb4f32a?w=240&q=70',
+    'vino-tinto-merlot': 'https://images.unsplash.com/photo-1568213816046-0ee1c42bd559?w=240&q=70',
+    'vino-blanco-seco': 'https://images.unsplash.com/photo-1568213816046-0ee1c42bd559?w=240&q=70',
+    'champagne-brut': 'https://images.unsplash.com/photo-1602983487077-7ee49a3ac42f?w=240&q=70',
+    'heineken-biere': 'https://images.unsplash.com/photo-1535958636474-b021ee887b13?w=240&q=70',
+    'coca-cola-zero': 'https://images.unsplash.com/photo-1554866585-cd94860890b7?w=240&q=70',
+    'lipton-ice-tea-low-sugar': 'https://images.unsplash.com/photo-1554866585-cd94860890b7?w=240&q=70',
+    'te-verde-menta': 'https://images.unsplash.com/photo-1597318181409-cf64d0b5d8a2?w=240&q=70',
+
+    // Cooked dishes
+    'lasagna-pollo-pesto': 'https://images.unsplash.com/photo-1574894709920-11b28e7367e3?w=240&q=70',
+    'lasagna-restaurant-generic': 'https://images.unsplash.com/photo-1574894709920-11b28e7367e3?w=240&q=70',
+    'sopa-thai-mariscos-picante': 'https://images.unsplash.com/photo-1432139509613-5c4255815697?w=240&q=70',
+    'soupe-oignon-gratinee': 'https://images.unsplash.com/photo-1547592180-85f173990554?w=240&q=70',
+    'ensalada-thai-peanut-mango-satay-oliver-green': 'https://images.unsplash.com/photo-1490645935967-10de6ba17061?w=240&q=70',
+    'bolkiri-salade-thai-epicee-doble-carne': 'https://images.unsplash.com/photo-1490645935967-10de6ba17061?w=240&q=70',
+    'ensalada-pollo-quinoa-aderezo-cilantro': 'https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=240&q=70',
+    'ensalada-chevre-noix': 'https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=240&q=70',
+    'ensalada-mixta-tomate-lechuga': 'https://images.unsplash.com/photo-1512621776951-a57141f2eefd?w=240&q=70',
+    'ensalada-carrefour-jamon': 'https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=240&q=70',
+    'pollo-guisado-verduras': 'https://images.unsplash.com/photo-1604908554007-d1ebd44f0c87?w=240&q=70',
+    'pollo-esparragos-tomates-cherry': 'https://images.unsplash.com/photo-1604908554007-d1ebd44f0c87?w=240&q=70',
+    'spanakopita': 'https://images.unsplash.com/photo-1599487488170-d11ec9c172f0?w=240&q=70',
+    'spanakopita-light': 'https://images.unsplash.com/photo-1599487488170-d11ec9c172f0?w=240&q=70',
+    'falafel-generic': 'https://images.unsplash.com/photo-1554998171-89445e31c52b?w=240&q=70',
+    'empanada-halloumi': 'https://images.unsplash.com/photo-1604908176997-125f25cc6f3d?w=240&q=70',
+    'plato-libanes-mixto': 'https://images.unsplash.com/photo-1546833999-b9f581a1996d?w=240&q=70',
+    'postres-libaneses-baklava': 'https://images.unsplash.com/photo-1602983487077-7ee49a3ac42f?w=240&q=70',
+    'pancakes-de-proteina-adri-v2': 'https://images.unsplash.com/photo-1528207776546-365bb710ee93?w=240&q=70',
+    'pancake-avena-chocolate-hp': 'https://images.unsplash.com/photo-1528207776546-365bb710ee93?w=240&q=70',
+    'quiche-brocoli-salmon-ricotta': 'https://images.unsplash.com/photo-1565299585323-38d6b0865b47?w=240&q=70',
+    'frittata-light': 'https://images.unsplash.com/photo-1565299585323-38d6b0865b47?w=240&q=70',
+    'frittata-ranchera': 'https://images.unsplash.com/photo-1565299585323-38d6b0865b47?w=240&q=70',
+    'omelette-cottage-salmon': 'https://images.unsplash.com/photo-1565299585323-38d6b0865b47?w=240&q=70',
+    'omelette-ligera-jamon': 'https://images.unsplash.com/photo-1565299585323-38d6b0865b47?w=240&q=70',
+    'ikea-hotdog-vegetarian-single': 'https://images.unsplash.com/photo-1612392987586-b2ac09b6e9f1?w=240&q=70',
+    'ikea-hotdog-vegetarian-double': 'https://images.unsplash.com/photo-1612392987586-b2ac09b6e9f1?w=240&q=70',
+
+    // Supplements
+    'eafit-pure-isolate-vanille': 'https://images.unsplash.com/photo-1593095948071-474c5cc2989d?w=240&q=70',
+    'eafit-pure-isolate-chocolat': 'https://images.unsplash.com/photo-1593095948071-474c5cc2989d?w=240&q=70',
+    'weider-peanut-butter-powder': 'https://images.unsplash.com/photo-1593095948071-474c5cc2989d?w=240&q=70',
+
+    // Condiments
+    'aceite-oliva': 'https://images.unsplash.com/photo-1474979266404-7eaacbcd87c5?w=240&q=70',
+    'mostaza-amarilla': 'https://images.unsplash.com/photo-1583394293214-28ded15ee548?w=240&q=70',
+    'mostaza-de-dijon': 'https://images.unsplash.com/photo-1583394293214-28ded15ee548?w=240&q=70',
+    'miel-abeja': 'https://images.unsplash.com/photo-1587049352846-4a222e784d38?w=240&q=70',
+  };
+  // Helper: returns image URL for a food, or null
+  window.getFoodImageUrl = function(food) {
+    if (!food) return null;
+    if (food.imageUrl) return food.imageUrl;
+    if (FOOD_IMAGE_MAP[food.id]) return FOOD_IMAGE_MAP[food.id];
+    return null;
+  };
+
+  // ============== LIBRARY: browseable food catalog ==============
+  let libSearch = '';
+  let libCategory = 'all';
+  let libSort = 'name';
+  let libSourceFilter = 'all';
+  window.setLibSearch = function(v) { libSearch = v; const el = document.getElementById('library-results'); if (el) el.innerHTML = renderLibraryGrid(); };
+  window.setLibCategory = function(v) { libCategory = v; render(); };
+  window.setLibSort = function(v) { libSort = v; render(); };
+  window.setLibSourceFilter = function(v) { libSourceFilter = v; render(); };
+
+  function renderLibraryGrid() {
+    let foods = [...FOOD_DATABASE].map(getFoodData);
+    // Filter by search
+    if (libSearch.trim()) {
+      const q = libSearch.toLowerCase().trim();
+      foods = foods.filter(f => (f.name || '').toLowerCase().includes(q) || (f.brand || '').toLowerCase().includes(q) || (f.id || '').toLowerCase().includes(q));
+    }
+    // Filter by category
+    if (libCategory !== 'all') {
+      foods = foods.filter(f => {
+        const cat = categorizeFood(f);
+        return cat.key === libCategory;
+      });
+    }
+    // Filter by source
+    if (libSourceFilter !== 'all') {
+      foods = foods.filter(f => (f.source || 'manual') === libSourceFilter);
+    }
+    // Sort
+    if (libSort === 'name') foods.sort((a,b) => (a.name||'').localeCompare(b.name||''));
+    else if (libSort === 'kcal-asc') foods.sort((a,b) => (a.per100g?.kcal||0) - (b.per100g?.kcal||0));
+    else if (libSort === 'kcal-desc') foods.sort((a,b) => (b.per100g?.kcal||0) - (a.per100g?.kcal||0));
+    else if (libSort === 'prot-desc') foods.sort((a,b) => (b.per100g?.prot||0) - (a.per100g?.prot||0));
+    else if (libSort === 'recent') foods.sort((a,b) => (b.addedDate||'').localeCompare(a.addedDate||''));
+
+    if (foods.length === 0) {
+      return `<div style="grid-column:1/-1;text-align:center;padding:30px 20px;color:var(--text-sec);">
+        <div style="font-size:36px;margin-bottom:10px;opacity:0.4;">🔍</div>
+        <div style="font-size:13px;">Sin resultados para los filtros actuales</div>
+      </div>`;
+    }
+
+    return foods.map(f => {
+      const cat = categorizeFood(f);
+      const imgUrl = getFoodImageUrl(f);
       const src = f.source || 'manual';
-      const badgeClass = src === 'recetario' ? 'recetario' : src === 'verified' ? 'verified' : src === 'web' ? 'web' : src === 'manual' ? 'manual' : 'user';
-      const badgeLabel = src === 'verified' ? '✓ verificado' : src === 'web' ? '⚠ web' : src === 'manual' ? '🍽️ ' + (f.author || 'manual') : src;
-
-      return `
-      <tr id="db-row-${f.id}">
-        <td><strong>${f.name}</strong></td>
-        <td>${f.brand || '—'}</td>
-        <td>${round1(f.per100g.kcal)}</td>
-        <td>${round1(f.per100g.prot)}g</td>
-        <td>${round1(f.per100g.carbs)}g</td>
-        <td>${round1(f.per100g.fat)}g</td>
-        <td><span class="source-badge ${badgeClass}">${badgeLabel}</span></td>
-        <td><div class="db-actions">
-          <button class="db-edit-btn" onclick="editFoodDB('${f.id}')">✏️</button>
-          <button class="db-delete-btn" onclick="confirmDeleteFood('${f.id}','${f.name.replace(/'/g, "\\'")}')">🗑</button>
-        </div></td>
-      </tr>`;
+      const price = PRICE_DB[f.id];
+      const imgHtml = imgUrl
+        ? `<div style="aspect-ratio:1;background:linear-gradient(135deg,${cat.color}11,${cat.color}33) url('${imgUrl}') center/cover;border-radius:10px 10px 0 0;position:relative;">
+            <span style="position:absolute;top:6px;left:6px;background:rgba(255,255,255,0.92);padding:3px 7px;border-radius:12px;font-size:12px;font-weight:700;">${cat.emoji}</span>
+          </div>`
+        : `<div style="aspect-ratio:1;background:linear-gradient(135deg,${cat.color}22,${cat.color}55);border-radius:10px 10px 0 0;display:flex;align-items:center;justify-content:center;font-size:48px;">${cat.emoji}</div>`;
+      const p = f.per100g || {};
+      return `<div style="background:#fff;border-radius:12px;overflow:hidden;border:1px solid var(--border);box-shadow:0 1px 3px rgba(0,0,0,0.04);transition:all 0.15s;cursor:pointer;" onmouseover="this.style.transform='translateY(-2px)';this.style.boxShadow='0 6px 14px rgba(0,0,0,0.1)'" onmouseout="this.style.transform='';this.style.boxShadow='0 1px 3px rgba(0,0,0,0.04)'" onclick="window.editFoodDB('${f.id}')">
+        ${imgHtml}
+        <div style="padding:10px;">
+          <div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">${f.name}</div>
+          <div style="font-size:10px;color:var(--text-sec);margin-bottom:6px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">${f.brand || '—'}</div>
+          <div style="display:flex;gap:3px;flex-wrap:wrap;">
+            <span style="background:#FEF3C7;color:#92400E;padding:1px 5px;border-radius:5px;font-size:9.5px;font-weight:700;">${Math.round(p.kcal||0)} kcal</span>
+            <span style="background:#FCE7F3;color:#BE185D;padding:1px 5px;border-radius:5px;font-size:9.5px;font-weight:700;">${round1(p.prot||0)}P</span>
+            <span style="background:#DBEAFE;color:#1E40AF;padding:1px 5px;border-radius:5px;font-size:9.5px;font-weight:700;">${round1(p.carbs||0)}C</span>
+            <span style="background:#FED7AA;color:#9A3412;padding:1px 5px;border-radius:5px;font-size:9.5px;font-weight:700;">${round1(p.fat||0)}F</span>
+          </div>
+          ${price ? `<div style="font-size:10px;color:#059669;font-weight:700;margin-top:5px;">€${price.price_per_100g.toFixed(2)}/100g</div>` : ''}
+          <div style="font-size:9px;color:var(--text-sec);margin-top:4px;opacity:0.7;">${src}${imgUrl ? ' · 📷' : ''}</div>
+        </div>
+      </div>`;
     }).join('');
+  }
 
-    const tableHtml = FOOD_DATABASE.length === 0
-      ? `<p style="color:var(--text-sec);font-size:.8rem;text-align:center;padding:20px;">Sin alimentos en la base de datos.</p>`
-      : `<div style="overflow-x:auto"><table class="db-table">
-          <thead><tr>
-            <th>Nombre</th><th>Marca</th><th>Kcal/100g</th><th>Prot</th><th>Carbs</th><th>Grasa</th><th>Fuente</th><th></th>
-          </tr></thead>
-          <tbody>${rows}</tbody>
-        </table></div>`;
+  function renderFoodDB() {
+    // Build category filter buttons (only categories with foods)
+    const catCounts = {};
+    [...FOOD_DATABASE].map(getFoodData).forEach(f => {
+      const c = categorizeFood(f);
+      catCounts[c.key] = (catCounts[c.key] || 0) + 1;
+    });
+    const catBtns = Object.entries(CATEGORY_META).map(([key, meta]) => {
+      const count = catCounts[key] || 0;
+      if (count === 0) return '';
+      return `<button onclick="setLibCategory('${key}')" style="padding:6px 11px;background:${libCategory===key?meta.color:'var(--bg)'};color:${libCategory===key?'#fff':'var(--text)'};border:1px solid ${libCategory===key?meta.color:'var(--border)'};border-radius:8px;font-size:11px;font-weight:600;cursor:pointer;font-family:inherit;white-space:nowrap;flex-shrink:0;">${meta.emoji} ${meta.label} <span style="opacity:0.7;">${count}</span></button>`;
+    }).filter(Boolean).join('');
 
-    const statsHtml = webCount > 0 ? `<div style="font-size:11px;color:var(--text-sec);padding:8px 0 0;">⚠ ${webCount} sin verificar &nbsp;·&nbsp; ✓ ${verifiedCount} verificados &nbsp;·&nbsp; ${sorted.length - webCount - verifiedCount} recetario/otros</div>` : '';
+    const allCount = Object.keys(catCounts).reduce((s,k) => s + catCounts[k], 0);
+    const imgCount = [...FOOD_DATABASE].filter(f => getFoodImageUrl(f)).length;
+    const imgPct = Math.round((imgCount / FOOD_DATABASE.length) * 100);
 
     return `
-      <div class="card">
-        <div class="db-toggle" onclick="toggleDB()">
-          <span class="card-title" style="margin-bottom:0">Base de datos de alimentos</span>
-          <div style="display:flex;align-items:center;gap:8px">
-            <span class="db-count">${FOOD_DATABASE.length} alimentos</span>
-            <span class="chevron ${dbOpen ? 'open' : ''}" id="db-chevron">&#9660;</span>
+      <div class="card" style="margin-bottom:0;">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;flex-wrap:wrap;gap:10px;">
+          <div>
+            <div class="card-title" style="margin:0;">📚 Library — Catálogo de alimentos</div>
+            <div style="font-size:11px;color:var(--text-sec);margin-top:4px;">${FOOD_DATABASE.length} alimentos · ${imgCount} con foto (${imgPct}%)</div>
           </div>
         </div>
-        <div class="db-body" id="db-body" style="display:${dbOpen ? 'block' : 'none'}">
-          ${tableHtml}
-          ${statsHtml}
+
+        <div style="display:flex;gap:6px;margin-bottom:10px;flex-wrap:wrap;">
+          <input id="library-search" type="text" placeholder="🔍 Buscar nombre, marca o id..." value="${libSearch.replace(/"/g,'&quot;')}" oninput="setLibSearch(this.value)" style="flex:1;min-width:200px;padding:9px 12px;border:1px solid var(--border);border-radius:10px;font-size:13px;font-family:inherit;color:var(--text);background:var(--bg);">
+          <select onchange="setLibSort(this.value)" style="padding:9px 10px;border:1px solid var(--border);border-radius:10px;font-size:12px;font-family:inherit;color:var(--text);background:var(--bg);cursor:pointer;">
+            <option value="name" ${libSort==='name'?'selected':''}>A-Z</option>
+            <option value="kcal-asc" ${libSort==='kcal-asc'?'selected':''}>Kcal ↑</option>
+            <option value="kcal-desc" ${libSort==='kcal-desc'?'selected':''}>Kcal ↓</option>
+            <option value="prot-desc" ${libSort==='prot-desc'?'selected':''}>Proteína ↓</option>
+            <option value="recent" ${libSort==='recent'?'selected':''}>Recientes</option>
+          </select>
+          <select onchange="setLibSourceFilter(this.value)" style="padding:9px 10px;border:1px solid var(--border);border-radius:10px;font-size:12px;font-family:inherit;color:var(--text);background:var(--bg);cursor:pointer;">
+            <option value="all" ${libSourceFilter==='all'?'selected':''}>Todas fuentes</option>
+            <option value="recetario" ${libSourceFilter==='recetario'?'selected':''}>Recetario</option>
+            <option value="verified" ${libSourceFilter==='verified'?'selected':''}>Verificadas</option>
+            <option value="usda" ${libSourceFilter==='usda'?'selected':''}>USDA</option>
+            <option value="user" ${libSourceFilter==='user'?'selected':''}>User</option>
+            <option value="web" ${libSourceFilter==='web'?'selected':''}>Web</option>
+          </select>
+        </div>
+
+        <div style="display:flex;gap:6px;margin-bottom:14px;overflow-x:auto;padding-bottom:4px;scrollbar-width:none;">
+          <button onclick="setLibCategory('all')" style="padding:6px 11px;background:${libCategory==='all'?'#0F766E':'var(--bg)'};color:${libCategory==='all'?'#fff':'var(--text)'};border:1px solid ${libCategory==='all'?'#0F766E':'var(--border)'};border-radius:8px;font-size:11px;font-weight:600;cursor:pointer;font-family:inherit;white-space:nowrap;flex-shrink:0;">Todas <span style="opacity:0.7;">${allCount}</span></button>
+          ${catBtns}
+        </div>
+
+        <div id="library-results" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:10px;">
+          ${renderLibraryGrid()}
         </div>
       </div>`;
   }
@@ -7858,6 +8132,8 @@ try {
       html = renderPhotoJournal();
     } else if (currentPeriod === 'insights') {
       html = renderInsights();
+    } else if (currentPeriod === 'library') {
+      html = renderFoodDB();
     } else {
       html = renderHistory(currentPeriod);
     }
@@ -7879,6 +8155,15 @@ try {
     }
     if (currentPeriod !== 'hoy' && currentPeriod !== 'historial') currentPeriod = 'hoy';
     render();
+  };
+
+  // Jump to a specific date (used by day strip, calendar heatmap, photo click, etc)
+  window.goToDate = function(ymd) {
+    if (!ymd || !/^\d{4}-\d{2}-\d{2}$/.test(ymd)) return;
+    currentDate = ymd;
+    if (currentPeriod !== 'hoy') currentPeriod = 'hoy';
+    render();
+    setTimeout(() => window.scrollTo({ top: 0, behavior: 'smooth' }), 30);
   };
 
   window.setHistorialPeriod = function(period) {
@@ -7958,8 +8243,8 @@ try {
     const backfill = {};
     Object.entries(_backfillPhotos || {}).forEach(([id, p]) => {
       if ((p.user || 'ernesto') === currentUser) {
-        // Map `path` → use as `src` (browser loads from server-relative URL)
-        backfill[id] = { ...p, base64: p.base64 || p.path || null, _isBackfill: true };
+        // Prefer embedded base64Thumb (no server needed) → fallback to path URL
+        backfill[id] = { ...p, base64: p.base64 || p.base64Thumb || p.path || null, _isBackfill: true };
       }
     });
     return { ...backfill, ...local };

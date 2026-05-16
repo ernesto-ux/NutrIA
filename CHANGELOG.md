@@ -1,5 +1,46 @@
 # Changelog - NutrIA
 
+## [V2.4 — Food image library + Library tab + Photo thumbnails embebidos + goToDate fix] - 16 mayo 2026
+### Fixed (críticos)
+- **Day strip click no funcionaba**: faltaba `window.goToDate(ymd)`. Solo respondían las flechas izquierda/derecha del header. Ahora click en cualquier celda del strip salta al día + scroll top
+- **Photo Journal vacío en producción**: las photos en `photos/ernesto/*.jpg` no se mostraban porque las URLs relativas requieren servidor HTTP. Solución: regenerado `local-photos.json` con thumbnails base64 embebidos (380px max, JPEG quality 60, ~28KB cada uno, ~1.4MB total). Ahora las fotos cargan SIN dependencia de servidor
+
+### Agregado
+- **Food image library**: nuevo mapa `FOOD_IMAGE_MAP` con ~140 URLs de Unsplash (240px, quality 70) para los alimentos más comunes: proteínas, lácteos, frutas, verduras, carbs, pizza, fast food, pastry, charcuterie, snacks, bebidas, platos cocinados, suplementos, condimentos
+- Helper `window.getFoodImageUrl(food)` con prioridad: `food.imageUrl` (custom per-entry) → `FOOD_IMAGE_MAP[food.id]` → null (fallback a emoji)
+- **Nueva pestaña 📚 Library** (entre Nutrición y Actividad en sidebar/mobile nav):
+  - Catálogo browseable con grid de cards 140px minWidth
+  - Cada card: imagen 1:1 (URL real o emoji placeholder), nombre, marca, 4 macro chips coloridos, precio €/100g si disponible, source badge, indicador 📷 si tiene imagen
+  - Hover effect: lift + shadow expanded
+  - Click → editFoodDB (modal de edición existente)
+  - **Búsqueda en vivo** por nombre/marca/id (sin recargar grid completo)
+  - **Filtros por categoría**: 13 botones coloreados, sólo se muestran las que tienen items
+  - **Ordenamiento**: A-Z · Kcal ↑ · Kcal ↓ · Proteína ↓ · Recientes
+  - **Filtro por fuente**: Todas · Recetario · Verificadas · USDA · User · Web
+  - Header stats: total alimentos + cobertura % con imagen
+- Photo thumbnails: base64 embebidos en local-photos.json (380px, q60). Cobertura: 38/38 fotos (100%)
+
+### Implementación
+- `getStoredPhotos()` prioriza `base64Thumb` (embebido) sobre `path` (URL servidor) — robusto sin server
+- `local-photos.json`: 1.4MB total con 38 thumbnails embebidos
+- Photos full-size siguen en `photos/{user}/*.jpg` para click → fullsize cuando servidor disponible
+- Library tab states (search, category, sort, sourceFilter) en globals para mantener estado entre re-renders
+
+### Roadmap completado V2.0
+✅ libheif-js (V2.1) — HEIC decode
+✅ Food card redesign Virtuagym (V2.1)
+✅ Claude vision integration (V2.1)
+✅ Photo backfill (V2.1)
+✅ Piecewise targets (V2.1, V2.2)
+✅ Photo Journal page (V2.2)
+✅ Heatmaps de patrones (V2.2)
+✅ Day strip navigator (V2.3)
+✅ Insights tab (V2.3)
+✅ Photo timeline (V2.3)
+✅ Bulk import (V2.3)
+✅ Food image library (V2.4)
+✅ Library tab (V2.4)
+
 ## [V2.3 — Day strip + Insights tab + Photo timeline + Bulk import + Diagnostics] - 16 mayo 2026
 ### Agregado
 - **🗓️ Day strip navigator iOS-style** (top de Meals tab):
