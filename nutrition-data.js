@@ -2954,7 +2954,7 @@ const FOOD_DATABASE = [
     id: "bolkiri-salade-thai-epicee-doble-carne",
     name: "Salade Thaï Épicée Bolkiri (doble carne)",
     brand: "Bolkiri",
-    per100g: { kcal: 165, prot: 13.0, carbs: 12.0, fat: 8.0, fiber: 2.0, sodium: 480, sugar: 4.0, sat_fat: 2.0 },
+    per100g: { kcal: 159, prot: 14.1, carbs: 4.7, fat: 9.1, fiber: 2.5, sodium: 520, sugar: 2.0, sat_fat: 2.5 },
     source: "estimated",
     addedDate: "2026-05-16"
   },
@@ -3036,6 +3036,16 @@ const FOOD_DATABASE = [
     brand: "Generic",
     per100g: { kcal: 70, prot: 4.0, carbs: 4.5, fat: 4.0, fiber: 3.0, sodium: 2400, sugar: 0.5, sat_fat: 0.3 },
     source: "usda",
+    addedDate: "2026-05-16"
+  },
+  {
+    id: "aderezo-industrial-ensalada-super",
+    name: "Aderezo Industrial Ensalada Súper (bolsita)",
+    brand: "Generic",
+    per100g: { kcal: 380, prot: 1.5, carbs: 10.0, fat: 36.0, fiber: 0.5, sodium: 1200, sugar: 6.0, sat_fat: 5.0 },
+    unitWeight: 30,
+    unitLabel: "bolsita",
+    source: "estimated",
     addedDate: "2026-05-16"
   },
 ];
