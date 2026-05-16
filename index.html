@@ -1250,16 +1250,16 @@
   <div class="sidebar-brand" title="NutrIA">🦦</div>
   <button class="sidebar-tab active" data-period="hoy" onclick="setPeriod('hoy')"><span class="sidebar-tab-icon">🍽️</span>Meals</button>
   <button class="sidebar-tab" data-period="fotos" onclick="setPeriod('fotos')"><span class="sidebar-tab-icon">📷</span>Journal</button>
-  <button class="sidebar-tab" data-period="insights" onclick="setPeriod('insights')"><span class="sidebar-tab-icon">✨</span>Insights</button>
+  <button class="sidebar-tab" data-period="recap" onclick="setPeriod('recap')"><span class="sidebar-tab-icon">🎬</span>Recap</button>
   <button class="sidebar-tab" data-period="historial" onclick="setPeriod('historial')"><span class="sidebar-tab-icon">📅</span>Historial</button>
   <button class="sidebar-tab" data-period="informes" onclick="setPeriod('informes')"><span class="sidebar-tab-icon">📊</span>Informes</button>
   <button class="sidebar-tab" data-period="finanzas" onclick="setPeriod('finanzas')"><span class="sidebar-tab-icon">💰</span>Finanzas</button>
   <button class="sidebar-tab" data-period="hogar" onclick="setPeriod('hogar')"><span class="sidebar-tab-icon">🏠</span>Hogar</button>
   <button class="sidebar-tab" data-period="coach" onclick="setPeriod('coach')"><span class="sidebar-tab-icon">🤖</span>Coach</button>
   <button class="sidebar-tab" data-period="nutricion" onclick="setPeriod('nutricion')"><span class="sidebar-tab-icon">🥗</span>Nutricion</button>
-  <button class="sidebar-tab" data-period="library" onclick="setPeriod('library')"><span class="sidebar-tab-icon">📚</span>Library</button>
   <button class="sidebar-tab" data-period="actividad" onclick="setPeriod('actividad')"><span class="sidebar-tab-icon">🏃</span>Actividad</button>
   <button class="sidebar-tab" data-period="salud" onclick="setPeriod('salud')"><span class="sidebar-tab-icon">🏥</span>Salud</button>
+  <button class="sidebar-tab" data-period="library" onclick="setPeriod('library')"><span class="sidebar-tab-icon">📚</span>Library</button>
   <button class="sidebar-tab" data-period="tools" onclick="setPeriod('tools')"><span class="sidebar-tab-icon">🛠️</span>Tools</button>
 </aside>
 
@@ -1267,16 +1267,16 @@
 <nav class="mobile-nav" id="mobile-nav">
   <button class="mobile-nav-tab active" data-period="hoy" onclick="setPeriod('hoy')"><span class="mobile-nav-tab-icon">🍽️</span>Meals</button>
   <button class="mobile-nav-tab" data-period="fotos" onclick="setPeriod('fotos')"><span class="mobile-nav-tab-icon">📷</span>Fotos</button>
-  <button class="mobile-nav-tab" data-period="insights" onclick="setPeriod('insights')"><span class="mobile-nav-tab-icon">✨</span>Stats</button>
-  <button class="mobile-nav-tab" data-period="historial" onclick="setPeriod('historial')"><span class="mobile-nav-tab-icon">📅</span>Historial</button>
-  <button class="mobile-nav-tab" data-period="informes" onclick="setPeriod('informes')"><span class="mobile-nav-tab-icon">📊</span>Informes</button>
+  <button class="mobile-nav-tab" data-period="recap" onclick="setPeriod('recap')"><span class="mobile-nav-tab-icon">🎬</span>Recap</button>
+  <button class="mobile-nav-tab" data-period="historial" onclick="setPeriod('historial')"><span class="mobile-nav-tab-icon">📅</span>Hist</button>
+  <button class="mobile-nav-tab" data-period="informes" onclick="setPeriod('informes')"><span class="mobile-nav-tab-icon">📊</span>Inf</button>
   <button class="mobile-nav-tab" data-period="finanzas" onclick="setPeriod('finanzas')"><span class="mobile-nav-tab-icon">💰</span>$</button>
   <button class="mobile-nav-tab" data-period="hogar" onclick="setPeriod('hogar')"><span class="mobile-nav-tab-icon">🏠</span>Hogar</button>
   <button class="mobile-nav-tab" data-period="coach" onclick="setPeriod('coach')"><span class="mobile-nav-tab-icon">🤖</span>Coach</button>
   <button class="mobile-nav-tab" data-period="nutricion" onclick="setPeriod('nutricion')"><span class="mobile-nav-tab-icon">🥗</span>Nutri</button>
-  <button class="mobile-nav-tab" data-period="library" onclick="setPeriod('library')"><span class="mobile-nav-tab-icon">📚</span>Lib</button>
   <button class="mobile-nav-tab" data-period="actividad" onclick="setPeriod('actividad')"><span class="mobile-nav-tab-icon">🏃</span>Activ</button>
   <button class="mobile-nav-tab" data-period="salud" onclick="setPeriod('salud')"><span class="mobile-nav-tab-icon">🏥</span>Salud</button>
+  <button class="mobile-nav-tab" data-period="library" onclick="setPeriod('library')"><span class="mobile-nav-tab-icon">📚</span>Lib</button>
   <button class="mobile-nav-tab" data-period="tools" onclick="setPeriod('tools')"><span class="mobile-nav-tab-icon">🛠️</span>Tools</button>
 </nav>
 
@@ -2464,12 +2464,10 @@ try {
             const pct = totals.kcal / tgtKcal;
             dotColor = pct >= 0.85 && pct <= 1.15 ? '#10B981' : pct < 0.85 ? '#3B82F6' : pct < 1.30 ? '#F59E0B' : '#EF4444';
           }
-          const hasPhotos = Object.values(photosAll).some(p => p.date === ymd);
           return `<button class="day-strip-cell ${isActive ? 'active' : ''} ${isToday ? 'today' : ''}" onclick="window.goToDate('${ymd}')" title="${d.toLocaleDateString('es-ES',{weekday:'long',day:'numeric',month:'long'})}${isToday ? ' (hoy)' : ''}">
-            ${hasPhotos ? '<span class="day-strip-cell-photo">📷</span>' : ''}
             <span class="day-strip-cell-dow">${dowNames[d.getDay()]}</span>
             <span class="day-strip-cell-num">${d.getDate()}</span>
-            <span class="day-strip-cell-dot" style="background:${dotColor};"></span>
+            <span class="day-strip-cell-dot" style="background:${dotColor};" title="Status calórico vs target: verde=óptimo · azul=déficit (<85%) · amarillo=atención · rojo=exceso"></span>
           </button>`;
         }).join('')}
       </div>`;
@@ -3113,29 +3111,26 @@ try {
 
     return foods.map(f => {
       const cat = categorizeFood(f);
-      const imgUrl = getFoodImageUrl(f);
       const src = f.source || 'manual';
       const price = PRICE_DB[f.id];
-      const imgHtml = imgUrl
-        ? `<div style="aspect-ratio:1;background:linear-gradient(135deg,${cat.color}11,${cat.color}33) url('${imgUrl}') center/cover;border-radius:10px 10px 0 0;position:relative;">
-            <span style="position:absolute;top:6px;left:6px;background:rgba(255,255,255,0.92);padding:3px 7px;border-radius:12px;font-size:12px;font-weight:700;">${cat.emoji}</span>
-          </div>`
-        : `<div style="aspect-ratio:1;background:linear-gradient(135deg,${cat.color}22,${cat.color}55);border-radius:10px 10px 0 0;display:flex;align-items:center;justify-content:center;font-size:48px;">${cat.emoji}</div>`;
       const p = f.per100g || {};
-      return `<div style="background:#fff;border-radius:12px;overflow:hidden;border:1px solid var(--border);box-shadow:0 1px 3px rgba(0,0,0,0.04);transition:all 0.15s;cursor:pointer;" onmouseover="this.style.transform='translateY(-2px)';this.style.boxShadow='0 6px 14px rgba(0,0,0,0.1)'" onmouseout="this.style.transform='';this.style.boxShadow='0 1px 3px rgba(0,0,0,0.04)'" onclick="window.editFoodDB('${f.id}')">
-        ${imgHtml}
-        <div style="padding:10px;">
-          <div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">${f.name}</div>
-          <div style="font-size:10px;color:var(--text-sec);margin-bottom:6px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">${f.brand || '—'}</div>
-          <div style="display:flex;gap:3px;flex-wrap:wrap;">
-            <span style="background:#FEF3C7;color:#92400E;padding:1px 5px;border-radius:5px;font-size:9.5px;font-weight:700;">${Math.round(p.kcal||0)} kcal</span>
-            <span style="background:#FCE7F3;color:#BE185D;padding:1px 5px;border-radius:5px;font-size:9.5px;font-weight:700;">${round1(p.prot||0)}P</span>
-            <span style="background:#DBEAFE;color:#1E40AF;padding:1px 5px;border-radius:5px;font-size:9.5px;font-weight:700;">${round1(p.carbs||0)}C</span>
-            <span style="background:#FED7AA;color:#9A3412;padding:1px 5px;border-radius:5px;font-size:9.5px;font-weight:700;">${round1(p.fat||0)}F</span>
+      // No image, just a thin category color bar on the left
+      return `<div style="background:#fff;border-radius:10px;border:1px solid var(--border);border-left:4px solid ${cat.color};padding:10px 12px;transition:all 0.15s;cursor:pointer;" onmouseover="this.style.transform='translateY(-1px)';this.style.boxShadow='0 4px 10px rgba(0,0,0,0.08)'" onmouseout="this.style.transform='';this.style.boxShadow=''" onclick="window.editFoodDB('${f.id}')">
+        <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:8px;margin-bottom:4px;">
+          <div style="min-width:0;flex:1;">
+            <div style="font-size:13px;font-weight:700;color:var(--text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">${f.name}</div>
+            <div style="font-size:10.5px;color:var(--text-sec);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">${f.brand || '—'}</div>
           </div>
-          ${price ? `<div style="font-size:10px;color:#059669;font-weight:700;margin-top:5px;">€${price.price_per_100g.toFixed(2)}/100g</div>` : ''}
-          <div style="font-size:9px;color:var(--text-sec);margin-top:4px;opacity:0.7;">${src}${imgUrl ? ' · 📷' : ''}</div>
+          <span style="background:${cat.color}22;color:${cat.color};padding:2px 7px;border-radius:8px;font-size:9.5px;font-weight:700;white-space:nowrap;flex-shrink:0;">${cat.cat||''}</span>
         </div>
+        <div style="display:flex;gap:3px;flex-wrap:wrap;margin-top:6px;">
+          <span style="background:#FEF3C7;color:#92400E;padding:2px 7px;border-radius:6px;font-size:10px;font-weight:700;">${Math.round(p.kcal||0)} kcal</span>
+          <span style="background:#FCE7F3;color:#BE185D;padding:2px 7px;border-radius:6px;font-size:10px;font-weight:700;">${round1(p.prot||0)}P</span>
+          <span style="background:#DBEAFE;color:#1E40AF;padding:2px 7px;border-radius:6px;font-size:10px;font-weight:700;">${round1(p.carbs||0)}C</span>
+          <span style="background:#FED7AA;color:#9A3412;padding:2px 7px;border-radius:6px;font-size:10px;font-weight:700;">${round1(p.fat||0)}F</span>
+          ${price ? `<span style="background:#D1FAE5;color:#065F46;padding:2px 7px;border-radius:6px;font-size:10px;font-weight:700;">€${price.price_per_100g.toFixed(2)}/100g</span>` : ''}
+        </div>
+        <div style="font-size:9px;color:var(--text-sec);margin-top:6px;opacity:0.6;">${src}</div>
       </div>`;
     }).join('');
   }
@@ -3190,7 +3185,7 @@ try {
           ${catBtns}
         </div>
 
-        <div id="library-results" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:10px;">
+        <div id="library-results" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:8px;">
           ${renderLibraryGrid()}
         </div>
       </div>`;
@@ -3358,6 +3353,10 @@ try {
       end = new Date(today);
       start = new Date(today);
       start.setDate(today.getDate() - 29);
+    } else if (informeRange === 'all') {
+      // All time: desde 29/03/2026 hasta hoy
+      end = new Date(today);
+      start = new Date('2026-03-29T00:00:00');
     } else if (informeRange === 'custom' && informeCustomStart && informeCustomEnd) {
       start = parseDate(informeCustomStart);
       end = parseDate(informeCustomEnd);
@@ -3500,6 +3499,7 @@ try {
         <button class="metric-btn ${informeRange==='dia'?'active':''}" onclick="setInformeRange('dia')">Dia</button>
         <button class="metric-btn ${informeRange==='semana'?'active':''}" onclick="setInformeRange('semana')">Semana</button>
         <button class="metric-btn ${informeRange==='mes'?'active':''}" onclick="setInformeRange('mes')">Mes</button>
+        <button class="metric-btn ${informeRange==='all'?'active':''}" onclick="setInformeRange('all')" title="Todos los datos desde 29 de marzo 2026">📊 All time</button>
         <div style="display:flex;gap:6px;align-items:center;margin-left:8px;flex-wrap:wrap;">
           ${(() => {
             const selStyle = 'padding:5px 2px;border:1px solid var(--border);border-radius:8px;font-size:12px;font-family:inherit;color:var(--text);background:var(--card);cursor:pointer;-webkit-appearance:none;appearance:none;';
@@ -3553,7 +3553,9 @@ try {
     // Daily balance table
     let tableRows = '';
     let weekTotal = { intake:0, tdee:0, steps:0, gym:0, balance:0, cost:0 };
-    days.forEach(d => {
+    // Render in REVERSE chronological order (most recent first) per user request.
+    // weekTotal calc unchanged (sum is order-independent).
+    [...days].reverse().forEach(d => {
       const intake = d.hasData ? Math.round(d.totals.kcal) : '—';
       const gym = d.activity && d.activity.gymKcal > 0 ? d.activity.gymKcal : '';
       const steps = d.activity ? d.activity.stepsKcal : '';
@@ -3859,7 +3861,8 @@ try {
     // Projection
     const weeklyDeficit = Math.abs(totalDeficit) / numDays * 7;
     const weeklyFatLoss = weeklyDeficit / 7700;
-    const startWeight = (typeof WEIGHT_LOG !== 'undefined' && WEIGHT_LOG.length > 0) ? WEIGHT_LOG[0].weight : 89;
+    const _wl_3866 = (typeof getUserWeightLog === 'function') ? getUserWeightLog() : (WEIGHT_LOG || []);
+    const startWeight = _wl_3866.length > 0 ? _wl_3866[0].weight : 89;
     const currentWeight = startWeight - fatLost;
     const targetWeight = 75;
     const kgToLose = currentWeight - targetWeight;
@@ -3896,7 +3899,7 @@ try {
 
       <div class="card" style="margin-bottom:16px;">
         <div class="card-title" style="margin-bottom:14px;">🎯 Resumen</div>
-        <div style="display:grid;grid-template-columns:repeat(6,1fr);gap:8px;">
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:8px;">
           ${kpiHtml}
         </div>
       </div>
@@ -3949,6 +3952,8 @@ try {
           </div>
         ` : ''}
       </div>
+
+      ${renderAdherenceHeatmap(365, '🗓️ Adherencia anual (últimos 365 días)')}
 
       <div class="card" style="margin-bottom:16px;">
         <div class="card-title" style="margin-bottom:14px;">⚡ Balance Energetico Diario</div>
@@ -4326,8 +4331,9 @@ try {
   // ── WEIGHT STORYLINE (INFORMES) ─────────────────────────────────────
 
   function renderWeightStoryline() {
-    if (!WEIGHT_LOG || WEIGHT_LOG.length === 0) return '';
-    const sorted = [...WEIGHT_LOG].sort((a, b) => a.date.localeCompare(b.date));
+    const _wl_4333 = (typeof getUserWeightLog === 'function') ? getUserWeightLog() : (WEIGHT_LOG || []);
+    if (_wl_4333.length === 0) return '';
+    const sorted = [..._wl_4333].sort((a, b) => a.date.localeCompare(b.date));
     if (sorted.length < 1) return '';
 
     const last = sorted[sorted.length - 1];
@@ -6270,6 +6276,159 @@ try {
   }
 
   // ── STORIES (week recap) ───────────────────────────────────────────────
+  function renderRecap() {
+    // Compute weekly metrics for current user
+    const today = new Date(getTodayStr());
+    const weekDates = [];
+    for (let i = 6; i >= 0; i--) {
+      const d = new Date(today);
+      d.setDate(d.getDate() - i);
+      weekDates.push(d.getFullYear() + '-' + String(d.getMonth()+1).padStart(2,'0') + '-' + String(d.getDate()).padStart(2,'0'));
+    }
+
+    let weekKcal = 0, weekProt = 0, weekSteps = 0, gymDays = 0, daysLogged = 0, daysInTarget = 0, days10k = 0;
+    weekDates.forEach(ymd => {
+      const t = getDayTotals(ymd);
+      const a = getActivityForDate(ymd);
+      if (t.kcal > 0) {
+        daysLogged++;
+        weekKcal += t.kcal;
+        weekProt += t.prot;
+        const tg = getTargetsForDate(currentUser, ymd);
+        const pct = t.kcal / tg.kcal;
+        if (pct >= 0.85 && pct <= 1.15) daysInTarget++;
+      }
+      if (a) {
+        weekSteps += (a.steps || 0);
+        if ((a.gymKcal || 0) > 200) gymDays++;
+        if ((a.steps || 0) >= 10000) days10k++;
+      }
+    });
+    const avgKcal = daysLogged ? Math.round(weekKcal / daysLogged) : 0;
+    const avgProt = daysLogged ? Math.round(weekProt / daysLogged) : 0;
+
+    // Targets per user request
+    const TARGET_GYM_WEEK = 4;
+    const TARGET_STEPS_DAY = 10000;
+    const TARGET_STEPS_WEEK = 70000;
+
+    const gymPct = Math.round(gymDays / TARGET_GYM_WEEK * 100);
+    const stepsPct = Math.round(weekSteps / TARGET_STEPS_WEEK * 100);
+    const days10kPct = Math.round(days10k / 7 * 100);
+
+    const gymColor = gymPct >= 100 ? '#10B981' : gymPct >= 75 ? '#F59E0B' : '#EF4444';
+    const stepsColor = stepsPct >= 100 ? '#10B981' : stepsPct >= 75 ? '#F59E0B' : '#EF4444';
+
+    const tgt = TARGETS();
+    const kcalPct = Math.round(avgKcal / tgt.kcal * 100);
+
+    // Hero recap card
+    const heroCard = `
+      <div class="card" style="margin-bottom:14px;padding:24px;background:linear-gradient(135deg,#0F766E,#14B8A6);color:#fff;border-radius:16px;">
+        <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;opacity:0.85;margin-bottom:6px;">🎬 Tu semana en datos</div>
+        <div style="font-size:24px;font-weight:800;margin-bottom:18px;">${weekDates[0].slice(8,10)}/${weekDates[0].slice(5,7)} → ${weekDates[6].slice(8,10)}/${weekDates[6].slice(5,7)}</div>
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:14px;">
+          <div>
+            <div style="font-size:32px;font-weight:800;">${avgKcal || '—'}</div>
+            <div style="font-size:11px;opacity:0.85;font-weight:600;">avg kcal/día (${kcalPct}% target)</div>
+          </div>
+          <div>
+            <div style="font-size:32px;font-weight:800;">${avgProt || '—'}g</div>
+            <div style="font-size:11px;opacity:0.85;font-weight:600;">avg proteína/día</div>
+          </div>
+          <div>
+            <div style="font-size:32px;font-weight:800;">${daysInTarget}/7</div>
+            <div style="font-size:11px;opacity:0.85;font-weight:600;">días en target ±15%</div>
+          </div>
+          <div>
+            <div style="font-size:32px;font-weight:800;">${daysLogged}/7</div>
+            <div style="font-size:11px;opacity:0.85;font-weight:600;">días con registro</div>
+          </div>
+        </div>
+      </div>`;
+
+    // Targets cards (gym + steps)
+    const targetsCard = `
+      <div class="card" style="margin-bottom:14px;">
+        <div class="card-title">🎯 Targets semanales</div>
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:14px;">
+          <div style="padding:14px;background:#F8FAFC;border-radius:12px;border-left:4px solid ${gymColor};">
+            <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:6px;">
+              <div>
+                <div style="font-size:11px;color:var(--text-sec);text-transform:uppercase;letter-spacing:0.5px;font-weight:700;">🏋️ Gym sessions</div>
+                <div style="font-size:28px;font-weight:800;color:${gymColor};margin-top:4px;">${gymDays} <span style="font-size:14px;color:var(--text-sec);font-weight:600;">/ ${TARGET_GYM_WEEK} sem</span></div>
+              </div>
+              <div style="font-size:14px;font-weight:800;color:${gymColor};">${gymPct}%</div>
+            </div>
+            <div style="background:var(--border);border-radius:6px;height:8px;overflow:hidden;">
+              <div style="background:${gymColor};height:100%;width:${Math.min(gymPct,100)}%;transition:width 0.3s;"></div>
+            </div>
+            <div style="font-size:10px;color:var(--text-sec);margin-top:4px;">Meta: ${TARGET_GYM_WEEK} días con +200 kcal de gym/semana</div>
+          </div>
+          <div style="padding:14px;background:#F8FAFC;border-radius:12px;border-left:4px solid ${stepsColor};">
+            <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:6px;">
+              <div>
+                <div style="font-size:11px;color:var(--text-sec);text-transform:uppercase;letter-spacing:0.5px;font-weight:700;">🚶 Pasos totales</div>
+                <div style="font-size:28px;font-weight:800;color:${stepsColor};margin-top:4px;">${(weekSteps/1000).toFixed(1)}k <span style="font-size:14px;color:var(--text-sec);font-weight:600;">/ 70k sem</span></div>
+              </div>
+              <div style="font-size:14px;font-weight:800;color:${stepsColor};">${stepsPct}%</div>
+            </div>
+            <div style="background:var(--border);border-radius:6px;height:8px;overflow:hidden;">
+              <div style="background:${stepsColor};height:100%;width:${Math.min(stepsPct,100)}%;transition:width 0.3s;"></div>
+            </div>
+            <div style="font-size:10px;color:var(--text-sec);margin-top:4px;">${days10k}/7 días con ≥10k pasos (${days10kPct}%) — Meta: 10k/día</div>
+          </div>
+        </div>
+      </div>`;
+
+    // Day-by-day strip with all metrics
+    const dayStrip = `
+      <div class="card" style="margin-bottom:14px;">
+        <div class="card-title">📅 Día a día</div>
+        <div style="display:grid;grid-template-columns:repeat(7,1fr);gap:6px;">
+          ${weekDates.map(ymd => {
+            const t = getDayTotals(ymd);
+            const a = getActivityForDate(ymd);
+            const tg = getTargetsForDate(currentUser, ymd);
+            const dt = parseDate(ymd);
+            const dowName = ['Dom','Lun','Mar','Mié','Jue','Vie','Sáb'][dt.getDay()];
+            const hasGym = a && (a.gymKcal||0) > 200;
+            const has10k = a && (a.steps||0) >= 10000;
+            const pct = t.kcal > 0 ? t.kcal / tg.kcal : 0;
+            let bgColor = '#F3F4F6';
+            if (t.kcal > 0) {
+              if (pct >= 0.85 && pct <= 1.15) bgColor = '#DCFCE7';
+              else if (pct < 0.85) bgColor = '#DBEAFE';
+              else if (pct < 1.30) bgColor = '#FEF3C7';
+              else bgColor = '#FECACA';
+            }
+            return `<div onclick="window.goToDate('${ymd}')" style="cursor:pointer;text-align:center;padding:10px 4px;background:${bgColor};border-radius:10px;border:1px solid rgba(0,0,0,0.05);transition:transform 0.15s;" onmouseover="this.style.transform='translateY(-2px)'" onmouseout="this.style.transform=''">
+              <div style="font-size:9px;font-weight:700;color:#475569;text-transform:uppercase;letter-spacing:0.5px;">${dowName}</div>
+              <div style="font-size:18px;font-weight:800;color:#0F172A;margin:2px 0;">${dt.getDate()}</div>
+              <div style="font-size:11px;font-weight:700;color:#0F766E;">${t.kcal > 0 ? Math.round(t.kcal) : '—'}</div>
+              <div style="font-size:9px;color:var(--text-sec);">${t.prot > 0 ? Math.round(t.prot)+'P' : ''}</div>
+              <div style="font-size:11px;margin-top:4px;">${hasGym ? '🏋️' : ''}${has10k ? '🚶' : ''}</div>
+            </div>`;
+          }).join('')}
+        </div>
+      </div>`;
+
+    // Embed Stories (legacy week recap) if it has content
+    let storiesHtml = '';
+    try { storiesHtml = renderStories(); } catch(e) {}
+    const storiesCard = storiesHtml ? `
+      <div class="card" style="margin-bottom:14px;padding:14px;">
+        ${storiesHtml}
+      </div>` : '';
+
+    return `<div style="padding:0 4px;">
+      ${heroCard}
+      ${targetsCard}
+      ${dayStrip}
+      ${storiesCard}
+    </div>`;
+  }
+
   function renderStories() {
     const fmtYMD = d => d.getFullYear() + '-' + String(d.getMonth()+1).padStart(2,'0') + '-' + String(d.getDate()).padStart(2,'0');
     const N = storiesPeriod;
@@ -6324,7 +6483,7 @@ try {
     const gymDays = acts.filter(a => a.gymKcal > 0).length;
 
     // Weight delta in period
-    const weights = WEIGHT_LOG.filter(w => w.date >= startDate).sort((a,b) => a.date.localeCompare(b.date));
+    const weights = ((typeof getUserWeightLog === 'function') ? getUserWeightLog() : (WEIGHT_LOG || [])).filter(w => w.date >= startDate).sort((a,b) => a.date.localeCompare(b.date));
     const weightDelta = weights.length >= 2 ? weights[weights.length-1].weight - weights[0].weight : null;
 
     const periodPills = [7, 14, 30].map(n => `
@@ -6390,6 +6549,61 @@ try {
   }
 
   // ============== INSIGHTS PAGE (Streaks + Weekly digest + Achievements) ==============
+  // Reusable adherence heatmap (used by Insights 90d + Informes 365d)
+  function renderAdherenceHeatmap(daysCount, title) {
+    const tgt = TARGETS();
+    const today = new Date(getTodayStr());
+    const days = [];
+    for (let i = daysCount - 1; i >= 0; i--) {
+      const d = new Date(today);
+      d.setDate(d.getDate() - i);
+      days.push(d.getFullYear() + '-' + String(d.getMonth()+1).padStart(2,'0') + '-' + String(d.getDate()).padStart(2,'0'));
+    }
+    const dayInfo = days.map(date => {
+      const totals = getDayTotals(date);
+      const act = getActivityForDate(date);
+      const tgtDay = getTargetsForDate(currentUser, date);
+      return { date, totals, hasData: totals.kcal > 0,
+        steps: act ? (act.steps||0) : 0,
+        hasGym: act && (act.gymKcal||0) > 200,
+        tgtDay };
+    });
+    function _cellColor(d) {
+      if (!d.hasData) return '#E5E7EB';
+      const pct = d.totals.kcal / d.tgtDay.kcal;
+      if (pct < 0.70) return '#7DD3FC';
+      if (pct < 0.85) return '#BFDBFE';
+      if (pct <= 1.10) return '#86EFAC';
+      if (pct <= 1.25) return '#FDE68A';
+      if (pct <= 1.50) return '#FCA5A5';
+      return '#EF4444';
+    }
+    const cellSize = daysCount > 180 ? 10 : 14;
+    const cells = dayInfo.map(d => {
+      const tooltip = `${d.date}: ${d.hasData ? Math.round(d.totals.kcal) + ' kcal' : 'sin datos'}`;
+      const emojis = (d.hasGym ? '🏋️' : '') + (d.steps >= 10000 ? '🚶' : '');
+      return `<div style="width:${cellSize}px;height:${cellSize}px;background:${_cellColor(d)};border-radius:2px;display:inline-block;position:relative;cursor:pointer;" title="${tooltip}" onclick="window.goToDate('${d.date}')">${(daysCount <= 90 && emojis) ? `<span style="position:absolute;top:-11px;left:0;font-size:8px;line-height:1;">${emojis}</span>` : ''}</div>`;
+    }).join('');
+    const logged = dayInfo.filter(d => d.hasData).length;
+    const inTarget = dayInfo.filter(d => d.hasData && d.totals.kcal/d.tgtDay.kcal >= 0.85 && d.totals.kcal/d.tgtDay.kcal <= 1.15).length;
+    const pct = logged > 0 ? Math.round(inTarget/logged*100) : 0;
+    return `<div class="card" style="margin-bottom:14px;">
+      <div class="card-title" style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:6px;">
+        <span>${title}</span>
+        <span style="font-size:10px;color:var(--text-sec);font-weight:500;">${pct}% adherencia · ${inTarget}/${logged} días en target</span>
+      </div>
+      <div style="display:flex;flex-wrap:wrap;gap:${daysCount > 180 ? 2 : 3}px;line-height:1;padding:8px 0;">${cells}</div>
+      <div style="display:flex;gap:12px;font-size:9.5px;color:var(--text-sec);margin-top:10px;flex-wrap:wrap;">
+        <span style="display:flex;align-items:center;gap:4px;"><span style="width:10px;height:10px;background:#7DD3FC;border-radius:2px;"></span><70% target</span>
+        <span style="display:flex;align-items:center;gap:4px;"><span style="width:10px;height:10px;background:#BFDBFE;border-radius:2px;"></span>70-85%</span>
+        <span style="display:flex;align-items:center;gap:4px;"><span style="width:10px;height:10px;background:#86EFAC;border-radius:2px;"></span>Target ±10%</span>
+        <span style="display:flex;align-items:center;gap:4px;"><span style="width:10px;height:10px;background:#FDE68A;border-radius:2px;"></span>+10-25%</span>
+        <span style="display:flex;align-items:center;gap:4px;"><span style="width:10px;height:10px;background:#FCA5A5;border-radius:2px;"></span>+25-50%</span>
+        <span style="display:flex;align-items:center;gap:4px;"><span style="width:10px;height:10px;background:#EF4444;border-radius:2px;"></span>+50%</span>
+      </div>
+    </div>`;
+  }
+
   function renderInsights() {
     const tgt = TARGETS();
     // Build last 90 days
@@ -6973,10 +7187,7 @@ try {
 
     return `
     <div style="padding:0 4px;">
-      <!-- STORIES (week recap) -->
-      <div class="card" style="margin-bottom:16px;padding:14px;">
-        ${renderStories()}
-      </div>
+      ${renderCalculadoraMetabolica()}
 
       ${claudeCard}
 
@@ -7076,8 +7287,9 @@ try {
   }
 
   function renderWeightHistory() {
-    if (WEIGHT_LOG.length === 0) return '';
-    const sorted = [...WEIGHT_LOG].sort((a, b) => a.date.localeCompare(b.date));
+    const _wl_7083 = (typeof getUserWeightLog === 'function') ? getUserWeightLog() : (WEIGHT_LOG || []);
+    if (_wl_7083.length === 0) return '';
+    const sorted = [..._wl_7083].sort((a, b) => a.date.localeCompare(b.date));
     const last = sorted[sorted.length - 1];
     const first = sorted[0];
     const diff = last.weight - first.weight;
@@ -7243,8 +7455,9 @@ try {
   }
 
   function renderWeightTable() {
-    if (WEIGHT_LOG.length <= 1) return '';
-    const sorted = [...WEIGHT_LOG].sort((a, b) => b.date.localeCompare(a.date));
+    const _wl_7250 = (typeof getUserWeightLog === 'function') ? getUserWeightLog() : (WEIGHT_LOG || []);
+    if (_wl_7250.length <= 1) return '';
+    const sorted = [..._wl_7250].sort((a, b) => b.date.localeCompare(a.date));
     const rows = sorted.map((w, i) => {
       const prev = sorted[i + 1];
       const diff = prev ? w.weight - prev.weight : 0;
@@ -7567,8 +7780,9 @@ try {
 
   // ── BODY COMPOSITION STORYTELLER (4.5.3) ─────────────────────────────
   function renderBodyStoryteller() {
-    if (!WEIGHT_LOG || WEIGHT_LOG.length < 2) return '';
-    const sorted = [...WEIGHT_LOG].sort((a, b) => a.date.localeCompare(b.date));
+    const _wl_7574 = (typeof getUserWeightLog === 'function') ? getUserWeightLog() : (WEIGHT_LOG || []);
+    if (_wl_7574.length < 2) return '';
+    const sorted = [..._wl_7574].sort((a, b) => a.date.localeCompare(b.date));
     const first = sorted[0];
     const last = sorted[sorted.length - 1];
     const dateMS = s => { const [y,m,d]=s.split('-').map(Number); return new Date(y,m-1,d).getTime(); };
@@ -7767,10 +7981,28 @@ try {
       </div>`;
   }
 
+  // Helper: weight log filtered by currentUser (legacy entries default to ernesto)
+  function getUserWeightLog() {
+    if (typeof WEIGHT_LOG === 'undefined') return [];
+    return WEIGHT_LOG.filter(w => (w.user || 'ernesto') === currentUser);
+  }
   function renderSalud() {
     const meta = getMetaProfile() || { age: 34, weight: 89, height: 175, sex: 'M', activity: 1.2, goal: 'cut' };
-    const sorted = [...WEIGHT_LOG].sort((a, b) => a.date.localeCompare(b.date));
+    // Filter WEIGHT_LOG by currentUser (entries without user field default to ernesto, legacy)
+    const userWeightLog = getUserWeightLog();
+    const sorted = [...userWeightLog].sort((a, b) => a.date.localeCompare(b.date));
     const last = sorted.length ? sorted[sorted.length - 1] : null;
+
+    // If no weight data for this user, show empty state with explanation
+    if (sorted.length === 0) {
+      return `<div style="padding:0 4px;">
+        <div class="card" style="text-align:center;padding:50px 20px;">
+          <div style="font-size:60px;margin-bottom:14px;opacity:0.4;">🏥</div>
+          <div style="font-size:18px;font-weight:700;color:var(--text);margin-bottom:6px;">Sin datos de salud para ${currentUser}</div>
+          <div style="font-size:13px;color:var(--text-sec);margin-bottom:20px;">Los registros de peso/composición corporal de Renpho son por usuario. Pide a Claude que cargue tus mediciones cuando las tomes.</div>
+        </div>
+      </div>`;
+    }
 
     // Mini spark line helper
     const sparkLine = (data, color, h) => {
@@ -7834,46 +8066,50 @@ try {
       ${withBMI.length ? metricCard('📊', 'IMC', withBMI[withBMI.length-1].bmi, '', bmiTrend, withBMI.map(w=>({v:w.bmi,date:w.date})), '#ec4899') : ''}
 
       ${renderWeightTable()}
+    </div>`;
+  }
 
-      <!-- CALCULADORA METABOLICA -->
-      <div class="card" style="margin-bottom:14px;">
-        <div class="card-title">🧮 Calculadora Metabólica</div>
-        <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:10px;">
-          ${[['meta-age','Edad','number',meta.age,''],['meta-weight','Peso (kg)','number',meta.weight,'step=0.1'],
-            ['meta-height','Altura (cm)','number',meta.height,'']].map(([id,lbl,type,val,extra])=>`
-          <div>
-            <label style="font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:1px;color:var(--text-sec);display:block;margin-bottom:3px;">${lbl}</label>
-            <input id="${id}" type="${type}" ${extra} value="${val}" style="width:100%;padding:8px 10px;border:1px solid var(--border);border-radius:8px;font-size:14px;font-family:inherit;color:var(--text);background:var(--bg);">
-          </div>`).join('')}
-          <div>
-            <label style="font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:1px;color:var(--text-sec);display:block;margin-bottom:3px;">Sexo</label>
-            <select id="meta-sex" style="width:100%;padding:8px 10px;border:1px solid var(--border);border-radius:8px;font-size:14px;font-family:inherit;color:var(--text);background:var(--bg);">
-              <option value="M" ${meta.sex==='M'?'selected':''}>Hombre</option>
-              <option value="F" ${meta.sex==='F'?'selected':''}>Mujer</option>
-            </select>
-          </div>
-        </div>
-        <div style="margin-bottom:10px;">
-          <label style="font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:1px;color:var(--text-sec);display:block;margin-bottom:3px;">Actividad</label>
-          <select id="meta-activity" style="width:100%;padding:8px 10px;border:1px solid var(--border);border-radius:8px;font-size:14px;font-family:inherit;color:var(--text);background:var(--bg);">
-            <option value="1.2" ${meta.activity==1.2?'selected':''}>Sedentario (1.2)</option>
-            <option value="1.375" ${meta.activity==1.375?'selected':''}>Ligero 1-3x/sem (1.375)</option>
-            <option value="1.55" ${meta.activity==1.55?'selected':''}>Moderado 3-5x/sem (1.55)</option>
-            <option value="1.725" ${meta.activity==1.725?'selected':''}>Intenso 6-7x/sem (1.725)</option>
+  // Calculadora metabólica (movida desde Salud a Tools)
+  function renderCalculadoraMetabolica() {
+    const meta = getMetaProfile() || { age: 34, weight: 89, height: 175, sex: 'M', activity: 1.2, goal: 'cut' };
+    return `<div class="card" style="margin-bottom:16px;">
+      <div class="card-title">🧮 Calculadora Metabólica</div>
+      <div style="font-size:11px;color:var(--text-sec);margin-bottom:10px;">Calcula BMR, TDEE y target diario con Mifflin-St Jeor + factor de actividad + objetivo (cut/mantenimiento/bulk).</div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:10px;">
+        ${[['meta-age','Edad','number',meta.age,''],['meta-weight','Peso (kg)','number',meta.weight,'step=0.1'],
+          ['meta-height','Altura (cm)','number',meta.height,'']].map(([id,lbl,type,val,extra])=>`
+        <div>
+          <label style="font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:1px;color:var(--text-sec);display:block;margin-bottom:3px;">${lbl}</label>
+          <input id="${id}" type="${type}" ${extra} value="${val}" style="width:100%;padding:8px 10px;border:1px solid var(--border);border-radius:8px;font-size:14px;font-family:inherit;color:var(--text);background:var(--bg);">
+        </div>`).join('')}
+        <div>
+          <label style="font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:1px;color:var(--text-sec);display:block;margin-bottom:3px;">Sexo</label>
+          <select id="meta-sex" style="width:100%;padding:8px 10px;border:1px solid var(--border);border-radius:8px;font-size:14px;font-family:inherit;color:var(--text);background:var(--bg);">
+            <option value="M" ${meta.sex==='M'?'selected':''}>Hombre</option>
+            <option value="F" ${meta.sex==='F'?'selected':''}>Mujer</option>
           </select>
         </div>
-        <div style="margin-bottom:10px;">
-          <label style="font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:1px;color:var(--text-sec);display:block;margin-bottom:3px;">Objetivo</label>
-          <select id="meta-goal" style="width:100%;padding:8px 10px;border:1px solid var(--border);border-radius:8px;font-size:14px;font-family:inherit;color:var(--text);background:var(--bg);">
-            <option value="cut" ${meta.goal==='cut'?'selected':''}>Perder grasa (-500 kcal)</option>
-            <option value="aggro" ${meta.goal==='aggro'?'selected':''}>Corte agresivo (-750 kcal)</option>
-            <option value="maintain" ${meta.goal==='maintain'?'selected':''}>Mantenimiento</option>
-            <option value="bulk" ${meta.goal==='bulk'?'selected':''}>Ganar masa (+300 kcal)</option>
-          </select>
-        </div>
-        <button onclick="calcMetabolism()" style="width:100%;padding:10px;background:var(--teal);color:#fff;border:none;border-radius:8px;font-size:14px;font-weight:600;cursor:pointer;">Calcular</button>
-        <div id="meta-results"></div>
       </div>
+      <div style="margin-bottom:10px;">
+        <label style="font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:1px;color:var(--text-sec);display:block;margin-bottom:3px;">Actividad</label>
+        <select id="meta-activity" style="width:100%;padding:8px 10px;border:1px solid var(--border);border-radius:8px;font-size:14px;font-family:inherit;color:var(--text);background:var(--bg);">
+          <option value="1.2" ${meta.activity==1.2?'selected':''}>Sedentario (1.2)</option>
+          <option value="1.375" ${meta.activity==1.375?'selected':''}>Ligero 1-3x/sem (1.375)</option>
+          <option value="1.55" ${meta.activity==1.55?'selected':''}>Moderado 3-5x/sem (1.55)</option>
+          <option value="1.725" ${meta.activity==1.725?'selected':''}>Intenso 6-7x/sem (1.725)</option>
+        </select>
+      </div>
+      <div style="margin-bottom:10px;">
+        <label style="font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:1px;color:var(--text-sec);display:block;margin-bottom:3px;">Objetivo</label>
+        <select id="meta-goal" style="width:100%;padding:8px 10px;border:1px solid var(--border);border-radius:8px;font-size:14px;font-family:inherit;color:var(--text);background:var(--bg);">
+          <option value="cut" ${meta.goal==='cut'?'selected':''}>Perder grasa (-500 kcal)</option>
+          <option value="aggro" ${meta.goal==='aggro'?'selected':''}>Corte agresivo (-750 kcal)</option>
+          <option value="maintain" ${meta.goal==='maintain'?'selected':''}>Mantenimiento</option>
+          <option value="bulk" ${meta.goal==='bulk'?'selected':''}>Ganar masa (+300 kcal)</option>
+        </select>
+      </div>
+      <button onclick="calcMetabolism()" style="width:100%;padding:10px;background:var(--teal);color:#fff;border:none;border-radius:8px;font-size:14px;font-weight:600;cursor:pointer;font-family:inherit;">Calcular</button>
+      <div id="meta-results"></div>
     </div>`;
   }
 
@@ -8134,6 +8370,10 @@ try {
       html = renderInsights();
     } else if (currentPeriod === 'library') {
       html = renderFoodDB();
+    } else if (currentPeriod === 'recap') {
+      html = renderRecap();
+    } else if (currentPeriod === 'insights') {
+      html = renderInsights();
     } else {
       html = renderHistory(currentPeriod);
     }

@@ -1,5 +1,41 @@
 # Changelog - NutrIA
 
+## [V2.5 — Recap tab + Health multi-user + Heatmap 365d Informes + UI fixes] - 17 mayo 2026
+### Borrado / Limpieza
+- **3 fotos del Dom 3 May eliminadas** (mal identificadas por usuario) tanto de `local-photos.json` como del filesystem
+- **32 autoasociaciones mealId limpiadas**: fotos backfilled sin AI analysis ya no claim text-match (evita errores visuales). Si el usuario quiere asociar, lo hace después o vía Claude vision
+
+### Fixed (UI)
+- **Balance Energético Diario invertido**: más reciente arriba. Sum totales no cambia (orden-independent)
+- **Resumen 7 bloques responsive**: cambio de `repeat(6,1fr)` a `repeat(auto-fit,minmax(120px,1fr))` → cabe en 1 fila pantalla ancha, doble fila estrecho, mobile en columna
+- **Day strip iOS**: quitado icono 📷 (irritante visual). El dot de color sigue (verde óptimo / azul déficit / amarillo atención / rojo exceso) con tooltip explicativo
+- **Health multi-user**: `getUserWeightLog()` filtra WEIGHT_LOG por currentUser (Adriana ya no ve datos de Ernesto). Si sin data → empty state explicativo. Aplicado a 6 usos de WEIGHT_LOG
+
+### Agregado
+- **Botón "📊 All time"** en Informes: extiende rango desde 29/03/2026 hasta hoy. Útil para análisis global
+- **Pestaña 🎬 Recap** (entre Journal e Historial):
+  - Hero card con avg kcal/día, avg proteína, días en target, días con registro
+  - Targets semanales con progress bars + colores (verde ≥100%, amarillo ≥75%, rojo <75%):
+    - 🏋️ Gym: meta **4 sesiones/semana**
+    - 🚶 Pasos: meta **70k semana / 10k día**
+    - Conteo de días con ≥10k pasos
+  - Day-by-day strip 7 cards (Lun-Dom) con kcal/prot/markers gym+10k
+  - Embed Stories legacy (movido desde Tools)
+- **Heatmap 365 días en Informes** (además del 90d en Insights):
+  - Helper `renderAdherenceHeatmap(daysCount, title)` reusable
+  - Cell size auto-ajustado (10px para 365d, 14px para 90d)
+  - Sin overlays emoji en vista anual (demasiado denso)
+  - Stats: % adherencia + días en target
+
+### Movido
+- **🧮 Calculadora Metabólica**: de Salud → Tools. Encima de Claude Vision + Apple Health. Función extraída a `renderCalculadoraMetabolica()` reusable
+- **NutrIA Stories**: de Tools → Recap (mejor contexto temático)
+
+### Sidebar reorganizado
+Orden nuevo (sidebar + mobile): **Meals · Journal · Recap · Historial · Informes · Finanzas · Hogar · Coach · Nutricion · Actividad · Salud · Library · Tools**
+
+(Eliminado: tab Insights duplicaba contenido con Coach + Recap. El heatmap 90d sigue accesible via Recap.)
+
 ## [V2.4.1 — HOTFIX Photo Journal crash] - 16 mayo 2026
 ### Fixed (CRÍTICO)
 - **Photo Journal mostraba página en blanco**: `renderPhotoJournal()` llamaba `getMeals()` que no existe → `ReferenceError` silencioso → page crash con HTML vacío. Fix: reemplazado por `getAllMeals()` (la función correcta que merge MEAL_LOG legacy + local-meals.json + filtra por currentUser). 3 ocurrencias reemplazadas en photo journal + photo strips + analyzePhotoVsText.
