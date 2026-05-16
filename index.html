@@ -3282,18 +3282,18 @@ try {
 
       <div class="card" style="margin-bottom:16px;">
         <div class="card-title" style="margin-bottom:14px;">⚡ Balance Energetico Diario</div>
-        <div style="overflow-x:auto;">
+        <div style="overflow-x:auto;overflow-y:auto;max-height:560px;">
           <table style="width:100%;border-collapse:collapse;font-family:inherit;">
             <thead>
               <tr style="background:#F1F5F9;">
-                <th style="padding:8px 10px;text-align:left;font-size:10px;color:var(--text-sec);text-transform:uppercase;letter-spacing:1px;font-weight:700;">Dia</th>
-                <th style="padding:8px 10px;text-align:left;font-size:10px;color:var(--text-sec);text-transform:uppercase;letter-spacing:1px;font-weight:700;">Fecha</th>
-                <th style="padding:8px 10px;text-align:center;font-size:10px;color:var(--text-sec);text-transform:uppercase;letter-spacing:1px;font-weight:700;">Ingesta</th>
-                <th style="padding:8px 10px;text-align:center;font-size:10px;color:var(--text-sec);text-transform:uppercase;letter-spacing:1px;font-weight:700;">TDEE</th>
-                <th style="padding:8px 10px;text-align:center;font-size:10px;color:var(--text-sec);text-transform:uppercase;letter-spacing:1px;font-weight:700;">🚶 Pasos</th>
-                <th style="padding:8px 10px;text-align:center;font-size:10px;color:var(--text-sec);text-transform:uppercase;letter-spacing:1px;font-weight:700;">🏋️ Gym</th>
-                <th style="padding:8px 10px;text-align:center;font-size:10px;color:var(--text-sec);text-transform:uppercase;letter-spacing:1px;font-weight:700;">Balance</th>
-                ${hasPrices ? `<th style="padding:8px 10px;text-align:center;font-size:10px;color:var(--green);text-transform:uppercase;letter-spacing:1px;font-weight:700;">💶</th>` : ''}
+                <th style="position:sticky;top:0;z-index:2;background:#F1F5F9;padding:8px 10px;text-align:left;font-size:10px;color:var(--text-sec);text-transform:uppercase;letter-spacing:1px;font-weight:700;box-shadow:0 1px 0 var(--border);">Dia</th>
+                <th style="position:sticky;top:0;z-index:2;background:#F1F5F9;padding:8px 10px;text-align:left;font-size:10px;color:var(--text-sec);text-transform:uppercase;letter-spacing:1px;font-weight:700;box-shadow:0 1px 0 var(--border);">Fecha</th>
+                <th style="position:sticky;top:0;z-index:2;background:#F1F5F9;padding:8px 10px;text-align:center;font-size:10px;color:var(--text-sec);text-transform:uppercase;letter-spacing:1px;font-weight:700;box-shadow:0 1px 0 var(--border);">Ingesta</th>
+                <th style="position:sticky;top:0;z-index:2;background:#F1F5F9;padding:8px 10px;text-align:center;font-size:10px;color:var(--text-sec);text-transform:uppercase;letter-spacing:1px;font-weight:700;box-shadow:0 1px 0 var(--border);">TDEE</th>
+                <th style="position:sticky;top:0;z-index:2;background:#F1F5F9;padding:8px 10px;text-align:center;font-size:10px;color:var(--text-sec);text-transform:uppercase;letter-spacing:1px;font-weight:700;box-shadow:0 1px 0 var(--border);">🚶 Pasos</th>
+                <th style="position:sticky;top:0;z-index:2;background:#F1F5F9;padding:8px 10px;text-align:center;font-size:10px;color:var(--text-sec);text-transform:uppercase;letter-spacing:1px;font-weight:700;box-shadow:0 1px 0 var(--border);">🏋️ Gym</th>
+                <th style="position:sticky;top:0;z-index:2;background:#F1F5F9;padding:8px 10px;text-align:center;font-size:10px;color:var(--text-sec);text-transform:uppercase;letter-spacing:1px;font-weight:700;box-shadow:0 1px 0 var(--border);">Balance</th>
+                ${hasPrices ? `<th style="position:sticky;top:0;z-index:2;background:#F1F5F9;padding:8px 10px;text-align:center;font-size:10px;color:var(--green);text-transform:uppercase;letter-spacing:1px;font-weight:700;box-shadow:0 1px 0 var(--border);">💶</th>` : ''}
               </tr>
             </thead>
             <tbody>${tableRows}</tbody>
