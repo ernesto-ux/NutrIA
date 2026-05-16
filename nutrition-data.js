@@ -11,7 +11,8 @@ const NUTRITION_CONFIG = {
   // con `from` más reciente <= fecha. Add new entries here when goals change.
   targetsHistory: {
     ernesto: [
-      { from: "2026-01-01", kcal: 1770, prot: 190, carbs: 140, fat: 50 }
+      { from: "2026-01-01", kcal: 1770, prot: 190, carbs: 140, fat: 50 },
+      { from: "2026-05-11", kcal: 1686, prot: 172, carbs: 101, fat: 66 }
     ],
     adriana: [
       { from: "2026-04-06", kcal: 1285, prot: 120, carbs: 100, fat: 45 },
