@@ -1323,11 +1323,13 @@
   </div>
 </div>
 
-<!-- QUICK ADD FAB -->
-<button id="photo-journal-fab" onclick="openPhotoJournal()" title="Foto journal" style="position:fixed;bottom:24px;right:90px;width:56px;height:56px;border-radius:50%;background:linear-gradient(135deg,#F97316,#EA580C);color:#fff;border:none;font-size:24px;cursor:pointer;box-shadow:0 6px 20px rgba(234,88,12,0.4);z-index:500;display:flex;align-items:center;justify-content:center;font-family:inherit;">📷</button>
+<!-- FABs (photo-journal + quick-add) ocultos temporalmente.
+     Carga de meals + fotos se hace desde Claude por ahora.
+     Para reactivar: cambia display:none → display:flex en los botones. -->
+<button id="photo-journal-fab" onclick="openPhotoJournal()" title="Foto journal" style="display:none;position:fixed;bottom:24px;right:90px;width:56px;height:56px;border-radius:50%;background:linear-gradient(135deg,#F97316,#EA580C);color:#fff;border:none;font-size:24px;cursor:pointer;box-shadow:0 6px 20px rgba(234,88,12,0.4);z-index:500;align-items:center;justify-content:center;font-family:inherit;">📷</button>
 <input id="photo-journal-input" type="file" accept="image/*" capture="environment" style="display:none;" onchange="onPhotoJournalSelect(this.files)" multiple>
 
-<button id="quick-add-fab" onclick="toggleQuickAdd()" title="Quick add (q)" style="position:fixed;bottom:24px;right:24px;width:56px;height:56px;border-radius:50%;background:var(--teal);color:#fff;border:none;font-size:26px;cursor:pointer;box-shadow:0 6px 20px rgba(15,118,110,0.35);z-index:500;display:flex;align-items:center;justify-content:center;font-family:inherit;">+</button>
+<button id="quick-add-fab" onclick="toggleQuickAdd()" title="Quick add (q)" style="display:none;position:fixed;bottom:24px;right:24px;width:56px;height:56px;border-radius:50%;background:var(--teal);color:#fff;border:none;font-size:26px;cursor:pointer;box-shadow:0 6px 20px rgba(15,118,110,0.35);z-index:500;align-items:center;justify-content:center;font-family:inherit;">+</button>
 
 <!-- PHOTO JOURNAL MODAL -->
 <div id="photo-journal-modal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.55);z-index:600;align-items:center;justify-content:center;padding:20px;" onclick="if(event.target===this)closePhotoJournal()">
@@ -8381,9 +8383,12 @@ try {
     if (currentPeriod === 'tools') html += renderChangelog();
     mainEl.innerHTML = html;
     if (currentPeriod === 'hoy') { initDragAndDrop(); initCardSelection(); }
-    // Quick add FAB only in Meals tab
+    // FABs deshabilitados temporalmente (carga vía Claude). Forzar display:none
+    // para evitar que el toggle por-pestaña los muestre.
     const fab = document.getElementById('quick-add-fab');
-    if (fab) fab.style.display = currentPeriod === 'hoy' ? 'flex' : 'none';
+    if (fab) fab.style.display = 'none';
+    const pfab = document.getElementById('photo-journal-fab');
+    if (pfab) pfab.style.display = 'none';
   }
 
   // ── PUBLIC CONTROLS ───────────────────────────────────────────────────
