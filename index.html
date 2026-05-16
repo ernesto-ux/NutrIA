@@ -6661,7 +6661,14 @@ try {
 
   function renderActividad() {
     const gymCard = renderGymDetail();
-    const acts = [...ACTIVITY_LOG].sort((a, b) => b.date.localeCompare(a.date));
+    // Merge ACTIVITY_LOG (legacy) + _extraActivity (local-activity.json, takes priority by date)
+    // Filter by currentUser
+    const extraByDate = new Map();
+    (_extraActivity || []).forEach(a => {
+      if ((a.user || 'ernesto') === currentUser) extraByDate.set(a.date, a);
+    });
+    const legacyForUser = ACTIVITY_LOG.filter(a => (a.user || 'ernesto') === currentUser && !extraByDate.has(a.date));
+    const acts = [...extraByDate.values(), ...legacyForUser].sort((a, b) => b.date.localeCompare(a.date));
     if (!acts.length) return gymCard + `<div style="padding:20px;text-align:center;color:var(--text-sec);">Sin datos de actividad básica. Sube gym sessions arriba.</div>`;
 
     // Last 30 days
