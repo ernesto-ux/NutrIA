@@ -1,5 +1,52 @@
 # Changelog - NutrIA
 
+## [V2.3 — Day strip + Insights tab + Photo timeline + Bulk import + Diagnostics] - 16 mayo 2026
+### Agregado
+- **🗓️ Day strip navigator iOS-style** (top de Meals tab):
+  - Strip horizontal scrollable de 14 días (-10 a +3 desde currentDate)
+  - Cada cell: día de semana (DOM-SÁB) + número grande + dot de status
+  - Dot color por % vs target: verde optimal, azul deficit, amarillo warn, rojo exceso
+  - Cell activa con gradient naranja (`#F97316→#EA580C`) + sombra
+  - Cell "hoy" con border teal cuando no es la activa
+  - Indicador 📷 superior derecho si hay fotos ese día
+  - Click → `window.goToDate(ymd)` cambia currentDate
+  - Tooltip con fecha legible al hover
+
+- **✨ Nueva pestaña Insights** (entre Journal e Historial):
+  - **Card naranja Racha actual**: 3 contadores grandes — días en target consecutivos, días proteína OK, semanas con 3+ gym
+  - **Stats grid** (5 KPIs): días registrados, % adherencia, sesiones gym, pasos totales (k), kcal activas (k)
+  - **📆 Mapa de adherencia 90 días**: heatmap cells 14×14px coloreadas por % vs target (6 niveles: azul fuerte <70%, azul claro 70-85%, verde target ±10%, amarillo +25%, naranja +50%, rojo crítico). Emojis 🏋️🚶 superpuestos por día. Click → `goToDate()`
+  - **🏅 Logros**: 10 milestones desbloqueables (rachas 3/7/14/30, 2+ semanas con gym, 500k pasos, 70% adherencia, 30/60 días registrados). Cards desbloqueadas en gradient amarillo, locked en gris dashed con conteo "X días más"
+  - **📊 Resumen semanal**: últimas 12 semanas con avg kcal, prot, % target, sesiones gym + kcal gym
+
+- **📅 Timeline view** en Photo Journal (toggle Cards/Timeline):
+  - Vista alternativa: grid denso de thumbnails 72×72 agrupados por mes
+  - Border verde si meal text-matched, naranja si standalone
+  - Día número superpuesto en esquina inferior izquierda
+  - Click → fullsize en nueva pestaña
+  - Vista 'cards' original sigue siendo default
+
+- **📂 Bulk import** desde carpeta en Photo Journal modal:
+  - Botón "📂 Importar carpeta" (gradient morado) en el empty state
+  - Usa `webkitdirectory` + `directory` attributes en `<input type="file">`
+  - Filtro automático a imágenes: `.jpg/.jpeg/.heic/.heif/.png/.webp`
+  - Si folder tiene archivos no-imagen, los descarta silenciosamente
+  - Mensaje "(filtradas de N archivos)" si aplicó filtro
+  - Attrs limpiados después del select para que el botón normal funcione bien
+
+- **🔍 Diagnostic mejorado** en Photo Journal empty state:
+  - Muestra contadores: backfill cargado vs localStorage del navegador
+  - Hint si backfill = 0: "URL no puede acceder a local-photos.json (404)"
+  - Útil para debugging cuando la pestaña aparece vacía
+
+### Fixed
+- Photo Journal: filter input ahora acepta archivos múltiples + folders correctamente
+- onPhotoJournalSelect filtra extensiones de imagen automáticamente
+
+### Roadmap restante (próximas sesiones)
+- Food image library con URLs reales (Unsplash API o map manual de top foods)
+- Library tab navegable (catálogo browseable FOOD_DATABASE con imágenes)
+
 ## [V2.2 — Photo Journal tab + Heatmaps de patrones + Piecewise targets historial] - 16 mayo 2026
 ### Agregado (Photo Journal navegable)
 - **Nueva pestaña "📷 Journal"** en sidebar + mobile nav (entre Meals e Historial)

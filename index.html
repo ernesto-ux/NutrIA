@@ -44,6 +44,71 @@
       padding: 0 0 48px;
     }
 
+    /* ── DAY STRIP NAVIGATOR (iOS-style) ── */
+    .day-strip {
+      display: flex;
+      gap: 6px;
+      padding: 12px 4px;
+      overflow-x: auto;
+      scrollbar-width: none;
+      -webkit-overflow-scrolling: touch;
+      margin-bottom: 8px;
+    }
+    .day-strip::-webkit-scrollbar { display: none; }
+    .day-strip-cell {
+      flex: 0 0 auto;
+      min-width: 48px;
+      padding: 8px 6px 6px;
+      border-radius: 14px;
+      background: var(--card);
+      border: 1.5px solid var(--border);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 2px;
+      cursor: pointer;
+      transition: all .15s;
+      font-family: inherit;
+      color: var(--text-sec);
+      position: relative;
+    }
+    .day-strip-cell:hover { border-color: var(--teal); color: var(--teal); }
+    .day-strip-cell.active {
+      background: linear-gradient(135deg, #F97316, #EA580C);
+      color: #fff;
+      border-color: #EA580C;
+      box-shadow: 0 4px 14px rgba(249, 115, 22, 0.3);
+    }
+    .day-strip-cell.today:not(.active) {
+      border-color: var(--teal);
+      color: var(--teal);
+    }
+    .day-strip-cell-dow {
+      font-size: 9px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      opacity: 0.7;
+    }
+    .day-strip-cell-num {
+      font-size: 18px;
+      font-weight: 800;
+      line-height: 1;
+    }
+    .day-strip-cell-dot {
+      width: 5px;
+      height: 5px;
+      border-radius: 50%;
+      margin-top: 2px;
+    }
+    .day-strip-cell-photo {
+      position: absolute;
+      top: 4px;
+      right: 4px;
+      font-size: 8px;
+      opacity: 0.7;
+    }
+
     /* ── HEADER (top bar: brand + date nav + user switcher) ── */
     .site-header {
       background: var(--card);
@@ -1185,6 +1250,7 @@
   <div class="sidebar-brand" title="NutrIA">🦦</div>
   <button class="sidebar-tab active" data-period="hoy" onclick="setPeriod('hoy')"><span class="sidebar-tab-icon">🍽️</span>Meals</button>
   <button class="sidebar-tab" data-period="fotos" onclick="setPeriod('fotos')"><span class="sidebar-tab-icon">📷</span>Journal</button>
+  <button class="sidebar-tab" data-period="insights" onclick="setPeriod('insights')"><span class="sidebar-tab-icon">✨</span>Insights</button>
   <button class="sidebar-tab" data-period="historial" onclick="setPeriod('historial')"><span class="sidebar-tab-icon">📅</span>Historial</button>
   <button class="sidebar-tab" data-period="informes" onclick="setPeriod('informes')"><span class="sidebar-tab-icon">📊</span>Informes</button>
   <button class="sidebar-tab" data-period="finanzas" onclick="setPeriod('finanzas')"><span class="sidebar-tab-icon">💰</span>Finanzas</button>
@@ -1200,6 +1266,7 @@
 <nav class="mobile-nav" id="mobile-nav">
   <button class="mobile-nav-tab active" data-period="hoy" onclick="setPeriod('hoy')"><span class="mobile-nav-tab-icon">🍽️</span>Meals</button>
   <button class="mobile-nav-tab" data-period="fotos" onclick="setPeriod('fotos')"><span class="mobile-nav-tab-icon">📷</span>Fotos</button>
+  <button class="mobile-nav-tab" data-period="insights" onclick="setPeriod('insights')"><span class="mobile-nav-tab-icon">✨</span>Stats</button>
   <button class="mobile-nav-tab" data-period="historial" onclick="setPeriod('historial')"><span class="mobile-nav-tab-icon">📅</span>Historial</button>
   <button class="mobile-nav-tab" data-period="informes" onclick="setPeriod('informes')"><span class="mobile-nav-tab-icon">📊</span>Informes</button>
   <button class="mobile-nav-tab" data-period="finanzas" onclick="setPeriod('finanzas')"><span class="mobile-nav-tab-icon">💰</span>$</button>
@@ -1274,11 +1341,17 @@
       <button onclick="closePhotoJournal()" style="background:rgba(255,255,255,0.2);border:none;font-size:18px;cursor:pointer;color:#fff;width:32px;height:32px;border-radius:50%;font-family:inherit;">×</button>
     </div>
     <div id="photo-journal-body" style="padding:18px 22px;overflow-y:auto;flex:1;">
-      <div id="photo-journal-empty" style="text-align:center;padding:40px 20px;color:var(--text-sec);">
+      <div id="photo-journal-empty" style="text-align:center;padding:30px 20px;color:var(--text-sec);">
         <div style="font-size:48px;margin-bottom:10px;opacity:0.5;">🍽️</div>
         <div style="font-weight:600;color:var(--text);margin-bottom:6px;">Selecciona fotos de tus comidas</div>
-        <div style="font-size:12px;margin-bottom:20px;">Puedes subir varias a la vez. EXIF se lee automáticamente.</div>
-        <button onclick="document.getElementById('photo-journal-input').click()" style="padding:12px 24px;background:var(--teal);color:#fff;border:none;border-radius:10px;font-size:14px;font-weight:600;cursor:pointer;font-family:inherit;">📁 Seleccionar fotos</button>
+        <div style="font-size:12px;margin-bottom:20px;">EXIF se lee automáticamente · Conversión HEIC→JPEG · Auto-match con meals</div>
+        <div style="display:flex;gap:8px;justify-content:center;flex-wrap:wrap;">
+          <button onclick="document.getElementById('photo-journal-input').click()" style="padding:12px 22px;background:var(--teal);color:#fff;border:none;border-radius:10px;font-size:14px;font-weight:600;cursor:pointer;font-family:inherit;">📁 Seleccionar fotos</button>
+          <button onclick="document.getElementById('photo-journal-input').setAttribute('webkitdirectory','');document.getElementById('photo-journal-input').setAttribute('directory','');document.getElementById('photo-journal-input').click()" style="padding:12px 22px;background:linear-gradient(135deg,#8B5CF6,#7C3AED);color:#fff;border:none;border-radius:10px;font-size:14px;font-weight:600;cursor:pointer;font-family:inherit;" title="Importar todas las fotos de una carpeta">📂 Importar carpeta</button>
+        </div>
+        <div style="font-size:10.5px;color:var(--text-sec);margin-top:14px;opacity:0.7;">
+          💡 "Importar carpeta" filtra automáticamente solo imágenes (jpg/jpeg/heic). Útil para subir mes entero.
+        </div>
       </div>
       <div id="photo-journal-results"></div>
     </div>
@@ -2364,7 +2437,44 @@ try {
     const noteKey = 'nutria_note_' + currentUser + '_' + currentDate;
     const dayNote = localStorage.getItem(noteKey) || '';
 
+    // ====== DAY STRIP NAVIGATOR (iOS-style) ======
+    // Shows 14 days centered around currentDate. Each cell: dow + day# + status dot.
+    const todayStr = getTodayStr();
+    const cur = parseDate(currentDate);
+    const stripDays = [];
+    for (let i = -10; i <= 3; i++) {
+      const d = new Date(cur);
+      d.setDate(d.getDate() + i);
+      stripDays.push(d);
+    }
+    const dowNames = ['DOM','LUN','MAR','MIÉ','JUE','VIE','SÁB'];
+    const tgtKcal = TARGETS().kcal;
+    const photosAll = getStoredPhotos();
+    const dayStripHtml = `
+      <div class="day-strip" id="day-strip">
+        ${stripDays.map(d => {
+          const ymd = d.getFullYear() + '-' + String(d.getMonth()+1).padStart(2,'0') + '-' + String(d.getDate()).padStart(2,'0');
+          const isActive = ymd === currentDate;
+          const isToday = ymd === todayStr;
+          const totals = getDayTotals(ymd);
+          let dotColor = 'transparent';
+          if (totals.kcal > 0) {
+            const pct = totals.kcal / tgtKcal;
+            dotColor = pct >= 0.85 && pct <= 1.15 ? '#10B981' : pct < 0.85 ? '#3B82F6' : pct < 1.30 ? '#F59E0B' : '#EF4444';
+          }
+          const hasPhotos = Object.values(photosAll).some(p => p.date === ymd);
+          return `<button class="day-strip-cell ${isActive ? 'active' : ''} ${isToday ? 'today' : ''}" onclick="window.goToDate('${ymd}')" title="${d.toLocaleDateString('es-ES',{weekday:'long',day:'numeric',month:'long'})}${isToday ? ' (hoy)' : ''}">
+            ${hasPhotos ? '<span class="day-strip-cell-photo">📷</span>' : ''}
+            <span class="day-strip-cell-dow">${dowNames[d.getDay()]}</span>
+            <span class="day-strip-cell-num">${d.getDate()}</span>
+            <span class="day-strip-cell-dot" style="background:${dotColor};"></span>
+          </button>`;
+        }).join('')}
+      </div>`;
+
     return `
+      ${dayStripHtml}
+
       <!-- LOG FORM hidden from UI, use /log-food -->
       ${''}
 
@@ -6005,7 +6115,240 @@ try {
     </div>`;
   }
 
+  // ============== INSIGHTS PAGE (Streaks + Weekly digest + Achievements) ==============
+  function renderInsights() {
+    const tgt = TARGETS();
+    // Build last 90 days
+    const last90 = [];
+    const today = new Date(getTodayStr());
+    for (let i = 89; i >= 0; i--) {
+      const d = new Date(today);
+      d.setDate(d.getDate() - i);
+      last90.push(d.getFullYear() + '-' + String(d.getMonth()+1).padStart(2,'0') + '-' + String(d.getDate()).padStart(2,'0'));
+    }
+    const dayInfo = last90.map(date => {
+      const totals = getDayTotals(date);
+      const act = getActivityForDate(date);
+      const tgtDay = getTargetsForDate(currentUser, date);
+      return {
+        date, totals,
+        steps: act ? (act.steps||0) : 0,
+        stepsKcal: act ? (act.stepsKcal||0) : 0,
+        gymKcal: act ? (act.gymKcal||0) : 0,
+        hasGym: act && (act.gymKcal||0) > 200,
+        hasData: totals.kcal > 0,
+        inTarget: totals.kcal > 0 && totals.kcal >= tgtDay.kcal * 0.85 && totals.kcal <= tgtDay.kcal * 1.15,
+        protOk: totals.kcal > 0 && totals.prot >= tgtDay.prot * 0.85,
+        tgtDay,
+      };
+    });
+
+    // Streaks (current + best)
+    let currentStreak = 0, bestStreak = 0, tmpStreak = 0;
+    for (let i = dayInfo.length - 1; i >= 0; i--) {
+      if (dayInfo[i].inTarget) currentStreak++;
+      else break;
+    }
+    dayInfo.forEach(d => {
+      if (d.inTarget) { tmpStreak++; bestStreak = Math.max(bestStreak, tmpStreak); }
+      else tmpStreak = 0;
+    });
+
+    // Other streaks
+    let protStreak = 0;
+    for (let i = dayInfo.length - 1; i >= 0; i--) {
+      if (dayInfo[i].protOk) protStreak++;
+      else break;
+    }
+    let gymStreakWeeks = 0; // weeks with ≥3 gym sessions
+    // Group last90 into weeks
+    const weeks = [];
+    let curWeek = [];
+    dayInfo.forEach((d, i) => {
+      curWeek.push(d);
+      const dow = parseDate(d.date).getDay();
+      if (dow === 0 || i === dayInfo.length - 1) {
+        if (curWeek.length) weeks.push(curWeek);
+        curWeek = [];
+      }
+    });
+    for (let i = weeks.length - 1; i >= 0; i--) {
+      const gymDays = weeks[i].filter(d => d.hasGym).length;
+      if (gymDays >= 3) gymStreakWeeks++;
+      else break;
+    }
+
+    // KPIs grid
+    const totalGym = dayInfo.filter(d => d.hasGym).length;
+    const totalSteps = dayInfo.reduce((s,d)=>s+d.steps, 0);
+    const totalKcalActive = dayInfo.reduce((s,d)=>s+d.stepsKcal+d.gymKcal, 0);
+    const totalDaysLogged = dayInfo.filter(d => d.hasData).length;
+    const totalDaysInTarget = dayInfo.filter(d => d.inTarget).length;
+    const adherencePct = totalDaysLogged > 0 ? Math.round(totalDaysInTarget / totalDaysLogged * 100) : 0;
+
+    const kpisHtml = `
+      <div class="card" style="margin-bottom:14px;padding:18px;background:linear-gradient(135deg,#FEF3C7,#FDE68A);border:1px solid #F59E0B;">
+        <div style="font-size:11px;font-weight:700;color:#92400E;text-transform:uppercase;letter-spacing:1px;margin-bottom:14px;">🔥 Racha actual</div>
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(110px,1fr));gap:12px;">
+          <div style="text-align:center;">
+            <div style="font-size:36px;font-weight:800;color:#9A3412;">${currentStreak}</div>
+            <div style="font-size:10px;color:#9A3412;opacity:0.8;font-weight:600;text-transform:uppercase;letter-spacing:0.5px;">Días en target</div>
+            <div style="font-size:9px;color:#92400E;opacity:0.6;margin-top:2px;">Mejor: ${bestStreak}</div>
+          </div>
+          <div style="text-align:center;">
+            <div style="font-size:36px;font-weight:800;color:#9A3412;">${protStreak}</div>
+            <div style="font-size:10px;color:#9A3412;opacity:0.8;font-weight:600;text-transform:uppercase;letter-spacing:0.5px;">Días proteína OK</div>
+            <div style="font-size:9px;color:#92400E;opacity:0.6;margin-top:2px;">≥85% target</div>
+          </div>
+          <div style="text-align:center;">
+            <div style="font-size:36px;font-weight:800;color:#9A3412;">${gymStreakWeeks}</div>
+            <div style="font-size:10px;color:#9A3412;opacity:0.8;font-weight:600;text-transform:uppercase;letter-spacing:0.5px;">Semanas con 3+ gym</div>
+            <div style="font-size:9px;color:#92400E;opacity:0.6;margin-top:2px;">consecutivas</div>
+          </div>
+        </div>
+      </div>`;
+
+    // 90-day calendar heatmap
+    const calMaxKcal = Math.max(...dayInfo.map(d => d.totals.kcal), tgt.kcal * 1.5);
+    function cellColor(d) {
+      if (!d.hasData) return '#E5E7EB';
+      const pct = d.totals.kcal / d.tgtDay.kcal;
+      if (pct < 0.70) return '#7DD3FC';   // deep blue: way below
+      if (pct < 0.85) return '#BFDBFE';   // light blue: below
+      if (pct <= 1.10) return '#86EFAC';  // green: target ✓
+      if (pct <= 1.25) return '#FDE68A';  // yellow: slight over
+      if (pct <= 1.50) return '#FCA5A5';  // orange: over
+      return '#EF4444';                    // red: way over
+    }
+    // Build grid: rows = day of week (Mon-Sun), cols = weeks
+    const heatmapCells = dayInfo.map(d => {
+      const tooltip = `${d.date}: ${d.hasData ? Math.round(d.totals.kcal) + ' kcal' : 'sin datos'}`;
+      const emojis = (d.hasGym ? '🏋️' : '') + (d.steps >= 10000 ? '🚶' : '');
+      return `<div style="width:14px;height:14px;background:${cellColor(d)};border-radius:3px;display:inline-block;position:relative;cursor:pointer;" title="${tooltip}" onclick="window.goToDate('${d.date}')">${emojis ? `<span style="position:absolute;top:-12px;left:0;font-size:8px;line-height:1;">${emojis}</span>` : ''}</div>`;
+    }).join('');
+    const calHtml = `
+      <div class="card" style="margin-bottom:14px;">
+        <div class="card-title" style="display:flex;justify-content:space-between;align-items:center;">
+          <span>📆 Mapa de adherencia (últimos 90 días)</span>
+          <span style="font-size:10px;color:var(--text-sec);font-weight:500;">${adherencePct}% adherencia · ${totalDaysInTarget}/${totalDaysLogged} días en target</span>
+        </div>
+        <div style="display:flex;flex-wrap:wrap;gap:3px;line-height:1;padding:8px 0;">${heatmapCells}</div>
+        <div style="display:flex;gap:12px;font-size:9.5px;color:var(--text-sec);margin-top:10px;flex-wrap:wrap;">
+          <span style="display:flex;align-items:center;gap:4px;"><span style="width:10px;height:10px;background:#7DD3FC;border-radius:2px;"></span><70% target</span>
+          <span style="display:flex;align-items:center;gap:4px;"><span style="width:10px;height:10px;background:#BFDBFE;border-radius:2px;"></span>70-85%</span>
+          <span style="display:flex;align-items:center;gap:4px;"><span style="width:10px;height:10px;background:#86EFAC;border-radius:2px;"></span>Target ±10%</span>
+          <span style="display:flex;align-items:center;gap:4px;"><span style="width:10px;height:10px;background:#FDE68A;border-radius:2px;"></span>+10-25%</span>
+          <span style="display:flex;align-items:center;gap:4px;"><span style="width:10px;height:10px;background:#FCA5A5;border-radius:2px;"></span>+25-50%</span>
+          <span style="display:flex;align-items:center;gap:4px;"><span style="width:10px;height:10px;background:#EF4444;border-radius:2px;"></span>+50%</span>
+        </div>
+      </div>`;
+
+    // Weekly digests (last 12 weeks)
+    const weekDigests = weeks.slice(-12).reverse().map(week => {
+      const datesInWeek = week.filter(d => d.hasData);
+      if (datesInWeek.length === 0) return null;
+      const start = parseDate(week[0].date);
+      const end = parseDate(week[week.length-1].date);
+      const avgKcal = datesInWeek.reduce((s,d)=>s+d.totals.kcal, 0) / datesInWeek.length;
+      const avgProt = datesInWeek.reduce((s,d)=>s+d.totals.prot, 0) / datesInWeek.length;
+      const totalGymKcal = week.reduce((s,d)=>s+d.gymKcal, 0);
+      const gymDaysWk = week.filter(d => d.hasGym).length;
+      const inTargetDays = week.filter(d => d.inTarget).length;
+      const pct = avgKcal / tgt.kcal * 100;
+      const pctColor = pct < 95 ? '#10B981' : pct < 110 ? '#F59E0B' : '#EF4444';
+      return `<div style="display:flex;justify-content:space-between;align-items:center;padding:10px 12px;border-bottom:1px solid var(--border);">
+        <div style="flex:1;">
+          <div style="font-size:12px;font-weight:700;color:var(--text);">${start.getDate()}/${start.getMonth()+1} → ${end.getDate()}/${end.getMonth()+1}</div>
+          <div style="font-size:10px;color:var(--text-sec);margin-top:2px;">${datesInWeek.length}/${week.length} días · ${inTargetDays} en target · 🏋️ ${gymDaysWk} sesiones (${totalGymKcal} kcal)</div>
+        </div>
+        <div style="text-align:right;">
+          <div style="font-size:14px;font-weight:800;color:${pctColor};">${Math.round(avgKcal)} kcal</div>
+          <div style="font-size:10px;color:var(--text-sec);">${Math.round(avgProt)}g prot · ${Math.round(pct)}% target</div>
+        </div>
+      </div>`;
+    }).filter(Boolean).join('');
+
+    const weeklyHtml = `
+      <div class="card" style="margin-bottom:14px;padding:0;overflow:hidden;">
+        <div class="card-title" style="padding:18px 18px 10px;margin:0;">📊 Resumen semanal (últimas 12 semanas)</div>
+        ${weekDigests || '<div style="padding:20px;text-align:center;color:var(--text-sec);font-size:12px;">Sin datos semanales aún</div>'}
+      </div>`;
+
+    // Achievements (unlocked milestones)
+    const achievements = [];
+    if (currentStreak >= 3) achievements.push({ emoji: '🔥', label: 'Racha 3+ días en target', unlocked: true });
+    if (currentStreak >= 7) achievements.push({ emoji: '⚡', label: 'Racha 7+ días en target', unlocked: true });
+    if (currentStreak >= 14) achievements.push({ emoji: '🌟', label: 'Racha 14+ días en target', unlocked: true });
+    if (bestStreak >= 30) achievements.push({ emoji: '👑', label: 'Mejor racha 30+ días', unlocked: true });
+    if (gymStreakWeeks >= 2) achievements.push({ emoji: '💪', label: '2+ semanas seguidas con 3+ gym', unlocked: true });
+    if (totalGym >= 10) achievements.push({ emoji: '🏆', label: `${totalGym} sesiones de gym en 90 días`, unlocked: true });
+    if (totalSteps >= 500000) achievements.push({ emoji: '🚶‍♂️', label: '500k+ pasos en 90 días', unlocked: true });
+    if (adherencePct >= 70) achievements.push({ emoji: '🎯', label: `${adherencePct}% adherencia en target`, unlocked: true });
+    if (totalDaysLogged >= 30) achievements.push({ emoji: '📝', label: '30+ días registrados', unlocked: true });
+    if (totalDaysLogged >= 60) achievements.push({ emoji: '📔', label: '60+ días registrados', unlocked: true });
+
+    // Locked future goals
+    const locked = [];
+    if (currentStreak < 3) locked.push({ emoji: '🔥', label: 'Racha 3+ días en target', target: 3 - currentStreak });
+    if (currentStreak < 7) locked.push({ emoji: '⚡', label: 'Racha 7+ días en target', target: 7 - currentStreak });
+    if (currentStreak < 14) locked.push({ emoji: '🌟', label: 'Racha 14+ días en target', target: 14 - currentStreak });
+
+    const achievementsHtml = `
+      <div class="card" style="margin-bottom:14px;">
+        <div class="card-title">🏅 Logros (90 días)</div>
+        <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:8px;">
+          ${achievements.map(a => `
+            <div style="display:flex;align-items:center;gap:8px;padding:10px;background:linear-gradient(135deg,#FEF3C7,#FDE68A);border-radius:10px;border:1px solid #F59E0B;">
+              <div style="font-size:22px;">${a.emoji}</div>
+              <div style="font-size:11px;font-weight:600;color:#92400E;flex:1;">${a.label}</div>
+            </div>
+          `).join('')}
+          ${locked.slice(0,3).map(a => `
+            <div style="display:flex;align-items:center;gap:8px;padding:10px;background:var(--bg);border-radius:10px;border:1px dashed var(--border);opacity:0.6;">
+              <div style="font-size:22px;filter:grayscale(1);">${a.emoji}</div>
+              <div style="font-size:11px;font-weight:600;color:var(--text-sec);flex:1;">${a.label} <div style="font-size:9px;opacity:0.7;margin-top:2px;">${a.target} día${a.target>1?'s':''} más</div></div>
+            </div>
+          `).join('')}
+        </div>
+      </div>`;
+
+    // Stats grid
+    const statsHtml = `
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px;margin-bottom:14px;">
+        <div class="card" style="margin:0;text-align:center;padding:14px;">
+          <div style="font-size:24px;font-weight:800;color:var(--teal);">${totalDaysLogged}</div>
+          <div style="font-size:10px;color:var(--text-sec);text-transform:uppercase;letter-spacing:1px;font-weight:600;margin-top:4px;">Días registrados</div>
+        </div>
+        <div class="card" style="margin:0;text-align:center;padding:14px;">
+          <div style="font-size:24px;font-weight:800;color:#10B981;">${adherencePct}%</div>
+          <div style="font-size:10px;color:var(--text-sec);text-transform:uppercase;letter-spacing:1px;font-weight:600;margin-top:4px;">Adherencia target</div>
+        </div>
+        <div class="card" style="margin:0;text-align:center;padding:14px;">
+          <div style="font-size:24px;font-weight:800;color:#6366F1;">${totalGym}</div>
+          <div style="font-size:10px;color:var(--text-sec);text-transform:uppercase;letter-spacing:1px;font-weight:600;margin-top:4px;">Sesiones gym</div>
+        </div>
+        <div class="card" style="margin:0;text-align:center;padding:14px;">
+          <div style="font-size:24px;font-weight:800;color:#F59E0B;">${(totalSteps/1000).toFixed(0)}k</div>
+          <div style="font-size:10px;color:var(--text-sec);text-transform:uppercase;letter-spacing:1px;font-weight:600;margin-top:4px;">Pasos totales</div>
+        </div>
+        <div class="card" style="margin:0;text-align:center;padding:14px;">
+          <div style="font-size:24px;font-weight:800;color:#EC4899;">${Math.round(totalKcalActive/1000)}k</div>
+          <div style="font-size:10px;color:var(--text-sec);text-transform:uppercase;letter-spacing:1px;font-weight:600;margin-top:4px;">Kcal activas</div>
+        </div>
+      </div>`;
+
+    return `<div style="padding:0 4px;">
+      ${kpisHtml}
+      ${statsHtml}
+      ${calHtml}
+      ${achievementsHtml}
+      ${weeklyHtml}
+    </div>`;
+  }
+
   // ============== PHOTO JOURNAL PAGE ==============
+  let photoJournalView = 'cards'; // 'cards' | 'timeline'
+  window.setPhotoJournalView = function(v) { photoJournalView = v; render(); };
   function renderPhotoJournal() {
     const photos = getStoredPhotos();
     const list = Object.entries(photos)
@@ -6014,12 +6357,21 @@ try {
       .sort((a, b) => (b.date + b.time).localeCompare(a.date + a.time));
 
     if (!list.length) {
+      const backfillCount = Object.keys(_backfillPhotos || {}).length;
+      const localStorageCount = Object.keys(JSON.parse(localStorage.getItem('nutria_photos_' + currentUser) || '{}')).length;
       return `<div style="padding:0 4px;">
         <div class="card" style="text-align:center;padding:50px 20px;">
           <div style="font-size:60px;margin-bottom:14px;opacity:0.4;">📷</div>
           <div style="font-size:18px;font-weight:700;color:var(--text);margin-bottom:6px;">Photo Journal vacío</div>
           <div style="font-size:13px;color:var(--text-sec);margin-bottom:20px;">Sube fotos de lo que comes con el botón naranja flotante para empezar.</div>
           <button onclick="openPhotoJournal()" style="padding:12px 24px;background:linear-gradient(135deg,#F97316,#EA580C);color:#fff;border:none;border-radius:10px;font-size:14px;font-weight:700;cursor:pointer;font-family:inherit;">📷 Subir primera foto</button>
+          <div style="margin-top:20px;padding:12px;background:var(--bg);border-radius:10px;font-size:11px;color:var(--text-sec);text-align:left;">
+            <div style="font-weight:700;margin-bottom:6px;">🔍 Diagnóstico</div>
+            <div>Backfill cargado (local-photos.json): <strong>${backfillCount}</strong> fotos</div>
+            <div>localStorage del navegador: <strong>${localStorageCount}</strong> fotos</div>
+            <div>Usuario actual: <strong>${currentUser}</strong></div>
+            <div style="margin-top:6px;font-size:10px;opacity:0.7;">Si "Backfill cargado" = 0: la URL no puede acceder a local-photos.json (404). Verifica que esté en la misma carpeta que index.html.</div>
+          </div>
         </div>
       </div>`;
     }
@@ -6035,7 +6387,7 @@ try {
     const matched = list.filter(p => p.mealId).length;
     const aiAnalyzed = list.filter(p => p.aiAnalysis).length;
 
-    // Header stats
+    // Header stats with view toggle
     const statsHtml = `
       <div class="card" style="margin-bottom:14px;background:linear-gradient(135deg,#FFF7ED,#FED7AA);border:1px solid #FB923C;">
         <div style="display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;">
@@ -6043,9 +6395,53 @@ try {
             <div style="font-size:18px;font-weight:800;color:#9A3412;">📷 ${list.length} foto${list.length===1?'':'s'} en journal</div>
             <div style="font-size:11px;color:#9A3412;opacity:0.8;margin-top:2px;">${dates.length} día${dates.length===1?'':'s'} · ${matched} match con texto · ${aiAnalyzed} analizadas con IA</div>
           </div>
-          <button onclick="openPhotoJournal()" style="padding:10px 18px;background:linear-gradient(135deg,#F97316,#EA580C);color:#fff;border:none;border-radius:10px;font-size:13px;font-weight:700;cursor:pointer;font-family:inherit;">+ Subir más</button>
+          <div style="display:flex;gap:6px;align-items:center;">
+            <div style="display:flex;gap:0;background:rgba(255,255,255,0.6);padding:2px;border-radius:8px;">
+              <button onclick="setPhotoJournalView('cards')" style="padding:6px 12px;background:${photoJournalView==='cards'?'#fff':'transparent'};color:${photoJournalView==='cards'?'#9A3412':'#9A3412'};border:none;border-radius:6px;font-size:11px;font-weight:700;cursor:pointer;font-family:inherit;${photoJournalView==='cards'?'box-shadow:0 1px 3px rgba(0,0,0,0.1);':''}">📋 Cards</button>
+              <button onclick="setPhotoJournalView('timeline')" style="padding:6px 12px;background:${photoJournalView==='timeline'?'#fff':'transparent'};color:#9A3412;border:none;border-radius:6px;font-size:11px;font-weight:700;cursor:pointer;font-family:inherit;${photoJournalView==='timeline'?'box-shadow:0 1px 3px rgba(0,0,0,0.1);':''}">📅 Timeline</button>
+            </div>
+            <button onclick="openPhotoJournal()" style="padding:8px 14px;background:linear-gradient(135deg,#F97316,#EA580C);color:#fff;border:none;border-radius:10px;font-size:12px;font-weight:700;cursor:pointer;font-family:inherit;">+ Subir</button>
+          </div>
         </div>
       </div>`;
+
+    // ===== TIMELINE VIEW: dense grid (all photos as thumbnails, grouped by month) =====
+    if (photoJournalView === 'timeline') {
+      // Group by month
+      const byMonth = {};
+      list.forEach(p => {
+        const ym = p.date.slice(0, 7);
+        (byMonth[ym] = byMonth[ym] || []).push(p);
+      });
+      const months = Object.keys(byMonth).sort((a, b) => b.localeCompare(a));
+      const monthNames = ['Ene','Feb','Mar','Abr','May','Jun','Jul','Ago','Sep','Oct','Nov','Dic'];
+      const monthBlocks = months.map(ym => {
+        const [y, m] = ym.split('-');
+        const monthLabel = `${monthNames[parseInt(m)-1]} ${y}`;
+        const photosMonth = byMonth[ym];
+        return `<div class="card" style="margin-bottom:12px;padding:14px;">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;">
+            <div style="font-size:14px;font-weight:800;color:var(--text);">${monthLabel}</div>
+            <div style="font-size:11px;color:var(--text-sec);">${photosMonth.length} foto${photosMonth.length===1?'':'s'}</div>
+          </div>
+          <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(72px,1fr));gap:4px;">
+            ${photosMonth.map(p => {
+              const meal = p.mealId ? meals.find(m => m.id === p.mealId) : meals.find(m => m.date === p.date && m.meal === p.mealType);
+              const hasText = meal && meal.items.length > 0;
+              const border = hasText ? '#10B981' : '#F59E0B';
+              const imgSrc = p.base64 || p.path;
+              return imgSrc
+                ? `<div style="position:relative;aspect-ratio:1;" title="${p.date} ${p.time} · ${MEAL_LABELS[p.mealType]||p.mealType}">
+                    <img src="${imgSrc}" style="width:100%;height:100%;object-fit:cover;border-radius:8px;border:2px solid ${border};cursor:pointer;" onclick="window.open('${imgSrc}','_blank')">
+                    <span style="position:absolute;bottom:2px;left:2px;background:rgba(0,0,0,0.5);color:#fff;padding:1px 4px;border-radius:4px;font-size:8px;font-weight:700;">${parseInt(p.date.slice(8,10))}</span>
+                  </div>`
+                : `<div style="aspect-ratio:1;background:var(--bg);border:2px dashed ${border};border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:20px;" title="${p.filename} (HEIC sin preview)">📱</div>`;
+            }).join('')}
+          </div>
+        </div>`;
+      }).join('');
+      return `<div style="padding:0 4px;">${statsHtml}${monthBlocks}</div>`;
+    }
 
     // Render cards grouped by date
     const dayBlocks = dates.map(date => {
@@ -7460,6 +7856,8 @@ try {
       html = renderTools();
     } else if (currentPeriod === 'fotos') {
       html = renderPhotoJournal();
+    } else if (currentPeriod === 'insights') {
+      html = renderInsights();
     } else {
       html = renderHistory(currentPeriod);
     }
@@ -7675,14 +8073,28 @@ try {
   };
   window.onPhotoJournalSelect = async function(files) {
     if (!files || !files.length) return;
+    // Filter to image files only (handles bulk folder import)
+    const allFiles = Array.from(files);
+    const imgFiles = allFiles.filter(f => /\.(jpe?g|heic|heif|png|webp)$/i.test(f.name));
+    if (imgFiles.length === 0) {
+      alert('No se encontraron imágenes en la selección.');
+      return;
+    }
+    if (imgFiles.length < allFiles.length) {
+      console.log(`Filtrado: ${imgFiles.length} imágenes de ${allFiles.length} archivos`);
+    }
+    // Clean up directory attrs for next use
+    const input = document.getElementById('photo-journal-input');
+    if (input) { input.removeAttribute('webkitdirectory'); input.removeAttribute('directory'); }
+
     document.getElementById('photo-journal-empty').style.display = 'none';
     const results = document.getElementById('photo-journal-results');
-    results.innerHTML = `<div style="text-align:center;padding:20px;color:var(--text-sec);">⏳ Procesando ${files.length} foto(s)...</div>`;
+    results.innerHTML = `<div style="text-align:center;padding:20px;color:var(--text-sec);">⏳ Procesando ${imgFiles.length} foto(s)${imgFiles.length < allFiles.length ? ` (filtradas de ${allFiles.length} archivos)` : ''}...</div>`;
 
     const photos = getStoredPhotos();
     const processed = [];
 
-    for (const file of Array.from(files)) {
+    for (const file of imgFiles) {
       try {
         const isHeic = /\.heic$/i.test(file.name) || file.type === 'image/heic' || file.type === 'image/heif';
         // Read EXIF FIRST from original file (HEIC may have EXIF too, fallback to mtime)
