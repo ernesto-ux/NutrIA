@@ -1,5 +1,37 @@
 # Changelog - NutrIA
 
+## [V2.2 — Photo Journal tab + Heatmaps de patrones + Piecewise targets historial] - 16 mayo 2026
+### Agregado (Photo Journal navegable)
+- **Nueva pestaña "📷 Journal"** en sidebar + mobile nav (entre Meals e Historial)
+- `renderPhotoJournal()`: grid cards 200px min-width, agrupadas por día DESC
+- Cada card por foto: imagen + horario + meal type + items (truncated 3+más) + macro chips coloridos + triple check (✓P ✓F si cumple) + AI badge si analizado
+- Click en imagen: abre en nueva pestaña (full size). Click en AI badge: modal con análisis Claude completo
+- Border verde si match con texto loggeado, naranja si standalone (sin texto)
+- Stats header naranja: total fotos · días con foto · matches con texto · analizadas IA
+- Botón "🤖 Analizar" inline si Claude key configurada y foto no analizada
+
+### Agregado (Heatmaps de patrones)
+- **🌡️ Mapa de comportamiento** (en Coach tab): tabla de promedios por tipo de día × métricas (kcal/prot/carbs/fat) con código de colores
+  - Categorías: 🏋️ Día gym (>200kcal), 🚶 Día caminata (>10k pasos sin gym), 😴 Día descanso (<5k pasos), 🎉 Findes, 💼 Días de semana
+  - Color gradient por % vs target: verde (excelente <85%), verde claro (óptimo), amarillo (atención), naranja (exceso), rojo (crítico)
+  - Columna final Δ vs target kcal
+- **📅 Patrón semanal**: 7 cards (Lun-Dom) con avg kcal/prot por DOW. Marcadores 🏋️ si >30% días con gym ese DOW, 🚶 si avg >8k pasos
+  - Color de fondo = kcal vs target del día
+
+### Fixed (Piecewise target line historial)
+- Bug: línea punteada del chart Historial (Calorías / Proteína / Carbs / Grasas) era una sola horizontal fija al `currentMetric` target, ignoraba cambios en `targetsHistory`
+- Ahora: por cada métrica activa, computa target per-day, agrupa segmentos contiguos, renderiza líneas separadas
+- Cada segmento muestra su valor target con unidades (kcal/g) centrado encima
+- Aplica a TODAS las métricas (no solo kcal). Ej: si cambias proteína target el 11/05, la línea se ajusta cuando seleccionas "Proteína" en metric pills
+
+### Roadmap aún pendiente
+- Day strip navigator iOS-style
+- Food image library (auto-fetch URL real)
+- Insights tab dedicado (separado de Coach)
+- Library tab (browseable foods)
+- Bulk import desde UI carpeta
+- Photo timeline view (cronológico)
+
 ## [V2.1 — HEIC decode + Food cards Virtuagym + Claude vision + Photo backfill] - 16 mayo 2026
 ### Agregado (Roadmap V2.0 entregado)
 - **HEIC browser decode** vía heic2any (libheif wrapper, CDN cdnjs ~1.5MB): tus fotos iPhone se ven directo sin convertir a JPG. Fallback al placeholder 📱 si la decodificación falla

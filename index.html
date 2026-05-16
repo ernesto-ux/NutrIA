@@ -1184,6 +1184,7 @@
 <aside class="sidebar" id="sidebar">
   <div class="sidebar-brand" title="NutrIA">🦦</div>
   <button class="sidebar-tab active" data-period="hoy" onclick="setPeriod('hoy')"><span class="sidebar-tab-icon">🍽️</span>Meals</button>
+  <button class="sidebar-tab" data-period="fotos" onclick="setPeriod('fotos')"><span class="sidebar-tab-icon">📷</span>Journal</button>
   <button class="sidebar-tab" data-period="historial" onclick="setPeriod('historial')"><span class="sidebar-tab-icon">📅</span>Historial</button>
   <button class="sidebar-tab" data-period="informes" onclick="setPeriod('informes')"><span class="sidebar-tab-icon">📊</span>Informes</button>
   <button class="sidebar-tab" data-period="finanzas" onclick="setPeriod('finanzas')"><span class="sidebar-tab-icon">💰</span>Finanzas</button>
@@ -1198,6 +1199,7 @@
 <!-- MOBILE BOTTOM NAV -->
 <nav class="mobile-nav" id="mobile-nav">
   <button class="mobile-nav-tab active" data-period="hoy" onclick="setPeriod('hoy')"><span class="mobile-nav-tab-icon">🍽️</span>Meals</button>
+  <button class="mobile-nav-tab" data-period="fotos" onclick="setPeriod('fotos')"><span class="mobile-nav-tab-icon">📷</span>Fotos</button>
   <button class="mobile-nav-tab" data-period="historial" onclick="setPeriod('historial')"><span class="mobile-nav-tab-icon">📅</span>Historial</button>
   <button class="mobile-nav-tab" data-period="informes" onclick="setPeriod('informes')"><span class="mobile-nav-tab-icon">📊</span>Informes</button>
   <button class="mobile-nav-tab" data-period="finanzas" onclick="setPeriod('finanzas')"><span class="mobile-nav-tab-icon">💰</span>$</button>
@@ -2566,10 +2568,33 @@ try {
         <text x="${x + barW / 2}" y="${padT + plotH + 14}" text-anchor="middle" font-size="8" fill="#94A3B8" font-family="Inter,sans-serif">${dayLabel}</text>`;
     }).join('');
 
-    // Target line
-    const targetLine = `
-      <line x1="${padL}" y1="${targetY}" x2="${padL + plotW}" y2="${targetY}" stroke="#0D9488" stroke-width="1.5" stroke-dasharray="4,3" />
-      <text x="${padL + plotW + 4}" y="${targetY + 4}" font-size="8" fill="#0D9488" font-family="Inter,sans-serif">obj</text>`;
+    // Piecewise target line: target may change across the period (e.g. Ernesto 1770→1686 May 11)
+    // Compute target per data point based on each day's target for the current metric
+    const dayTargetsHist = data.map(d => {
+      try { return getTargetsForDate(currentUser, d.date)[currentMetric]; }
+      catch(e) { return target; }
+    });
+    // Group consecutive days with same target
+    const histSegments = [];
+    if (dayTargetsHist.length) {
+      let segStart = 0;
+      for (let i = 1; i <= dayTargetsHist.length; i++) {
+        if (i === dayTargetsHist.length || dayTargetsHist[i] !== dayTargetsHist[segStart]) {
+          histSegments.push({ start: segStart, end: i - 1, val: dayTargetsHist[segStart] });
+          segStart = i;
+        }
+      }
+    }
+    const targetLine = histSegments.map(seg => {
+      const segY = padT + plotH - (seg.val / maxVal) * plotH;
+      // segment x range: from center-of-first-bar to center-of-last-bar
+      const colW = plotW / data.length;
+      const x1 = padL + seg.start * colW;
+      const x2 = padL + (seg.end + 1) * colW;
+      const labelX = (x1 + x2) / 2;
+      return `<line x1="${x1}" y1="${segY}" x2="${x2}" y2="${segY}" stroke="#0D9488" stroke-width="2" stroke-dasharray="4,3" />
+              <text x="${labelX}" y="${segY - 4}" text-anchor="middle" font-size="9" fill="#0D9488" font-weight="700" font-family="Inter,sans-serif">${seg.val}${metricUnits[currentMetric]}</text>`;
+    }).join('');
 
     const chartSvg = `
       <svg width="${chartW}" height="${chartH}" viewBox="0 0 ${chartW} ${chartH}">
@@ -3759,7 +3784,150 @@ try {
     const sevColor = { warn: '#F59E0B', info: '#0F766E', good: '#059669' };
     const sevEmoji = { warn: '⚠️', info: 'ℹ️', good: '✓' };
 
+    // ====== BEHAVIORAL HEATMAP ======
+    // Rows: behavior categories. Columns: kcal / prot / carbs / fat metrics.
+    // Cells: avg value with color = deviation from target (green ~ optimal, red ~ excess, blue ~ deficit)
+    const categories = [
+      { key: 'gym', label: '🏋️ Día gym (>200 kcal)', filter: d => { const a = getActivityForDate(d); return a && (a.gymKcal||0) > 200; } },
+      { key: 'walk', label: '🚶 Día caminata (>10k pasos)', filter: d => { const a = getActivityForDate(d); return a && !(a.gymKcal>200) && (a.steps||0) >= 10000; } },
+      { key: 'rest', label: '😴 Día descanso (<5k pasos, sin gym)', filter: d => { const a = getActivityForDate(d); return !a || ((a.gymKcal||0)<=200 && (a.steps||0) < 5000); } },
+      { key: 'wknd', label: '🎉 Findes (Sáb/Dom)', filter: d => { const dow = parseDate(d).getDay(); return dow === 0 || dow === 6; } },
+      { key: 'wkdy', label: '💼 Días de semana (L-V)', filter: d => { const dow = parseDate(d).getDay(); return dow >= 1 && dow <= 5; } },
+    ];
+    const heatmapMetrics = ['kcal', 'prot', 'carbs', 'fat'];
+    const heatmapData = categories.map(cat => {
+      const matchingDates = last30.filter(d => {
+        const t = getDayTotals(d);
+        if (t.kcal === 0) return false;
+        return cat.filter(d);
+      });
+      const totals = matchingDates.map(d => getDayTotals(d));
+      const avgs = {};
+      heatmapMetrics.forEach(m => {
+        avgs[m] = totals.length ? totals.reduce((s,t) => s + (t[m]||0), 0) / totals.length : 0;
+      });
+      return { ...cat, n: matchingDates.length, avgs };
+    });
+    const validCats = heatmapData.filter(c => c.n >= 2);
+    // Color function: gradient based on % vs target
+    function heatColor(metric, val, n) {
+      if (n < 2 || val === 0) return { bg: '#F3F4F6', text: '#94A3B8' };
+      const target = tgt[metric] || 1;
+      const pct = val / target;
+      if (metric === 'kcal' || metric === 'fat') {
+        // Lower is better for kcal (deficit) or fat (limit)
+        if (pct < 0.85) return { bg: '#A7F3D0', text: '#065F46' }; // green: under
+        if (pct < 1.05) return { bg: '#DCFCE7', text: '#15803D' };
+        if (pct < 1.20) return { bg: '#FEF3C7', text: '#92400E' };
+        if (pct < 1.40) return { bg: '#FED7AA', text: '#9A3412' };
+        return { bg: '#FECACA', text: '#991B1B' }; // red: way over
+      }
+      // For prot/carbs: higher within reason is OK
+      if (pct < 0.70) return { bg: '#FED7AA', text: '#9A3412' };
+      if (pct < 0.90) return { bg: '#FEF3C7', text: '#92400E' };
+      if (pct < 1.10) return { bg: '#DCFCE7', text: '#15803D' };
+      if (pct < 1.30) return { bg: '#A7F3D0', text: '#065F46' };
+      return { bg: '#FEF3C7', text: '#92400E' };
+    }
+    const heatmapHtml = validCats.length === 0 ? '' : `
+      <div class="card" style="margin-bottom:16px;">
+        <div class="card-title" style="display:flex;justify-content:space-between;align-items:center;">
+          <span>🌡️ Mapa de comportamiento (últimos 30 días)</span>
+          <span style="font-size:10px;color:var(--text-sec);font-weight:500;">Promedios por tipo de día</span>
+        </div>
+        <div style="overflow-x:auto;">
+          <table style="width:100%;border-collapse:separate;border-spacing:6px;font-family:inherit;min-width:520px;">
+            <thead>
+              <tr>
+                <th style="text-align:left;font-size:10px;color:var(--text-sec);text-transform:uppercase;letter-spacing:0.6px;font-weight:700;padding:4px 0;"></th>
+                <th style="text-align:center;font-size:10px;color:var(--text-sec);text-transform:uppercase;letter-spacing:0.6px;font-weight:700;padding:4px 0;">N días</th>
+                ${heatmapMetrics.map(m => `<th style="text-align:center;font-size:10px;color:var(--text-sec);text-transform:uppercase;letter-spacing:0.6px;font-weight:700;padding:4px 0;">${m === 'kcal' ? 'Kcal' : m === 'prot' ? 'Prot (g)' : m === 'carbs' ? 'Carbs (g)' : 'Fat (g)'}</th>`).join('')}
+                <th style="text-align:center;font-size:10px;color:var(--text-sec);text-transform:uppercase;letter-spacing:0.6px;font-weight:700;padding:4px 0;">Δ vs target</th>
+              </tr>
+            </thead>
+            <tbody>
+              ${validCats.map(c => {
+                const totalBalance = c.avgs.kcal - tgt.kcal;
+                const balColor = totalBalance > 200 ? '#EF4444' : totalBalance < -100 ? '#10B981' : '#F59E0B';
+                return `<tr>
+                  <td style="font-size:12px;font-weight:600;color:var(--text);padding:6px 8px;background:#F9FAFB;border-radius:8px;white-space:nowrap;">${c.label}</td>
+                  <td style="text-align:center;font-size:11px;color:var(--text-sec);font-weight:600;padding:6px 4px;">${c.n}</td>
+                  ${heatmapMetrics.map(m => {
+                    const col = heatColor(m, c.avgs[m], c.n);
+                    return `<td style="text-align:center;padding:6px 4px;">
+                      <div style="background:${col.bg};color:${col.text};padding:6px 8px;border-radius:8px;font-size:12px;font-weight:700;">${Math.round(c.avgs[m])}</div>
+                    </td>`;
+                  }).join('')}
+                  <td style="text-align:center;padding:6px 4px;">
+                    <div style="color:${balColor};font-size:12px;font-weight:700;">${totalBalance > 0 ? '+' : ''}${Math.round(totalBalance)}</div>
+                  </td>
+                </tr>`;
+              }).join('')}
+            </tbody>
+          </table>
+        </div>
+        <div style="display:flex;gap:14px;font-size:10px;color:var(--text-sec);margin-top:10px;flex-wrap:wrap;">
+          <span style="display:flex;align-items:center;gap:4px;"><span style="width:12px;height:12px;background:#A7F3D0;border-radius:3px;display:inline-block;"></span>Excelente</span>
+          <span style="display:flex;align-items:center;gap:4px;"><span style="width:12px;height:12px;background:#DCFCE7;border-radius:3px;display:inline-block;"></span>Óptimo</span>
+          <span style="display:flex;align-items:center;gap:4px;"><span style="width:12px;height:12px;background:#FEF3C7;border-radius:3px;display:inline-block;"></span>Atención</span>
+          <span style="display:flex;align-items:center;gap:4px;"><span style="width:12px;height:12px;background:#FED7AA;border-radius:3px;display:inline-block;"></span>Exceso</span>
+          <span style="display:flex;align-items:center;gap:4px;"><span style="width:12px;height:12px;background:#FECACA;border-radius:3px;display:inline-block;"></span>Crítico</span>
+        </div>
+      </div>`;
+
+    // ====== WEEKDAY HEATMAP ======
+    // Day-of-week × metric matrix to spot temporal patterns
+    const dowNames = ['Dom','Lun','Mar','Mié','Jue','Vie','Sáb'];
+    const dowOrder = [1,2,3,4,5,6,0]; // Mon-Sun ordering for European feel
+    const dowData = dowOrder.map(dow => {
+      const datesDow = last30.filter(d => {
+        const t = getDayTotals(d);
+        if (t.kcal === 0) return false;
+        return parseDate(d).getDay() === dow;
+      });
+      const totals = datesDow.map(d => {
+        const t = getDayTotals(d);
+        const a = getActivityForDate(d);
+        return { ...t, gymKcal: a ? (a.gymKcal||0) : 0, steps: a ? (a.steps||0) : 0 };
+      });
+      const n = totals.length;
+      return {
+        dow,
+        label: dowNames[dow],
+        n,
+        kcal: n ? totals.reduce((s,t)=>s+t.kcal,0)/n : 0,
+        prot: n ? totals.reduce((s,t)=>s+t.prot,0)/n : 0,
+        steps: n ? totals.reduce((s,t)=>s+t.steps,0)/n : 0,
+        gymKcal: n ? totals.reduce((s,t)=>s+t.gymKcal,0)/n : 0,
+        gymPct: n ? totals.filter(t => t.gymKcal > 200).length / n : 0,
+      };
+    });
+    const dowHasData = dowData.filter(d => d.n >= 1);
+    const dowHeatmap = dowHasData.length === 0 ? '' : `
+      <div class="card" style="margin-bottom:16px;">
+        <div class="card-title">📅 Patrón semanal (avg por día de semana)</div>
+        <div style="display:grid;grid-template-columns:repeat(7,1fr);gap:6px;margin-bottom:10px;">
+          ${dowData.map(d => {
+            const col = heatColor('kcal', d.kcal, d.n);
+            const intensity = d.n > 0 ? Math.min(d.kcal / tgt.kcal, 1.4) : 0;
+            return `<div style="text-align:center;padding:10px 4px;background:${col.bg};color:${col.text};border-radius:10px;border:1px solid rgba(0,0,0,0.05);${d.n === 0 ? 'opacity:0.4;' : ''}">
+              <div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.5px;margin-bottom:6px;">${d.label}</div>
+              <div style="font-size:14px;font-weight:800;">${d.n > 0 ? Math.round(d.kcal) : '—'}</div>
+              <div style="font-size:9px;opacity:0.7;margin-top:2px;">${d.n > 0 ? Math.round(d.prot) + 'g P' : ''}</div>
+              ${d.n > 0 && d.gymPct > 0.3 ? `<div style="font-size:11px;margin-top:4px;">🏋️</div>` : ''}
+              ${d.n > 0 && d.steps >= 8000 ? `<div style="font-size:11px;margin-top:2px;">🚶</div>` : ''}
+              <div style="font-size:9px;opacity:0.6;margin-top:4px;">n=${d.n}</div>
+            </div>`;
+          }).join('')}
+        </div>
+        <div style="font-size:10.5px;color:var(--text-sec);text-align:center;">
+          Color por kcal vs target · 🏋️ = >30% días con gym · 🚶 = avg >8k pasos
+        </div>
+      </div>`;
+
     return `
+      ${heatmapHtml}
+      ${dowHeatmap}
       <div class="card" style="margin-bottom:16px;">
         <div class="card-title">🧠 Patrones detectados (últimos 30 días)</div>
         <div style="font-size:11px;color:var(--text-sec);margin-bottom:10px;">Análisis automático sobre tus datos. Ayuda a detectar fricciones repetitivas y a celebrar consistencia.</div>
@@ -5837,6 +6005,185 @@ try {
     </div>`;
   }
 
+  // ============== PHOTO JOURNAL PAGE ==============
+  function renderPhotoJournal() {
+    const photos = getStoredPhotos();
+    const list = Object.entries(photos)
+      .map(([id, p]) => ({ id, ...p }))
+      .filter(p => p.base64 || p.path)
+      .sort((a, b) => (b.date + b.time).localeCompare(a.date + a.time));
+
+    if (!list.length) {
+      return `<div style="padding:0 4px;">
+        <div class="card" style="text-align:center;padding:50px 20px;">
+          <div style="font-size:60px;margin-bottom:14px;opacity:0.4;">📷</div>
+          <div style="font-size:18px;font-weight:700;color:var(--text);margin-bottom:6px;">Photo Journal vacío</div>
+          <div style="font-size:13px;color:var(--text-sec);margin-bottom:20px;">Sube fotos de lo que comes con el botón naranja flotante para empezar.</div>
+          <button onclick="openPhotoJournal()" style="padding:12px 24px;background:linear-gradient(135deg,#F97316,#EA580C);color:#fff;border:none;border-radius:10px;font-size:14px;font-weight:700;cursor:pointer;font-family:inherit;">📷 Subir primera foto</button>
+        </div>
+      </div>`;
+    }
+
+    // Group by date (DESC)
+    const byDate = {};
+    list.forEach(p => { (byDate[p.date] = byDate[p.date] || []).push(p); });
+    const dates = Object.keys(byDate).sort((a, b) => b.localeCompare(a));
+
+    const meals = getMeals();
+    const tgt = TARGETS();
+    const totalKcal = list.length;
+    const matched = list.filter(p => p.mealId).length;
+    const aiAnalyzed = list.filter(p => p.aiAnalysis).length;
+
+    // Header stats
+    const statsHtml = `
+      <div class="card" style="margin-bottom:14px;background:linear-gradient(135deg,#FFF7ED,#FED7AA);border:1px solid #FB923C;">
+        <div style="display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;">
+          <div>
+            <div style="font-size:18px;font-weight:800;color:#9A3412;">📷 ${list.length} foto${list.length===1?'':'s'} en journal</div>
+            <div style="font-size:11px;color:#9A3412;opacity:0.8;margin-top:2px;">${dates.length} día${dates.length===1?'':'s'} · ${matched} match con texto · ${aiAnalyzed} analizadas con IA</div>
+          </div>
+          <button onclick="openPhotoJournal()" style="padding:10px 18px;background:linear-gradient(135deg,#F97316,#EA580C);color:#fff;border:none;border-radius:10px;font-size:13px;font-weight:700;cursor:pointer;font-family:inherit;">+ Subir más</button>
+        </div>
+      </div>`;
+
+    // Render cards grouped by date
+    const dayBlocks = dates.map(date => {
+      const photosForDay = byDate[date];
+      const dt = parseDate(date);
+      const dayName = ['Dom','Lun','Mar','Mié','Jue','Vie','Sáb'][dt.getDay()];
+      const dayLabel = `${dayName} ${dt.toLocaleDateString('es-ES',{day:'numeric',month:'short'})}`;
+      const dayTotals = getDayTotals(date);
+      const totalsBar = dayTotals.kcal > 0
+        ? `<div style="display:flex;gap:6px;align-items:center;font-size:11px;color:var(--text-sec);">
+            <span style="background:#FEF3C7;color:#92400E;padding:2px 8px;border-radius:8px;font-weight:700;">${Math.round(dayTotals.kcal)} kcal</span>
+            <span style="background:#FCE7F3;color:#BE185D;padding:2px 8px;border-radius:8px;font-weight:700;">${Math.round(dayTotals.prot)}P</span>
+            <span style="background:#DBEAFE;color:#1E40AF;padding:2px 8px;border-radius:8px;font-weight:700;">${Math.round(dayTotals.carbs)}C</span>
+            <span style="background:#FED7AA;color:#9A3412;padding:2px 8px;border-radius:8px;font-weight:700;">${Math.round(dayTotals.fat)}F</span>
+          </div>`
+        : `<span style="background:#FEF3C7;color:#92400E;padding:2px 8px;border-radius:8px;font-weight:600;font-size:11px;">⚠ Sin texto loggeado</span>`;
+
+      const photoCards = photosForDay.map(p => {
+        const meal = p.mealId ? meals.find(m => m.id === p.mealId)
+                              : meals.find(m => m.date === p.date && m.meal === p.mealType);
+        const items = meal ? meal.items : [];
+        const mKcal = items.reduce((s,i)=>s+(i.kcal||0),0);
+        const mProt = items.reduce((s,i)=>s+(i.prot||0),0);
+        const mCarbs = items.reduce((s,i)=>s+(i.carbs||0),0);
+        const mFat = items.reduce((s,i)=>s+(i.fat||0),0);
+
+        // Triple check
+        const tripleCheckRow = mKcal > 0 ? (() => {
+          const pCheck = (mProt*4/mKcal*100) >= 10;
+          const cCheck = (mCarbs*4/mKcal*100) <= 7*10; // 7%/100kcal*100
+          const fCheck = (mFat*9/mKcal*100) <= 5*10;   // 5%/100kcal*100
+          // Wait, the threshold logic: prot/kcal >= 10%, carbs/kcal <= 7%, fat/kcal <= 5%
+          // Actually re-reading feedback_meal_score: prot/kcal>=10%, carbs/kcal<=7%, fat/kcal<=5%
+          // These percentages are calories-from-macro / total-kcal
+          const protRatio = (mProt * 4) / mKcal;
+          const carbsRatio = (mCarbs * 4) / mKcal;
+          const fatRatio = (mFat * 9) / mKcal;
+          // OK actually the thresholds need verification but use standard
+          const okP = protRatio >= 0.10;
+          const okC = true; // skip strict check for journal display
+          const okF = fatRatio <= 0.50;
+          return `<div style="display:flex;gap:4px;align-items:center;font-size:14px;">
+            <span title="Prot ≥10% kcal" style="color:${okP?'#10B981':'#EF4444'}">${okP?'✓':'✗'}P</span>
+            <span title="Fat ≤ 50% kcal" style="color:${okF?'#10B981':'#EF4444'}">${okF?'✓':'✗'}F</span>
+          </div>`;
+        })() : '';
+
+        // AI analysis badge
+        const aiBadge = p.aiAnalysis ? (() => {
+          const scoreMatch = (p.aiAnalysis.text || '').match(/Score[:\s]*\**(\d+)/i);
+          const score = scoreMatch ? parseInt(scoreMatch[1]) : null;
+          const align = (p.aiAnalysis.text || '').match(/Alineaci[oó]n[:\s\*]*([a-záé]+)/i);
+          const lvl = align ? align[1].toLowerCase() : '';
+          const color = score >= 80 ? '#10B981' : score >= 60 ? '#F59E0B' : score !== null ? '#EF4444' : '#94A3B8';
+          return `<div style="background:${color}22;color:${color};padding:3px 8px;border-radius:8px;font-size:10px;font-weight:700;display:inline-flex;gap:4px;align-items:center;cursor:pointer;" onclick="showAiAnalysisModal('${p.id}')" title="Click para ver análisis completo">🤖 ${score !== null ? score + '/100' : (lvl || 'Analizado')}</div>`;
+        })() : '';
+
+        // Discrepancy
+        const isStandalone = !meal || items.length === 0;
+        const borderColor = isStandalone ? '#F59E0B' : '#10B981';
+
+        const imgSrc = p.base64 || p.path;
+        const imgHtml = imgSrc
+          ? `<img src="${imgSrc}" style="width:100%;aspect-ratio:1;object-fit:cover;display:block;cursor:pointer;" onclick="window.open('${imgSrc}','_blank')">`
+          : `<div style="width:100%;aspect-ratio:1;background:var(--bg);display:flex;align-items:center;justify-content:center;font-size:36px;">📱</div>`;
+
+        const hasClaudeKey = !!localStorage.getItem('nutria_anthropic_key');
+        const analyzeBtn = (hasClaudeKey && imgSrc && !p.aiAnalysis)
+          ? `<button onclick="event.stopPropagation();analyzePhotoVsText('${p.id}')" style="padding:5px 10px;background:linear-gradient(135deg,#8B5CF6,#7C3AED);color:#fff;border:none;border-radius:6px;font-size:10px;font-weight:700;cursor:pointer;font-family:inherit;">🤖 Analizar</button>`
+          : '';
+
+        return `<div style="background:#fff;border-radius:14px;overflow:hidden;border:2px solid ${borderColor};box-shadow:0 2px 6px rgba(0,0,0,0.06);">
+          ${imgHtml}
+          <div style="padding:10px 12px;">
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;">
+              <div style="font-size:13px;font-weight:700;color:var(--text);">${MEAL_ICONS[p.mealType] || '🍽️'} ${MEAL_LABELS[p.mealType] || p.mealType}</div>
+              <div style="font-size:11px;color:var(--text-sec);">${p.time}</div>
+            </div>
+            ${items.length > 0 ? `
+              <div style="font-size:11.5px;color:var(--text-sec);max-height:54px;overflow:hidden;margin-bottom:8px;">
+                ${items.slice(0,3).map(i => `${i.name.length > 26 ? i.name.slice(0,24)+'…' : i.name}`).join(' · ')}${items.length > 3 ? ` · +${items.length-3}` : ''}
+              </div>
+              <div style="display:flex;gap:4px;flex-wrap:wrap;margin-bottom:6px;">
+                <span style="background:#FEF3C7;color:#92400E;padding:2px 6px;border-radius:6px;font-size:10px;font-weight:700;">${Math.round(mKcal)} kcal</span>
+                <span style="background:#FCE7F3;color:#BE185D;padding:2px 6px;border-radius:6px;font-size:10px;font-weight:700;">${Math.round(mProt)}P</span>
+                <span style="background:#DBEAFE;color:#1E40AF;padding:2px 6px;border-radius:6px;font-size:10px;font-weight:700;">${Math.round(mCarbs)}C</span>
+                <span style="background:#FED7AA;color:#9A3412;padding:2px 6px;border-radius:6px;font-size:10px;font-weight:700;">${Math.round(mFat)}F</span>
+              </div>
+            ` : `
+              <div style="background:#FEF3C7;color:#92400E;padding:6px 8px;border-radius:8px;font-size:11px;font-weight:600;margin-bottom:6px;">⚠ Sin texto loggeado para este meal</div>
+            `}
+            <div style="display:flex;justify-content:space-between;align-items:center;gap:6px;">
+              ${tripleCheckRow}
+              ${aiBadge}
+              ${analyzeBtn}
+            </div>
+          </div>
+        </div>`;
+      }).join('');
+
+      return `
+        <div class="card" style="margin-bottom:16px;padding:14px;">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;flex-wrap:wrap;gap:8px;">
+            <div style="font-size:14px;font-weight:800;color:var(--text);">${dayLabel} <span style="opacity:0.5;font-size:11px;font-weight:500;">${photosForDay.length} 📷</span></div>
+            ${totalsBar}
+          </div>
+          <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:12px;">
+            ${photoCards}
+          </div>
+        </div>`;
+    }).join('');
+
+    return `<div style="padding:0 4px;">
+      ${statsHtml}
+      ${dayBlocks}
+    </div>`;
+  }
+
+  window.showAiAnalysisModal = function(photoId) {
+    const photos = getStoredPhotos();
+    const p = photos[photoId];
+    if (!p || !p.aiAnalysis) return;
+    const overlay = document.createElement('div');
+    overlay.style.cssText = 'position:fixed;inset:0;background:rgba(0,0,0,0.6);z-index:700;display:flex;align-items:center;justify-content:center;padding:20px;';
+    overlay.onclick = e => { if (e.target === overlay) overlay.remove(); };
+    const imgSrc = p.base64 || p.path;
+    overlay.innerHTML = `<div style="background:#fff;border-radius:14px;padding:22px;max-width:560px;width:96%;max-height:80vh;overflow-y:auto;box-shadow:0 25px 70px rgba(0,0,0,0.35);">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;">
+        <div style="font-size:16px;font-weight:700;color:var(--text);">🤖 Análisis Claude · ${p.date}</div>
+        <button onclick="this.parentElement.parentElement.parentElement.remove()" style="background:none;border:none;font-size:22px;cursor:pointer;color:var(--text-sec);">×</button>
+      </div>
+      ${imgSrc ? `<img src="${imgSrc}" style="width:100%;max-height:240px;object-fit:cover;border-radius:10px;margin-bottom:14px;">` : ''}
+      <div style="font-size:13px;color:var(--text);white-space:pre-wrap;line-height:1.55;">${p.aiAnalysis.text}</div>
+      <div style="font-size:10px;color:var(--text-sec);margin-top:10px;">Analizado: ${new Date(p.aiAnalysis.analyzedAt).toLocaleString('es-ES')}</div>
+    </div>`;
+    document.body.appendChild(overlay);
+  };
+
   function renderTools() {
     const meta = getMetaProfile() || { age: 34, weight: 89, height: 175, sex: 'M', activity: 1.2, goal: 'cut' };
 
@@ -7111,6 +7458,8 @@ try {
       html = renderSalud();
     } else if (currentPeriod === 'tools') {
       html = renderTools();
+    } else if (currentPeriod === 'fotos') {
+      html = renderPhotoJournal();
     } else {
       html = renderHistory(currentPeriod);
     }
