@@ -6991,6 +6991,43 @@ try {
           ? `<button onclick="event.stopPropagation();analyzePhotoVsText('${p.id}')" style="padding:5px 10px;background:linear-gradient(135deg,#8B5CF6,#7C3AED);color:#fff;border:none;border-radius:6px;font-size:10px;font-weight:700;cursor:pointer;font-family:inherit;">🤖 Analizar</button>`
           : '';
 
+        // CONTENT depends on whether we have AI analysis:
+        // - With AI: show what's IN the photo (detected from vision)
+        // - Without AI + meal linked: show meal type only (don't claim photo contents)
+        // - Without AI + no meal: minimal display
+        let contentHtml = '';
+        if (p.aiAnalysis) {
+          // AI did the vision analysis — extract detected items if available, else show summary
+          const aiText = p.aiAnalysis.text || '';
+          // Try to extract "Lo que veo:" section
+          const visionMatch = aiText.match(/\*\*Lo que veo:\*\*\s*([^\n*]+)/i) || aiText.match(/(?:photo|foto) (?:shows|muestra)[:\s]+([^\n]+)/i);
+          const shortDesc = visionMatch ? visionMatch[1].trim().slice(0, 80) : aiText.slice(0, 80);
+          contentHtml = `
+            <div style="font-size:11.5px;color:var(--text);max-height:42px;overflow:hidden;margin-bottom:8px;font-style:italic;">
+              "${shortDesc}${shortDesc.length >= 80 ? '…' : ''}"
+            </div>
+            <div style="display:flex;gap:4px;flex-wrap:wrap;margin-bottom:6px;">
+              <span style="background:#FEF3C7;color:#92400E;padding:2px 6px;border-radius:6px;font-size:10px;font-weight:700;">${Math.round(mKcal)} kcal</span>
+              <span style="background:#FCE7F3;color:#BE185D;padding:2px 6px;border-radius:6px;font-size:10px;font-weight:700;">${Math.round(mProt)}P</span>
+              <span style="background:#DBEAFE;color:#1E40AF;padding:2px 6px;border-radius:6px;font-size:10px;font-weight:700;">${Math.round(mCarbs)}C</span>
+              <span style="background:#FED7AA;color:#9A3412;padding:2px 6px;border-radius:6px;font-size:10px;font-weight:700;">${Math.round(mFat)}F</span>
+            </div>`;
+        } else if (items.length > 0) {
+          // Meal linked but no AI: show ONLY meal-level info, not item-level
+          // (the photo may show just 1 dish of N items in the meal)
+          contentHtml = `
+            <div style="font-size:11px;color:var(--text-sec);margin-bottom:8px;font-style:italic;">
+              📋 Asociada al meal · ${items.length} item${items.length===1?'':'s'} totales (foto puede mostrar solo parte)
+            </div>
+            <div style="display:flex;gap:4px;flex-wrap:wrap;margin-bottom:6px;opacity:0.6;">
+              <span style="background:#FEF3C7;color:#92400E;padding:2px 6px;border-radius:6px;font-size:10px;font-weight:700;">${Math.round(mKcal)} kcal meal</span>
+              <span style="background:#FCE7F3;color:#BE185D;padding:2px 6px;border-radius:6px;font-size:10px;font-weight:700;">${Math.round(mProt)}P</span>
+            </div>`;
+        } else {
+          contentHtml = `
+            <div style="background:#FEF3C7;color:#92400E;padding:6px 8px;border-radius:8px;font-size:11px;font-weight:600;margin-bottom:6px;">⚠ Sin meal asociado · usa 🤖 Analizar para reconocer contenido</div>`;
+        }
+
         return `<div style="background:#fff;border-radius:14px;overflow:hidden;border:2px solid ${borderColor};box-shadow:0 2px 6px rgba(0,0,0,0.06);">
           ${imgHtml}
           <div style="padding:10px 12px;">
@@ -6998,21 +7035,9 @@ try {
               <div style="font-size:13px;font-weight:700;color:var(--text);">${MEAL_ICONS[p.mealType] || '🍽️'} ${MEAL_LABELS[p.mealType] || p.mealType}</div>
               <div style="font-size:11px;color:var(--text-sec);">${p.time}</div>
             </div>
-            ${items.length > 0 ? `
-              <div style="font-size:11.5px;color:var(--text-sec);max-height:54px;overflow:hidden;margin-bottom:8px;">
-                ${items.slice(0,3).map(i => `${i.name.length > 26 ? i.name.slice(0,24)+'…' : i.name}`).join(' · ')}${items.length > 3 ? ` · +${items.length-3}` : ''}
-              </div>
-              <div style="display:flex;gap:4px;flex-wrap:wrap;margin-bottom:6px;">
-                <span style="background:#FEF3C7;color:#92400E;padding:2px 6px;border-radius:6px;font-size:10px;font-weight:700;">${Math.round(mKcal)} kcal</span>
-                <span style="background:#FCE7F3;color:#BE185D;padding:2px 6px;border-radius:6px;font-size:10px;font-weight:700;">${Math.round(mProt)}P</span>
-                <span style="background:#DBEAFE;color:#1E40AF;padding:2px 6px;border-radius:6px;font-size:10px;font-weight:700;">${Math.round(mCarbs)}C</span>
-                <span style="background:#FED7AA;color:#9A3412;padding:2px 6px;border-radius:6px;font-size:10px;font-weight:700;">${Math.round(mFat)}F</span>
-              </div>
-            ` : `
-              <div style="background:#FEF3C7;color:#92400E;padding:6px 8px;border-radius:8px;font-size:11px;font-weight:600;margin-bottom:6px;">⚠ Sin texto loggeado para este meal</div>
-            `}
+            ${contentHtml}
             <div style="display:flex;justify-content:space-between;align-items:center;gap:6px;">
-              ${tripleCheckRow}
+              ${p.aiAnalysis ? tripleCheckRow : ''}
               ${aiBadge}
               ${analyzeBtn}
             </div>
