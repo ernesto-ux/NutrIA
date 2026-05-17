@@ -1,5 +1,43 @@
 # Changelog - NutrIA
 
+## [V3.1 — 38/38 fotos analizadas + vistas Día/Semana/Mes] - 17 mayo 2026
+### Agregado (Reconocimiento foto completo)
+**38/38 fotos analizadas con AI vision** (100% cobertura). Cada foto tiene:
+- Descripción "Lo que veo:" (vision real, no asumido del meal)
+- Alineación: alta / media / baja
+- Discrepancias concretas si las hay
+- Score 0-100 de match con texto loggeado
+
+Fotos con score alto (≥90): 24 fotos. Notables:
+- IMG_7142 May 11 cena hotel (98/100) — match perfecto pan pumpernickel + queso + jamón + minis
+- IMG_7364 May 15 desayuno (98/100) — pancakes + fresas + PB
+- IMG_27aa3f0a May 16 desayuno (96/100) — croissant huevo aguacate
+- IMG_3797 Apr 18 cena (96/100) — profiterole con avellanas
+- IMG_6661 May 9 magret canard (96/100)
+
+Fotos con score bajo (<50): 2 fotos detectadas
+- IMG_6772 May 9 cena (30/100) — yogurt+jalea NO matchea cena ensalada Carrefour
+- IMG_7206 May 12 cena (25/100) — yogurt+jam NO matchea Bolkiri Thai
+
+### Agregado (Vistas Photo Journal)
+**5 vistas con navegación temporal**:
+- 📋 **Cards** — vista actual (por día DESC, todas las fotos)
+- 📷 **Timeline** — grid denso agrupado por mes
+- ☀️ **Día** — solo fotos de fecha específica + nav ‹ ›
+- 📆 **Semana** — solo fotos de semana ISO (YYYY-Www) + nav ‹ ›
+- 🗓️ **Mes** — solo fotos del mes (YYYY-MM) + nav ‹ ›
+
+Implementación:
+- Estado nuevo `photoJournalFilter` (YYYY-MM-DD | YYYY-Www | YYYY-MM | 'all')
+- Auto-set inicial: día actual / semana actual ISO / mes actual
+- Botones ‹ › navegan al período anterior/siguiente
+- Header card siempre muestra label legible del scope (e.g. "Sábado 17 de mayo de 2026", "Semana: 12/5 → 18/5", "mayo de 2026")
+- Empty state si filtro sin matches: "Sin fotos en este período" + hint
+- Stats header: cuenta `viewList` (filtrado) + cuenta total + matches + IA
+
+### Fixed
+- Photo card now distinguishes "Lo que veo" (AI analysis) vs "📋 Asociada al meal · N items totales (foto puede mostrar solo parte)" cuando no hay AI
+
 ## [V3.0 — Major refactor: 13 tabs → 6 unified tabs in English] - 17 mayo 2026
 ### Restructured (BREAKING UX)
 **13 tabs colapsadas a 6 con sub-tabs internos. Todo en inglés.**

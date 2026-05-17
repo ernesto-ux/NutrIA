@@ -6825,8 +6825,48 @@ try {
   }
 
   // ============== PHOTO JOURNAL PAGE ==============
-  let photoJournalView = 'cards'; // 'cards' | 'timeline'
-  window.setPhotoJournalView = function(v) { photoJournalView = v; render(); };
+  let photoJournalView = 'cards';       // 'cards' | 'timeline' | 'day' | 'week' | 'month'
+  let photoJournalFilter = 'all';       // 'all' | YYYY-MM-DD (day) | YYYY-Www (week) | YYYY-MM (month)
+  window.setPhotoJournalView = function(v) {
+    photoJournalView = v;
+    // Reset filter when changing view scope
+    if (v === 'day') photoJournalFilter = getTodayStr();
+    else if (v === 'week') {
+      const d = new Date(getTodayStr());
+      const dow = d.getDay() || 7;
+      d.setDate(d.getDate() - dow + 1);
+      photoJournalFilter = d.getFullYear() + '-W' + String(Math.ceil(((d - new Date(d.getFullYear(), 0, 1)) / 86400000 + 1) / 7)).padStart(2, '0');
+    } else if (v === 'month') photoJournalFilter = getTodayStr().slice(0, 7);
+    else photoJournalFilter = 'all';
+    render();
+  };
+  window.setPhotoJournalFilter = function(f) { photoJournalFilter = f; render(); };
+  // Helpers for week navigation
+  function _weekDates(weekStr) {
+    // weekStr: YYYY-Www → start date (Monday) and end date (Sunday)
+    const [y, w] = weekStr.split('-W').map(Number);
+    const jan1 = new Date(y, 0, 1);
+    const dayOfWeek = jan1.getDay() || 7;
+    const start = new Date(jan1);
+    start.setDate(jan1.getDate() + (w - 1) * 7 - (dayOfWeek - 1));
+    const end = new Date(start);
+    end.setDate(start.getDate() + 6);
+    const fmt = d => d.getFullYear() + '-' + String(d.getMonth()+1).padStart(2,'0') + '-' + String(d.getDate()).padStart(2,'0');
+    return { start: fmt(start), end: fmt(end), startDate: start, endDate: end };
+  }
+  function _filterPhotoList(list, view, filter) {
+    if (view === 'day' || (view === 'cards' && filter !== 'all' && filter.length === 10)) {
+      return list.filter(p => p.date === filter);
+    }
+    if (view === 'week') {
+      const { start, end } = _weekDates(filter);
+      return list.filter(p => p.date >= start && p.date <= end);
+    }
+    if (view === 'month') {
+      return list.filter(p => p.date.startsWith(filter));
+    }
+    return list;
+  }
   function renderPhotoJournal() {
     const photos = getStoredPhotos();
     const list = Object.entries(photos)
@@ -6854,40 +6894,99 @@ try {
       </div>`;
     }
 
-    // Group by date (DESC)
-    const byDate = {};
-    list.forEach(p => { (byDate[p.date] = byDate[p.date] || []).push(p); });
-    const dates = Object.keys(byDate).sort((a, b) => b.localeCompare(a));
-
+    // Stats use full list (not filtered)
     const meals = getAllMeals();
     const tgt = TARGETS();
     const totalKcal = list.length;
     const matched = list.filter(p => p.mealId).length;
     const aiAnalyzed = list.filter(p => p.aiAnalysis).length;
 
-    // Header stats with view toggle
+    // Apply time-scope filter (day / week / month / all)
+    let viewList = list;
+    let scopeLabel = 'All time';
+    if (photoJournalView === 'day' || (photoJournalView === 'cards' && photoJournalFilter !== 'all' && photoJournalFilter.length === 10)) {
+      viewList = list.filter(p => p.date === photoJournalFilter);
+      const dt = parseDate(photoJournalFilter);
+      scopeLabel = dt.toLocaleDateString('es-ES', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' });
+    } else if (photoJournalView === 'week') {
+      const { start, end } = _weekDates(photoJournalFilter);
+      viewList = list.filter(p => p.date >= start && p.date <= end);
+      const s = parseDate(start), e = parseDate(end);
+      scopeLabel = `Semana: ${s.getDate()}/${s.getMonth()+1} → ${e.getDate()}/${e.getMonth()+1}`;
+    } else if (photoJournalView === 'month') {
+      viewList = list.filter(p => p.date.startsWith(photoJournalFilter));
+      const [y, m] = photoJournalFilter.split('-').map(Number);
+      const dt = new Date(y, m-1, 1);
+      scopeLabel = dt.toLocaleDateString('es-ES', { month: 'long', year: 'numeric' });
+    }
+
+    // Nav buttons for day/week/month
+    const navHtml = (() => {
+      if (photoJournalView === 'day') {
+        const d = parseDate(photoJournalFilter);
+        const prev = new Date(d); prev.setDate(d.getDate() - 1);
+        const next = new Date(d); next.setDate(d.getDate() + 1);
+        const fmt = x => x.getFullYear() + '-' + String(x.getMonth()+1).padStart(2,'0') + '-' + String(x.getDate()).padStart(2,'0');
+        return `<div style="display:flex;gap:4px;align-items:center;">
+          <button onclick="setPhotoJournalFilter('${fmt(prev)}')" style="padding:4px 10px;background:rgba(255,255,255,0.6);border:none;border-radius:6px;font-size:14px;cursor:pointer;font-family:inherit;">‹</button>
+          <span style="font-size:11px;color:#9A3412;font-weight:700;">${scopeLabel}</span>
+          <button onclick="setPhotoJournalFilter('${fmt(next)}')" style="padding:4px 10px;background:rgba(255,255,255,0.6);border:none;border-radius:6px;font-size:14px;cursor:pointer;font-family:inherit;">›</button>
+        </div>`;
+      } else if (photoJournalView === 'week') {
+        const [y, w] = photoJournalFilter.split('-W').map(Number);
+        const prevW = w > 1 ? `${y}-W${String(w-1).padStart(2,'0')}` : `${y-1}-W52`;
+        const nextW = w < 52 ? `${y}-W${String(w+1).padStart(2,'0')}` : `${y+1}-W01`;
+        return `<div style="display:flex;gap:4px;align-items:center;">
+          <button onclick="setPhotoJournalFilter('${prevW}')" style="padding:4px 10px;background:rgba(255,255,255,0.6);border:none;border-radius:6px;font-size:14px;cursor:pointer;font-family:inherit;">‹</button>
+          <span style="font-size:11px;color:#9A3412;font-weight:700;">${scopeLabel}</span>
+          <button onclick="setPhotoJournalFilter('${nextW}')" style="padding:4px 10px;background:rgba(255,255,255,0.6);border:none;border-radius:6px;font-size:14px;cursor:pointer;font-family:inherit;">›</button>
+        </div>`;
+      } else if (photoJournalView === 'month') {
+        const [y, m] = photoJournalFilter.split('-').map(Number);
+        const prev = m > 1 ? `${y}-${String(m-1).padStart(2,'0')}` : `${y-1}-12`;
+        const next = m < 12 ? `${y}-${String(m+1).padStart(2,'0')}` : `${y+1}-01`;
+        return `<div style="display:flex;gap:4px;align-items:center;">
+          <button onclick="setPhotoJournalFilter('${prev}')" style="padding:4px 10px;background:rgba(255,255,255,0.6);border:none;border-radius:6px;font-size:14px;cursor:pointer;font-family:inherit;">‹</button>
+          <span style="font-size:11px;color:#9A3412;font-weight:700;">${scopeLabel}</span>
+          <button onclick="setPhotoJournalFilter('${next}')" style="padding:4px 10px;background:rgba(255,255,255,0.6);border:none;border-radius:6px;font-size:14px;cursor:pointer;font-family:inherit;">›</button>
+        </div>`;
+      }
+      return '';
+    })();
+
+    // Group viewList by date (DESC) for cards view
+    const byDate = {};
+    viewList.forEach(p => { (byDate[p.date] = byDate[p.date] || []).push(p); });
+    const dates = Object.keys(byDate).sort((a, b) => b.localeCompare(a));
+
+    const viewBtn = (v, label) => `<button onclick="setPhotoJournalView('${v}')" style="padding:6px 10px;background:${photoJournalView===v?'#fff':'transparent'};color:#9A3412;border:none;border-radius:6px;font-size:11px;font-weight:700;cursor:pointer;font-family:inherit;${photoJournalView===v?'box-shadow:0 1px 3px rgba(0,0,0,0.1);':''}">${label}</button>`;
+
+    // Header stats with view toggle + time scope nav
     const statsHtml = `
       <div class="card" style="margin-bottom:14px;background:linear-gradient(135deg,#FFF7ED,#FED7AA);border:1px solid #FB923C;">
         <div style="display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;">
           <div>
-            <div style="font-size:18px;font-weight:800;color:#9A3412;">📷 ${list.length} foto${list.length===1?'':'s'} en journal</div>
-            <div style="font-size:11px;color:#9A3412;opacity:0.8;margin-top:2px;">${dates.length} día${dates.length===1?'':'s'} · ${matched} match con texto · ${aiAnalyzed} analizadas con IA</div>
+            <div style="font-size:18px;font-weight:800;color:#9A3412;">📷 ${viewList.length} foto${viewList.length===1?'':'s'}</div>
+            <div style="font-size:11px;color:#9A3412;opacity:0.8;margin-top:2px;">Total: ${list.length} · ${matched} match · ${aiAnalyzed} con IA</div>
           </div>
-          <div style="display:flex;gap:6px;align-items:center;">
-            <div style="display:flex;gap:0;background:rgba(255,255,255,0.6);padding:2px;border-radius:8px;">
-              <button onclick="setPhotoJournalView('cards')" style="padding:6px 12px;background:${photoJournalView==='cards'?'#fff':'transparent'};color:${photoJournalView==='cards'?'#9A3412':'#9A3412'};border:none;border-radius:6px;font-size:11px;font-weight:700;cursor:pointer;font-family:inherit;${photoJournalView==='cards'?'box-shadow:0 1px 3px rgba(0,0,0,0.1);':''}">📋 Cards</button>
-              <button onclick="setPhotoJournalView('timeline')" style="padding:6px 12px;background:${photoJournalView==='timeline'?'#fff':'transparent'};color:#9A3412;border:none;border-radius:6px;font-size:11px;font-weight:700;cursor:pointer;font-family:inherit;${photoJournalView==='timeline'?'box-shadow:0 1px 3px rgba(0,0,0,0.1);':''}">📅 Timeline</button>
+          <div style="display:flex;gap:6px;align-items:center;flex-wrap:wrap;">
+            <div style="display:flex;gap:2px;background:rgba(255,255,255,0.6);padding:2px;border-radius:8px;">
+              ${viewBtn('cards', '📋 Cards')}
+              ${viewBtn('timeline', '📷 Timeline')}
+              ${viewBtn('day', '☀️ Día')}
+              ${viewBtn('week', '📆 Semana')}
+              ${viewBtn('month', '🗓️ Mes')}
             </div>
-            <button onclick="openPhotoJournal()" style="padding:8px 14px;background:linear-gradient(135deg,#F97316,#EA580C);color:#fff;border:none;border-radius:10px;font-size:12px;font-weight:700;cursor:pointer;font-family:inherit;">+ Subir</button>
           </div>
         </div>
+        ${navHtml ? `<div style="margin-top:10px;display:flex;justify-content:center;">${navHtml}</div>` : ''}
       </div>`;
 
     // ===== TIMELINE VIEW: dense grid (all photos as thumbnails, grouped by month) =====
     if (photoJournalView === 'timeline') {
-      // Group by month
+      // Group by month (uses viewList for filter awareness, but timeline default is all)
       const byMonth = {};
-      list.forEach(p => {
+      viewList.forEach(p => {
         const ym = p.date.slice(0, 7);
         (byMonth[ym] = byMonth[ym] || []).push(p);
       });
@@ -6922,6 +7021,17 @@ try {
     }
 
     // Render cards grouped by date
+    // Empty state if filter has no matches
+    if (viewList.length === 0 && list.length > 0) {
+      return `<div style="padding:0 4px;">${statsHtml}
+        <div class="card" style="text-align:center;padding:40px 20px;">
+          <div style="font-size:48px;margin-bottom:10px;opacity:0.4;">📭</div>
+          <div style="font-size:14px;color:var(--text-sec);">Sin fotos en este período</div>
+          <div style="font-size:11px;color:var(--text-sec);margin-top:6px;opacity:0.7;">Cambia de día/semana/mes con las flechas, o vuelve a Cards/Timeline</div>
+        </div>
+      </div>`;
+    }
+
     const dayBlocks = dates.map(date => {
       const photosForDay = byDate[date];
       const dt = parseDate(date);
