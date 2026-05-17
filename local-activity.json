@@ -1,6 +1,6 @@
 {
   "_comment": "Activity entries (multi-user). Schema: { date, user: 'ernesto'|'adriana', steps, stepsKcal, gym (label or null), gymKcal, source }. Default user when missing: 'ernesto'. Dashboard reads stepsKcal + gymKcal directly. Gym kcal merged from local-gym.json on write.",
-  "lastSync": "2026-05-16T01:30:00 Europe/Paris",
+  "lastSync": "2026-05-17T12:00:00 Europe/Paris",
   "entries": [
     {
       "date": "2026-05-07",
@@ -81,6 +81,24 @@
       "stepsKcal": 43,
       "gym": null,
       "gymKcal": 0,
+      "source": "manual"
+    },
+    {
+      "date": "2026-05-16",
+      "user": "ernesto",
+      "steps": 10926,
+      "stepsKcal": 437,
+      "gym": "gym",
+      "gymKcal": 638,
+      "source": "manual"
+    },
+    {
+      "date": "2026-05-16",
+      "user": "adriana",
+      "steps": 9680,
+      "stepsKcal": 339,
+      "gym": "gym",
+      "gymKcal": 253,
       "source": "manual"
     }
   ]

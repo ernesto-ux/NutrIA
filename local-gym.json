@@ -1,6 +1,6 @@
 {
   "_comment": "Detailed gym sessions (multi-user). Schema per entry: { id, date, user: 'ernesto'|'adriana', type, durationMin, rpe, hrAvg, hrMax, exercises: [{name, sets, reps, weightKg}], kcalBurn, notes }. Default user when missing: 'ernesto'.",
-  "lastUpdate": "2026-05-16T01:30:00 Europe/Paris",
+  "lastUpdate": "2026-05-17T12:00:00 Europe/Paris",
   "sessions": [
     {
       "id": "E-gym-2026-05-10",
@@ -24,6 +24,22 @@
       "user": "ernesto",
       "type": "gym",
       "kcalBurn": 580,
+      "notes": ""
+    },
+    {
+      "id": "E-gym-2026-05-16",
+      "date": "2026-05-16",
+      "user": "ernesto",
+      "type": "gym",
+      "kcalBurn": 638,
+      "notes": ""
+    },
+    {
+      "id": "A-gym-2026-05-16",
+      "date": "2026-05-16",
+      "user": "adriana",
+      "type": "gym",
+      "kcalBurn": 253,
       "notes": ""
     }
   ]
