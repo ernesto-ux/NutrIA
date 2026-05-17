@@ -1,5 +1,38 @@
 # Changelog - NutrIA
 
+## [V3.0 — Major refactor: 13 tabs → 6 unified tabs in English] - 17 mayo 2026
+### Restructured (BREAKING UX)
+**13 tabs colapsadas a 6 con sub-tabs internos. Todo en inglés.**
+
+| Antes (13) | Después (6) | Sub-tabs internos |
+|---|---|---|
+| 🍽️ Meals + 📷 Journal | 🍽️ **Journal** | Today / Photos |
+| 🎬 Recap + 📅 Historial + 💰 Finanzas | ✨ **Insights** | Recap / History / Finances |
+| 📊 Informes | 📊 **Reports** | (single page) |
+| 🤖 Coach | 🤖 **Coach** | (single page) |
+| 🏃 Actividad + 🏥 Salud | 🏋️ **Health** | Activity / Body |
+| 🥗 Nutricion + 📚 Library + 🏠 Hogar + 🛠️ Tools | 🛠️ **Tools** | Settings / Food Library / Foods Editor / Pantry |
+
+### Header layout fix
+- **Top bar now full-width** (no more cut-off at sidebar)
+- **Sidebar starts BELOW top bar** (`top: 64px` instead of `top: 0`)
+- **Removed duplicate otter** (sidebar-brand at left top + brand on right was awkward)
+- Top bar contains: brand logo + date nav + user switcher (E/A)
+
+### Implementation details
+- New state: `journalSubTab` `insightsSubTab` `healthSubTab` `toolsSubTab`
+- Helper `setSubTab(tab, sub)` triggers re-render
+- Reusable `subTabBar(tab, options, current)` for the sub-tab selector UI (toggle pills)
+- Backward-compat: legacy period names (`hoy`, `historial`, `informes`, `finanzas`, `hogar`, `actividad`, `salud`, `fotos`, `library`, `recap`) still route to original renderers as aliases. Default fallback = renderDay()
+- `navigateDay()` / `goToDate()` now bring user back to `journal` tab with `meals` sub-tab
+- Drag-and-drop only initialized when in journal/meals view
+
+### Razón del cambio (UX)
+- **13 tabs verticales abrumaban** (sidebar saturada con icons pequeños)
+- Apps profesionales (Apple Health, MyFitnessPal) usan **4-6 secciones** con sub-tabs
+- **Mobile mejorado**: 6 buttons caben en una fila sin scroll
+- **Coherencia semántica**: cada tab tiene una narrativa (Journal=diario, Insights=análisis, Reports=números formales, Coach=AI, Health=cuerpo, Tools=gestión)
+
 ## [V2.5 — Recap tab + Health multi-user + Heatmap 365d Informes + UI fixes] - 17 mayo 2026
 ### Borrado / Limpieza
 - **3 fotos del Dom 3 May eliminadas** (mal identificadas por usuario) tanto de `local-photos.json` como del filesystem

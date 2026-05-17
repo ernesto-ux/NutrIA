@@ -132,17 +132,17 @@
       gap: 12px;
     }
 
-    /* ── SIDEBAR (vertical nav desktop) ── */
+    /* ── SIDEBAR (vertical nav desktop, BELOW the top bar) ── */
     .sidebar {
       position: fixed;
       left: 0;
-      top: 0;
+      top: 64px; /* below the full-width top bar */
       bottom: 0;
       width: 88px;
       background: linear-gradient(180deg, #0F766E 0%, #0D9488 100%);
       box-shadow: 2px 0 14px rgba(0,0,0,0.08);
-      z-index: 200;
-      padding: 20px 0 16px;
+      z-index: 90; /* below sticky header */
+      padding: 16px 0;
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -151,16 +151,6 @@
       overflow-x: hidden;
     }
     .sidebar::-webkit-scrollbar { width: 0; }
-    .sidebar-brand {
-      width: 56px;
-      height: 56px;
-      border-radius: 14px;
-      background: rgba(255,255,255,0.18);
-      display: flex; align-items: center; justify-content: center;
-      font-size: 28px;
-      margin-bottom: 16px;
-      backdrop-filter: blur(8px);
-    }
     .sidebar-tab {
       width: 64px;
       padding: 10px 4px 8px;
@@ -339,8 +329,9 @@
       margin-left: calc(88px + 16px);
       transition: margin-left .25s ease;
     }
+    /* Top bar spans full width above the sidebar */
     .site-header {
-      margin-left: 88px;
+      margin-left: 0;
     }
 
     /* ── MOBILE LAYOUT ── */
@@ -1245,38 +1236,23 @@
   </div>
 </header>
 
-<!-- VERTICAL SIDEBAR (desktop) -->
+<!-- VERTICAL SIDEBAR (desktop) — 6 unified tabs in English -->
 <aside class="sidebar" id="sidebar">
-  <div class="sidebar-brand" title="NutrIA">🦦</div>
-  <button class="sidebar-tab active" data-period="hoy" onclick="setPeriod('hoy')"><span class="sidebar-tab-icon">🍽️</span>Meals</button>
-  <button class="sidebar-tab" data-period="fotos" onclick="setPeriod('fotos')"><span class="sidebar-tab-icon">📷</span>Journal</button>
-  <button class="sidebar-tab" data-period="recap" onclick="setPeriod('recap')"><span class="sidebar-tab-icon">🎬</span>Recap</button>
-  <button class="sidebar-tab" data-period="historial" onclick="setPeriod('historial')"><span class="sidebar-tab-icon">📅</span>Historial</button>
-  <button class="sidebar-tab" data-period="informes" onclick="setPeriod('informes')"><span class="sidebar-tab-icon">📊</span>Informes</button>
-  <button class="sidebar-tab" data-period="finanzas" onclick="setPeriod('finanzas')"><span class="sidebar-tab-icon">💰</span>Finanzas</button>
-  <button class="sidebar-tab" data-period="hogar" onclick="setPeriod('hogar')"><span class="sidebar-tab-icon">🏠</span>Hogar</button>
+  <button class="sidebar-tab active" data-period="journal" onclick="setPeriod('journal')"><span class="sidebar-tab-icon">🍽️</span>Journal</button>
+  <button class="sidebar-tab" data-period="insights" onclick="setPeriod('insights')"><span class="sidebar-tab-icon">✨</span>Insights</button>
+  <button class="sidebar-tab" data-period="reports" onclick="setPeriod('reports')"><span class="sidebar-tab-icon">📊</span>Reports</button>
   <button class="sidebar-tab" data-period="coach" onclick="setPeriod('coach')"><span class="sidebar-tab-icon">🤖</span>Coach</button>
-  <button class="sidebar-tab" data-period="nutricion" onclick="setPeriod('nutricion')"><span class="sidebar-tab-icon">🥗</span>Nutricion</button>
-  <button class="sidebar-tab" data-period="actividad" onclick="setPeriod('actividad')"><span class="sidebar-tab-icon">🏃</span>Actividad</button>
-  <button class="sidebar-tab" data-period="salud" onclick="setPeriod('salud')"><span class="sidebar-tab-icon">🏥</span>Salud</button>
-  <button class="sidebar-tab" data-period="library" onclick="setPeriod('library')"><span class="sidebar-tab-icon">📚</span>Library</button>
+  <button class="sidebar-tab" data-period="health" onclick="setPeriod('health')"><span class="sidebar-tab-icon">🏋️</span>Health</button>
   <button class="sidebar-tab" data-period="tools" onclick="setPeriod('tools')"><span class="sidebar-tab-icon">🛠️</span>Tools</button>
 </aside>
 
-<!-- MOBILE BOTTOM NAV -->
+<!-- MOBILE BOTTOM NAV — 6 unified tabs -->
 <nav class="mobile-nav" id="mobile-nav">
-  <button class="mobile-nav-tab active" data-period="hoy" onclick="setPeriod('hoy')"><span class="mobile-nav-tab-icon">🍽️</span>Meals</button>
-  <button class="mobile-nav-tab" data-period="fotos" onclick="setPeriod('fotos')"><span class="mobile-nav-tab-icon">📷</span>Fotos</button>
-  <button class="mobile-nav-tab" data-period="recap" onclick="setPeriod('recap')"><span class="mobile-nav-tab-icon">🎬</span>Recap</button>
-  <button class="mobile-nav-tab" data-period="historial" onclick="setPeriod('historial')"><span class="mobile-nav-tab-icon">📅</span>Hist</button>
-  <button class="mobile-nav-tab" data-period="informes" onclick="setPeriod('informes')"><span class="mobile-nav-tab-icon">📊</span>Inf</button>
-  <button class="mobile-nav-tab" data-period="finanzas" onclick="setPeriod('finanzas')"><span class="mobile-nav-tab-icon">💰</span>$</button>
-  <button class="mobile-nav-tab" data-period="hogar" onclick="setPeriod('hogar')"><span class="mobile-nav-tab-icon">🏠</span>Hogar</button>
+  <button class="mobile-nav-tab active" data-period="journal" onclick="setPeriod('journal')"><span class="mobile-nav-tab-icon">🍽️</span>Journal</button>
+  <button class="mobile-nav-tab" data-period="insights" onclick="setPeriod('insights')"><span class="mobile-nav-tab-icon">✨</span>Insights</button>
+  <button class="mobile-nav-tab" data-period="reports" onclick="setPeriod('reports')"><span class="mobile-nav-tab-icon">📊</span>Reports</button>
   <button class="mobile-nav-tab" data-period="coach" onclick="setPeriod('coach')"><span class="mobile-nav-tab-icon">🤖</span>Coach</button>
-  <button class="mobile-nav-tab" data-period="nutricion" onclick="setPeriod('nutricion')"><span class="mobile-nav-tab-icon">🥗</span>Nutri</button>
-  <button class="mobile-nav-tab" data-period="actividad" onclick="setPeriod('actividad')"><span class="mobile-nav-tab-icon">🏃</span>Activ</button>
-  <button class="mobile-nav-tab" data-period="salud" onclick="setPeriod('salud')"><span class="mobile-nav-tab-icon">🏥</span>Salud</button>
-  <button class="mobile-nav-tab" data-period="library" onclick="setPeriod('library')"><span class="mobile-nav-tab-icon">📚</span>Lib</button>
+  <button class="mobile-nav-tab" data-period="health" onclick="setPeriod('health')"><span class="mobile-nav-tab-icon">🏋️</span>Health</button>
   <button class="mobile-nav-tab" data-period="tools" onclick="setPeriod('tools')"><span class="mobile-nav-tab-icon">🛠️</span>Tools</button>
 </nav>
 
@@ -1732,7 +1708,19 @@ try {
 
   // ── STATE ──────────────────────────────────────────────────────────────
   let currentDate = getTodayStr();
-  let currentPeriod = 'hoy';
+  let currentPeriod = 'journal';
+  // Sub-tab state for the 6 unified top-level tabs
+  let journalSubTab = 'meals';      // 'meals' | 'photos'
+  let insightsSubTab = 'recap';     // 'recap' | 'history' | 'finances'
+  let healthSubTab = 'activity';    // 'activity' | 'body'
+  let toolsSubTab = 'settings';     // 'settings' | 'library' | 'home' | 'foods'
+  window.setSubTab = function(tab, sub) {
+    if (tab === 'journal') journalSubTab = sub;
+    else if (tab === 'insights') insightsSubTab = sub;
+    else if (tab === 'health') healthSubTab = sub;
+    else if (tab === 'tools') toolsSubTab = sub;
+    render();
+  };
   let currentHistorialPeriod = '7dias';
   let currentMetric = 'kcal';
   let alertsOpen = true;
@@ -8346,7 +8334,57 @@ try {
     });
 
     let html = '';
-    if (currentPeriod === 'hoy') {
+    // ============== 6 UNIFIED TABS DISPATCH ==============
+    // Helper: render a sub-tab selector bar
+    const subTabBar = (tab, options, current) => `
+      <div style="display:flex;gap:4px;margin-bottom:14px;background:var(--bg);padding:4px;border-radius:12px;border:1px solid var(--border);width:fit-content;">
+        ${options.map(opt => `<button onclick="setSubTab('${tab}','${opt.key}')" style="padding:8px 16px;background:${current===opt.key?'#fff':'transparent'};color:${current===opt.key?'var(--teal)':'var(--text-sec)'};border:none;border-radius:8px;font-size:13px;font-weight:600;cursor:pointer;font-family:inherit;${current===opt.key?'box-shadow:0 1px 3px rgba(0,0,0,0.1);':''}">${opt.icon} ${opt.label}</button>`).join('')}
+      </div>`;
+
+    if (currentPeriod === 'journal') {
+      // JOURNAL = Meals + Photos
+      const bar = subTabBar('journal',
+        [{ key:'meals', icon:'🍽️', label:'Today' },
+         { key:'photos', icon:'📷', label:'Photos' }], journalSubTab);
+      html = bar + (journalSubTab === 'photos' ? renderPhotoJournal() : renderDay());
+    } else if (currentPeriod === 'insights') {
+      // INSIGHTS = Recap + History + Finances
+      const bar = subTabBar('insights',
+        [{ key:'recap', icon:'🎬', label:'Recap' },
+         { key:'history', icon:'📅', label:'History' },
+         { key:'finances', icon:'💰', label:'Finances' }], insightsSubTab);
+      let content = '';
+      if (insightsSubTab === 'history') content = renderHistory(currentHistorialPeriod);
+      else if (insightsSubTab === 'finances') content = renderFinanzas();
+      else content = renderRecap();
+      html = bar + content;
+    } else if (currentPeriod === 'reports') {
+      // REPORTS = old Informes
+      html = renderInformes();
+    } else if (currentPeriod === 'coach') {
+      html = renderCoach();
+    } else if (currentPeriod === 'health') {
+      // HEALTH = Activity + Salud (body composition)
+      const bar = subTabBar('health',
+        [{ key:'activity', icon:'🏃', label:'Activity' },
+         { key:'body', icon:'🏥', label:'Body' }], healthSubTab);
+      html = bar + (healthSubTab === 'body' ? renderSalud() : renderActividad());
+    } else if (currentPeriod === 'tools') {
+      // TOOLS = Settings + Food Library + Home (pantry) + Foods edit
+      const bar = subTabBar('tools',
+        [{ key:'settings', icon:'⚙️', label:'Settings' },
+         { key:'library', icon:'📚', label:'Food Library' },
+         { key:'foods', icon:'🥗', label:'Foods Editor' },
+         { key:'home', icon:'🏠', label:'Pantry' }], toolsSubTab);
+      let content = '';
+      if (toolsSubTab === 'library') content = renderFoodDB();
+      else if (toolsSubTab === 'foods') content = renderNutricion();
+      else if (toolsSubTab === 'home') content = renderHogar();
+      else content = renderTools();
+      html = bar + content;
+    }
+    // ============== LEGACY ALIASES (for back-compat / direct links) ==============
+    else if (currentPeriod === 'hoy' || currentPeriod === 'meals') {
       html = renderDay();
     } else if (currentPeriod === 'historial') {
       html = renderHistory(currentHistorialPeriod);
@@ -8356,33 +8394,28 @@ try {
       html = renderFinanzas();
     } else if (currentPeriod === 'hogar') {
       html = renderHogar();
-    } else if (currentPeriod === 'coach') {
-      html = renderCoach();
     } else if (currentPeriod === 'actividad') {
       html = renderActividad();
     } else if (currentPeriod === 'nutricion') {
       html = renderNutricion();
     } else if (currentPeriod === 'salud') {
       html = renderSalud();
-    } else if (currentPeriod === 'tools') {
-      html = renderTools();
     } else if (currentPeriod === 'fotos') {
       html = renderPhotoJournal();
-    } else if (currentPeriod === 'insights') {
-      html = renderInsights();
     } else if (currentPeriod === 'library') {
       html = renderFoodDB();
     } else if (currentPeriod === 'recap') {
       html = renderRecap();
-    } else if (currentPeriod === 'insights') {
-      html = renderInsights();
     } else {
-      html = renderHistory(currentPeriod);
+      // Default fallback
+      html = renderDay();
     }
     if (currentPeriod === 'nutricion') html += renderFoodDB();
     if (currentPeriod === 'tools') html += renderChangelog();
     mainEl.innerHTML = html;
-    if (currentPeriod === 'hoy') { initDragAndDrop(); initCardSelection(); }
+    // Drag-and-drop only active in journal/meals view (today's meals)
+    if (currentPeriod === 'journal' && journalSubTab === 'meals') { initDragAndDrop(); initCardSelection(); }
+    else if (currentPeriod === 'hoy' || currentPeriod === 'meals') { initDragAndDrop(); initCardSelection(); }
     // FABs deshabilitados temporalmente (carga vía Claude). Forzar display:none
     // para evitar que el toggle por-pestaña los muestre.
     const fab = document.getElementById('quick-add-fab');
@@ -8398,7 +8431,13 @@ try {
     } else {
       currentDate = addDays(currentDate, offset);
     }
-    if (currentPeriod !== 'hoy' && currentPeriod !== 'historial') currentPeriod = 'hoy';
+    // Jump back to Journal/Today if user was on a different top tab
+    if (currentPeriod !== 'journal' && currentPeriod !== 'insights') {
+      currentPeriod = 'journal';
+      journalSubTab = 'meals';
+    } else if (currentPeriod === 'journal') {
+      journalSubTab = 'meals';
+    }
     render();
   };
 
@@ -8406,7 +8445,10 @@ try {
   window.goToDate = function(ymd) {
     if (!ymd || !/^\d{4}-\d{2}-\d{2}$/.test(ymd)) return;
     currentDate = ymd;
-    if (currentPeriod !== 'hoy') currentPeriod = 'hoy';
+    if (currentPeriod !== 'journal') {
+      currentPeriod = 'journal';
+      journalSubTab = 'meals';
+    }
     render();
     setTimeout(() => window.scrollTo({ top: 0, behavior: 'smooth' }), 30);
   };
