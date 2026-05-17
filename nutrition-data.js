@@ -2722,6 +2722,36 @@ const FOOD_DATABASE = [
     addedDate: "2026-05-16"
   },
   {
+    id: "basic-fit-brownie-protein-bar",
+    name: "Basic Fit Brownie Protein Bar",
+    brand: "Basic Fit",
+    per100g: { kcal: 360, prot: 33.0, carbs: 30.0, fat: 11.0, fiber: 5.0, sodium: 350, sugar: 4.0, sat_fat: 6.0 },
+    unitWeight: 55,
+    unitLabel: "barrita",
+    source: "official",
+    addedDate: "2026-05-17"
+  },
+  {
+    id: "hipro-cookie-vanille-liquide",
+    name: "HiPro Cookie Vanille (drink liquide)",
+    brand: "Danone HiPro",
+    per100g: { kcal: 56, prot: 10.0, carbs: 3.5, fat: 0.2, fiber: 0, sodium: 60, sugar: 3.5, sat_fat: 0.1 },
+    unitWeight: 300,
+    unitLabel: "botella",
+    source: "official",
+    addedDate: "2026-05-17"
+  },
+  {
+    id: "sambousek-halloumi",
+    name: "Sambousek de Halloumi",
+    brand: "Restaurant Libanés",
+    per100g: { kcal: 290, prot: 11.0, carbs: 28.0, fat: 15.0, fiber: 1.5, sodium: 580, sugar: 1.5, sat_fat: 7.0 },
+    unitWeight: 45,
+    unitLabel: "pieza",
+    source: "estimated",
+    addedDate: "2026-05-17"
+  },
+  {
     id: "galleta-creme-london",
     name: "Galleta Crème London (cookie con crema)",
     brand: "Boulangerie",
